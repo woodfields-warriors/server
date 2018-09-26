@@ -1,0 +1,61 @@
+syntax = "proto3";
+
+package auth;
+
+option java_package = "com.wwttr.auth";
+option java_multiple_files = true;
+
+service AuthService {
+  rpc CreateAccount (CreateAccountRequest) returns (Account);
+  rpc UpdateAccount (UpdateAccountRequest) returns (Account);
+  rpc DeleteAccount (DeleteAccountRequest) returns (Empty);
+  rpc GetAccount (GetAccountRequest) returns (Account);
+  rpc ListAccounts (ListAccountsRequest) returns (ListAccountsResponse);
+}
+
+message Account {
+  // A unique identifier for this account.
+  // Server assigned. Required when updating.
+  string id = 1;
+  // The username used to login to this account.
+  // Required. Cannot be updated. Must be unique.
+  string username = 2;
+  // The password used to login to this account.
+  // Input only. Required. Cannot be updated.
+  string password = 3;
+}
+
+message CreateAccountRequest {
+  // The account to create.
+  // Required.
+  Account account = 1;
+}
+
+message UpdateAccountRequest {
+  // The account to update.
+  // Required.
+  Account account = 1;
+}
+
+message DeleteAccountRequest {
+  // The id of the account to delete.
+  // Required.
+  string account_id = 1;
+}
+
+message GetAccountRequest {
+  // The id of the account to get.
+  // Required.
+  string account_id = 1;
+}
+
+message ListAccountsRequest {
+
+}
+
+message ListAccountsResponse {
+  // The list of Accounts.
+  repeated Account Accounts = 1;
+}
+
+message Empty {}

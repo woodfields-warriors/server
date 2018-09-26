@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package auth;
+
+option java_package = "com.wwttr.auth";
+
+service GameService {
+  rpc CreatePlayer (CreatePlayerRequest) returns (Player);
+  rpc DeletePlayer (DeletePlayerRequest) returns (Empty);
+  rpc GetPlayer (GetPlayerRequest) returns (Player);
+  rpc ListPlayers (ListPlayersRequest) returns (ListPlayersResponse);
+}
+
+
+message Player {
+  // The player's unique identifier.
+  // Server assigned. Required when updating.
+  string id = 1;
+  // The id of the account this player represents.
+  string account_id = 2;
+  // the id of the game this player is a part of.
+  string game_id = 3;
+}
+
+message CreatePlayerRequest {
+
+}
+
+message UpdatePlayerRequest {
+
+}
+
+message DeletePlayerRequest {
+
+}
+
+message GetPlayerRequest {
+
+}
+
+message ListPlayersRequest {
+
+}
+
+message Empty {}
