@@ -2,7 +2,9 @@ syntax = "proto3";
 
 package auth;
 
-option java_package = "com.wwttr.auth";
+option java_package = "com.wwttr.player";
+option java_outer_classname = "Api";
+option java_generic_services = true;
 
 service GameService {
   rpc CreatePlayer (CreatePlayerRequest) returns (Player);

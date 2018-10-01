@@ -3,7 +3,8 @@ syntax = "proto3";
 package game;
 
 option java_package = "com.wwttr.game";
-option java_multiple_files = true;
+option java_outer_classname = "Api";
+option java_generic_services = true;
 
 service GameService {
   rpc CreateGame (CreateGameRequest) returns (Game);

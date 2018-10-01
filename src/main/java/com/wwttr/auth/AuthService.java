@@ -2,8 +2,9 @@ package com.wwttr.auth;
 
 public class AuthService {
 
-  public Account getAccount() {
-    Account.Builder builder = Account.newBuilder();
+  public Api.Account getAccount() {
+    AuthService s = new AuthService();
+    Api.Account.Builder builder = Api.Account.newBuilder();
     builder.setId("abcdefgh");
     builder.setUsername("user1");
     return builder.build();

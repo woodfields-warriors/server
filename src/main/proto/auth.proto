@@ -3,7 +3,8 @@ syntax = "proto3";
 package auth;
 
 option java_package = "com.wwttr.auth";
-option java_multiple_files = true;
+option java_outer_classname = "Api";
+option java_generic_services = true;
 
 service AuthService {
   rpc CreateAccount (CreateAccountRequest) returns (Account);

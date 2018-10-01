@@ -2,8 +2,8 @@ package com.wwttr.game;
 
 public class GameService {
 
-  public Game getGame() {
-    Game.Builder builder = Game.newBuilder();
+  public Api.Game getGame() {
+    Api.Game.Builder builder = Api.Game.newBuilder();
     builder.setId("abcdefgh");
     builder.setDisplayName("game 1");
     return builder.build();
