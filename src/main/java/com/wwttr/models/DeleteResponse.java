@@ -1,5 +1,8 @@
 package com.wwttr.models;
 
+import java.util.*;
+
+
 public class DeleteResponse{
 	private String errorMessage;
 	private String gameName;
@@ -24,7 +27,3 @@ public class DeleteResponse{
 	}
 
 }
-
-
-
-

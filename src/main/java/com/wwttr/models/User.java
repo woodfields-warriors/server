@@ -1,5 +1,7 @@
 package com.wwttr.models;
 
+import java.util.ArrayList;
+
 public class User {
     private String username;
     private String password;

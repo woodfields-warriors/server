@@ -1,20 +1,26 @@
 package com.wwttr.models;
 
+import java.util.*;
+
 public class Game{
 	private Integer hostUserID;
 	private List<Integer> playerUserIDs;
 	private String displayName;
 	private Integer maxPlayers;
 	private Integer gameID;
-	//status
+	public enum status{
+		PRE,STARTED,ENDED
+	}
 
-	public Game(int hostUserID, List<Integer> playerUserIDs, String displayName, 
+
+	public Game(int hostUserID, List<Integer> playerUserIDs, String displayName,
 		Integer maxPlayers, Integer gameID){
 		this.hostUserID = hostUserID;
 		this.playerUserIDs = playerUserIDs;
 		this.displayName = displayName;
 		this.maxPlayers = maxPlayers;
 		this.gameID = gameID;
+
 	}
 
 	public Integer getHostUserID(){
@@ -31,7 +37,7 @@ public class Game{
 	public Integer getMaxPlayers(){
 		return maxPlayers;
 	}
-	public getGameID(){
+	public Integer getGameID(){
 		return gameID;
 	}
 	public void setPlayerUserIDs(List<Integer> players){
@@ -54,4 +60,3 @@ public class Game{
 
 
 }
-

@@ -16,13 +16,10 @@ public class CreateResponse{
 	public String getGameName(){
 		return gameName;
 	}
-	public String getTotalPlayers(){
+	public Integer getTotalPlayers(){
 		return totalPlayers;
 	}
 	public String getErrorMessage(){
 		return errorMessage;
 	}
 }
-
-
-
