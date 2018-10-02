@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import com.wwttr.models.User;
+import com.wwttr.models.Game;
 
 
 public class DatabaseFacade {
     ArrayList<User> Users;
+    ArrayList<Game> Games;
     Random rn = new Random();
     static private DatabaseFacade instance;
 
@@ -42,6 +44,54 @@ public class DatabaseFacade {
         }
         return null;
     }
+
+    //***********************************************************************************//
+    //-------------------------------Game Service Methods------------------------------------
+
+    public Game getGame(Integer gameID){
+        for(int i = 0; i < Games.length; i++){
+            if(Games[i].getGameID() == gameID){
+                return Games[i];
+            }
+        }
+    }
+
+    public List<Game> listGames(){
+        return Games;
+    }
+
+    public CreateResponse createGame(String gameName, String hostUserID, Integer numberOfPlayers){
+        //arguments checked in GameService
+        Game game = new Game(hostUserID, new ArrayList(), gameName, numberOfPlayers, rn.nextInt());
+        CreateResponse toReturn = new CreateResponse(game.getDisplayName(),game.getMaxPlayers());
+        return toReturn;
+    }
+
+    public void updateGame(Game game){
+
+    }
+
+    public DeleteResponse deleteGame(Integer gameID){
+        for (int i = 0; i < Games.length; i++){
+            if(Games[i].getGameID() == gameID){
+                List<Integer> players = Games[i].getPlayerUserIDs();
+                String gameName = Games[i].getDisplayName();
+                DeleteResponse toReturn = new DeleteResponse(gameName,players);
+                Games.remove(i);
+                return toReturn;
+            }
+        }
+        DeleteResponse toReturn = new DeleteResponse("Couldn't find game with given GameID")
+    }
+
+    /*
+    + getGame(gameID:String):Game
+     + listGames():List<Game>
+    + createGame(gameName:String, hostUserID:String, numPlayers:int):CreateResponse
+     + updateGame(game: Game)
+    + deleteGame(gameID: string):DeleteResponse
+
+*/
 
     private DatabaseFacade(){
 
