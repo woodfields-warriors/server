@@ -1,17 +1,49 @@
 package com.wwttr.auth;
 
-public class AuthService {
+import com.wwttr.database.DatabaseFacade;
+import com.wwttr.models.LoginResponse;
+import com.wwttr.models.User;
 
-  public Api.Account getAccount() {
-    AuthService s = new AuthService();
-    Api.Account.Builder builder = Api.Account.newBuilder();
-    builder.setId("abcdefgh");
-    builder.setUsername("user1");
-    return builder.build();
+
+public class AuthService {
+  private DatabaseFacade df;
+  private static AuthService instance;
+
+  public LoginResponse login(String username, String password) throws Exception{
+    try {
+      User returnedUser = df.getUser(username);
+      if( returnedUser.getPassword().equals(password)){
+          return new LoginResponse(returnedUser.getUserID());
+      }
+
+    }
+    catch (Exception e){
+        return new LoginResponse(e.getMessage());
+    }
+    throw new Exception("Login Service Error");
   }
 
-  public static void main(String[] args) {
+  public LoginResponse register(String username, String password) {
+      try{
+          User returnedUser = df.makeUser(username,password);
+          return new LoginResponse(returnedUser.getUserID());
+      }
+      catch (Exception e){
+          return new LoginResponse(e.getMessage());
+      }
+  }
+
+    private AuthService() {
+      df = DatabaseFacade.getInstance();
+    }
+
+    public static AuthService getInstance(){
+      if(instance == null)
+          instance = new AuthService();
+      return instance;
+    }
+
+    public static void main(String[] args) {
     AuthService service = new AuthService();
-    System.out.println(service.getAccount());
   }
 }

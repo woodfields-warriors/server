@@ -22,6 +22,7 @@ java_library(
   deps = [
     ":auth_api",
     "@com_google_protobuf//:protobuf_java",
+    ":models",
   ],
 )
 
@@ -51,6 +52,14 @@ java_library(
   deps = [
     ":game_api",
     "@com_google_protobuf//:protobuf_java",
+
+  ],
+)
+
+java_library(
+  name = "models",
+  srcs = glob(["src/main/java/com/wwttr/models/*.java"]),
+  deps = [
 
   ],
 )
