@@ -39,6 +39,7 @@ java_library(
   deps = [
     ":auth_api",
     "@com_google_protobuf//:protobuf_java",
+    ":models",
   ],
 )
 java_test(
@@ -63,13 +64,24 @@ proto_library(
 )
 java_library(
   name = "game_service",
-  srcs = glob(["src/main/java/com/wwttr/game/*.java"]),
+  srcs = glob(["src/main/java/com/wwttr/game/*.java",
+             "src/main/java/com/wwttr/models/*.java",
+             "src/main/java/com/wwttr/database/*.java"]) ,
   deps = [
     ":game_api",
     "@com_google_protobuf//:protobuf_java",
 
   ],
 )
+
+java_library(
+  name = "models",
+  srcs = glob(["src/main/java/com/wwttr/models/*.java"]),
+  deps = [
+
+  ],
+)
+
 java_test(
   name = "game",
   test_class = "com.wwttr.game.GameServiceTest",
