@@ -5,17 +5,47 @@ java_binary(
   name = "main",
   srcs = glob(["src/main/java/com/wwttr/main/*.java"]),
   deps = [
+    ":server_lib",
     ":auth_service",
     ":auth_api",
     ":game_service",
     ":game_api",
-    ":api",
     "@com_google_protobuf//:protobuf_java",
     ],
   main_class = "com.wwttr.main.Main",
 )
-java_proto_library(
+
+### Server ###
+
+java_library(
+  name = "server_lib",
+  srcs = glob(["src/main/java/com/wwttr/server/*.java"]),
+  deps = [
+    "@com_google_protobuf//:protobuf_java",
+    ":models",
+    ":api",
+    ":api_model",
+  ],
+)
+java_test(
+  name = "server",
+  test_class = "com.wwttr.server.ServerTest",
+  srcs = glob(["src/test/java/com/wwttr/server/*.java"]),
+  deps = [
+    ":server_lib",
+    ":health_service",
+    ":health_api",
+    ":api",
+    ":api_model",
+    "@com_google_protobuf//:protobuf_java",
+  ]
+)
+java_library(
   name = "api",
+  srcs = glob(["src/test/java/com/wwttr/api/*.java"]),
+)
+java_proto_library(
+  name = "api_model",
   deps = [":api_proto"],
 )
 proto_library(
@@ -92,4 +122,33 @@ java_test(
     ":game_service",
     ":game_api",
   ]
+)
+
+### Health Service ###
+
+java_library(
+  name = "health_service",
+  srcs = glob(["src/main/java/com/wwttr/health/*.java"]),
+  deps = [
+    ":health_api",
+    "@com_google_protobuf//:protobuf_java",
+    ":models",
+  ],
+)
+# java_test(
+#   name = "health",
+#   test_class = "com.wwttr.health.HealthTest",
+#   srcs = glob(["src/test/java/com/wwttr/health/*.java"]),
+#   deps = [
+#     ":auth_service",
+#     ":auth_api"
+#   ]
+# )
+java_proto_library(
+  name = "health_api",
+  deps = [":health_proto"],
+)
+proto_library(
+  name = "health_proto",
+  srcs = ["src/main/proto/health.proto"],
 )

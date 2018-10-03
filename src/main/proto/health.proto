@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package health;
+
+option java_package = "com.wwttr.health";
+option java_outer_classname = "Api";
+option java_generic_services = true;
+
+service HealthService {
+  rpc GetHealth (GetHealthRequest) returns (Health);
+}
+
+message Health {
+  Status status = 1;
+
+  enum Status {
+    UNSPECIFIED = 0;
+    READY = 1;
+    NOT_READY = 2;
+  }
+}
+
+message GetHealthRequest {
+
+}

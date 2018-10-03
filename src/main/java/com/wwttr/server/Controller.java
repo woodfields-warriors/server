@@ -1,4 +1,4 @@
-package com.wwttr.main;
+package com.wwttr.server;
 
 import com.google.protobuf.RpcController;
 import com.google.protobuf.RpcCallback;

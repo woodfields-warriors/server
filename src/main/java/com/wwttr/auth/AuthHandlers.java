@@ -2,6 +2,9 @@ package com.wwttr.auth;
 
 import com.google.protobuf.RpcController;
 
+import com.wwttr.api.InvalidArgumentException;
+
+
 public class AuthHandlers implements Api.AuthService.BlockingInterface {
 
   private AuthService service;
@@ -11,7 +14,7 @@ public class AuthHandlers implements Api.AuthService.BlockingInterface {
   }
 
   public Api.Account createAccount(RpcController controller, Api.CreateAccountRequest request) {
-    return null;
+    return service.createAccount();
   }
 
   public Api.Account getAccount(RpcController controller, Api.GetAccountRequest request) {
