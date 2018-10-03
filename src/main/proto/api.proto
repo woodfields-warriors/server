@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package api;
+
+option java_package = "com.wwttr.api";
+option java_multiple_files = true;
+
+message Request {
+  string service = 1;
+  string method = 2;
+  bytes payload = 3;
+}
+
+message Response {
+  Code code = 1;
+  bytes payload = 2;
+  string message = 3;
+
+  enum Code {
+    UNSPECIFIED = 0;
+    OK = 1;
+    INVALID_ARGUMENT = 2;
+    INTERNAL = 3;
+    UNAVAILABLE = 4;
+    NOT_FOUND = 5;
+  }
+}
