@@ -31,4 +31,3 @@ message LoginAccountRequest {
 message LoginResponse {
   string user_id = 1;
 }
-

@@ -82,7 +82,7 @@ public class DatabaseFacade {
         return toReturn;
     }
 
-    public void updateGame(Game game){
+    public void updateGame(Game game, String gameID){
       for(int i = 0; i < Games.size(); i++){
         if(Games.get(i).getGameID() == game.getGameID()){
           Games.add(i,game);

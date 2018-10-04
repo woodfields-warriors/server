@@ -34,32 +34,35 @@ public class GameService {
 
   /* creates a game with given Name making the given userID the host*/
   /* hostID should have been verified by ServerFacade */
-  public CreateResponse createGame(String gameName, Integer hostUserID, int numberOfPlayers){
+  public CreateResponse createGame(String gameName, String hostUserID, int numberOfPlayers){
     if(gameName == null || hostUserID == null || numberOfPlayers < 2
-       || numberOfPlayers > 6){
-      CreateResponse toReturn = new CreateResponse("Invalid Arguments");
-      return toReturn;
+       throw new IllegalArgumentException("Invalid Arguments")
     }
-    try{
       CreateResponse toReturn = database.createGame(gameName, hostUserID,numberOfPlayers);
       return toReturn;
-     }
-    catch(Exception e){
-      CreateResponse toReturn = new CreateResponse(e.getMessage());
-      return toReturn;
-    }
-
   }
 
-  public JoinResponse joinGame(Integer userID, Integer gameID){
+  public Player joinGame(String userID, String gameID){
     Game game = database.getGame(gameID);
     if(game == null){
-      return new JoinResponse("Couldn't find a game with the given gameID");
+      throw new IllegalArgumentException("Couldn't find a game with the given gameID")
     }
-    game.getPlayerUserIDs().add(userID);
-    database.updateGame(game);
-    Integer playerID = rn.nextInt();
-    JoinResponse toReturn = new JoinResponse(game.getDisplayName(), playerID);
+    Api.Game.Builder gameBuilder = game.toBuilder();
+    List<String> players = gameBuilder.getPlayers();
+    Api.Player.Builder playerBuilder = Api.Player.newBuilder();
+    playerBuilder.setId("player" + rn.nextInt.toString());
+    playerBuilder.setAccountId(userId);
+    playerBuilder.setGameId(gameID);
+    //need to use players.size() to set a color for the player
+
+
+  //  builder.build();
+
+    players.add(playerBuilder.build)
+
+
+    database.updateGame(gameBuilder.build(),gameID);
+    String playerID = "player" + rn.nextInt().toString();
     return toReturn;
   }
 

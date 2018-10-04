@@ -6,7 +6,7 @@ option java_package = "com.wwttr.player";
 option java_outer_classname = "Api";
 option java_generic_services = true;
 
-service GameService {
+service PlayerService {
   rpc CreatePlayer (CreatePlayerRequest) returns (Player);
   rpc DeletePlayer (DeletePlayerRequest) returns (Empty);
   rpc GetPlayer (GetPlayerRequest) returns (Player);
@@ -22,6 +22,19 @@ message Player {
   string account_id = 2;
   // the id of the game this player is a part of.
   string game_id = 3;
+  //the color that the player will be inGame and lobby
+  enum color{
+    UNKNOWN = 0;
+    PRE = 1;
+    STARTED = 2;
+    FINISHED = 3;
+    RED = 1;
+    BLUE = 2;
+    GREEN = 3;
+    YELLOW = 4;
+    PURPLE = 5;
+    ORANGE = 6;
+  }
 }
 
 message CreatePlayerRequest {

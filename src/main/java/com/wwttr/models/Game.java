@@ -8,10 +8,10 @@ public class Game{
 	private String displayName;
 	private Integer maxPlayers;
 	private Integer gameID;
+	private status gameStatus;
 	public enum status{
 		PRE,STARTED,ENDED
 	}
-
 
 	public Game(int hostUserID, List<Integer> playerUserIDs, String displayName,
 		Integer maxPlayers, Integer gameID){
