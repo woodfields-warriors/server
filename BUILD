@@ -1,4 +1,5 @@
 load("@io_bazel_rules_docker//java:image.bzl", "java_image")
+load("@io_bazel_rules_docker//docker:docker.bzl", "docker_push")
 
 ### Main Binary ###
 
@@ -17,10 +18,9 @@ java_image(
   # layers = [":java_image_library"],
 )
 
-container_push(
+docker_push(
    name = "push",
    image = ":main",
-   format = "Docker",
    registry = "gcr.io",
    repository = "gcr.io/ticket-to-ride-216915/ttr",
    tag = "$(REVISION_ID)",
