@@ -7,8 +7,8 @@ import com.wwttr.models.*;
 
 
 public class DatabaseFacade {
-    ArrayList<User> Users;
-    private ArrayList<Game> Games;
+    ArrayList<User> Users = new ArrayList<>();
+    private ArrayList<Game> Games = new ArrayList<>();
     private Random rn = new Random();
     static private DatabaseFacade instance;
 
@@ -28,8 +28,8 @@ public class DatabaseFacade {
     }
 
     public User getUser(String username) {
-        for (User temp : Users){
-            if( temp.getUsername().equals(username)){
+        for (User temp : Users) {
+            if (temp.getUsername().equals(username)) {
                 return temp;
             }
         }
@@ -42,15 +42,15 @@ public class DatabaseFacade {
         }
         else{
             Integer tempID = rn.nextInt();
-            while(getUserByID(tempID) != null)
+            while(getUserByID("usr" + tempID.toString()) != null)
                 tempID = rn.nextInt();
-            User temp = new User(username, password, tempID);
+            User temp = new User(username, password, "usr" + tempID.toString());
             Users.add(temp);
             return temp;
         }
     }
 
-    public User getUserByID(Integer ID){
+    public User getUserByID(String ID){
         for(User temp : Users) {
             if(temp.getUserID().equals(ID)){
                 return temp;

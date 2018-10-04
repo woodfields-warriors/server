@@ -70,8 +70,11 @@ java_library(
     ":auth_api",
     "@com_google_protobuf//:protobuf_java",
     ":models",
+    ":database",
+    ":api",
   ],
 )
+
 java_test(
   name = "auth",
   test_class = "com.wwttr.auth.AuthServiceTest",
@@ -81,6 +84,28 @@ java_test(
     ":auth_api"
   ]
 )
+
+### Database ###
+
+java_library(
+  name = "database",
+  srcs = glob(["src/main/java/com/wwttr/database/*.java"]),
+  deps = [
+    "@com_google_protobuf//:protobuf_java",
+    ":models",
+  ],
+)
+
+java_test(
+  name = "database_test",
+  test_class = "com.wwttr.database.DatabaseFacadeTest",
+  srcs = glob(["src/test/java/com/wwttr/database/*.java"]),
+  deps = [
+    ":database",
+    ":models"
+  ]
+)
+
 
 ### Game Service ###
 

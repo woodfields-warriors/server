@@ -1,8 +1,5 @@
 package com.wwttr.auth;
 
-import com.wwttr.models.LoginResponse;
-
-import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -12,8 +9,8 @@ public class AuthServiceTest {
     @Test
     public void invalidLogin() {
         try {
-            LoginResponse response = as.login("username", "password");
-            assertNotNull(response.getUserID());
+            Api.LoginResponse response = as.login("username", "password");
+            assertNotNull(response.getUserId());
         }
         catch (Exception e){
             fail(e.getMessage());
@@ -23,8 +20,8 @@ public class AuthServiceTest {
     @Test
     public void validRegister() {
         try {
-            LoginResponse response = as.register("username", "password");
-            assertNotNull(response.getUserID());
+            Api.LoginResponse response = as.register("username", "password");
+            assertNotNull(response.getUserId());
         }
         catch (Exception e){
             fail(e.getMessage());
@@ -35,9 +32,8 @@ public class AuthServiceTest {
     @Test
     public void invalidRegister() {
         try {
-            LoginResponse response = as.register("username", "password");
-            response = as.register("username", "password");
-            assertNotNull(response.getErrorCode());
+            Api.LoginResponse response = as.register("username", "password");
+            fail();
         }
         catch (Exception e){
             assertTrue(e.getMessage(), true);
@@ -47,9 +43,8 @@ public class AuthServiceTest {
     @Test
     public void validLogin() {
         try {
-            LoginResponse response = as.register("username", "password");
-            response = as.login("username", "password");
-            assertNotNull(response.getUserID());
+            Api.LoginResponse response = as.login("username", "password");
+            assertNotNull(response.getUserId());
         }
         catch (Exception e){
             fail(e.getMessage());

@@ -7,11 +7,8 @@ option java_outer_classname = "Api";
 option java_generic_services = true;
 
 service AuthService {
-  rpc login (LoginAccountRequest) returns (LoginResponse);
-  rpc register (LoginAccountRequest) returns (LoginResponse);
-  rpc DeleteAccount (DeleteAccountRequest) returns (Empty);
-  rpc GetAccount (GetAccountRequest) returns (Account);
-  rpc ListAccounts (ListAccountsRequest) returns (ListAccountsResponse);
+  rpc Login (LoginAccountRequest) returns (LoginResponse);
+  rpc Register (LoginAccountRequest) returns (LoginResponse);
 }
 
 message Account {
@@ -32,41 +29,6 @@ message LoginAccountRequest {
 }
 
 message LoginResponse {
-  int32 user_id = 1;
-  string errorMessage = 2;
+  string user_id = 1;
 }
 
-message CreateAccountRequest {
-  // The account to create.
-  // Required.
-  Account account = 1;
-}
-
-message UpdateAccountRequest {
-  // The account to update.
-  // Required.
-  Account account = 1;
-}
-
-message DeleteAccountRequest {
-  // The id of the account to delete.
-  // Required.
-  string account_id = 1;
-}
-
-message GetAccountRequest {
-  // The id of the account to get.
-  // Required.
-  string account_id = 1;
-}
-
-message ListAccountsRequest {
-
-}
-
-message ListAccountsResponse {
-  // The list of Accounts.
-  repeated Account Accounts = 1;
-}
-
-message Empty {}

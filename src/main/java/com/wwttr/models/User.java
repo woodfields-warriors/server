@@ -5,10 +5,10 @@ import java.util.ArrayList;
 public class User {
     private String username;
     private String password;
-    private Integer userID;
+    private String userID;
     private ArrayList<Game> gameArray;
 
-    public User(String username, String password, Integer userID) {
+    public User(String username, String password, String userID) {
         this.username = username;
         this.password = password;
         this.userID = userID;
@@ -18,7 +18,7 @@ public class User {
         return username;
     }
 
-    public Integer getUserID() {
+    public String getUserID() {
         return userID;
     }
 

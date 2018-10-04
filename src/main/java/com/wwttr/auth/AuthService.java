@@ -10,27 +10,31 @@ public class AuthService {
   private DatabaseFacade df;
   private static AuthService instance;
 
-  public LoginResponse login(String username, String password) throws Exception{
+  public Api.LoginResponse login(String username, String password) throws Exception{
     try {
       User returnedUser = df.getUser(username);
       if( returnedUser.getPassword().equals(password)){
-          return new LoginResponse(returnedUser.getUserID());
+          Api.LoginResponse.Builder builder = Api.LoginResponse.newBuilder();
+          builder.setUserId(returnedUser.getUserID());
+          return builder.build();
       }
 
     }
     catch (Exception e){
-        return new LoginResponse(e.getMessage());
+        throw e;
     }
     throw new Exception("Login Service Error");
   }
 
-  public LoginResponse register(String username, String password) {
+  public Api.LoginResponse register(String username, String password) {
       try{
           User returnedUser = df.makeUser(username,password);
-          return new LoginResponse(returnedUser.getUserID());
+          Api.LoginResponse.Builder builder = Api.LoginResponse.newBuilder();
+          builder.setUserId(returnedUser.getUserID());
+          return builder.build();
       }
       catch (Exception e){
-          return new LoginResponse(e.getMessage());
+          throw e;
       }
   }
 

@@ -28,6 +28,7 @@ public class DatabaseFacadeTest {
             assertNotNull(response.getUserID());
         }
         catch (Exception e){
+            e.printStackTrace();
             fail(e.getMessage());
         }
     }
@@ -41,6 +42,7 @@ public class DatabaseFacadeTest {
         }
         catch (Exception e){
             fail(e.getMessage());
+            System.out.println(e.getMessage());
         }
     }
 }
