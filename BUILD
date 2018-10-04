@@ -22,7 +22,7 @@ docker_push(
    name = "push",
    image = ":main",
    registry = "gcr.io",
-   repository = "gcr.io/ticket-to-ride-216915/ttr",
+   repository = "ticket-to-ride-216915/ttr",
    tag = "$(REVISION_ID)",
 )
 
