@@ -75,7 +75,7 @@ public class DatabaseFacade {
         return Games;
     }
 
-    public CreateResponse createGame(String gameName, Integer hostUserID, Integer numberOfPlayers){
+    public CreateResponse createGame(String gameName, String hostUserID, Integer numberOfPlayers){
         //arguments checked in GameService
         Game game = new Game(hostUserID, new ArrayList(), gameName, numberOfPlayers, rn.nextInt());
         CreateResponse toReturn = new CreateResponse(game.getDisplayName(),game.getMaxPlayers());
@@ -83,6 +83,7 @@ public class DatabaseFacade {
     }
 
     public void updateGame(Game game, String gameID){
+
       for(int i = 0; i < Games.size(); i++){
         if(Games.get(i).getGameID() == game.getGameID()){
           Games.add(i,game);
@@ -90,7 +91,7 @@ public class DatabaseFacade {
       }
     }
 
-    public DeleteResponse deleteGame(Integer gameID){
+    public DeleteResponse deleteGame(String gameID){
         for (int i = 0; i < Games.size(); i++){
             if(Games.get(i).getGameID() == gameID){
                 List<Integer> players = Games.get(i).getPlayerUserIDs();
