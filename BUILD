@@ -1,7 +1,8 @@
+load("@io_bazel_rules_docker//java:image.bzl", "java_image")
 
 ### Main Binary ###
 
-java_binary(
+java_image(
   name = "main",
   srcs = glob(["src/main/java/com/wwttr/main/*.java"]),
   deps = [
@@ -13,6 +14,16 @@ java_binary(
     "@com_google_protobuf//:protobuf_java",
     ],
   main_class = "com.wwttr.main.Main",
+  # layers = [":java_image_library"],
+)
+
+container_push(
+   name = "push",
+   image = ":main",
+   format = "Docker",
+   registry = "gcr.io",
+   repository = "gcr.io/ticket-to-ride-216915/ttr",
+   tag = "$(REVISION_ID)",
 )
 
 ### Server ###

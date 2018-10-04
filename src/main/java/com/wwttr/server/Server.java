@@ -26,7 +26,6 @@ public class Server {
     HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
     server.createContext("/", new Handler(services));
     server.setExecutor(null); // creates a default executor
-    System.out.println("listening on :8080");
     server.start();
   }
 
