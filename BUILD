@@ -108,6 +108,16 @@ java_test(
   ]
 )
 
+## Player Service ###
+
+java_proto_library(
+  name = "player_api",
+  deps = [":player_proto"],
+)
+proto_library(
+  name = "player_proto",
+  srcs = ["src/main/proto/player.proto"],
+)
 
 ### Game Service ###
 
@@ -118,6 +128,7 @@ java_proto_library(
 proto_library(
   name = "game_proto",
   srcs = ["src/main/proto/game.proto"],
+  deps = [":player_proto"],
 )
 java_library(
   name = "game_service",

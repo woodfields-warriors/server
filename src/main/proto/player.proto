@@ -25,9 +25,6 @@ message Player {
   //the color that the player will be inGame and lobby
   enum color{
     UNKNOWN = 0;
-    PRE = 1;
-    STARTED = 2;
-    FINISHED = 3;
     RED = 1;
     BLUE = 2;
     GREEN = 3;
@@ -54,6 +51,10 @@ message GetPlayerRequest {
 }
 
 message ListPlayersRequest {
+
+}
+
+message ListPlayersResponse {
 
 }
 
