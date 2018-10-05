@@ -1,3 +1,5 @@
+load("@io_bazel_rules_docker//java:image.bzl", "java_image")
+load("@io_bazel_rules_docker//docker:docker.bzl", "docker_push")
 
 ### Main Binary ###
 
@@ -10,9 +12,36 @@ java_binary(
     ":auth_api",
     ":game_service",
     ":game_api",
+    ":health_service",
+    ":health_api",
     "@com_google_protobuf//:protobuf_java",
     ],
   main_class = "com.wwttr.main.Main",
+)
+
+java_image(
+  name = "main_docker",
+  srcs = glob(["src/main/java/com/wwttr/main/*.java"]),
+  deps = [
+    ":server_lib",
+    ":auth_service",
+    ":auth_api",
+    ":game_service",
+    ":game_api",
+    ":health_service",
+    ":health_api",
+    "@com_google_protobuf//:protobuf_java",
+    ],
+  main_class = "com.wwttr.main.Main",
+  # layers = [":java_image_library"],
+)
+
+docker_push(
+   name = "push",
+   image = ":main_docker",
+   registry = "gcr.io",
+   repository = "ticket-to-ride-216915/server",
+   tag = "$(REVISION_ID)",
 )
 
 ### Server ###
