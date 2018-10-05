@@ -123,6 +123,11 @@ class Handler implements HttpHandler {
       return;
     }
 
+    if (response == null) {
+      // Oops!
+      throw new Error("handler for " + service.getDescriptorForType().getName() + "." + method.getName() + " returned null");
+    }
+
     Response.Builder respBuilder = Response.newBuilder();
     respBuilder.setCode(Code.OK);
     respBuilder.setPayload(response.toByteString());
