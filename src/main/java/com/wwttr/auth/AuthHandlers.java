@@ -23,7 +23,7 @@ public class AuthHandlers implements Api.AuthService.BlockingInterface {
       return builder.build();
     }
     catch (Exception e){
-      System.out.println("login: " + e.toString());
+      e.printStackTrace();
       throw new ApiError(Code.INTERNAL, "");
     }
   }
@@ -36,7 +36,7 @@ public class AuthHandlers implements Api.AuthService.BlockingInterface {
       return builder.build();
     }
     catch (Exception e){
-      System.out.println("register: " + e.toString());
+      e.printStackTrace();
       throw new ApiError(Code.INTERNAL, "");
     }
   }
