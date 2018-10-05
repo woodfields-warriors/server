@@ -79,8 +79,14 @@ public class DatabaseFacade {
         return Games;
     }
 
+
     public void addGame(Game game){
         Games.add(game);
+    public CreateResponse createGame(String gameName, String hostUserID, Integer numberOfPlayers){
+        //arguments checked in GameService
+        Game game = new Game(hostUserID, new ArrayList(), gameName, numberOfPlayers, Integer.toString(rn.nextInt()));
+        CreateResponse toReturn = new CreateResponse(game.getDisplayName(),game.getMaxPlayers());
+        return toReturn;
     }
 
 

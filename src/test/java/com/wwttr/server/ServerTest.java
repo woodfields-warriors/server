@@ -14,6 +14,7 @@ import java.net.URL;
 
 import com.wwttr.api.Request;
 import com.wwttr.api.Response;
+import com.wwttr.api.Code;
 import com.wwttr.health.Api.Health;
 import com.wwttr.health.HealthHandlers;
 
@@ -49,7 +50,7 @@ public class ServerTest {
 
     Response response = Response.parseFrom(con.getInputStream());
 
-    assertEquals(Response.Code.OK, response.getCode());
+    assertEquals(Code.OK, response.getCode());
     assertEquals("", response.getMessage());
     Health health = Health.parseFrom(response.getPayload());
 

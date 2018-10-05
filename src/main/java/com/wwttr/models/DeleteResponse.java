@@ -6,12 +6,12 @@ import java.util.*;
 public class DeleteResponse{
 	private String errorMessage;
 	private String gameName;
-	private List<Integer> orphanedUsers;
+	private List<String> orphanedUsers;
 
 	public DeleteResponse(String errorMessage){
 		this.errorMessage = errorMessage;
 	}
-	public DeleteResponse(String gameName, List<Integer> orphanedUsers){
+	public DeleteResponse(String gameName, List<String> orphanedUsers){
 		this.orphanedUsers = orphanedUsers;
 		this.gameName = gameName;
 	}
@@ -19,7 +19,7 @@ public class DeleteResponse{
 	public String getGameName(){
 		return gameName;
 	}
-	public List<Integer> getOrphanedUsers(){
+	public List<String> getOrphanedUsers(){
 		return orphanedUsers;
 	}
 	public String getErrorMessage(){

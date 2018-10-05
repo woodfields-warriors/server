@@ -2,19 +2,42 @@ package com.wwttr.game;
 
 import com.google.protobuf.RpcController;
 import com.wwttr.models.CreateResponse;
+<<<<<<< HEAD
 import com.wwttr.models.Game;
 import java.util.*;
+=======
+import com.wwttr.api.ApiError;
+import com.wwttr.auth.AuthService;
+import com.wwttr.api.Code;
+>>>>>>> 5792e3c0bb8ec082920ef6acd7bb76409761b801
 
 public class GameHandlers implements Api.GameService.BlockingInterface {
 
   private GameService service;
+  private AuthService authService;
 
-  public GameHandlers(GameService service) {
+  public GameHandlers(GameService service, AuthService authService) {
     this.service = service;
+    this.authService = authService;
   }
 
   public Api.CreateResponse createGame(RpcController controller, Api.CreateGameRequest request) {
-    //TODO check that the user actually exists
+
+    // Validate input
+    Api.Game game = request.getGame();
+    if (game == null) {
+      throw new ApiError(Code.INVALID_ARGUMENT, "argument 'game' is required");
+    }
+    if (game.getDisplayName() == "") {
+      throw new ApiError(Code.INVALID_ARGUMENT, "argument 'display_name' is required");
+    }
+    if (game.getHostUserId() == "") {
+      throw new ApiError(Code.INVALID_ARGUMENT, "argument 'host_user_id' is required");
+    }
+    int maxPlayers = game.getMaxPlayers();
+    if (maxPlayers == 0) {
+      maxPlayers = 5;
+    }
     CreateResponse response = service.createGame(request.getDisplayName(),request.getUserId(),
                                                  request.getMaxPlayers());
     Api.CreateResponse.Builder builder = Api.CreateResponse.newBuilder();
@@ -44,6 +67,22 @@ public class GameHandlers implements Api.GameService.BlockingInterface {
     Api.ListGamesResponse.Builder responseBuilder = Api.ListGamesResponse.newBuilder();
     responseBuilder.setGames(protoGames);
     return responseBuilder.build();
+
+
+
+    // if (authService.getAccount(game.getHostUserId()) == null) {
+    //   throw new ApiException(Code.NOT_FOUND, "host user " + game.getHostUserId() + " was not found");
+    // }
+
+    // Execute request
+  }
+
+  public Api.JoinGameResponse joinGame(RpcController controller, Api.JoinGameRequest request) {
+    return null;
+  }
+
+  public Api.Empty leaveGame(RpcController controller, Api.LeaveGameRequest request) {
+    return null;
   }
 
   public Api.Game getGame(RpcController controller, Api.GetGameRequest request) {

@@ -14,7 +14,7 @@ public class Main {
     GameService gameService = new GameService();
     AuthService authService = AuthService.getInstance();
 
-    GameHandlers gameHandlers = new GameHandlers(gameService);
+    GameHandlers gameHandlers = new GameHandlers(gameService, authService);
     AuthHandlers authHandlers = new AuthHandlers(authService);
     HealthHandlers healthHandlers = new HealthHandlers();
 

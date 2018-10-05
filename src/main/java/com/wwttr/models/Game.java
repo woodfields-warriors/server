@@ -3,6 +3,7 @@ package com.wwttr.models;
 import java.util.*;
 
 public class Game{
+
 	private String hostPlayerID;
 	private List<String> playerUserIDs;
 	private String displayName;
@@ -23,6 +24,7 @@ public class Game{
 		this.gameStatus = Status.PRE;
 
 	}
+
 
 	public String getHostPlayerID(){
 		return hostPlayerID;
