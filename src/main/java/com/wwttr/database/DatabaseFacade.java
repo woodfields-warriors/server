@@ -66,7 +66,7 @@ public class DatabaseFacade {
     //***********************************************************************************//
     //-------------------------------Game Service Methods------------------------------------
 
-    public Game getGame(Integer gameID){
+    public Game getGame(String gameID){
         for(int i = 0; i < Games.size(); i++){
             if(Games.get(i).getGameID() == gameID){
                 return Games.get(i);
@@ -79,15 +79,12 @@ public class DatabaseFacade {
         return Games;
     }
 
-    public CreateResponse createGame(String gameName, String hostUserID, Integer numberOfPlayers){
-        //arguments checked in GameService
-        Game game = new Game(hostUserID, new ArrayList(), gameName, numberOfPlayers, rn.nextInt());
-        CreateResponse toReturn = new CreateResponse(game.getDisplayName(),game.getMaxPlayers());
-        return toReturn;
+    public void addGame(Game game){
+        Games.add(game);
     }
 
-    public void updateGame(Game game, String gameID){
 
+    public void updateGame(Game game, String gameID){
       for(int i = 0; i < Games.size(); i++){
         if(Games.get(i).getGameID() == game.getGameID()){
           Games.add(i,game);
@@ -95,18 +92,17 @@ public class DatabaseFacade {
       }
     }
 
-    public DeleteResponse deleteGame(String gameID){
+    public void deleteGame(String gameID){
         for (int i = 0; i < Games.size(); i++){
             if(Games.get(i).getGameID() == gameID){
-                List<Integer> players = Games.get(i).getPlayerUserIDs();
-                String gameName = Games.get(i).getDisplayName();
-                DeleteResponse toReturn = new DeleteResponse(gameName,players);
+              //  List<Integer> players = Games.get(i).getPlayerUserIDs();
+              //  String gameName = Games.get(i).getDisplayName();
+              //  DeleteResponse toReturn = new DeleteResponse(gameName,players);
                 Games.remove(i);
-                return toReturn;
             }
         }
-        DeleteResponse toReturn = new DeleteResponse("Couldn't find game with given GameID");
-        return toReturn;
+      //  DeleteResponse toReturn = new DeleteResponse("Couldn't find game with given GameID");
+      //  return toReturn;
     }
 
 

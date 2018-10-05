@@ -8,10 +8,10 @@ option java_generic_services = true;
 
 service GameService {
   rpc CreateGame (CreateGameRequest) returns (CreateResponse);
-  rpc JoinGame (JoinGameRequest) returns (JoinGameResponse);
   rpc LeaveGame (LeaveGameRequest) returns (Empty);
   rpc DeleteGame (DeleteGameRequest) returns (Empty);
   rpc GetGame (GetGameRequest) returns (Game);
+  rpc StartGame (StartGameRequest) returns (Game);
   rpc ListGames (ListGamesRequest) returns (ListGamesResponse);
 }
 
@@ -27,7 +27,7 @@ message Game {
   int32 max_players = 3;
   // The game owner
   // Required.
-  string host_user_id = 4;
+  string host_player_id = 4;
   //list of players in games
   //can be null
   repeated string player_ids = 5;
@@ -52,35 +52,28 @@ message Game {
 
 }
 
-message JoinGameRequest {
+//-----------------Requests-------------//
+message CreateGameRequest {
+  //The userID of User trying to create the game
+  string user_id = 1;
+  //The desired name for display in Lobby
+  // Required.
+  string display_name = 2;
+  //The number of players desired in game
+  int32 maxPlayers = 3;
+
 
 }
 
 message LeaveGameRequest {
-
+  //the player who wants to leave
+  string player_id = 1;
+  //the game the player wants to leave
+  string game_id = 2;
 }
 
-message JoinGameResponse {
+message ListGamesRequest {
 
-}
-
-
-message CreateGameRequest {
-  // The game to create.
-  // Required.
-  Game game = 1;
-}
-
-message UpdateGameRequest {
-  // The game to update.
-  // Required.
-  Game game = 1;
-}
-
-message DeleteGameRequest {
-  // The id of the game to delete.
-  // Required.
-  string game_id = 1;
 }
 
 message GetGameRequest {
@@ -89,22 +82,33 @@ message GetGameRequest {
   string game_id = 1;
 }
 
-message ListGamesRequest {
-
+message StartGameRequest{
+  //The id of the game to start
+  string game_id = 1;
 }
+message DeleteGameRequest {
+  // The id of the game to delete.
+  // Required.
+  string game_id = 1;
+}
+
+
+
+
+//---------------------Responses------------//
+
+message Empty {}
 
 message ListGamesResponse {
   // The list of games.
   repeated Game games = 1;
 }
 
-message Empty {}
-
 message CreateResponse {
 	//The display name for the game
-	string game_name =1;
+	string game_id = 1;
 	//Current number of players in the game
-	int32 total_players = 2;
+	string player_id = 2;
 
 }
 
@@ -113,13 +117,5 @@ message DeleteResponse {
 	string game_name =1;
 	//Current number of players in the game
 	repeated int32 orphaned_users = 2;
-
-}
-
-message JoinResponse {
-	//The display name for the game
-	string game_name =1;
-	//Current number of players in the game
-	int32 total_players = 2;
 
 }
