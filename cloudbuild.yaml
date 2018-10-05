@@ -7,7 +7,7 @@ steps:
 #   args: ["push", "gcr.io/ticket-to-ride-216915/ttr:$REVISION_ID"]
 
 - name: 'gcr.io/cloud-builders/kubectl'
-  # run in bash so we can ignore failure (namespace already exists)
+  # use bash to ignore error (namespace already exists)
   entrypoint: 'bash'
   args: ['-c', 'kuebctl create namespace $BRANCH_NAME || exit 0']
   env:
