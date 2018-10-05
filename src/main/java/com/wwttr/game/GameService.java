@@ -35,8 +35,8 @@ public class GameService {
   /* creates a game with given Name making the given userID the host*/
   /* hostID should have been verified by ServerFacade */
   public CreateResponse createGame(String gameName, String hostUserID, int numberOfPlayers){
-    if(gameName == null || hostUserID == null || numberOfPlayers < 2
-       throw new IllegalArgumentException("Invalid Arguments")
+    if(gameName == null || hostUserID == null || numberOfPlayers < 2){
+       throw new IllegalArgumentException("Invalid Arguments");
     }
       CreateResponse toReturn = database.createGame(gameName, hostUserID,numberOfPlayers);
       return toReturn;

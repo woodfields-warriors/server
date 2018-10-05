@@ -1,27 +1,36 @@
 package com.wwttr.auth;
 
+import com.wwttr.database.DatabaseFacade;
+import com.wwttr.models.LoginResponse;
+
+import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class AuthServiceTest {
     private AuthService as = AuthService.getInstance();
 
+    @Before
+    public void setUp() throws Exception {
+        DatabaseFacade.getInstance().clearUsers();
+    }
+
     @Test
     public void invalidLogin() {
         try {
-            Api.LoginResponse response = as.login("username", "password");
-            assertNotNull(response.getUserId());
+            LoginResponse response = as.login("username", "password");
+            assertNotNull(response.getUserID());
         }
         catch (Exception e){
-            fail(e.getMessage());
+            assertNotNull(e);
         }
     }
 
     @Test
     public void validRegister() {
         try {
-            Api.LoginResponse response = as.register("username", "password");
-            assertNotNull(response.getUserId());
+            LoginResponse response = as.register("username", "password");
+            assertNotNull(response.getUserID());
         }
         catch (Exception e){
             fail(e.getMessage());
@@ -32,19 +41,21 @@ public class AuthServiceTest {
     @Test
     public void invalidRegister() {
         try {
-            Api.LoginResponse response = as.register("username", "password");
+            LoginResponse response = as.register("username", "password");
+            response = as.register("username", "password");
             fail();
         }
         catch (Exception e){
-            assertTrue(e.getMessage(), true);
+            assertNotNull(e);
         }
     }
 
     @Test
     public void validLogin() {
         try {
-            Api.LoginResponse response = as.login("username", "password");
-            assertNotNull(response.getUserId());
+            LoginResponse response = as.register("username", "password");
+            response = as.login("username", "password");
+            assertNotNull(response.getUserID());
         }
         catch (Exception e){
             fail(e.getMessage());

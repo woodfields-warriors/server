@@ -59,6 +59,10 @@ public class DatabaseFacade {
         return null;
     }
 
+    public void clearUsers(){
+        Users = new ArrayList<>();
+    }
+
     //***********************************************************************************//
     //-------------------------------Game Service Methods------------------------------------
 
@@ -104,7 +108,6 @@ public class DatabaseFacade {
         DeleteResponse toReturn = new DeleteResponse("Couldn't find game with given GameID");
         return toReturn;
     }
-
 
 
 }

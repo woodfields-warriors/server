@@ -1,6 +1,7 @@
 package com.wwttr.auth;
 
 import com.google.protobuf.RpcController;
+import com.wwttr.models.LoginResponse;
 //import com.wwttr.api.InvalidArgumentException;
 
 
@@ -14,7 +15,10 @@ public class AuthHandlers implements Api.AuthService.BlockingInterface {
 
   public Api.LoginResponse login(RpcController controller, Api.LoginAccountRequest request) {
     try{
-      return service.login(request.getUsername(), request.getPassword());
+      LoginResponse response =  service.login(request.getUsername(), request.getPassword());
+      Api.LoginResponse.Builder builder = Api.LoginResponse.newBuilder();
+      builder.setUserId(response.getUserID());
+      return builder.build();
     }
     catch (Exception e){
       return null;
@@ -23,7 +27,10 @@ public class AuthHandlers implements Api.AuthService.BlockingInterface {
 
   public Api.LoginResponse register(RpcController controller, Api.LoginAccountRequest request) {
     try {
-      return service.register(request.getUsername(), request.getPassword());
+      LoginResponse response = service.register(request.getUsername(), request.getPassword());
+      Api.LoginResponse.Builder builder = Api.LoginResponse.newBuilder();
+      builder.setUserId(response.getUserID());
+      return builder.build();
     }
     catch (Exception e){
       return null;

@@ -81,7 +81,9 @@ java_test(
   srcs = glob(["src/test/java/com/wwttr/auth/*.java"]),
   deps = [
     ":auth_service",
-    ":auth_api"
+    ":auth_api",
+    ":models",
+    ":database",
   ]
 )
 

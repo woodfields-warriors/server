@@ -10,13 +10,11 @@ public class AuthService {
   private DatabaseFacade df;
   private static AuthService instance;
 
-  public Api.LoginResponse login(String username, String password) throws Exception{
+  public LoginResponse login(String username, String password) throws Exception{
     try {
       User returnedUser = df.getUser(username);
       if( returnedUser.getPassword().equals(password)){
-          Api.LoginResponse.Builder builder = Api.LoginResponse.newBuilder();
-          builder.setUserId(returnedUser.getUserID());
-          return builder.build();
+          return new LoginResponse(returnedUser.getUserID());
       }
 
     }
@@ -26,17 +24,16 @@ public class AuthService {
     throw new Exception("Login Service Error");
   }
 
-  public Api.LoginResponse register(String username, String password) {
+  public LoginResponse register(String username, String password) {
       try{
           User returnedUser = df.makeUser(username,password);
-          Api.LoginResponse.Builder builder = Api.LoginResponse.newBuilder();
-          builder.setUserId(returnedUser.getUserID());
-          return builder.build();
+          return new LoginResponse(returnedUser.getUserID());
       }
       catch (Exception e){
           throw e;
       }
   }
+
 
     private AuthService() {
       df = DatabaseFacade.getInstance();

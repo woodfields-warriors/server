@@ -1,6 +1,7 @@
 package com.wwttr.game;
 
 import com.google.protobuf.RpcController;
+import com.wwttr.models.CreateResponse;
 
 public class GameHandlers implements Api.GameService.BlockingInterface {
 
@@ -10,8 +11,12 @@ public class GameHandlers implements Api.GameService.BlockingInterface {
     this.service = service;
   }
 
-  public Api.Game createGame(RpcController controller, Api.CreateGameRequest request) {
-    return null;
+  public Api.CreateResponse createGame(RpcController controller, Api.CreateGameRequest request) {
+    CreateResponse response = service.createGame(request.getGameName());
+    Api.CreateResponse.Builder builder = Api.Game.newBuilder();
+    Api.CreateResponse.setGameName(response.getGameName());
+    Api.CreateResponse.setTotalPlayers(response.getTotalPlayers());
+    return builder.build();
   }
 
   public Api.Game getGame(RpcController controller, Api.GetGameRequest request) {
