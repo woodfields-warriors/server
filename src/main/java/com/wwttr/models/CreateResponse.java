@@ -2,24 +2,19 @@ package com.wwttr.models;
 
 
 public class CreateResponse{
-	private String errorMessage;
-	private String gameName;
-	private Integer totalPlayers;
+	private String gameID;
+	private String playerID;
 
-	public CreateResponse(String errorMessage){
-		this.errorMessage = errorMessage;
+
+	public CreateResponse(String gameID, String playerID){
+		this.gameID = gameID;
+		this.playerID = playerID;
 	}
-	public CreateResponse(String gameName, Integer totalPlayers){
-		this.gameName = gameName;
-		this.totalPlayers = totalPlayers;
+	public String getGameID(){
+		return gameID;
 	}
-	public String getGameName(){
-		return gameName;
+	public String getPlayerID(){
+		return playerID;
 	}
-	public Integer getTotalPlayers(){
-		return totalPlayers;
-	}
-	public String getErrorMessage(){
-		return errorMessage;
-	}
+
 }
