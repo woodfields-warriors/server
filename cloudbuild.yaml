@@ -6,7 +6,7 @@ steps:
 # - name: 'gcr.io/cloud-builders/docker'
 #   args: ["push", "gcr.io/ticket-to-ride-216915/ttr:$REVISION_ID"]
 - name: 'gcr.io/cloud-builders/kubectl'
-  args: ['set', 'image', 'deployment', '$BRANCH_NAME', 'server=gcr.io/ticket-to-ride-216915/server:$REVISION_ID']
+  args: ['set', 'image', 'deployment', '$BRANCH_NAME', 'server=gcr.io/ticket-to-ride-216915/server:$REVISION_ID', '--namespace=prod']
   env:
   - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a'
   - 'CLOUDSDK_CONTAINER_CLUSTER=prod'
