@@ -66,7 +66,7 @@ public class DatabaseFacade {
     //***********************************************************************************//
     //-------------------------------Game Service Methods------------------------------------
 
-    public Game getGame(Integer gameID){
+    public Game getGame(String gameID){
         for(int i = 0; i < Games.size(); i++){
             if(Games.get(i).getGameID() == gameID){
                 return Games.get(i);
@@ -81,7 +81,7 @@ public class DatabaseFacade {
 
     public CreateResponse createGame(String gameName, String hostUserID, Integer numberOfPlayers){
         //arguments checked in GameService
-        Game game = new Game(hostUserID, new ArrayList(), gameName, numberOfPlayers, rn.nextInt());
+        Game game = new Game(hostUserID, new ArrayList(), gameName, numberOfPlayers, Integer.toString(rn.nextInt()));
         CreateResponse toReturn = new CreateResponse(game.getDisplayName(),game.getMaxPlayers());
         return toReturn;
     }
@@ -98,7 +98,7 @@ public class DatabaseFacade {
     public DeleteResponse deleteGame(String gameID){
         for (int i = 0; i < Games.size(); i++){
             if(Games.get(i).getGameID() == gameID){
-                List<Integer> players = Games.get(i).getPlayerUserIDs();
+                List<String> players = Games.get(i).getPlayerUserIDs();
                 String gameName = Games.get(i).getDisplayName();
                 DeleteResponse toReturn = new DeleteResponse(gameName,players);
                 Games.remove(i);

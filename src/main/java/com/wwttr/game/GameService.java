@@ -7,6 +7,7 @@ import com.wwttr.models.Game;
 import com.wwttr.models.DeleteResponse;
 import com.wwttr.models.JoinResponse;
 import com.wwttr.models.LeaveResponse;
+import com.wwttr.player.Api.Player;
 
 
 // Game Service is of the Singleton Pattern
@@ -43,39 +44,40 @@ public class GameService {
   }
 
   public Player joinGame(String userID, String gameID){
-    Game game = database.getGame(gameID);
-    if(game == null){
-      throw new IllegalArgumentException("Couldn't find a game with the given gameID")
-    }
-    Api.Game.Builder gameBuilder = game.toBuilder();
-    List<String> players = gameBuilder.getPlayers();
-    Api.Player.Builder playerBuilder = Api.Player.newBuilder();
-    playerBuilder.setId("player" + rn.nextInt.toString());
-    playerBuilder.setAccountId(userId);
-    playerBuilder.setGameId(gameID);
-    //need to use players.size() to set a color for the player
-
-
-  //  builder.build();
-
-    players.add(playerBuilder.build)
-
-
-    database.updateGame(gameBuilder.build(),gameID);
-    String playerID = "player" + rn.nextInt().toString();
-    return toReturn;
+  //   Game game = database.getGame(gameID);
+  //   if(game == null){
+  //     throw new IllegalArgumentException("Couldn't find a game with the given gameID");
+  //   }
+  //   Api.Game.Builder gameBuilder = game.toBuilder();
+  //   List<String> players = gameBuilder.getPlayers();
+  //   Api.Player.Builder playerBuilder = Api.Player.newBuilder();
+  //   playerBuilder.setId("player" + rn.nextInt.toString());
+  //   playerBuilder.setAccountId(userId);
+  //   playerBuilder.setGameId(gameID);
+  //   //need to use players.size() to set a color for the player
+  //
+  //
+  // //  builder.build();
+  //
+  //   players.add(playerBuilder.build);
+  //
+  //
+  //   database.updateGame(gameBuilder.build(),gameID);
+  //   String playerID = "player" + rn.nextInt().toString();
+  //   return toReturn;
+  return null;
   }
 
-  public LeaveResponse leaveGame(Integer userID, Integer gameID){
+  public LeaveResponse leaveGame(String userID, String gameID){
     Game game = database.getGame(gameID);
     if(game == null){
       return new LeaveResponse("Couldn't find a game with the given gameID");
     }
-    List<Integer> players = game.getPlayerUserIDs();
+    List<String> players = game.getPlayerUserIDs();
     for(int i = 0; i < players.size(); i++){
       if(userID == players.get(i)){
         players.remove(i);
-        database.updateGame(game);
+        // database.updateGame(game);
         LeaveResponse toReturn = new LeaveResponse(game.getDisplayName(), userID);
       }
     }
@@ -86,23 +88,24 @@ public class GameService {
     return database.listGames();
   }
 
-  public Game getGame(Integer gameID){
+  public Game getGame(String gameID){
     return database.getGame(gameID);
   }
 
-  public Game startGame(Integer gameID){
+  public Game startGame(String gameID){
     return database.getGame(gameID);
   }
 
-  public DeleteResponse deleteGame(Integer gameID){
-    DeleteResponse toReturn = database.deleteGame(gameID);
-    return toReturn;
+  public DeleteResponse deleteGame(String gameID){
+    // DeleteResponse toReturn = database.deleteGame(gameID);
+    // return toReturn;
+    return null;
   }
 
 
   public Api.Game getGame() {
     Api.Game.Builder builder = Api.Game.newBuilder();
-    builder.setId(12);
+    // builder.setId(12);
     builder.setDisplayName("game 1");
     return builder.build();
   }

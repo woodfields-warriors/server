@@ -2,6 +2,8 @@ package com.wwttr.server;
 
 import com.wwttr.api.Request;
 import com.wwttr.api.Response;
+import com.wwttr.api.Code;
+import com.wwttr.api.ApiError;
 
 import com.google.protobuf.BlockingService;
 import com.google.protobuf.RpcController;
@@ -44,7 +46,7 @@ class Handler implements HttpHandler {
       service = services.get(requestWrapper.getService());
       if (service == null) {
         Response.Builder respBuilder = Response.newBuilder();
-        respBuilder.setCode(Response.Code.NOT_FOUND);
+        respBuilder.setCode(Code.NOT_FOUND);
         ByteString responseData = respBuilder.build().toByteString();
 
         Headers headers = exchange.getResponseHeaders();
@@ -67,10 +69,8 @@ class Handler implements HttpHandler {
     }
     catch (Exception e) {
       // Error with request deserialization
-      System.out.println("deserialization error: " + e.toString());
-
       Response.Builder respBuilder = Response.newBuilder();
-      respBuilder.setCode(Response.Code.INVALID_ARGUMENT);
+      respBuilder.setCode(Code.INVALID_ARGUMENT);
       respBuilder.setMessage("error parsing request");
       ByteString responseData = respBuilder.build().toByteString();
 
@@ -90,13 +90,26 @@ class Handler implements HttpHandler {
       Controller controller = new Controller(exchange);
       response = service.callBlockingMethod(method, controller, request);
     }
-    catch (Exception e) {
+    catch (ApiError e) {
       // Error with method execution
-      System.out.println("method execution error: " + e.toString());
-      System.out.println(e);
-
       Response.Builder respBuilder = Response.newBuilder();
-      respBuilder.setCode(Response.Code.INTERNAL);
+      respBuilder.setCode(e.getCode());
+      respBuilder.setMessage(e.getMessage());
+      ByteString responseData = respBuilder.build().toByteString();
+
+      Headers headers = exchange.getResponseHeaders();
+      headers.set("Content-Type", "application/proto");
+      exchange.sendResponseHeaders(500, responseData.size());
+      OutputStream out = exchange.getResponseBody();
+      responseData.writeTo(out);
+      out.flush();
+      out.close();
+      return;
+    }
+    catch (Throwable t) {
+      // Error with method execution
+      Response.Builder respBuilder = Response.newBuilder();
+      respBuilder.setCode(Code.INTERNAL);
       respBuilder.setMessage("");
       ByteString responseData = respBuilder.build().toByteString();
 
@@ -110,24 +123,18 @@ class Handler implements HttpHandler {
       return;
     }
 
-    try {
-      Response.Builder respBuilder = Response.newBuilder();
-      respBuilder.setCode(Response.Code.OK);
-      respBuilder.setPayload(response.toByteString());
-      ByteString responseData = respBuilder.build().toByteString();
+    Response.Builder respBuilder = Response.newBuilder();
+    respBuilder.setCode(Code.OK);
+    respBuilder.setPayload(response.toByteString());
+    ByteString responseData = respBuilder.build().toByteString();
 
-      Headers headers = exchange.getResponseHeaders();
-      headers.set("Content-Type", "application/proto");
-      exchange.sendResponseHeaders(200, responseData.size());
-      OutputStream out = exchange.getResponseBody();
-      responseData.writeTo(out);
-      out.flush();
-      out.close();
-    }
-    catch (Exception e) {
-      System.out.println("response serialization error: " + e.toString());
-      return;
-    }
+    Headers headers = exchange.getResponseHeaders();
+    headers.set("Content-Type", "application/proto");
+    exchange.sendResponseHeaders(200, responseData.size());
+    OutputStream out = exchange.getResponseBody();
+    responseData.writeTo(out);
+    out.flush();
+    out.close();
     // finally {
     //   if (connection != null) {
     //    connection.disconnect();
