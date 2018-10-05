@@ -4,6 +4,7 @@ import com.wwttr.auth.AuthService;
 import com.wwttr.auth.AuthHandlers;
 import com.wwttr.game.GameService;
 import com.wwttr.game.GameHandlers;
+import com.wwttr.health.HealthHandlers;
 import com.wwttr.server.Server;
 
 import java.io.IOException;
@@ -15,11 +16,13 @@ public class Main {
 
     GameHandlers gameHandlers = new GameHandlers(gameService);
     AuthHandlers authHandlers = new AuthHandlers(authService);
+    HealthHandlers healthHandlers = new HealthHandlers();
 
     Server server = new Server();
 
     server.register(com.wwttr.game.Api.GameService.newReflectiveBlockingService(gameHandlers));
     server.register(com.wwttr.auth.Api.AuthService.newReflectiveBlockingService(authHandlers));
+    server.register(com.wwttr.health.Api.HealthService.newReflectiveBlockingService(healthHandlers));
 
     try {
       server.start(8080);
