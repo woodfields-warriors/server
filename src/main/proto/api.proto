@@ -24,4 +24,5 @@ enum Code {
   INTERNAL = 3;
   UNAVAILABLE = 4;
   NOT_FOUND = 5;
+  ACCESS_DENIED = 6;
 }
