@@ -22,6 +22,12 @@ public class AuthHandlers implements Api.AuthService.BlockingInterface {
       builder.setUserId(response.getUserID());
       return builder.build();
     }
+    catch (NotFoundException e) {
+      throw new ApiError(Code.ACCESS_DENIED, "");
+    }
+    catch (AccessDeniedException e) {
+      throw new ApiError(Code.ACCESS_DENIED, "");
+    }
     catch (Exception e){
       e.printStackTrace();
       throw new ApiError(Code.INTERNAL, "");
