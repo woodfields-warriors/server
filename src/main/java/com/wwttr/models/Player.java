@@ -39,5 +39,5 @@ public class Player{
   public void setGameId(String gameID){
     this.gameID = gameID;
   }
-  
+
 }

@@ -18,6 +18,10 @@ public class GameHandlers implements Api.GameService.BlockingInterface {
     this.authService = authService;
   }
 
+  //Creates a player object, then creates a game and adds that to the
+  // the database.  Then it gives the created player the game that was
+  // created so that player knows what game it is a part of
+  // then it returns the game Id and playerID
   public Api.CreateResponse createGame(RpcController controller, Api.CreateGameRequest request) {
 
     // Validate input
@@ -106,6 +110,17 @@ public class GameHandlers implements Api.GameService.BlockingInterface {
   public Api.Empty deleteGame(RpcController controller, Api.DeleteGameRequest request) {
     service.deleteGame(request.getGameId());
     Api.Empty.Builder toReturn = Api.Empty.newBuilder();
+    return toReturn.build();
+  }
+
+  // This method is the replacement for JoinGame().
+  // It takes the given request and creates a Player object,
+  //   adds that player to the requested game then returns the player ID
+  // in the createPlayerResponse
+  public Api.CreatePlayerResponse createPlayer(RpcController controller, Api.CreatePlayerRequest request){
+    String newPlayerID = service.createPlayer(request.getUserId(), request.getGameId());
+    Api.CreatePlayerResponse.Builder toReturn = Api.CreatePlayerResponse.newBuilder();
+    toReturn.setPlayerId(newPlayerID);
     return toReturn.build();
   }
 

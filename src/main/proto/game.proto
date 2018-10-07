@@ -13,6 +13,7 @@ service GameService {
   rpc GetGame (GetGameRequest) returns (Game);
   rpc StartGame (StartGameRequest) returns (Game);
   rpc ListGames (ListGamesRequest) returns (ListGamesResponse);
+  rpc CreatePlayer (CreatePlayerRequest) returns (CreatePlayerResponse);
 }
 
 message Game {
@@ -91,6 +92,12 @@ message DeleteGameRequest {
   // Required.
   string game_id = 1;
 }
+message CreatePlayerRequest{
+  //the id of the user who wants to join a game
+  string user_id = 1;
+  //the id of the game the user wants to join
+  string game_id = 2;
+}
 
 
 
@@ -118,4 +125,7 @@ message DeleteResponse {
 	//Current number of players in the game
 	repeated int32 orphaned_users = 2;
 
+}
+message CreatePlayerResponse{
+  string player_id = 1;
 }

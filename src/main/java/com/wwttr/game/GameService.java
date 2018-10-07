@@ -76,6 +76,37 @@ public class GameService {
     database.deleteGame(gameID);
   }
 
+  public String createPlayer(String userId, String gameId){
+    Game game = database.getGame(gameId);
+    if (game == null){
+      //throw
+    }
+    int currentNumberofPlayers = game.getPlayerIDs().size();
+    // plus one because we are adding a player to the game and his/her color
+    //will be the next color in the list
+    Player.Color playerColor = Player.Color.UNKOWN;
+    //assigne player their given color.  Color goes in join order
+    //i.e. player who creates gets RED
+    // first player to joing get BLUE
+    // second player gets GREEN
+    //so on
+    switch (currentNumberofPlayers +1){
+      case 2: playerColor = Player.Color.BLUE;
+              break;
+      case 3: playerColor = Player.Color.GREEN;
+              break;
+      case 4: playerColor = Player.Color.YELLOW;
+              break;
+      case 5: playerColor = Player.Color.PURPLE;
+              break;
+      case 6: playerColor = Player.Color.ORANGE;
+              break;
+    }
+    Player player = new Player("p" + Integer.toString(rn.nextInt()),userId, playerColor);
+    player.setGameId(game.getGameID());
+    return player.getPlayerId();
+  }
+
 /*      ---  DEPRECATED ---- /
   public Player joinGame(String userID, String gameID){
     Game game = database.getGame(gameID);
