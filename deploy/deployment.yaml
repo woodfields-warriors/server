@@ -7,6 +7,7 @@ spec:
     matchLabels:
       app: ticket-to-ride
   template:
+    metadata:
       labels:
         app: ticket-to-ride
     spec:

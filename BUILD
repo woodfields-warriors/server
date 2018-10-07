@@ -102,6 +102,7 @@ java_library(
     ":models",
     ":database",
     ":api_lib",
+    ":api_model",
   ],
 )
 

@@ -5,11 +5,21 @@ steps:
   args: ["run", "--define", "REVISION_ID=$REVISION_ID", "push"]
 # - name: 'gcr.io/cloud-builders/docker'
 #   args: ["push", "gcr.io/ticket-to-ride-216915/ttr:$REVISION_ID"]
+
 - name: 'gcr.io/cloud-builders/kubectl'
+  # use bash to ignore error (namespace already exists)
   entrypoint: 'bash'
   args: ['-c', 'kuebctl create namespace $BRANCH_NAME || exit 0']
+  env:
+  - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a'
+  - 'CLOUDSDK_CONTAINER_CLUSTER=prod'
+
 - name: 'gcr.io/cloud-builders/kubectl'
   args: ['apply', '-f', 'deploy', '--namespace=$BRANCH_NAME']
+  env:
+  - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a'
+  - 'CLOUDSDK_CONTAINER_CLUSTER=prod'
+
 - name: 'gcr.io/cloud-builders/kubectl'
   args: ['set', 'image', 'deployment', 'server', 'server=gcr.io/ticket-to-ride-216915/server:$REVISION_ID', '--namespace=$BRANCH_NAME']
   env:

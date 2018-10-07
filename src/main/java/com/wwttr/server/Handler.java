@@ -34,8 +34,6 @@ class Handler implements HttpHandler {
   @Override
   public void handle(HttpExchange exchange) throws IOException {
 
-    System.out.println("got request");
-
     Message request;
     MethodDescriptor method;
     BlockingService service;
@@ -108,6 +106,8 @@ class Handler implements HttpHandler {
     }
     catch (Throwable t) {
       // Error with method execution
+      System.out.println(service.getDescriptorForType().getName() + "." + method.getName() + ": " + t.toString());
+
       Response.Builder respBuilder = Response.newBuilder();
       respBuilder.setCode(Code.INTERNAL);
       respBuilder.setMessage("");
@@ -121,6 +121,11 @@ class Handler implements HttpHandler {
       out.flush();
       out.close();
       return;
+    }
+
+    if (response == null) {
+      // Oops!
+      throw new Error("handler for " + service.getDescriptorForType().getName() + "." + method.getName() + " returned null");
     }
 
     Response.Builder respBuilder = Response.newBuilder();

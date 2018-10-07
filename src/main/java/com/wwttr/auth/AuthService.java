@@ -5,23 +5,19 @@ import com.wwttr.database.DatabaseFacade;
 import com.wwttr.models.LoginResponse;
 import com.wwttr.models.User;
 
-
 public class AuthService {
   private DatabaseFacade df;
   private static AuthService instance;
 
   public LoginResponse login(String username, String password) throws Exception{
-    try {
-      User returnedUser = df.getUser(username);
-      if( returnedUser.getPassword().equals(password)){
-          return new LoginResponse(returnedUser.getUserID());
-      }
-
+    User returnedUser = df.getUser(username);
+    if (returnedUser == null) {
+      throw new NotFoundException("");
     }
-    catch (Exception e){
-        throw e;
+    if( returnedUser.getPassword().equals(password)){
+        return new LoginResponse(returnedUser.getUserID());
     }
-    throw new Exception("Login Service Error");
+    throw new AccessDeniedException("Password incorrect");
   }
 
   public LoginResponse register(String username, String password) {
