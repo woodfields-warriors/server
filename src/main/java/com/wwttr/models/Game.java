@@ -5,7 +5,7 @@ import java.util.*;
 public class Game{
 
 	private String hostPlayerID;
-	private List<String> playerUserIDs;
+	private List<String> playerIDs;
 	private String displayName;
 	private Integer maxPlayers;
 	private String gameID;
@@ -14,10 +14,10 @@ public class Game{
 		PRE,STARTED,ENDED
 	}
 
-	public Game(String hostPlayerID, String displayName,
+	public Game(String hostPlayerID, List<String> playerIDs, String displayName,
 							Integer maxPlayers, String gameID){
 		this.hostPlayerID = hostPlayerID;
-		this.playerUserIDs = playerUserIDs;
+		this.playerIDs = playerIDs;
 		this.displayName = displayName;
 		this.maxPlayers = maxPlayers;
 		this.gameID = gameID;
@@ -30,8 +30,8 @@ public class Game{
 		return hostPlayerID;
 	}
 
-	public List<String> getPlayerUserIDs(){
-		return playerUserIDs;
+	public List<String> getPlayerIDs(){
+		return playerIDs;
 	}
 
 	public String getDisplayName(){
@@ -43,8 +43,8 @@ public class Game{
 	public String getGameID(){
 		return gameID;
 	}
-	public void setPlayerUserIDs(List<String> players){
-		playerUserIDs = players;
+	public void setplayerIDs(List<String> players){
+		playerIDs = players;
 	}
 	public void changeGameStatus(Status status){
 		this.gameStatus = status;
@@ -53,13 +53,13 @@ public class Game{
 
 
 
-	/*public void addPlayer(Integer playerUserIDToAdd){
-		playerUserIDs.add(playerUserIDtoAdd);
+	/*public void addPlayer(Integer playerIDToAdd){
+		playerIDs.add(playerIDtoAdd);
 	}
-	public void removePlayer(playerUserIDtoRemove){
+	public void removePlayer(playerIDtoRemove){
 		for(int i = 0; i < player.UserIDs.length; i++){
-			if (playerUserIDtoRemove == player.playerUserIDs[i]){
-				playerUserIDs.remove(i);
+			if (playerIDtoRemove == player.playerIDs[i]){
+				playerIDs.remove(i);
 			}
 		}
 	}*/

@@ -2,14 +2,11 @@ package com.wwttr.game;
 
 import com.google.protobuf.RpcController;
 import com.wwttr.models.CreateResponse;
-<<<<<<< HEAD
 import com.wwttr.models.Game;
 import java.util.*;
-=======
 import com.wwttr.api.ApiError;
 import com.wwttr.auth.AuthService;
 import com.wwttr.api.Code;
->>>>>>> 5792e3c0bb8ec082920ef6acd7bb76409761b801
 
 public class GameHandlers implements Api.GameService.BlockingInterface {
 
@@ -24,17 +21,13 @@ public class GameHandlers implements Api.GameService.BlockingInterface {
   public Api.CreateResponse createGame(RpcController controller, Api.CreateGameRequest request) {
 
     // Validate input
-    Api.Game game = request.getGame();
-    if (game == null) {
-      throw new ApiError(Code.INVALID_ARGUMENT, "argument 'game' is required");
-    }
-    if (game.getDisplayName() == "") {
+    if (request.getDisplayName() == "") {
       throw new ApiError(Code.INVALID_ARGUMENT, "argument 'display_name' is required");
     }
-    if (game.getHostUserId() == "") {
+    if (request.getUserId() == "") {
       throw new ApiError(Code.INVALID_ARGUMENT, "argument 'host_user_id' is required");
     }
-    int maxPlayers = game.getMaxPlayers();
+    int maxPlayers = request.getMaxPlayers();
     if (maxPlayers == 0) {
       maxPlayers = 5;
     }
@@ -61,11 +54,16 @@ public class GameHandlers implements Api.GameService.BlockingInterface {
       gameBuilder.setDisplayName(game.getDisplayName());
       gameBuilder.setMaxPlayers(game.getMaxPlayers());
       gameBuilder.setHostPlayerId(game.getHostPlayerID());
-      gameBuilder.setPlayerIds(game.getPlayerUserIDs());
+      for(String i: game.getPlayerIDs()){
+        gameBuilder.addPlayerIds(i);
+      }
       protoGames.add(gameBuilder.build());
     }
     Api.ListGamesResponse.Builder responseBuilder = Api.ListGamesResponse.newBuilder();
-    responseBuilder.setGames(protoGames);
+    for(Api.Game game: protoGames){
+      responseBuilder.addGames(game);
+    }
+    //responseBuilder.setGames(protoGames);
     return responseBuilder.build();
 
 
@@ -77,14 +75,6 @@ public class GameHandlers implements Api.GameService.BlockingInterface {
     // Execute request
   }
 
-  public Api.JoinGameResponse joinGame(RpcController controller, Api.JoinGameRequest request) {
-    return null;
-  }
-
-  public Api.Empty leaveGame(RpcController controller, Api.LeaveGameRequest request) {
-    return null;
-  }
-
   public Api.Game getGame(RpcController controller, Api.GetGameRequest request) {
     Game game = service.getGame(request.getGameId());
     Api.Game.Builder gameBuilder = Api.Game.newBuilder();
@@ -92,9 +82,13 @@ public class GameHandlers implements Api.GameService.BlockingInterface {
     gameBuilder.setDisplayName(game.getDisplayName());
     gameBuilder.setMaxPlayers(game.getMaxPlayers());
     gameBuilder.setHostPlayerId(game.getHostPlayerID());
-    gameBuilder.setPlayerIds(game.getPlayerUserIDs().toArray());
+    for(String i: game.getPlayerIDs()){
+      gameBuilder.addPlayerIds(i);
+    }
     return gameBuilder.build();
   }
+
+
 
   public Api.Game startGame(RpcController controller, Api.StartGameRequest request){
     Game game = service.startGame(request.getGameId());
@@ -103,7 +97,9 @@ public class GameHandlers implements Api.GameService.BlockingInterface {
     gameBuilder.setDisplayName(game.getDisplayName());
     gameBuilder.setMaxPlayers(game.getMaxPlayers());
     gameBuilder.setHostPlayerId(game.getHostPlayerID());
-    gameBuilder.setPlayerIds(game.getPlayerUserIDs());
+    for(String i: game.getPlayerIDs()){
+      gameBuilder.addPlayerIds(i);
+    }
     return gameBuilder.build();
   }
 

@@ -6,9 +6,7 @@ import com.wwttr.models.CreateResponse;
 import com.wwttr.models.Game;
 import com.wwttr.models.Player;
 import com.wwttr.models.DeleteResponse;
-import com.wwttr.models.JoinResponse;
-import com.wwttr.models.LeaveResponse;
-import com.wwttr.player.Api.Player;
+//import com.wwttr.player.Api.Player;
 
 
 
@@ -38,8 +36,8 @@ public class GameService {
   /* creates a game with given Name making the given userID the host*/
   /* hostID should have been verified by ServerFacade */
   public CreateResponse createGame(String gameName, String userID, int numberOfPlayers){
-      Player player = new Player("p" + rn.nextInt().toString() ,userID, Player.Color.RED);
-      Game game = new Game(player.getPlayerId(), gameName, numberOfPlayers, "game" + rn.nextInt().toString());
+      Player player = new Player("p" + Integer.toString(rn.nextInt()) ,userID, Player.Color.RED);
+      Game game = new Game(player.getPlayerId(), new ArrayList<String>(), gameName, numberOfPlayers, "game" + Integer.toString(rn.nextInt()));
       player.setGameId(game.getGameID());
       database.addPlayer(player);
       database.addGame(game);
@@ -54,6 +52,19 @@ public class GameService {
   public Game getGame(String gameID){
     return database.getGame(gameID);
   }
+
+  public void leaveGame(String playerID, String gameID){
+    Game game = database.getGame(gameID);
+    List<String> playerIDs = game.getPlayerIDs();
+    for (int i = 0; i < playerIDs.size(); i++){
+      if (playerIDs.get(i) == playerID){
+        playerIDs.remove(i);
+        break;
+      }
+    }
+  }
+
+
 
   public Game startGame(String gameID){
     Game game = database.getGame(gameID);
@@ -123,27 +134,6 @@ public class GameService {
     return null;
   }
 // -----------------*/
-
-
-  public List<Game> listGames(){
-    return database.listGames();
-  }
-
-  public Game getGame(String gameID){
-    return database.getGame(gameID);
-  }
-
-  public Game startGame(String gameID){
-    return database.getGame(gameID);
-  }
-
-  public DeleteResponse deleteGame(String gameID){
-    // DeleteResponse toReturn = database.deleteGame(gameID);
-    // return toReturn;
-    return null;
-  }
-
-
 
   public Api.Game getGame() {
     Api.Game.Builder builder = Api.Game.newBuilder();
