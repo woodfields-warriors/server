@@ -177,7 +177,7 @@ public class GameHandlers implements Api.GameService.BlockingInterface {
       break;
     default:
       color = Api.Player.Color.UNKNOWN;
-      System.out.println("[WARN] player %d has invalid color");
+      System.out.printf("[WARN] player %s has invalid color\n", player.getPlayerId());
     }
     builder.setColor(color);
 
