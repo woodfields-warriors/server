@@ -23,7 +23,7 @@ public class AuthHandlers implements Api.AuthService.BlockingInterface {
       return builder.build();
     }
     catch (NotFoundException e) {
-      throw new ApiError(Code.ACCESS_DENIED, "");
+      throw new ApiError(Code.NOT_FOUND, "");
     }
     catch (AccessDeniedException e) {
       throw new ApiError(Code.ACCESS_DENIED, "");
