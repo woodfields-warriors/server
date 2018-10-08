@@ -45,7 +45,7 @@ public class AuthHandlers extends Api.AuthService {
     }
     catch (Exception e){
       e.printStackTrace();
-      throw new ApiError(Code.INTERNAL, "");
+      throw new ApiError(Code.INVALID_ARGUMENT, "");
     }
   }
 

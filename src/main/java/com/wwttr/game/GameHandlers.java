@@ -9,6 +9,8 @@ import com.wwttr.api.ApiError;
 import com.wwttr.auth.AuthService;
 import com.wwttr.api.Code;
 import com.google.protobuf.RpcCallback;
+import com.wwttr.game.GameFullException;
+import com.wwttr.game.NotFoundException;
 
 public class GameHandlers extends Api.GameService {
 
@@ -137,10 +139,18 @@ public class GameHandlers extends Api.GameService {
   //   adds that player to the requested game then returns the player ID
   // in the createPlayerResponse
   public void createPlayer(RpcController controller, Api.CreatePlayerRequest request, RpcCallback<Api.CreatePlayerResponse> callback){
-    String newPlayerID = service.createPlayer(request.getUserId(), request.getGameId());
-    Api.CreatePlayerResponse.Builder toReturn = Api.CreatePlayerResponse.newBuilder();
-    toReturn.setPlayerId(newPlayerID);
-    callback.run(toReturn.build());
+    try{
+      String newPlayerID = service.createPlayer(request.getUserId(), request.getGameId());
+      Api.CreatePlayerResponse.Builder toReturn = Api.CreatePlayerResponse.newBuilder();
+      toReturn.setPlayerId(newPlayerID);
+      callback.run(toReturn.build());
+    }
+    catch(NotFoundException e){
+      throw new ApiError(Code.NOT_FOUND, "");
+    }
+    catch(GameFullException e){
+      throw new ApiError(Code.INVALID_ARGUMENT, "");
+    }
   }
 
   public void getPlayer(RpcController controller, Api.GetPlayerRequest request, RpcCallback<Api.Player> callback) {
@@ -178,7 +188,7 @@ public class GameHandlers extends Api.GameService {
       break;
     default:
       color = Api.Player.Color.UNKNOWN;
-      System.out.println("[WARN] player %d has invalid color");
+      System.out.printf("[WARN] player %s has invalid color\n", player.getPlayerId());
     }
     builder.setColor(color);
 

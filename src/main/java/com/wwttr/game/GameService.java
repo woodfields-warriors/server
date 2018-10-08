@@ -91,12 +91,15 @@ public class GameService {
     database.deleteGame(gameID);
   }
 
-  public String createPlayer(String userId, String gameId){
+  public String createPlayer(String userId, String gameId)throws NotFoundException, GameFullException{
     Game game = database.getGame(gameId);
     if (game == null){
-      throw new ApiError(Code.INVALID_ARGUMENT,"invalid game_id");
+      throw new NotFoundException("");
     }
     int currentNumberofPlayers = game.getPlayerIDs().size();
+    if(currentNumberofPlayers == game.getMaxPlayers()){
+      throw new GameFullException("Game is Full");
+    }
     // plus one because we are adding a player to the game and his/her color
     //will be the next color in the list
     Player.Color playerColor = Player.Color.UNKOWN;
@@ -189,12 +192,6 @@ public class GameService {
   }
 // -----------------*/
 
-  public Api.Game getGame() {
-    Api.Game.Builder builder = Api.Game.newBuilder();
-    // builder.setId(12);
-    builder.setDisplayName("game 1");
-    return builder.build();
-  }
 
   public void addGameListener(Context ctx, GameListener l) {
 
@@ -211,7 +208,7 @@ public class GameService {
 
   public static void main(String[] args) {
     GameService service = new GameService();
-    System.out.println(service.getGame());
+    //System.out.println(service.getGame());
   }
 
 }
