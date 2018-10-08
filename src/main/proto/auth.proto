@@ -9,6 +9,7 @@ option java_generic_services = true;
 service AuthService {
   rpc Login (LoginAccountRequest) returns (LoginResponse);
   rpc Register (LoginAccountRequest) returns (LoginResponse);
+  rpc GetUsername (GetUsernameRequest) returns (GetUsernameResponse);
 }
 
 message Account {
@@ -30,4 +31,12 @@ message LoginAccountRequest {
 
 message LoginResponse {
   string user_id = 1;
+}
+
+message GetUsernameRequest{
+  string user_id = 1;
+}
+
+message GetUsernameResponse{
+  string username = 1;
 }

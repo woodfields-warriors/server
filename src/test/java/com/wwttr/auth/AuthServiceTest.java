@@ -2,6 +2,7 @@ package com.wwttr.auth;
 
 import com.wwttr.database.DatabaseFacade;
 import com.wwttr.models.LoginResponse;
+import com.wwttr.models.User;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -60,6 +61,13 @@ public class AuthServiceTest {
         catch (Exception e){
             fail(e.getMessage());
         }
+    }
+
+    @Test
+    public void getUserByID(){
+        LoginResponse response = as.register("username2", "password2");
+        String username = as.getUsername(response.getUserID());
+        assertEquals(username,"username2");
     }
 
 }

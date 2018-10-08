@@ -30,6 +30,11 @@ public class AuthService {
       }
   }
 
+  public String getUsername(String userID){
+    User user = df.getUserByID(userID);
+    return user.getUsername();
+  }
+
 
     private AuthService() {
       df = DatabaseFacade.getInstance();
