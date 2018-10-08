@@ -7,7 +7,7 @@ import com.wwttr.models.*;
 
 
 public class DatabaseFacade {
-    ArrayList<User> Users = new ArrayList<>();
+    private ArrayList<User> Users = new ArrayList<>();
     private ArrayList<Game> Games = new ArrayList<>();
     private ArrayList<Player> players = new ArrayList<Player>();
     private Random rn = new Random();
@@ -71,6 +71,8 @@ public class DatabaseFacade {
       players.add(player);
     }
 
+    public void clearPlayers() {players = new ArrayList<>();}
+
     //***********************************************************************************//
     //-------------------------------Game Service Methods------------------------------------
 
@@ -91,6 +93,8 @@ public class DatabaseFacade {
     public void addGame(Game game){
         Games.add(game);
     }
+
+    public void clearGames(){Games = new ArrayList<>();}
 
 
   //  public CreateResponse createGame(String gameName, String hostUserID, Integer numberOfPlayers){

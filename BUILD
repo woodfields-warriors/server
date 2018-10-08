@@ -193,6 +193,7 @@ java_test(
   deps = [
     ":game_service",
     ":game_api",
+    ":auth_service",
   ]
 )
 

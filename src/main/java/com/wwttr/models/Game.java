@@ -49,11 +49,10 @@ public class Game{
 	public void changeGameStatus(Status status){
 		this.gameStatus = status;
 	}
-
-
-
-
-	/*public void addPlayer(Integer playerIDToAdd){
+	public Status getGameStatus() {
+		return gameStatus;
+	}
+/*public void addPlayer(Integer playerIDToAdd){
 		playerIDs.add(playerIDtoAdd);
 	}
 	public void removePlayer(playerIDtoRemove){

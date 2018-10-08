@@ -35,6 +35,9 @@ public class GameHandlers implements Api.GameService.BlockingInterface {
     if (maxPlayers == 0) {
       maxPlayers = 5;
     }
+    if(maxPlayers < 2 || maxPlayers > 6){
+      throw new ApiError(Code.INVALID_ARGUMENT,"argument 'max_players' must be between 2 and 6");
+    }
     CreateResponse response = service.createGame(request.getDisplayName(),request.getUserId(),
                                                  request.getMaxPlayers());
     Api.CreateResponse.Builder builder = Api.CreateResponse.newBuilder();

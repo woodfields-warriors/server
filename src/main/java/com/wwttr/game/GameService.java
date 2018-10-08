@@ -1,12 +1,15 @@
 package com.wwttr.game;
 
 import java.util.*;
+
+import com.wwttr.api.ApiError;
 import com.wwttr.database.DatabaseFacade;
 import com.wwttr.models.CreateResponse;
 import com.wwttr.models.Game;
 import com.wwttr.models.Player;
 import com.wwttr.models.DeleteResponse;
 //import com.wwttr.player.Api.Player;
+import com.wwttr.api.Code;
 
 
 
@@ -39,6 +42,7 @@ public class GameService {
       Player player = new Player("p" + Integer.toString(rn.nextInt()) ,userID, Player.Color.RED);
       Game game = new Game(player.getPlayerId(), new ArrayList<String>(), gameName, numberOfPlayers, "game" + Integer.toString(rn.nextInt()));
       player.setGameId(game.getGameID());
+      game.getPlayerIDs().add(player.getPlayerId());
       database.addPlayer(player);
       database.addGame(game);
       CreateResponse toReturn = new CreateResponse(game.getGameID(), player.getPlayerId());
@@ -56,10 +60,15 @@ public class GameService {
   public void leaveGame(String playerID, String gameID){
     Game game = database.getGame(gameID);
     List<String> playerIDs = game.getPlayerIDs();
-    for (int i = 0; i < playerIDs.size(); i++){
-      if (playerIDs.get(i) == playerID){
-        playerIDs.remove(i);
-        break;
+    if(playerIDs.size() == 0 || playerID.equals(game.getHostPlayerID())){
+      deleteGame(game.getGameID());
+    }
+    else {
+      for (int i = 0; i < playerIDs.size(); i++) {
+        if (playerIDs.get(i) == playerID) {
+          playerIDs.remove(i);
+          break;
+        }
       }
     }
   }
@@ -68,8 +77,13 @@ public class GameService {
 
   public Game startGame(String gameID){
     Game game = database.getGame(gameID);
-    game.changeGameStatus(Game.Status.STARTED);
-    return game;
+    if(game.getPlayerIDs().size() > 1) {
+      game.changeGameStatus(Game.Status.STARTED);
+      return game;
+    }
+    else{
+      throw new ApiError(Code.INVALID_ARGUMENT, "must have at least 2 players to begin game");
+    }
   }
 
   public void deleteGame(String gameID){
@@ -79,7 +93,7 @@ public class GameService {
   public String createPlayer(String userId, String gameId){
     Game game = database.getGame(gameId);
     if (game == null){
-      //throw
+      throw new ApiError(Code.INVALID_ARGUMENT,"invalid game_id");
     }
     int currentNumberofPlayers = game.getPlayerIDs().size();
     // plus one because we are adding a player to the game and his/her color
@@ -104,6 +118,7 @@ public class GameService {
     }
     Player player = new Player("p" + Integer.toString(rn.nextInt()),userId, playerColor);
     player.setGameId(game.getGameID());
+    game.getPlayerIDs().add(player.getPlayerId());
     return player.getPlayerId();
   }
 
