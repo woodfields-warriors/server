@@ -56,8 +56,9 @@ public class GameHandlers extends Api.GameService {
     callback.run(toReturn.build());
   }
 
-  public void listGames(RpcController controller, Api.ListGamesRequest request, RpcCallback<Api.Game> callback) {
+  public void listGames(RpcController controller, Api.ListGamesRequest request, RpcCallback<Api.ListGamesResponse> callback) {
     List<Game> allGames = service.listGames();
+    Api.ListGamesResponse.Builder builder = Api.ListGamesResponse.newBuilder();
     for(Game game: allGames){
       Api.Game.Builder gameBuilder = Api.Game.newBuilder();
       gameBuilder.setGameId(game.getGameID());
@@ -67,34 +68,30 @@ public class GameHandlers extends Api.GameService {
       for(String i: game.getPlayerIDs()){
         gameBuilder.addPlayerIds(i);
       }
-      callback.run(gameBuilder.build());
+      builder.addGames(gameBuilder.build());
     }
 
-    Context ctx = new Context();
-    service.addGameListener(ctx, (Game game) -> {
+    callback.run(builder.build());
 
-      if (controller.isCanceled()) {
-        ctx.cancel();
-        return;
-      }
-
-      Api.Game.Builder gameBuilder = Api.Game.newBuilder();
-      gameBuilder.setGameId(game.getGameID());
-      gameBuilder.setDisplayName(game.getDisplayName());
-      gameBuilder.setMaxPlayers(game.getMaxPlayers());
-      gameBuilder.setHostPlayerId(game.getHostPlayerID());
-      for(String i: game.getPlayerIDs()){
-        gameBuilder.addPlayerIds(i);
-      }
-
-      callback.run(gameBuilder.build());
-    });
-
-    // if (authService.getAccount(game.getHostUserId()) == null) {
-    //   throw new ApiException(Code.NOT_FOUND, "host user " + game.getHostUserId() + " was not found");
-    // }
-
-    // Execute request
+    // Context ctx = new Context();
+    // service.addGameListener(ctx, (Game game) -> {
+    //
+    //   if (controller.isCanceled()) {
+    //     ctx.cancel();
+    //     return;
+    //   }
+    //
+    //   Api.Game.Builder gameBuilder = Api.Game.newBuilder();
+    //   gameBuilder.setGameId(game.getGameID());
+    //   gameBuilder.setDisplayName(game.getDisplayName());
+    //   gameBuilder.setMaxPlayers(game.getMaxPlayers());
+    //   gameBuilder.setHostPlayerId(game.getHostPlayerID());
+    //   for(String i: game.getPlayerIDs()){
+    //     gameBuilder.addPlayerIds(i);
+    //   }
+    //
+    //   callback.run(gameBuilder.build());
+    // });
   }
 
   public void getGame(RpcController controller, Api.GetGameRequest request, RpcCallback<Api.Game> callback) {
