@@ -12,7 +12,7 @@ service GameService {
   rpc DeleteGame (DeleteGameRequest) returns (Empty);
   rpc GetGame (GetGameRequest) returns (Game);
   rpc StartGame (StartGameRequest) returns (Game);
-  rpc ListGames (ListGamesRequest) returns (ListGamesResponse);
+  rpc ListGames (ListGamesRequest) returns (stream Game);
   rpc CreatePlayer (CreatePlayerRequest) returns (CreatePlayerResponse);
   rpc GetPlayer (GetPlayerRequest) returns (Player);
 }

@@ -1,6 +1,7 @@
 package com.wwttr.server;
 
 import com.google.protobuf.BlockingService;
+import com.google.protobuf.Service;
 
 import com.sun.net.httpserver.HttpServer;
 
@@ -12,10 +13,10 @@ import java.io.IOException;
 
 public class Server {
 
-  Map<String, BlockingService> services = new HashMap<String, BlockingService>();
+  Map<String, Service> services = new HashMap<String, Service>();
   HttpServer server;
 
-  public void register(BlockingService service)  {
+  public void register(Service service)  {
     services.put(service.getDescriptorForType().getFullName(), service);
   }
 

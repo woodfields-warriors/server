@@ -1,12 +1,13 @@
 package com.wwttr.health;
 
 import com.google.protobuf.RpcController;
+import com.google.protobuf.RpcCallback;
 
-public class HealthHandlers implements Api.HealthService.BlockingInterface {
+public class HealthHandlers extends Api.HealthService {
 
-  public Api.Health getHealth(RpcController controller, Api.GetHealthRequest request) {
+  public void getHealth(RpcController controller, Api.GetHealthRequest request, RpcCallback<Api.Health> callback) {
     Api.Health.Builder builder = Api.Health.newBuilder();
     builder.setStatus(Api.Health.Status.READY);
-    return builder.build();
+    callback.run(builder.build());
   }
 }

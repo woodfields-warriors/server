@@ -22,7 +22,7 @@ public class ServerTest {
 
   @Test public void testServer() throws IOException, InterruptedException {
     Server server = new Server();
-    server.register(com.wwttr.health.Api.HealthService.newReflectiveBlockingService(new HealthHandlers()));
+    server.register(new HealthHandlers());
     server.start(8080);
 
     Request.Builder requestBuilder = Request.newBuilder();
