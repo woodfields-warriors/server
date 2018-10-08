@@ -151,4 +151,18 @@ public class GameServiceTest {
         }
     }
 
+    // tries to get a game that doesn't exist
+    @Test
+    public void invalidCreatePlayer(){
+      try{
+        String response = service.createPlayer(userID, "invalidGameID");
+      }
+      catch(NotFoundException e){
+        assert(true);
+      }
+      catch(GameFullException e){
+        fail();
+      }
+    }
+
 }

@@ -7,6 +7,8 @@ import java.util.*;
 import com.wwttr.api.ApiError;
 import com.wwttr.auth.AuthService;
 import com.wwttr.api.Code;
+import com.wwttr.game.GameFullException;
+import com.wwttr.game.NotFoundException;
 
 public class GameHandlers implements Api.GameService.BlockingInterface {
 
@@ -124,10 +126,19 @@ public class GameHandlers implements Api.GameService.BlockingInterface {
   //   adds that player to the requested game then returns the player ID
   // in the createPlayerResponse
   public Api.CreatePlayerResponse createPlayer(RpcController controller, Api.CreatePlayerRequest request){
-    String newPlayerID = service.createPlayer(request.getUserId(), request.getGameId());
-    Api.CreatePlayerResponse.Builder toReturn = Api.CreatePlayerResponse.newBuilder();
-    toReturn.setPlayerId(newPlayerID);
-    return toReturn.build();
+    try{
+      String newPlayerID = service.createPlayer(request.getUserId(), request.getGameId());
+      Api.CreatePlayerResponse.Builder toReturn = Api.CreatePlayerResponse.newBuilder();
+      toReturn.setPlayerId(newPlayerID);
+      return toReturn.build();
+    }
+    catch(NotFoundException e){
+      throw new ApiError(Code.NOT_FOUND, "");
+    }
+    catch(GameFullException e){
+      throw new ApiError(Code.INVALID_ARGUMENT, "");
+    }
+
   }
 
 }
