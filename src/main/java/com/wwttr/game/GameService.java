@@ -19,6 +19,7 @@ public class GameService {
   //singleton object
   private DatabaseFacade database;
   Random rn;
+  private List<GameListener> gameListeners = new LinkedList<GameListener>();
 
   private static GameService gameServiceInstance = null;
 
@@ -193,6 +194,19 @@ public class GameService {
     // builder.setId(12);
     builder.setDisplayName("game 1");
     return builder.build();
+  }
+
+  public void addGameListener(Context ctx, GameListener l) {
+
+    ctx.addCallback(() -> gameListeners.remove(l));
+
+    gameListeners.add(l);
+  }
+
+  private void notifyGameListeners(Game g) {
+    for (GameListener l : gameListeners) {
+      l.notify(g);
+    }
   }
 
   public static void main(String[] args) {

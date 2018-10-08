@@ -20,9 +20,9 @@ public class Main {
 
     Server server = new Server();
 
-    server.register(com.wwttr.game.Api.GameService.newReflectiveBlockingService(gameHandlers));
-    server.register(com.wwttr.auth.Api.AuthService.newReflectiveBlockingService(authHandlers));
-    server.register(com.wwttr.health.Api.HealthService.newReflectiveBlockingService(healthHandlers));
+    server.register(gameHandlers);
+    server.register(authHandlers);
+    server.register(healthHandlers);
 
     try {
       server.start(8080);

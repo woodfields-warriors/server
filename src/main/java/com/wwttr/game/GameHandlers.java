@@ -8,8 +8,9 @@ import java.util.*;
 import com.wwttr.api.ApiError;
 import com.wwttr.auth.AuthService;
 import com.wwttr.api.Code;
+import com.google.protobuf.RpcCallback;
 
-public class GameHandlers implements Api.GameService.BlockingInterface {
+public class GameHandlers extends Api.GameService {
 
   private GameService service;
   private AuthService authService;
@@ -23,7 +24,7 @@ public class GameHandlers implements Api.GameService.BlockingInterface {
   // the database.  Then it gives the created player the game that was
   // created so that player knows what game it is a part of
   // then it returns the game Id and playerID
-  public Api.CreateResponse createGame(RpcController controller, Api.CreateGameRequest request) {
+  public void createGame(RpcController controller, Api.CreateGameRequest request, RpcCallback<Api.CreateResponse> callback) {
 
     // Validate input
     if (request.getDisplayName() == "") {
@@ -44,18 +45,17 @@ public class GameHandlers implements Api.GameService.BlockingInterface {
     Api.CreateResponse.Builder builder = Api.CreateResponse.newBuilder();
     builder.setGameId(response.getGameID());
     builder.setPlayerId(response.getPlayerID());
-    return builder.build();
+    callback.run(builder.build());
   }
 
-  public Api.Empty leaveGame(RpcController controller, Api.LeaveGameRequest request) {
+  public void leaveGame(RpcController controller, Api.LeaveGameRequest request, RpcCallback<Api.Empty> callback) {
     service.leaveGame(request.getPlayerId(),request.getGameId());
     Api.Empty.Builder toReturn = Api.Empty.newBuilder();
-    return toReturn.build();
+    callback.run(toReturn.build());
   }
 
-  public Api.ListGamesResponse listGames(RpcController controller, Api.ListGamesRequest request) {
+  public void listGames(RpcController controller, Api.ListGamesRequest request, RpcCallback<Api.Game> callback) {
     List<Game> allGames = service.listGames();
-    List<Api.Game> protoGames = new ArrayList<Api.Game>();
     for(Game game: allGames){
       Api.Game.Builder gameBuilder = Api.Game.newBuilder();
       gameBuilder.setGameId(game.getGameID());
@@ -65,16 +65,28 @@ public class GameHandlers implements Api.GameService.BlockingInterface {
       for(String i: game.getPlayerIDs()){
         gameBuilder.addPlayerIds(i);
       }
-      protoGames.add(gameBuilder.build());
+      callback.run(gameBuilder.build());
     }
-    Api.ListGamesResponse.Builder responseBuilder = Api.ListGamesResponse.newBuilder();
-    for(Api.Game game: protoGames){
-      responseBuilder.addGames(game);
-    }
-    //responseBuilder.setGames(protoGames);
-    return responseBuilder.build();
 
+    Context ctx = new Context();
+    service.addGameListener(ctx, (Game game) -> {
 
+      if (controller.isCanceled()) {
+        ctx.cancel();
+        return;
+      }
+
+      Api.Game.Builder gameBuilder = Api.Game.newBuilder();
+      gameBuilder.setGameId(game.getGameID());
+      gameBuilder.setDisplayName(game.getDisplayName());
+      gameBuilder.setMaxPlayers(game.getMaxPlayers());
+      gameBuilder.setHostPlayerId(game.getHostPlayerID());
+      for(String i: game.getPlayerIDs()){
+        gameBuilder.addPlayerIds(i);
+      }
+
+      callback.run(gameBuilder.build());
+    });
 
     // if (authService.getAccount(game.getHostUserId()) == null) {
     //   throw new ApiException(Code.NOT_FOUND, "host user " + game.getHostUserId() + " was not found");
@@ -83,7 +95,7 @@ public class GameHandlers implements Api.GameService.BlockingInterface {
     // Execute request
   }
 
-  public Api.Game getGame(RpcController controller, Api.GetGameRequest request) {
+  public void getGame(RpcController controller, Api.GetGameRequest request, RpcCallback<Api.Game> callback) {
     Game game = service.getGame(request.getGameId());
     if (game == null){
         throw new ApiError(Code.NOT_FOUND, "Game with that ID not found");
@@ -96,12 +108,12 @@ public class GameHandlers implements Api.GameService.BlockingInterface {
     for(String i: game.getPlayerIDs()){
       gameBuilder.addPlayerIds(i);
     }
-    return gameBuilder.build();
+    callback.run(gameBuilder.build());
   }
 
 
 
-  public Api.Game startGame(RpcController controller, Api.StartGameRequest request){
+  public void startGame(RpcController controller, Api.StartGameRequest request, RpcCallback<Api.Game> callback){
     Game game = service.startGame(request.getGameId());
     Api.Game.Builder gameBuilder = Api.Game.newBuilder();
     gameBuilder.setGameId(game.getGameID());
@@ -111,27 +123,27 @@ public class GameHandlers implements Api.GameService.BlockingInterface {
     for(String i: game.getPlayerIDs()){
       gameBuilder.addPlayerIds(i);
     }
-    return gameBuilder.build();
+    callback.run(gameBuilder.build());
   }
 
-  public Api.Empty deleteGame(RpcController controller, Api.DeleteGameRequest request) {
+  public void deleteGame(RpcController controller, Api.DeleteGameRequest request, RpcCallback<Api.Empty> callback) {
     service.deleteGame(request.getGameId());
     Api.Empty.Builder toReturn = Api.Empty.newBuilder();
-    return toReturn.build();
+    callback.run(toReturn.build());
   }
 
   // This method is the replacement for JoinGame().
   // It takes the given request and creates a Player object,
   //   adds that player to the requested game then returns the player ID
   // in the createPlayerResponse
-  public Api.CreatePlayerResponse createPlayer(RpcController controller, Api.CreatePlayerRequest request){
+  public void createPlayer(RpcController controller, Api.CreatePlayerRequest request, RpcCallback<Api.CreatePlayerResponse> callback){
     String newPlayerID = service.createPlayer(request.getUserId(), request.getGameId());
     Api.CreatePlayerResponse.Builder toReturn = Api.CreatePlayerResponse.newBuilder();
     toReturn.setPlayerId(newPlayerID);
-    return toReturn.build();
+    callback.run(toReturn.build());
   }
 
-  public Api.Player getPlayer(RpcController controller, Api.GetPlayerRequest request) {
+  public void getPlayer(RpcController controller, Api.GetPlayerRequest request, RpcCallback<Api.Player> callback) {
     if (request.getPlayerId() == "") {
       throw new ApiError(Code.INVALID_ARGUMENT, "argument player_id is required");
     }
@@ -170,7 +182,7 @@ public class GameHandlers implements Api.GameService.BlockingInterface {
     }
     builder.setColor(color);
 
-    return builder.build();
+    callback.run(builder.build());
   }
 
 

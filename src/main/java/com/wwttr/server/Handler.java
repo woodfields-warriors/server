@@ -5,7 +5,7 @@ import com.wwttr.api.Response;
 import com.wwttr.api.Code;
 import com.wwttr.api.ApiError;
 
-import com.google.protobuf.BlockingService;
+import com.google.protobuf.Service;
 import com.google.protobuf.RpcController;
 import com.google.protobuf.Descriptors.MethodDescriptor;
 import com.google.protobuf.Message;
@@ -25,9 +25,9 @@ import java.io.OutputStream;
 
 class Handler implements HttpHandler {
 
-  private Map<String, BlockingService> services;
+  private Map<String, Service> services;
 
-  public Handler(Map<String, BlockingService> services) {
+  public Handler(Map<String, Service> services) {
     this.services = services;
   }
 
@@ -36,7 +36,7 @@ class Handler implements HttpHandler {
 
     Message request;
     MethodDescriptor method;
-    BlockingService service;
+    Service service;
     try {
       InputStream stream = exchange.getRequestBody();
       Request requestWrapper = Request.parseFrom(stream);
@@ -83,10 +83,33 @@ class Handler implements HttpHandler {
       return;
     }
 
-    Message response;
     try {
       Controller controller = new Controller(exchange);
-      response = service.callBlockingMethod(method, controller, request);
+      service.callMethod(method, controller, request, (Message response) -> {
+
+        if (response == null) {
+          // Oops!
+          throw new Error("handler for " + service.getDescriptorForType().getName() + "." + method.getName() + " returned null");
+        }
+
+        try {
+          Response.Builder respBuilder = Response.newBuilder();
+          respBuilder.setCode(Code.OK);
+          respBuilder.setPayload(response.toByteString());
+          ByteString responseData = respBuilder.build().toByteString();
+
+          Headers headers = exchange.getResponseHeaders();
+          headers.set("Content-Type", "application/proto");
+          exchange.sendResponseHeaders(200, responseData.size());
+          OutputStream out = exchange.getResponseBody();
+          responseData.writeTo(out);
+          out.flush();
+          out.close();
+        }
+        catch (IOException e) {
+          e.printStackTrace();
+        }
+      });
     }
     catch (ApiError e) {
       // Error with method execution
@@ -122,28 +145,5 @@ class Handler implements HttpHandler {
       out.close();
       return;
     }
-
-    if (response == null) {
-      // Oops!
-      throw new Error("handler for " + service.getDescriptorForType().getName() + "." + method.getName() + " returned null");
-    }
-
-    Response.Builder respBuilder = Response.newBuilder();
-    respBuilder.setCode(Code.OK);
-    respBuilder.setPayload(response.toByteString());
-    ByteString responseData = respBuilder.build().toByteString();
-
-    Headers headers = exchange.getResponseHeaders();
-    headers.set("Content-Type", "application/proto");
-    exchange.sendResponseHeaders(200, responseData.size());
-    OutputStream out = exchange.getResponseBody();
-    responseData.writeTo(out);
-    out.flush();
-    out.close();
-    // finally {
-    //   if (connection != null) {
-    //    connection.disconnect();
-    //   }
-    // }
   }
 }

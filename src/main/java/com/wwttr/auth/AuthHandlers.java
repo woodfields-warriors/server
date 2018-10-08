@@ -1,13 +1,15 @@
 package com.wwttr.auth;
 
 import com.google.protobuf.RpcController;
+import com.google.protobuf.RpcCallback;
+
 import com.wwttr.models.LoginResponse;
 import com.wwttr.api.Code;
 import com.wwttr.api.ApiError;
 //import com.wwttr.api.InvalidArgumentException;
 
 
-public class AuthHandlers implements Api.AuthService.BlockingInterface {
+public class AuthHandlers extends Api.AuthService {
 
   private AuthService service;
 
@@ -15,12 +17,12 @@ public class AuthHandlers implements Api.AuthService.BlockingInterface {
     this.service = service;
   }
 
-  public Api.LoginResponse login(RpcController controller, Api.LoginAccountRequest request) {
+  public void login(RpcController controller, Api.LoginAccountRequest request, RpcCallback<Api.LoginResponse> callback) {
     try{
       LoginResponse response = service.login(request.getUsername(), request.getPassword());
       Api.LoginResponse.Builder builder = Api.LoginResponse.newBuilder();
       builder.setUserId(response.getUserID());
-      return builder.build();
+      callback.run(builder.build());
     }
     catch (NotFoundException e) {
       throw new ApiError(Code.NOT_FOUND, "");
@@ -34,12 +36,12 @@ public class AuthHandlers implements Api.AuthService.BlockingInterface {
     }
   }
 
-  public Api.LoginResponse register(RpcController controller, Api.LoginAccountRequest request) {
+  public void register(RpcController controller, Api.LoginAccountRequest request, RpcCallback<Api.LoginResponse> callback) {
     try {
       LoginResponse response = service.register(request.getUsername(), request.getPassword());
       Api.LoginResponse.Builder builder = Api.LoginResponse.newBuilder();
       builder.setUserId(response.getUserID());
-      return builder.build();
+      callback.run(builder.build());
     }
     catch (Exception e){
       e.printStackTrace();
