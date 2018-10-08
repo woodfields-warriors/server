@@ -49,4 +49,14 @@ public class AuthHandlers extends Api.AuthService {
     }
   }
 
+  public void getUsername(RpcController controller, Api.GetUsernameRequest request, RpcCallback<Api.GetUsernameResponse> callback){
+    String username = service.getUsername(request.getUserId());
+    if (username == null){
+      throw new ApiError(Code.NOT_FOUND,"username not in use");
+    }
+    Api.GetUsernameResponse.Builder builder = Api.GetUsernameResponse.newBuilder();
+    builder.setUsername(username);
+    callback.run(builder.build());
+  }
+
 }

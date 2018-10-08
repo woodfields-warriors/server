@@ -89,6 +89,17 @@ public class GameServiceTest {
     }
 
     @Test
+    public void getInvalidGame(){
+      try{
+        Game game = service.getGame("invalidGameID");
+        assertNull(game);
+      }
+      catch(Exception e){
+        fail();
+      }
+    }
+
+    @Test
     public void leaveGame() {
         try{
             CreateResponse response = service.createGame("valid", userID, 2);

@@ -41,7 +41,7 @@ public class GameService {
   /* hostID should have been verified by ServerFacade */
   public CreateResponse createGame(String gameName, String userID, int numberOfPlayers){
       Player player = new Player("p" + Integer.toString(rn.nextInt()) ,userID, Player.Color.RED);
-      Game game = new Game(player.getPlayerId(), new ArrayList<String>(), gameName, numberOfPlayers, "game" + Integer.toString(rn.nextInt()));
+      Game game = new Game(player.getPlayerId(), new ArrayList<String>(), gameName, numberOfPlayers, "game" + Integer.toString(rn.nextInt() & Integer.MAX_VALUE));
       player.setGameId(game.getGameID());
       game.getPlayerIDs().add(player.getPlayerId());
       database.addPlayer(player);
@@ -56,9 +56,9 @@ public class GameService {
 
   public Game getGame(String gameID){
     Game game = database.getGame(gameID);
-    if(game == null){
-      System.out.println("returning null from game service");
-    }
+  //  if(game == null){
+    //  System.out.println("returning null from game service");
+  //  }
     return game;
   }
 
