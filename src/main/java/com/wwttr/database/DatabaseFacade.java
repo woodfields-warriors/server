@@ -77,7 +77,9 @@ public class DatabaseFacade {
     //-------------------------------Game Service Methods------------------------------------
 
     public Game getGame(String gameID){
+        System.out.println("In database with all games being the following");
         for(int i = 0; i < Games.size(); i++){
+          System.out.println(Games.get(i).getGameID());
             if(Games.get(i).getGameID() == gameID){
                 return Games.get(i);
             }

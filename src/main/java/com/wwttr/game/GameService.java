@@ -54,7 +54,11 @@ public class GameService {
   }
 
   public Game getGame(String gameID){
-    return database.getGame(gameID);
+    Game game = database.getGame(gameID);
+    if(game == null){
+      System.out.println("returning null from game service");
+    }
+    return game;
   }
 
   public void leaveGame(String playerID, String gameID){

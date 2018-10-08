@@ -86,6 +86,7 @@ public class GameHandlers implements Api.GameService.BlockingInterface {
   }
 
   public Api.Game getGame(RpcController controller, Api.GetGameRequest request) {
+    System.out.println("The game ID coming in from the request is: " + request.getGameId());
     Game game = service.getGame(request.getGameId());
     if (game == null){
         throw new ApiError(Code.NOT_FOUND, "Game with that ID not found");
