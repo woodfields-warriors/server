@@ -126,5 +126,14 @@ public class DatabaseFacade {
       //  return toReturn;
     }
 
+    public Player getPlayer(String playerID) {
+      for (Player p : players) {
+        if (p.getPlayerId().equals(playerID)) {
+          return p;
+        }
+      }
+      return null;
+    }
+
 
 }

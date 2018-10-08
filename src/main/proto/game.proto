@@ -14,6 +14,7 @@ service GameService {
   rpc StartGame (StartGameRequest) returns (Game);
   rpc ListGames (ListGamesRequest) returns (ListGamesResponse);
   rpc CreatePlayer (CreatePlayerRequest) returns (CreatePlayerResponse);
+  rpc GetPlayer (GetPlayerRequest) returns (Player);
 }
 
 message Game {
@@ -62,8 +63,6 @@ message CreateGameRequest {
   string display_name = 2;
   //The number of players desired in game
   int32 maxPlayers = 3;
-
-
 }
 
 message LeaveGameRequest {
@@ -99,7 +98,31 @@ message CreatePlayerRequest{
   string game_id = 2;
 }
 
+message Player {
+  // The player's unique identifier.
+  // Server assigned. Required when updating.
+  string id = 1;
+  // The id of the account this player represents.
+  string account_id = 2;
+  // The id of the game this player is a part of.
+  string game_id = 3;
+  // The color that the player will be inGame and lobby
+  Color color = 4;
 
+  enum Color{
+    UNKNOWN = 0;
+    RED = 1;
+    BLUE = 2;
+    GREEN = 3;
+    YELLOW = 4;
+    PURPLE = 5;
+    ORANGE = 6;
+  }
+}
+
+message GetPlayerRequest {
+  string player_id = 1;
+}
 
 
 //---------------------Responses------------//

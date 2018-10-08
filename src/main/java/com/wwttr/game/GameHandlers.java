@@ -3,6 +3,7 @@ package com.wwttr.game;
 import com.google.protobuf.RpcController;
 import com.wwttr.models.CreateResponse;
 import com.wwttr.models.Game;
+import com.wwttr.models.Player;
 import java.util.*;
 import com.wwttr.api.ApiError;
 import com.wwttr.auth.AuthService;
@@ -140,5 +141,48 @@ public class GameHandlers implements Api.GameService.BlockingInterface {
     }
 
   }
+
+  public Api.Player getPlayer(RpcController controller, Api.GetPlayerRequest request) {
+    if (request.getPlayerId() == "") {
+      throw new ApiError(Code.INVALID_ARGUMENT, "argument player_id is required");
+    }
+
+    Player player = service.getPlayer(request.getPlayerId());
+    if (player == null) {
+        throw new ApiError(Code.NOT_FOUND, "");
+    }
+    Api.Player.Builder builder = Api.Player.newBuilder();
+    builder.setId(player.getPlayerId());
+    builder.setAccountId(player.getUserId());
+    builder.setGameId(player.getGameId());
+    Api.Player.Color color;
+    switch (player.getPlayerColor()) {
+    case RED:
+      color = Api.Player.Color.RED;
+      break;
+    case BLUE:
+      color = Api.Player.Color.BLUE;
+      break;
+    case GREEN:
+      color = Api.Player.Color.GREEN;
+      break;
+    case YELLOW:
+      color = Api.Player.Color.YELLOW;
+      break;
+    case PURPLE:
+      color = Api.Player.Color.PURPLE;
+      break;
+    case ORANGE:
+      color = Api.Player.Color.ORANGE;
+      break;
+    default:
+      color = Api.Player.Color.UNKNOWN;
+      System.out.println("[WARN] player %d has invalid color");
+    }
+    builder.setColor(color);
+
+    return builder.build();
+  }
+
 
 }

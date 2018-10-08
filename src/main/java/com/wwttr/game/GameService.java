@@ -122,7 +122,14 @@ public class GameService {
     Player player = new Player("p" + Integer.toString(rn.nextInt()),userId, playerColor);
     player.setGameId(game.getGameID());
     game.getPlayerIDs().add(player.getPlayerId());
+
+    database.addPlayer(player);
+
     return player.getPlayerId();
+  }
+
+  public Player getPlayer(String playerID) {
+    return database.getPlayer(playerID);
   }
 
 /*      ---  DEPRECATED ---- /
