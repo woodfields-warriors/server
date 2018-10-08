@@ -83,9 +83,13 @@ class Handler implements HttpHandler {
       return;
     }
 
+    Controller controller = new Controller(exchange);
+
     try {
-      Controller controller = new Controller(exchange);
       service.callMethod(method, controller, request, (Message response) -> {
+        if (controller.isCanceled()) {
+          return;
+        }
 
         if (response == null) {
           // Oops!
@@ -112,6 +116,10 @@ class Handler implements HttpHandler {
       });
     }
     catch (ApiError e) {
+      if (controller.isCanceled()) {
+        return;
+      }
+      controller.startCancel();
       // Error with method execution
       Response.Builder respBuilder = Response.newBuilder();
       respBuilder.setCode(e.getCode());
@@ -128,6 +136,10 @@ class Handler implements HttpHandler {
       return;
     }
     catch (Throwable t) {
+      if (controller.isCanceled()) {
+        return;
+      }
+      controller.startCancel();
       // Error with method execution
       System.out.println(service.getDescriptorForType().getName() + "." + method.getName() + ": " + t.toString());
 

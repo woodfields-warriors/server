@@ -10,6 +10,7 @@ class Controller implements RpcController {
 
   private HttpExchange exchange;
   private Throwable error;
+  private boolean canceled = false;
 
   public Controller(HttpExchange exchange) {
     this.exchange = exchange;
@@ -27,7 +28,7 @@ class Controller implements RpcController {
   }
 
   public boolean isCanceled() {
-    return false;
+    return canceled;
   }
 
   public void notifyOnCancel(RpcCallback<Object> callback) {
@@ -43,6 +44,6 @@ class Controller implements RpcController {
   }
 
   public void startCancel() {
-
+    canceled = true;
   }
 }
