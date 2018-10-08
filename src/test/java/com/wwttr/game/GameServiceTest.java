@@ -4,6 +4,7 @@ import com.wwttr.auth.AuthService;
 import com.wwttr.database.DatabaseFacade;
 import com.wwttr.models.CreateResponse;
 import com.wwttr.models.Game;
+import com.wwttr.models.Player;
 import com.wwttr.models.LoginResponse;
 
 import org.junit.After;
@@ -136,8 +137,8 @@ public class GameServiceTest {
             Game game = service.getGame(response.getGameID());
             boolean pass = false;
             for(String tempID : game.getPlayerIDs()){
-                System.out.println("temp ID = " +tempID);
-                System.out.println("playerID = " + playerID);
+                // System.out.println("temp ID = " +tempID);
+                // System.out.println("playerID = " + playerID);
                 if(playerID.equals(tempID)){
                     pass = true;
                     break;
@@ -151,4 +152,20 @@ public class GameServiceTest {
         }
     }
 
+    @Test
+    public void getPlayer() {
+      try{
+        CreateResponse game = service.createGame("valid", userID, 2);
+        String playerID = service.createPlayer(userID, game.getGameID());
+        System.out.println("get player id " + playerID);
+        Player player = service.getPlayer(playerID);
+        assertNotNull(player);
+        assertEquals(playerID, player.getPlayerId());
+        assertEquals(game.getGameID(), player.getGameId());
+        assertEquals(userID, player.getUserId());
+      }
+      catch (Exception e){
+        fail();
+      }
+    }
 }

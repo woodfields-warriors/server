@@ -14,25 +14,6 @@ service PlayerService {
 }
 
 
-message Player {
-  // The player's unique identifier.
-  // Server assigned. Required when updating.
-  string id = 1;
-  // The id of the account this player represents.
-  string account_id = 2;
-  // the id of the game this player is a part of.
-  string game_id = 3;
-  //the color that the player will be inGame and lobby
-  enum color{
-    UNKNOWN = 0;
-    RED = 1;
-    BLUE = 2;
-    GREEN = 3;
-    YELLOW = 4;
-    PURPLE = 5;
-    ORANGE = 6;
-  }
-}
 
 
 
