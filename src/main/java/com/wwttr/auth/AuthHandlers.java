@@ -30,7 +30,7 @@ public class AuthHandlers implements Api.AuthService.BlockingInterface {
     }
     catch (Exception e){
       e.printStackTrace();
-      throw new ApiError(Code.INVALID_ARGUMENT, "");
+      throw new ApiError(Code.INTERNAL, "");
     }
   }
 
@@ -43,7 +43,7 @@ public class AuthHandlers implements Api.AuthService.BlockingInterface {
     }
     catch (Exception e){
       e.printStackTrace();
-      throw new ApiError(Code.INTERNAL, "");
+      throw new ApiError(Code.INVALID_ARGUMENT, "");
     }
   }
 
