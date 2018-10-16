@@ -6,6 +6,7 @@ import com.wwttr.models.User;
 
 import org.junit.Before;
 import org.junit.Test;
+
 import static org.junit.Assert.*;
 
 public class AuthServiceTest {
@@ -40,7 +41,7 @@ public class AuthServiceTest {
     }
 
     @Test
-    public void invalidRegister() {
+    public void duplicateRegister() {
         try {
             LoginResponse response = as.register("username", "password");
             response = as.register("username", "password");

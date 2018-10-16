@@ -137,5 +137,10 @@ public class DatabaseFacade {
       return null;
     }
 
+  //***********************************************************************************//
+  //-------------------------------Card Service Methods------------------------------------
+  public DestinationCard getDestinationCard(String destinationCardId){}
+  public List<DestinationCard> listDestinationCards(int limit, String gameId){}
+  public void updateDestinationCard(String destinationCardId, String playerId){}
 
 }

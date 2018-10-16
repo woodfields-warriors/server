@@ -14,6 +14,8 @@ java_binary(
     ":game_api",
     ":health_service",
     ":health_api",
+    ":card_api",
+    ":card_service",
     "@com_google_protobuf//:protobuf_java",
     ],
   main_class = "com.wwttr.main.Main",
@@ -223,4 +225,33 @@ java_proto_library(
 proto_library(
   name = "health_proto",
   srcs = ["src/main/proto/health.proto"],
+)
+
+### Card Service ###
+
+java_proto_library(
+  name = "card_api",
+  deps = [":card_proto"],
+)
+
+proto_library(
+  name = "card_proto",
+  srcs = ["src/main/proto/card.proto"],
+)
+
+java_library(
+  name = "card_service",
+  srcs = glob(["src/main/java/com/wwttr/card/*.java"]),
+  deps = [
+    ":card_proto",
+  ],
+)
+
+java_test(
+  name = "card",
+  test_class = "com.wwttr.card.CardServiceTest",
+  srcs = glob(["src/test/java/com/wwttr/card/*.java"]),
+  deps = [
+    "card_service"
+  ]
 )

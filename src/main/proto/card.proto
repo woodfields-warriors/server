@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package card;
+
+option java_package = "com.wwttr.card";
+option java_outer_classname = "Api";
+option java_generic_services = true;
+
+service CardService {
+  rpc GetDestinationCard (GetDestinationCardRequest) returns (DestinationCard);
+  rpc PeekDestinationCards (PeekDestinationCardsRequest) returns (PeekDestinationCardsResponse);
+  rpc ClaimDestinationCards (ClaimDestinationCardsRequest) returns (Empty);
+}
+
+
+
+message GetDestinationCardRequest {
+  string destination_card_id = 1;
+}
+
+message DestinationCard {
+  string id = 1;
+  string first_city_id = 2;
+  string second_city_id = 3;
+  int32 point_value = 4;
+  string player_id = 5;
+}
+
+message PeekDestinationCardsRequest{
+  string game_id = 1;
+}
+
+message PeekDestinationCardsResponse{
+  repeated DestinationCard destination_cards = 1;
+}
+
+message ClaimDestinationCardsRequest {
+  repeated string destination_card_ids = 1;
+  string player_id = 2;
+}
+
+message Empty {
+
+}
+
