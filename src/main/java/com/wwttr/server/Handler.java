@@ -21,6 +21,8 @@ import java.util.HashMap;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 
 
 class Handler implements HttpHandler {
@@ -43,17 +45,11 @@ class Handler implements HttpHandler {
 
       service = services.get(requestWrapper.getService());
       if (service == null) {
-        Response.Builder respBuilder = Response.newBuilder();
-        respBuilder.setCode(Code.NOT_FOUND);
-        ByteString responseData = respBuilder.build().toByteString();
+        Response.Builder response = Response.newBuilder();
+        response.setCode(Code.NOT_FOUND);
 
-        Headers headers = exchange.getResponseHeaders();
-        headers.set("Content-Type", "application/proto");
-        exchange.sendResponseHeaders(404, responseData.size());
-        OutputStream out = exchange.getResponseBody();
-        responseData.writeTo(out);
-        out.flush();
-        out.close();
+        UnaryResponder responder = new UnaryResponder(exchange);
+        responder.respond(response.build());
         return;
       }
       method = service
@@ -67,18 +63,12 @@ class Handler implements HttpHandler {
     }
     catch (Exception e) {
       // Error with request deserialization
-      Response.Builder respBuilder = Response.newBuilder();
-      respBuilder.setCode(Code.INVALID_ARGUMENT);
-      respBuilder.setMessage("error parsing request");
-      ByteString responseData = respBuilder.build().toByteString();
+      Response.Builder response = Response.newBuilder();
+      response.setCode(Code.INVALID_ARGUMENT);
+      response.setMessage("error parsing request");
 
-      Headers headers = exchange.getResponseHeaders();
-      headers.set("Content-Type", "application/proto");
-      exchange.sendResponseHeaders(400, responseData.size());
-      OutputStream out = exchange.getResponseBody();
-      responseData.writeTo(out);
-      out.flush();
-      out.close();
+      UnaryResponder responder = new UnaryResponder(exchange);
+      responder.respond(response.build());
 
       return;
     }
@@ -97,18 +87,12 @@ class Handler implements HttpHandler {
         }
 
         try {
-          Response.Builder respBuilder = Response.newBuilder();
-          respBuilder.setCode(Code.OK);
-          respBuilder.setPayload(response.toByteString());
-          ByteString responseData = respBuilder.build().toByteString();
+          Response.Builder responseWrapper = Response.newBuilder();
+          responseWrapper.setCode(Code.OK);
+          responseWrapper.setPayload(response.toByteString());
 
-          Headers headers = exchange.getResponseHeaders();
-          headers.set("Content-Type", "application/proto");
-          exchange.sendResponseHeaders(200, responseData.size());
-          OutputStream out = exchange.getResponseBody();
-          responseData.writeTo(out);
-          out.flush();
-          out.close();
+          UnaryResponder responder = new UnaryResponder(exchange);
+          responder.respond(responseWrapper.build());
         }
         catch (IOException e) {
           e.printStackTrace();
@@ -121,18 +105,12 @@ class Handler implements HttpHandler {
       }
       controller.startCancel();
       // Error with method execution
-      Response.Builder respBuilder = Response.newBuilder();
-      respBuilder.setCode(e.getCode());
-      respBuilder.setMessage(e.getMessage());
-      ByteString responseData = respBuilder.build().toByteString();
+      Response.Builder response = Response.newBuilder();
+      response.setCode(e.getCode());
+      response.setMessage(e.getMessage());
 
-      Headers headers = exchange.getResponseHeaders();
-      headers.set("Content-Type", "application/proto");
-      exchange.sendResponseHeaders(500, responseData.size());
-      OutputStream out = exchange.getResponseBody();
-      responseData.writeTo(out);
-      out.flush();
-      out.close();
+      UnaryResponder responder = new UnaryResponder(exchange);
+      responder.respond(response.build());
       return;
     }
     catch (Throwable t) {
@@ -143,19 +121,81 @@ class Handler implements HttpHandler {
       // Error with method execution
       System.out.println(service.getDescriptorForType().getName() + "." + method.getName() + ": " + t.toString());
 
-      Response.Builder respBuilder = Response.newBuilder();
-      respBuilder.setCode(Code.INTERNAL);
-      respBuilder.setMessage("");
-      ByteString responseData = respBuilder.build().toByteString();
+      Response.Builder response = Response.newBuilder();
+      response.setCode(Code.INTERNAL);
+      response.setMessage("");
 
-      Headers headers = exchange.getResponseHeaders();
-      headers.set("Content-Type", "application/proto");
-      exchange.sendResponseHeaders(500, responseData.size());
-      OutputStream out = exchange.getResponseBody();
-      responseData.writeTo(out);
-      out.flush();
-      out.close();
+      UnaryResponder responder = new UnaryResponder(exchange);
+      responder.respond(response.build());
       return;
     }
+  }
+}
+
+class UnaryResponder {
+
+  private HttpExchange exchange;
+  private OutputStream out;
+  private boolean headerSent;
+
+  public UnaryResponder(HttpExchange exchange) {
+    this.out = exchange.getResponseBody();
+    Headers headers = exchange.getResponseHeaders();
+    headers.set("Content-Type", "application/proto");
+  }
+
+  public void respond(Response response) {
+    ByteString responseData = response.toByteString();
+    int status = UnaryResponder.codeToHTTPStatus(response.getCode());
+    exchange.sendResponseHeaders(status, responseData.size());
+    responseData.writeTo(out);
+  }
+
+  public void end() {
+    out.close();
+  }
+
+  static int codeToHTTPStatus(Code code) {
+    switch (code) {
+    case OK:
+      return 200;
+    case NOT_FOUND:
+      return 404;
+    case INVALID_ARGUMENT:
+      return 400;
+    case INTERNAL:
+      return 500;
+    case UNAVAILABLE:
+      return 503;
+    default:
+      return 500;
+    }
+  }
+}
+
+class StreamResponder {
+
+  private OutputStream out;
+  private HttpExchange exchange;
+
+  public StreamResponder(HttpExchange exchange) {
+    this.exchange = exchange;
+    Headers headers = exchange.getResponseHeaders();
+    headers.set("Content-Type", "application/proto");
+    exchange.sendResponseHeaders(200, 0);
+  }
+
+  public void respond(Response response) {
+    ByteString responseData = response.toByteString();
+
+    ByteBuffer buf = ByteBuffer.allocate(4);
+    buf.order(ByteOrder.LITTLE_ENDIAN);
+    buf.putInt(responseData.size());
+    out.write(buf.array());
+    responseData.writeTo(out);
+  }
+
+  public void end() {
+    out.close();
   }
 }

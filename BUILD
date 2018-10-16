@@ -243,7 +243,7 @@ java_library(
   name = "card_service",
   srcs = glob(["src/main/java/com/wwttr/card/*.java"]),
   deps = [
-    ":card_proto",
+    ":card_api",
   ],
 )
 
