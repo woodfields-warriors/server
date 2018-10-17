@@ -3,6 +3,7 @@ package com.wwttr.auth;
 import com.google.protobuf.RpcController;
 import com.google.protobuf.RpcCallback;
 
+import com.wwttr.api.NotFoundException;
 import com.wwttr.models.LoginResponse;
 import com.wwttr.api.Code;
 import com.wwttr.api.ApiError;

@@ -181,7 +181,8 @@ java_library(
   name = "models",
   srcs = glob(["src/main/java/com/wwttr/models/*.java"]),
   deps = [
-
+        ":api_model",
+        ":card_api"
   ],
 )
 
@@ -244,6 +245,8 @@ java_library(
   srcs = glob(["src/main/java/com/wwttr/card/*.java"]),
   deps = [
     ":card_api",
+    ":models",
+    ":api_model"
   ],
 )
 

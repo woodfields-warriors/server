@@ -2,8 +2,11 @@ package com.wwttr.database;
 
 
 import java.util.*;
+
+import com.wwttr.api.NotFoundException;
 import com.wwttr.models.*;
 
+import javafx.scene.layout.Priority;
 
 
 public class DatabaseFacade {
@@ -12,6 +15,7 @@ public class DatabaseFacade {
     private ArrayList<Player> players = new ArrayList<Player>();
     private Random rn = new Random();
     static private DatabaseFacade instance;
+    private Map<String,PriorityQueue<DestinationCard>> destinationCards = new HashMap<String, PriorityQueue<DestinationCard>>();
 
     private DatabaseFacade(){
 
@@ -139,8 +143,26 @@ public class DatabaseFacade {
 
   //***********************************************************************************//
   //-------------------------------Card Service Methods------------------------------------
-  public DestinationCard getDestinationCard(String destinationCardId){}
-  public List<DestinationCard> listDestinationCards(int limit, String gameId){}
+  public DestinationCard getDestinationCard(String destinationCardId) throws NotFoundException{
+      for(DestinationCard card : destinationCards){
+        if(card.getId().equals(destinationCardId)){
+          return card;
+        }
+      }
+      throw new NotFoundException("card with id " + destinationCardId + " not found");
+  }
+  public List<DestinationCard> listDestinationCards(int limit, String gameId){
+      List<DestinationCard> listToReturn = new ArrayList<DestinationCard>();
+      for(int i = 0; i < limit; ){
+        for(DestinationCard card : destinationCards){
+          if(card.getGameId().equals(gameId)){
+            listToReturn.add(destinationCards.remove(2));
+            destinationCards.add(listToReturn.get(i));
+          }
+        }
+      }
+      return listToReturn;
+  }
   public void updateDestinationCard(String destinationCardId, String playerId){}
 
 }

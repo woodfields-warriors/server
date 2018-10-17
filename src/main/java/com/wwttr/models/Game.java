@@ -52,7 +52,9 @@ public class Game{
 	public Status getGameStatus() {
 		return gameStatus;
 	}
-/*public void addPlayer(Integer playerIDToAdd){
+
+
+	/*public void addPlayer(Integer playerIDToAdd){
 		playerIDs.add(playerIDtoAdd);
 	}
 	public void removePlayer(playerIDtoRemove){

@@ -1,6 +1,7 @@
 package com.wwttr.auth;
 
 
+import com.wwttr.api.NotFoundException;
 import com.wwttr.database.DatabaseFacade;
 import com.wwttr.models.LoginResponse;
 import com.wwttr.models.User;
