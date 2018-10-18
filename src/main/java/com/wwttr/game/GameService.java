@@ -3,6 +3,7 @@ package com.wwttr.game;
 import java.util.*;
 
 import com.wwttr.api.ApiError;
+import com.wwttr.card.CardService;
 import com.wwttr.database.DatabaseFacade;
 import com.wwttr.models.CreateResponse;
 import com.wwttr.models.Game;
@@ -22,6 +23,8 @@ public class GameService {
   private List<GameListener> gameListeners = new LinkedList<GameListener>();
 
   private static GameService gameServiceInstance = null;
+
+  private CardService cardService = CardService.getInstance();
 
   public static GameService getInstance(){
     if(gameServiceInstance == null){
@@ -80,10 +83,11 @@ public class GameService {
 
 
 
-  public Game startGame(String gameID){
+  public Game startGame(String gameID) throws com.wwttr.api.NotFoundException {
     Game game = database.getGame(gameID);
     if(game.getPlayerIDs().size() > 1) {
       game.changeGameStatus(Game.Status.STARTED);
+      cardService.createFullDeckForGame(game.getGameID());
       return game;
     }
     else{

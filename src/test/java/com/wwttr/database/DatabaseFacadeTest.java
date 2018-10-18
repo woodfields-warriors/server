@@ -13,7 +13,8 @@ public class DatabaseFacadeTest {
     @Test
     public void makeUser() {
         try{
-            User response = df.makeUser("username", "password");
+            User testUser = new User("username", "password", "id");
+            User response = df.makeUser(testUser);
             assertNotNull(response.getUserID());
         }
         catch (Exception e){
@@ -45,4 +46,20 @@ public class DatabaseFacadeTest {
             System.out.println(e.getMessage());
         }
     }
+
+  @Test
+  public void getDestinationCard() {
+  }
+
+  @Test
+  public void listDestinationCards() {
+  }
+
+  @Test
+  public void updateDestinationCard() {
+  }
+
+  @Test
+  public void addDestinationCardDeck() {
+  }
 }

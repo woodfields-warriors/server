@@ -6,7 +6,6 @@ import java.util.*;
 import com.wwttr.api.NotFoundException;
 import com.wwttr.models.*;
 
-import javafx.scene.layout.Priority;
 
 
 public class DatabaseFacade {
@@ -15,8 +14,7 @@ public class DatabaseFacade {
     private ArrayList<Player> players = new ArrayList<Player>();
     private Random rn = new Random();
     static private DatabaseFacade instance;
-    private Map<String,PriorityQueue<DestinationCard>> destinationCards = new HashMap<String, PriorityQueue<DestinationCard>>();
-
+    private ArrayList<DestinationCard> destinationCards = new ArrayList<>();
     private DatabaseFacade(){
 
     }
@@ -41,17 +39,13 @@ public class DatabaseFacade {
         return null;
     }
 
-    public User makeUser(String username, String password){
-        if(getUser(username) != null){
+    public User makeUser(User user){
+        if(getUser(user.getUsername()) != null){
             throw new IllegalArgumentException("User already exists");
         }
         else{
-            Integer tempID = rn.nextInt();
-            while(getUserByID("usr" + tempID.toString()) != null)
-                tempID = rn.nextInt();
-            User temp = new User(username, password, "usr" + tempID.toString());
-            Users.add(temp);
-            return temp;
+            Users.add(user);
+            return user;
         }
     }
 
@@ -113,7 +107,7 @@ public class DatabaseFacade {
 
     public void updateGame(Game game, String gameID){
       for(int i = 0; i < Games.size(); i++){
-        if(Games.get(i).getGameID() == game.getGameID()){
+        if(Games.get(i).getGameID().equals(game.getGameID())){
           Games.add(i,game);
         }
       }
@@ -121,7 +115,7 @@ public class DatabaseFacade {
 
     public void deleteGame(String gameID){
         for (int i = 0; i < Games.size(); i++){
-            if(Games.get(i).getGameID() == gameID){
+            if(Games.get(i).getGameID().equals(gameID)){
               //  List<Integer> players = Games.get(i).getPlayerUserIDs();
               //  String gameName = Games.get(i).getDisplayName();
               //  DeleteResponse toReturn = new DeleteResponse(gameName,players);
@@ -153,16 +147,40 @@ public class DatabaseFacade {
   }
   public List<DestinationCard> listDestinationCards(int limit, String gameId){
       List<DestinationCard> listToReturn = new ArrayList<DestinationCard>();
-      for(int i = 0; i < limit; ){
-        for(DestinationCard card : destinationCards){
-          if(card.getGameId().equals(gameId)){
-            listToReturn.add(destinationCards.remove(2));
-            destinationCards.add(listToReturn.get(i));
-          }
-        }
+      ArrayList<DestinationCard> cards = getCardsByGameId(gameId);
+      for(int i = 0; i < limit;i++ ){
+            listToReturn.add(cards.get(i));
+            for(DestinationCard card : destinationCards){
+              if(card.getId().equals(listToReturn.get(i))){
+                destinationCards.remove(card);
+                destinationCards.add(card);
+              }
+            }
       }
       return listToReturn;
   }
-  public void updateDestinationCard(String destinationCardId, String playerId){}
+  public void updateDestinationCard(DestinationCard card)throws NotFoundException{
+      DestinationCard retrievedCard = getDestinationCard(card.getId());
+      if(retrievedCard == null){
+        throw new NotFoundException("id invalid, card not found");
+      }
+      else{
+        retrievedCard = card;
+      }
+  }
+
+  private ArrayList<DestinationCard> getCardsByGameId(String gameId){
+      ArrayList<DestinationCard> toReturn = new ArrayList<>();
+      for(DestinationCard card : destinationCards){
+        if(card.getGameId().equals(gameId))
+          toReturn.add(card);
+      }
+      return toReturn;
+  }
+
+  public void addDestinationCardDeck(List<DestinationCard> cards){
+    Collections.shuffle(cards);
+    destinationCards.addAll(cards);
+  }
 
 }

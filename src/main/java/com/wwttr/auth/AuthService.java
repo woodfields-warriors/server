@@ -6,9 +6,12 @@ import com.wwttr.database.DatabaseFacade;
 import com.wwttr.models.LoginResponse;
 import com.wwttr.models.User;
 
+import java.util.Random;
+
 public class AuthService {
   private DatabaseFacade df;
   private static AuthService instance;
+  private Random rn = new Random();
 
   public LoginResponse login(String username, String password) throws Exception{
     User returnedUser = df.getUser(username);
@@ -23,7 +26,11 @@ public class AuthService {
 
   public LoginResponse register(String username, String password) {
       try{
-          User returnedUser = df.makeUser(username,password);
+          String newId = "usr" + rn.nextInt();
+          while (df.getUserByID(newId) != null)
+            newId = "usr" + rn.nextInt();
+          User newUser = new User(username, password, newId);
+          User returnedUser = df.makeUser(newUser);
           return new LoginResponse(returnedUser.getUserID());
       }
       catch (Exception e){

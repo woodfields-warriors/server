@@ -128,6 +128,7 @@ java_library(
   deps = [
     "@com_google_protobuf//:protobuf_java",
     ":models",
+    ":api_lib"
   ],
 )
 
@@ -174,6 +175,7 @@ java_library(
     ":api_lib",
     "auth_service",
     ":api_model",
+    ":card_service",
   ],
 )
 
@@ -246,7 +248,8 @@ java_library(
   deps = [
     ":card_api",
     ":models",
-    ":api_model"
+    ":api_model",
+    ":database"
   ],
 )
 
