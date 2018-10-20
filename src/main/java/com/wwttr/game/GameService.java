@@ -33,7 +33,7 @@ public class GameService {
     return gameServiceInstance;
   }
 
-  public GameService(){
+  private GameService(){
     database = DatabaseFacade.getInstance();
     rn = new Random();
   }

@@ -12,6 +12,7 @@ public class DatabaseFacade {
     private ArrayList<User> Users = new ArrayList<>();
     private ArrayList<Game> Games = new ArrayList<>();
     private ArrayList<Player> players = new ArrayList<Player>();
+    private ArrayList<Message> messages = new ArrayList<>();
     private Random rn = new Random();
     static private DatabaseFacade instance;
     private ArrayList<DestinationCard> destinationCards = new ArrayList<>();
@@ -181,6 +182,23 @@ public class DatabaseFacade {
   public void addDestinationCardDeck(List<DestinationCard> cards){
     Collections.shuffle(cards);
     destinationCards.addAll(cards);
+  }
+
+
+  //***********************************************************************************//
+  //-------------------------------Chat Service Methods------------------------------------
+
+  public void addMessage(Message message){
+    messages.add(message);
+  }
+
+  public Message getMessagebyId(String messageId){
+    for (Message message : messages){
+      if(message.getMessageId().equals(messageId)){
+        return message;
+      }
+    }
+    return null;
   }
 
 }

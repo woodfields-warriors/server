@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+package chat;
+
+option java_package = "com.wwttr.chat";
+option java_outer_classname = "Api";
+option java_generic_services = true;
+
+
+service ChatService{
+  rpc createMessage (CreateMessageRequest) returns (Message);
+  rpc getMessage (GetMessageRequest) returns (Message);
+  // Think this needs to be changed.  Need to ask Landon.
+  rpc streamMessages (StreamMessagesRequest) returns (Empty);
+
+}
+
+message Message{
+  // The unique identifier of the message.
+  // Server assigned.
+  string message_id = 1;
+
+  //The contents of the message.  What different players see
+  string content = 2;
+
+  //The Id of the player who sent the message
+  string player_id = 3;
+
+  //Server assigned.  The time the the message was sent
+  int32 timestamp = 4;
+
+}
+
+
+// --------------Request--------------//
+
+message CreateMessageRequest {
+  string content = 1;
+  string player_id = 2;
+}
+
+message GetMessageRequest {
+  string message_id = 1;
+}
+
+message StreamMessagesRequest {
+  string game_id = 1;
+}
+
+
+
+message Empty {}

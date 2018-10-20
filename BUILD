@@ -16,7 +16,8 @@ java_binary(
     ":health_api",
     ":card_api",
     ":card_service",
-    "@com_google_protobuf//:protobuf_java",
+    ":chat_api",
+    ":chat_service",
     ],
   main_class = "com.wwttr.main.Main",
 )
@@ -184,7 +185,8 @@ java_library(
   srcs = glob(["src/main/java/com/wwttr/models/*.java"]),
   deps = [
         ":api_model",
-        ":card_api"
+        ":card_api",
+        ":chat_api",
   ],
 )
 
@@ -259,5 +261,40 @@ java_test(
   srcs = glob(["src/test/java/com/wwttr/card/*.java"]),
   deps = [
     "card_service"
+  ]
+)
+
+### Chat Service ###
+
+java_proto_library(
+  name = "chat_api",
+  deps = [":chat_proto"
+          ],
+)
+
+proto_library(
+  name = "chat_proto",
+  srcs = ["src/main/proto/chat.proto"],
+)
+
+java_library(
+  name = "chat_service",
+  srcs = glob(["src/main/java/com/wwttr/chat/*.java"]),
+  deps = [
+    ":chat_api",
+    ":models",
+    ":api_model",
+    ":database",
+    ":api_lib",
+    "@com_google_protobuf//:protobuf_java",
+  ],
+)
+
+java_test(
+  name = "chat",
+  test_class = "com.wwttr.chat.ChatServiceTest",
+  srcs = glob(["src/test/java/com/wwttr/chat/*.java"]),
+  deps = [
+    "chat_service"
   ]
 )
