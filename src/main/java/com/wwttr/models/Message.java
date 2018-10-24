@@ -8,10 +8,11 @@ public class Message {
   private int timestamp;
 
   public Message(String messageId, String messageContent, String playerId,
-   int timestamp){
+   String gameId, int timestamp){
     this.id = messageId;
     this.content = messageContent;
     this.playerId = playerId;
+    this.gameId = gameId;
     this.timestamp = timestamp;
   }
 

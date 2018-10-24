@@ -5,6 +5,7 @@ import com.google.protobuf.RpcCallback;
 import com.wwttr.models.Message;
 import com.wwttr.api.ApiError;
 import com.wwttr.api.Code;
+import java.util.stream.*;
 
 public class ChatHandlers extends Api.ChatService{
   private ChatService service;
@@ -36,13 +37,10 @@ public class ChatHandlers extends Api.ChatService{
   }
 
   public void streamMessages(RpcController controller, Api.StreamMessagesRequest request, RpcCallback<Api.Message> callback){
-    //List<Message> allMessagesInGame = service.getAllMessagesInGame(request.getGameId());
-    //TODO streaming
-
-    service.streamMessage().forEach((Message m) -> {
-      Api.Message.Builder builder = Api.Message.createBuilder();
-      builder.setId(m.Id);
-      callback(builder.build());
+      Stream<Message> messages = service.streamMessages(request.getGameId());
+      messages.forEach((Message m) -> {
+      Api.Message.Builder builder = m.createBuilder();
+      callback.run(builder.build());
     });
   }
 

@@ -10,8 +10,7 @@ option java_generic_services = true;
 service ChatService{
   rpc createMessage (CreateMessageRequest) returns (Message);
   rpc getMessage (GetMessageRequest) returns (Message);
-  // Think this needs to be changed.  Need to ask Landon.
-  rpc streamMessages (StreamMessagesRequest) returns (Empty);
+  rpc streamMessages (StreamMessagesRequest) returns (stream Message);
 
 }
 

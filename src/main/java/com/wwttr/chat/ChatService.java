@@ -1,8 +1,10 @@
 package com.wwttr.chat;
 
 import com.wwttr.models.Message;
+import com.wwttr.models.Player;
 import java.util.Random;
 import com.wwttr.database.DatabaseFacade;
+import java.util.stream.*;
 
 //singleton object
 public class ChatService{
@@ -28,8 +30,9 @@ public class ChatService{
 
   public Message createMessage(String content, String playerId) {
     int unixTime = (int) (System.currentTimeMillis() / 1000L);
+    Player player = database.getPlayer(playerId);
     Message message = new Message("msg" + Integer.toString(rn.nextInt() & Integer.MAX_VALUE),
-                                  content,playerId,unixTime);
+                                  content,playerId,player.getGameId(),unixTime);
     database.addMessage(message);
     return message;
   }
@@ -39,7 +42,7 @@ public class ChatService{
     return message;
   }
 
-  public Stream<Message> streamMessages() {
-    return Stream<Message> database.streamMessages();
+  public Stream<Message> streamMessages(String gameId) {
+    return database.streamMessages(gameId);
   }
 }
