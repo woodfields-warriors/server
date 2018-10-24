@@ -10,7 +10,7 @@ import com.wwttr.auth.AuthService;
 import com.wwttr.api.Code;
 import com.google.protobuf.RpcCallback;
 import com.wwttr.game.GameFullException;
-import com.wwttr.game.NotFoundException;
+import com.wwttr.api.NotFoundException;
 
 public class GameHandlers extends Api.GameService {
 
@@ -114,16 +114,21 @@ public class GameHandlers extends Api.GameService {
 
 
   public void startGame(RpcController controller, Api.StartGameRequest request, RpcCallback<Api.Game> callback){
-    Game game = service.startGame(request.getGameId());
-    Api.Game.Builder gameBuilder = Api.Game.newBuilder();
-    gameBuilder.setGameId(game.getGameID());
-    gameBuilder.setDisplayName(game.getDisplayName());
-    gameBuilder.setMaxPlayers(game.getMaxPlayers());
-    gameBuilder.setHostPlayerId(game.getHostPlayerID());
-    for(String i: game.getPlayerIDs()){
-      gameBuilder.addPlayerIds(i);
+    try {
+      Game game = service.startGame(request.getGameId());
+      Api.Game.Builder gameBuilder = Api.Game.newBuilder();
+      gameBuilder.setGameId(game.getGameID());
+      gameBuilder.setDisplayName(game.getDisplayName());
+      gameBuilder.setMaxPlayers(game.getMaxPlayers());
+      gameBuilder.setHostPlayerId(game.getHostPlayerID());
+      for(String i: game.getPlayerIDs()){
+        gameBuilder.addPlayerIds(i);
+      }
+      callback.run(gameBuilder.build());
     }
-    callback.run(gameBuilder.build());
+    catch (NotFoundException e) {
+      throw new ApiError(Code.NOT_FOUND, "");
+    }
   }
 
   public void deleteGame(RpcController controller, Api.DeleteGameRequest request, RpcCallback<Api.Empty> callback) {

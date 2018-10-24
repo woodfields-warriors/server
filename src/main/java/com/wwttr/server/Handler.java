@@ -86,12 +86,12 @@ class Handler implements HttpHandler {
           throw new Error("handler for " + service.getDescriptorForType().getName() + "." + method.getName() + " returned null");
         }
 
-        try {
-          Response.Builder responseWrapper = Response.newBuilder();
-          responseWrapper.setCode(Code.OK);
-          responseWrapper.setPayload(response.toByteString());
+        Response.Builder responseWrapper = Response.newBuilder();
+        responseWrapper.setCode(Code.OK);
+        responseWrapper.setPayload(response.toByteString());
 
-          UnaryResponder responder = new UnaryResponder(exchange);
+        UnaryResponder responder = new UnaryResponder(exchange);
+        try {
           responder.respond(responseWrapper.build());
         }
         catch (IOException e) {
@@ -110,7 +110,12 @@ class Handler implements HttpHandler {
       response.setMessage(e.getMessage());
 
       UnaryResponder responder = new UnaryResponder(exchange);
-      responder.respond(response.build());
+      try {
+        responder.respond(response.build());
+      }
+      catch (IOException ioE) {
+        ioE.printStackTrace();
+      }
       return;
     }
     catch (Throwable t) {
@@ -126,7 +131,12 @@ class Handler implements HttpHandler {
       response.setMessage("");
 
       UnaryResponder responder = new UnaryResponder(exchange);
-      responder.respond(response.build());
+      try {
+        responder.respond(response.build());
+      }
+      catch (IOException e) {
+        e.printStackTrace();
+      }
       return;
     }
   }
@@ -144,14 +154,14 @@ class UnaryResponder {
     headers.set("Content-Type", "application/proto");
   }
 
-  public void respond(Response response) {
+  public void respond(Response response) throws IOException {
     ByteString responseData = response.toByteString();
     int status = UnaryResponder.codeToHTTPStatus(response.getCode());
     exchange.sendResponseHeaders(status, responseData.size());
     responseData.writeTo(out);
   }
 
-  public void end() {
+  public void end() throws IOException {
     out.close();
   }
 
@@ -178,14 +188,14 @@ class StreamResponder {
   private OutputStream out;
   private HttpExchange exchange;
 
-  public StreamResponder(HttpExchange exchange) {
+  public StreamResponder(HttpExchange exchange) throws IOException {
     this.exchange = exchange;
     Headers headers = exchange.getResponseHeaders();
     headers.set("Content-Type", "application/proto");
     exchange.sendResponseHeaders(200, 0);
   }
 
-  public void respond(Response response) {
+  public void respond(Response response) throws IOException {
     ByteString responseData = response.toByteString();
 
     ByteBuffer buf = ByteBuffer.allocate(4);
@@ -195,7 +205,7 @@ class StreamResponder {
     responseData.writeTo(out);
   }
 
-  public void end() {
+  public void end() throws IOException {
     out.close();
   }
 }

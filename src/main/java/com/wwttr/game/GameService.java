@@ -9,6 +9,7 @@ import com.wwttr.models.CreateResponse;
 import com.wwttr.models.Game;
 import com.wwttr.models.Player;
 import com.wwttr.models.DeleteResponse;
+import com.wwttr.api.NotFoundException;
 //import com.wwttr.player.Api.Player;
 import com.wwttr.api.Code;
 
@@ -83,7 +84,7 @@ public class GameService {
 
 
 
-  public Game startGame(String gameID) throws com.wwttr.api.NotFoundException {
+  public Game startGame(String gameID) throws NotFoundException {
     Game game = database.getGame(gameID);
     if(game.getPlayerIDs().size() > 1) {
       game.changeGameStatus(Game.Status.STARTED);

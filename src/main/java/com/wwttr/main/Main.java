@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public class Main {
   public static void main(String[] args) {
-    GameService gameService = new GameService();
+    GameService gameService = GameService.getInstance();
     AuthService authService = AuthService.getInstance();
 
     GameHandlers gameHandlers = new GameHandlers(gameService, authService);

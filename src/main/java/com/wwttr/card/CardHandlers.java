@@ -9,9 +9,6 @@ import com.wwttr.models.DestinationCard;
 
 import java.util.List;
 
-import sun.net.httpserver.Code;
-
-
 public class CardHandlers extends Api.CardService {
 
   private CardService service;
@@ -33,7 +30,7 @@ public class CardHandlers extends Api.CardService {
     }
     catch (Exception e){
       e.printStackTrace();
-      throw new ApiError(Code.INTERNAL_ERROR,"");
+      throw new ApiError(Code.INTERNAL,"");
     }
   }
 
@@ -54,23 +51,23 @@ public class CardHandlers extends Api.CardService {
     }
     catch (Exception e){
       e.printStackTrace();
-      throw new ApiError(Code.INTERNAL_ERROR,"");
+      throw new ApiError(Code.INTERNAL,"");
     }
   }
   public void claimDestinationCards (RpcController controller, Api.ClaimDestinationCardsRequest request, RpcCallback<Api.Empty> callback){
     try{
-      if(request.getDestinationCardIds() = "")
+      if(request.getDestinationCardIdsCount() == 0)
         throw new ApiError(Code.INVALID_ARGUMENT, "argument 'destination_card_ids' is required");
-      if(request.getPlayerId() = "")
+      if(request.getPlayerId().equals(""))
         throw new ApiError(Code.INVALID_ARGUMENT, "argument 'player_id' is required");
-      service.claimDesinationCards(request.getDestinationCardIds(),request.getPlayerId());
+      service.claimDesinationCards(request.getDestinationCardIdsList(),request.getPlayerId());
     }
     catch (NotFoundException e) {
       throw new ApiError(Code.NOT_FOUND, e.getMessage());
     }
     catch (Exception e){
       e.printStackTrace();
-      throw new ApiError(Code.INTERNAL_ERROR,"");
+      throw new ApiError(Code.INTERNAL,"");
     }
   }
 }

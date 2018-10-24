@@ -177,6 +177,8 @@ java_library(
     "auth_service",
     ":api_model",
     ":card_service",
+    ":chat_api",
+    ":card_api"
   ],
 )
 
@@ -251,7 +253,9 @@ java_library(
     ":card_api",
     ":models",
     ":api_model",
-    ":database_lib"
+    ":api_lib",
+    ":database_lib",
+    "@com_google_protobuf//:protobuf_java"
   ],
 )
 
