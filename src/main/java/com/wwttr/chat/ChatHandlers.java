@@ -6,8 +6,6 @@ import com.wwttr.models.Message;
 import com.wwttr.api.ApiError;
 import com.wwttr.api.Code;
 
-
-
 public class ChatHandlers extends Api.ChatService{
   private ChatService service;
 
@@ -37,9 +35,15 @@ public class ChatHandlers extends Api.ChatService{
     callback.run(builder.build());
   }
 
-  public void streamMessages(RpcController controller, Api.StreamMessagesRequest request, RpcCallback<Api.Empty> callback){
+  public void streamMessages(RpcController controller, Api.StreamMessagesRequest request, RpcCallback<Api.Message> callback){
     //List<Message> allMessagesInGame = service.getAllMessagesInGame(request.getGameId());
     //TODO streaming
+
+    service.streamMessage().forEach((Message m) -> {
+      Api.Message.Builder builder = Api.Message.createBuilder();
+      builder.setId(m.Id);
+      callback(builder.build());
+    });
   }
 
 

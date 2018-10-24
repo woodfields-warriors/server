@@ -5,7 +5,7 @@ import java.util.*;
 
 import com.wwttr.api.NotFoundException;
 import com.wwttr.models.*;
-
+import java.util.stream.Stream;
 
 
 public class DatabaseFacade {
@@ -13,6 +13,7 @@ public class DatabaseFacade {
     private ArrayList<Game> Games = new ArrayList<>();
     private ArrayList<Player> players = new ArrayList<Player>();
     private ArrayList<Message> messages = new ArrayList<>();
+    private CommandQueue<Message> messageQueue = new CommandQueue<Message>();
     private Random rn = new Random();
     static private DatabaseFacade instance;
     private ArrayList<DestinationCard> destinationCards = new ArrayList<>();
@@ -190,6 +191,7 @@ public class DatabaseFacade {
 
   public void addMessage(Message message){
     messages.add(message);
+    messageQueue.publish(message);
   }
 
   public Message getMessagebyId(String messageId){
@@ -201,4 +203,10 @@ public class DatabaseFacade {
     return null;
   }
 
+  public Stream<Message> streamMessages(String gameId) {
+
+    return messageQueue
+      .subscribe()
+      .filter((Message m) -> m.getGameId().equals(gameId));
+  }
 }

@@ -103,7 +103,7 @@ java_library(
     ":auth_api",
     "@com_google_protobuf//:protobuf_java",
     ":models",
-    ":database",
+    ":database_lib",
     ":api_lib",
     ":api_model",
   ],
@@ -117,14 +117,14 @@ java_test(
     ":auth_service",
     ":auth_api",
     ":models",
-    ":database",
+    ":database_lib",
   ]
 )
 
 ### Database ###
 
 java_library(
-  name = "database",
+  name = "database_lib",
   srcs = glob(["src/main/java/com/wwttr/database/*.java"]),
   deps = [
     "@com_google_protobuf//:protobuf_java",
@@ -134,11 +134,11 @@ java_library(
 )
 
 java_test(
-  name = "database_test",
-  test_class = "com.wwttr.database.DatabaseFacadeTest",
+  name = "database",
+  test_class = "com.wwttr.database.DatabaseTest",
   srcs = glob(["src/test/java/com/wwttr/database/*.java"]),
   deps = [
-    ":database",
+    ":database_lib",
     ":models"
   ]
 )
@@ -251,7 +251,7 @@ java_library(
     ":card_api",
     ":models",
     ":api_model",
-    ":database"
+    ":database_lib"
   ],
 )
 
@@ -284,7 +284,7 @@ java_library(
     ":chat_api",
     ":models",
     ":api_model",
-    ":database",
+    ":database_lib",
     ":api_lib",
     "@com_google_protobuf//:protobuf_java",
   ],

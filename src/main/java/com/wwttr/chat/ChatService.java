@@ -38,4 +38,8 @@ public class ChatService{
     Message message = database.getMessagebyId(messageId);
     return message;
   }
+
+  public Stream<Message> streamMessages() {
+    return Stream<Message> database.streamMessages();
+  }
 }
