@@ -35,7 +35,11 @@ public class CardService {
     return instance;
   }
 
-  void generateDeckTemplate(String[] firstCities, String[] secondCities, Integer[] points){
+  void setDefaultTemplate(){
+    generateDeckTemplate(FIRST_CITIES,SECOND_CITIES,POINTS);
+  }
+
+  public void generateDeckTemplate(String[] firstCities, String[] secondCities, Integer[] points){
     if(firstCities.length != secondCities.length || secondCities.length != points.length)
       throw new IllegalArgumentException("lengths of Deck arrays do not match");
     fullDeckTemplate.clear();
@@ -47,13 +51,18 @@ public class CardService {
 
   public void createFullDeckForGame(String gameId) throws NotFoundException{
     if(df.getGame(gameId) == null){
-      throw new NotFoundException("game with id " + gameId + "not found");
+      throw new NotFoundException("game with id " + gameId + " not found");
     }
     List<DestinationCard> cardList = new ArrayList<>();
     for(Triplet<String,String,Integer> tempTriplet : fullDeckTemplate){
       String newId = "destCard" + rn.nextInt();
-      while(df.getDestinationCard(newId) != null){
-        newId = "destCard" + rn.nextInt();
+      try {
+        while (df.getDestinationCard(newId) != null) {
+          newId = "destCard" + rn.nextInt();
+        }
+      }
+      catch (NotFoundException e){
+
       }
       DestinationCard tempCard = new DestinationCard(newId, tempTriplet.getFirst(),tempTriplet.getSecond(),tempTriplet.getThird(),"",gameId);
       cardList.add(tempCard);
@@ -77,14 +86,23 @@ public class CardService {
       throw new NotFoundException("player with id" + playerId + " not found");
     for(String id : destinationCardIds){
       DestinationCard card = df.getDestinationCard(id);
-      if(card.getPlayerId() != ""){
+      if(!card.getPlayerId().equals("")){
         card.setPlayerId(playerId);
         df.updateDestinationCard(card);
       }
       else{
+        System.out.println(" playeriD = '" +card.getPlayerId() + "'");
         throw new ApiError(Code.INVALID_ARGUMENT,"card with id " + id + " has already been claimed");
       }
     }
+  }
+
+  ArrayList<Triplet<String, String, Integer>> getFullDeckTemplate() {
+    return fullDeckTemplate;
+  }
+
+  void setFullDeckTemplate(ArrayList<Triplet<String, String, Integer>> fullDeckTemplate) {
+    this.fullDeckTemplate = fullDeckTemplate;
   }
 }
 
