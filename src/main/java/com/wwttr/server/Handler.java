@@ -176,6 +176,9 @@ class Handler implements HttpHandler {
   static RpcCallback<Message> streamHandler(Controller controller) throws IOException {
     StreamResponder responder = new StreamResponder(controller.getExchange());
     return (Message response) -> {
+      if (!responder.isOpen()) {
+        return;
+      }
       if (controller.isCanceled() || response == null) {
         try {
           responder.close();
@@ -195,6 +198,7 @@ class Handler implements HttpHandler {
       }
       catch (IOException e) {
         e.printStackTrace();
+        controller.startCancel();
       }
     };
   }
@@ -243,11 +247,17 @@ class UnaryResponder {
 class StreamResponder {
 
   private HttpExchange exchange;
+  private boolean open;
 
   public StreamResponder(HttpExchange exchange) throws IOException {
     this.exchange = exchange;
     exchange.getResponseHeaders().set("Content-Type", "application/proto");
     exchange.sendResponseHeaders(200, 0);
+    open = true;
+  }
+
+  public boolean isOpen() {
+    return open;
   }
 
   public void respond(Response response) throws IOException {
@@ -265,6 +275,7 @@ class StreamResponder {
   }
 
   public void close() throws IOException {
+    open = false;
     exchange.getResponseBody().close();
   }
 }
