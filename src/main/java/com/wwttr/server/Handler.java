@@ -36,6 +36,11 @@ class Handler implements HttpHandler {
   @Override
   public void handle(HttpExchange exchange) throws IOException {
 
+    System.out.println(exchange.getRequestURI().getRawPath() + " " + exchange.getRequestMethod());
+    for (String key : exchange.getRequestHeaders().keySet()) {
+      System.out.println(key + ": " + exchange.getRequestHeaders().get(key));
+    }
+
     Message request;
     MethodDescriptor method;
     Service service;
@@ -124,7 +129,8 @@ class Handler implements HttpHandler {
       }
       controller.startCancel();
       // Error with method execution
-      System.out.println(service.getDescriptorForType().getName() + "." + method.getName() + ": " + t.toString());
+      System.out.println(service.getDescriptorForType().getName() + "." + method.getName() + ":");
+      t.printStackTrace();
 
       Response.Builder response = Response.newBuilder();
       response.setCode(Code.INTERNAL);
@@ -149,9 +155,9 @@ class UnaryResponder {
   private boolean headerSent;
 
   public UnaryResponder(HttpExchange exchange) {
-    this.out = exchange.getResponseBody();
-    Headers headers = exchange.getResponseHeaders();
-    headers.set("Content-Type", "application/proto");
+    this.exchange = exchange;
+    out = exchange.getResponseBody();
+    exchange.getResponseHeaders().set("Content-Type", "application/proto");
   }
 
   public void respond(Response response) throws IOException {
