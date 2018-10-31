@@ -53,7 +53,7 @@ class Handler implements HttpHandler {
       if (service == null) {
         Response.Builder response = Response.newBuilder();
         response.setCode(Code.NOT_FOUND);
-
+        System.out.println("service " + requestWrapper.getService() + " not found.");
         UnaryResponder responder = new UnaryResponder(exchange);
         responder.respond(response.build());
         return;
@@ -64,6 +64,7 @@ class Handler implements HttpHandler {
       if (method == null) {
         Response.Builder response = Response.newBuilder();
         response.setCode(Code.NOT_FOUND);
+        System.out.println("method " + requestWrapper.getMethod() + " not found.");
 
         UnaryResponder responder = new UnaryResponder(exchange);
         responder.respond(response.build());
