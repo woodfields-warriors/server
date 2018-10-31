@@ -139,7 +139,8 @@ java_test(
   srcs = glob(["src/test/java/com/wwttr/database/*.java"]),
   deps = [
     ":database_lib",
-    ":models"
+    ":models",
+    ":api_lib"
   ]
 )
 #
@@ -264,7 +265,12 @@ java_test(
   test_class = "com.wwttr.card.CardServiceTest",
   srcs = glob(["src/test/java/com/wwttr/card/*.java"]),
   deps = [
-    "card_service"
+    "card_service",
+    ":api_lib",
+    ":database_lib",
+    ":models",
+    ":game_service",
+    ":game_api"
   ]
 )
 

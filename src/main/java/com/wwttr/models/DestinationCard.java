@@ -74,4 +74,12 @@ public class DestinationCard {
     builder.setPlayerId(playerId);
     return builder;
   }
+
+  public void update(DestinationCard newCard){
+    firstCityId = newCard.getFirstCityId();
+    secondCityId = newCard.getSecondCityId();
+    pointValue = newCard.getPointValue();
+    playerId = newCard.getPlayerId();
+    gameId = newCard.getGameId();
+  }
 }

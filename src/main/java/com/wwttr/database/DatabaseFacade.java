@@ -176,18 +176,28 @@ public class DatabaseFacade {
       throw new NotFoundException("card with id " + destinationCardId + " not found");
     }
   }
-  public List<DestinationCard> listDestinationCards(int limit, String gameId){
+  public List<DestinationCard> listDestinationCards(int limit, String gameId) throws NotFoundException{
     synchronized (this) {
       List<DestinationCard> listToReturn = new ArrayList<DestinationCard>();
       ArrayList<DestinationCard> cards = getCardsByGameId(gameId);
-      for(int i = 0; i < limit;i++ ){
-            listToReturn.add(cards.get(i));
-            for(DestinationCard card : destinationCards){
-              if(card.getId().equals(listToReturn.get(i))){
-                destinationCards.remove(card);
-                destinationCards.add(card);
+
+      for(int i = 0 ; i < limit;i++ ){
+        int j = 0;
+        while(!cards.get(j).getPlayerId().equals("")){
+          j++;
+          if(j >= cards.size()){
+            for(DestinationCard card : cards){
+              if(card.getPlayerId().equals("sent")) {
+                card.setPlayerId("");
+                updateDestinationCard(card);
               }
             }
+          }
+        }
+        DestinationCard tempCard = cards.get(j);
+        listToReturn.add(cards.get(j));
+        tempCard.setPlayerId("sent");
+        updateDestinationCard(tempCard);
       }
       return listToReturn;
     }
@@ -199,7 +209,7 @@ public class DatabaseFacade {
         throw new NotFoundException("id invalid, card not found");
       }
       else{
-        retrievedCard = card;
+        retrievedCard.update(card);
       }
     }
   }
@@ -220,6 +230,14 @@ public class DatabaseFacade {
       Collections.shuffle(cards);
       destinationCards.addAll(cards);
     }
+  }
+
+  public void clearCards(){
+      destinationCards = new ArrayList<>();
+  }
+
+  public ArrayList<DestinationCard> getDestinationCards(){
+      return  destinationCards;
   }
 
 
