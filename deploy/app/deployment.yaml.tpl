@@ -1,7 +1,9 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: server
+  labels:
+    app: ticket-to-ride
 spec:
   selector:
     matchLabels:
@@ -10,7 +12,7 @@ spec:
     metadata:
       labels:
         app: ticket-to-ride
-  spec:
-    containers:
-    - image: gcr.io/ticket-to-ride-216915/server:$REVISION_ID
-      name: server
+    spec:
+      containers:
+      - name: server
+        image: gcr.io/ticket-to-ride-216915/server:$REVISION_ID
