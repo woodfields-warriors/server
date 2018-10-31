@@ -10,6 +10,7 @@ import com.google.protobuf.RpcController;
 import com.google.protobuf.Descriptors.MethodDescriptor;
 import com.google.protobuf.Message;
 import com.google.protobuf.ByteString;
+import com.google.protobuf.RpcCallback;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -60,6 +61,14 @@ class Handler implements HttpHandler {
       method = service
         .getDescriptorForType()
         .findMethodByName(requestWrapper.getMethod());
+      if (method == null) {
+        Response.Builder response = Response.newBuilder();
+        response.setCode(Code.NOT_FOUND);
+
+        UnaryResponder responder = new UnaryResponder(exchange);
+        responder.respond(response.build());
+        return;
+      }
       request = service
         .getRequestPrototype(method)
         .newBuilderForType()
@@ -68,6 +77,7 @@ class Handler implements HttpHandler {
     }
     catch (Exception e) {
       // Error with request deserialization
+      e.printStackTrace();
       Response.Builder response = Response.newBuilder();
       response.setCode(Code.INVALID_ARGUMENT);
       response.setMessage("error parsing request");
@@ -80,29 +90,21 @@ class Handler implements HttpHandler {
 
     Controller controller = new Controller(exchange);
 
+    RpcCallback<Message> callback;
+    if (!method.toProto().getServerStreaming()) {
+      callback = Handler.unaryHandler(controller);
+    } else {
+      try {
+        callback = Handler.streamHandler(controller);
+      }
+      catch (IOException e) {
+        e.printStackTrace();
+        return;
+      }
+    }
+
     try {
-      service.callMethod(method, controller, request, (Message response) -> {
-        if (controller.isCanceled()) {
-          return;
-        }
-
-        if (response == null) {
-          // Oops!
-          throw new Error("handler for " + service.getDescriptorForType().getName() + "." + method.getName() + " returned null");
-        }
-
-        Response.Builder responseWrapper = Response.newBuilder();
-        responseWrapper.setCode(Code.OK);
-        responseWrapper.setPayload(response.toByteString());
-
-        UnaryResponder responder = new UnaryResponder(exchange);
-        try {
-          responder.respond(responseWrapper.build());
-        }
-        catch (IOException e) {
-          e.printStackTrace();
-        }
-      });
+      service.callMethod(method, controller, request, callback);
     }
     catch (ApiError e) {
       if (controller.isCanceled()) {
@@ -146,6 +148,56 @@ class Handler implements HttpHandler {
       return;
     }
   }
+
+  static RpcCallback<Message> unaryHandler(Controller controller) {
+    return (Message response) -> {
+      if (controller.isCanceled()) {
+        return;
+      }
+
+      if (response == null) {
+        throw new Error("server cannot respond with null");
+      }
+
+      Response.Builder responseWrapper = Response.newBuilder();
+      responseWrapper.setCode(Code.OK);
+      responseWrapper.setPayload(response.toByteString());
+
+      UnaryResponder responder = new UnaryResponder(controller.getExchange());
+      try {
+        responder.respond(responseWrapper.build());
+      }
+      catch (IOException e) {
+        e.printStackTrace();
+      }
+    };
+  }
+
+  static RpcCallback<Message> streamHandler(Controller controller) throws IOException {
+    StreamResponder responder = new StreamResponder(controller.getExchange());
+    return (Message response) -> {
+      if (controller.isCanceled() || response == null) {
+        try {
+          responder.close();
+        }
+        catch (IOException e) {
+          e.printStackTrace();
+        }
+        return;
+      }
+
+      Response.Builder responseWrapper = Response.newBuilder();
+      responseWrapper.setCode(Code.OK);
+      responseWrapper.setPayload(response.toByteString());
+
+      try {
+        responder.respond(responseWrapper.build());
+      }
+      catch (IOException e) {
+        e.printStackTrace();
+      }
+    };
+  }
 }
 
 class UnaryResponder {
@@ -158,7 +210,7 @@ class UnaryResponder {
   }
 
   public void respond(Response response) throws IOException {
-    
+
     exchange.getResponseHeaders().set("Content-Type", "application/proto");
 
     ByteString responseData = response.toByteString();
@@ -190,7 +242,6 @@ class UnaryResponder {
 
 class StreamResponder {
 
-  private OutputStream out;
   private HttpExchange exchange;
 
   public StreamResponder(HttpExchange exchange) throws IOException {
@@ -205,11 +256,15 @@ class StreamResponder {
     ByteBuffer buf = ByteBuffer.allocate(4);
     buf.order(ByteOrder.LITTLE_ENDIAN);
     buf.putInt(responseData.size());
+    System.out.println("sending length: " + buf.getInt(0));
+
+    OutputStream out = exchange.getResponseBody();
     out.write(buf.array());
     responseData.writeTo(out);
+    out.flush();
   }
 
-  public void end() throws IOException {
-    out.close();
+  public void close() throws IOException {
+    exchange.getResponseBody().close();
   }
 }
