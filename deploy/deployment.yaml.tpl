@@ -12,5 +12,5 @@ spec:
         app: ticket-to-ride
     spec:
       containers:
-      - image: gcr.io/ticket-to-ride-216915/server:dummy
+      - image: gcr.io/ticket-to-ride-216915/server:$REVISION_ID
         name: server

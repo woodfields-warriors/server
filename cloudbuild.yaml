@@ -6,6 +6,7 @@ steps:
     - --define=REVISION_ID=$REVISION_ID
     - --remote_http_cache=https://storage.googleapis.com/wwttr-build-cache
     # - --google_credentials=/path/to/your/secret-key.json
+    - --google_default_credentials
     - push
 
 - name: 'supinf/envsubst'
@@ -14,22 +15,6 @@ steps:
 
 - name: 'gcr.io/cloud-builders/kubectl'
   args: ['apply', '-f', 'deploy', '--namespace=$BRANCH_NAME']
-  env:
-  - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a'
-  - 'CLOUDSDK_CONTAINER_CLUSTER=prod'
-
-- name: 'gcr.io/cloud-builders/kubectl'
-  args:
-    - apply
-    - --namespace=$BRANCH_NAME
-    - -f
-    - tmp/ingress.yaml
-  env:
-  - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a'
-  - 'CLOUDSDK_CONTAINER_CLUSTER=prod'
-
-- name: 'gcr.io/cloud-builders/kubectl'
-  args: ['set', 'image', 'deployment', 'server', 'server=gcr.io/ticket-to-ride-216915/server:$REVISION_ID', '--namespace=$BRANCH_NAME']
   env:
   - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a'
   - 'CLOUDSDK_CONTAINER_CLUSTER=prod'
