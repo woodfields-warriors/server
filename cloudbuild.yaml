@@ -1,7 +1,12 @@
 steps:
-  
+
 - name: 'gcr.io/cloud-builders/bazel'
-  args: ["run", "--define", "REVISION_ID=$REVISION_ID", "push"]
+  args:
+    - run
+    - --define=REVISION_ID=$REVISION_ID
+    - --remote_http_cache=https://storage.googleapis.com/wwttr-build-cache
+    # - --google_credentials=/path/to/your/secret-key.json
+    - push
 
 - name: 'supinf/envsubst'
   entrypoint: '/bin/sh'
