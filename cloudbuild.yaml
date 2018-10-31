@@ -1,21 +1,24 @@
 steps:
-# - test: 'gcr.io/cloud-builders/bazel'
-#   args: ["build", "main"]
+  
 - name: 'gcr.io/cloud-builders/bazel'
   args: ["run", "--define", "REVISION_ID=$REVISION_ID", "push"]
-# - name: 'gcr.io/cloud-builders/docker'
-#   args: ["push", "gcr.io/ticket-to-ride-216915/ttr:$REVISION_ID"]
+
+- name: 'supinf/envsubst'
+  entrypoint: '/bin/sh'
+  args: ['deploy/render.sh']
 
 - name: 'gcr.io/cloud-builders/kubectl'
-  # use bash to ignore error (namespace already exists)
-  entrypoint: 'bash'
-  args: ['-c', 'kuebctl create namespace $BRANCH_NAME || exit 0']
+  args: ['apply', '-f', 'deploy', '--namespace=$BRANCH_NAME']
   env:
   - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a'
   - 'CLOUDSDK_CONTAINER_CLUSTER=prod'
 
 - name: 'gcr.io/cloud-builders/kubectl'
-  args: ['apply', '-f', 'deploy', '--namespace=$BRANCH_NAME']
+  args:
+    - apply
+    - --namespace=$BRANCH_NAME
+    - -f
+    - tmp/ingress.yaml
   env:
   - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a'
   - 'CLOUDSDK_CONTAINER_CLUSTER=prod'

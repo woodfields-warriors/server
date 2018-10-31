@@ -2,3 +2,4 @@
 /.classpath
 *.class
 .DS_Store
+deploy/.
