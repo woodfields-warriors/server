@@ -1,4 +1,4 @@
-apiVersion: extensions/v1beta1
+apiVersion: v1
 kind: Namespace
 metadata:
   name: $BRANCH_NAME
