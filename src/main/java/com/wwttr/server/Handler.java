@@ -151,23 +151,22 @@ class Handler implements HttpHandler {
 class UnaryResponder {
 
   private HttpExchange exchange;
-  private OutputStream out;
   private boolean headerSent;
 
   public UnaryResponder(HttpExchange exchange) {
     this.exchange = exchange;
-    out = exchange.getResponseBody();
-    exchange.getResponseHeaders().set("Content-Type", "application/proto");
   }
 
   public void respond(Response response) throws IOException {
+    
+    exchange.getResponseHeaders().set("Content-Type", "application/proto");
+
     ByteString responseData = response.toByteString();
     int status = UnaryResponder.codeToHTTPStatus(response.getCode());
     exchange.sendResponseHeaders(status, responseData.size());
-    responseData.writeTo(out);
-  }
 
-  public void end() throws IOException {
+    OutputStream out = exchange.getResponseBody();
+    responseData.writeTo(out);
     out.close();
   }
 
@@ -196,8 +195,7 @@ class StreamResponder {
 
   public StreamResponder(HttpExchange exchange) throws IOException {
     this.exchange = exchange;
-    Headers headers = exchange.getResponseHeaders();
-    headers.set("Content-Type", "application/proto");
+    exchange.getResponseHeaders().set("Content-Type", "application/proto");
     exchange.sendResponseHeaders(200, 0);
   }
 
