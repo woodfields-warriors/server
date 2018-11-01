@@ -38,7 +38,9 @@ message Game {
   //current status of the game
   //when created, it should be PRE
   //Required
-  enum status{
+  Status status = 6;
+
+  enum Status{
     UNKNOWN = 0;
     PRE = 1;
     STARTED = 2;

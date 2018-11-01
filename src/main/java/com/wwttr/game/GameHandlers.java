@@ -63,11 +63,29 @@ public class GameHandlers extends Api.GameService {
     List<Game> allGames = service.listGames();
     Api.ListGamesResponse.Builder builder = Api.ListGamesResponse.newBuilder();
     for(Game game: allGames){
+
+      Api.Game.Status status;
+      switch (game.getGameStatus()) {
+      case PRE:
+        status = Api.Game.Status.PRE;
+        break;
+      case STARTED:
+        status = Api.Game.Status.STARTED;
+        break;
+      case ENDED:
+        status = Api.Game.Status.FINISHED;
+        break;
+      default:
+        status = Api.Game.Status.UNKNOWN;
+        break;
+      }
+
       Api.Game.Builder gameBuilder = Api.Game.newBuilder();
       gameBuilder.setGameId(game.getGameID());
       gameBuilder.setDisplayName(game.getDisplayName());
       gameBuilder.setMaxPlayers(game.getMaxPlayers());
       gameBuilder.setHostPlayerId(game.getHostPlayerID());
+      gameBuilder.setStatus(status);
       for(String i: game.getPlayerIDs()){
         gameBuilder.addPlayerIds(i);
       }
@@ -103,11 +121,29 @@ public class GameHandlers extends Api.GameService {
     if (game == null){
         throw new ApiError(Code.NOT_FOUND, "Game with that ID not found");
     }
+
+    Api.Game.Status status;
+    switch (game.getGameStatus()) {
+    case PRE:
+      status = Api.Game.Status.PRE;
+      break;
+    case STARTED:
+      status = Api.Game.Status.STARTED;
+      break;
+    case ENDED:
+      status = Api.Game.Status.FINISHED;
+      break;
+    default:
+      status = Api.Game.Status.UNKNOWN;
+      break;
+    }
+
     Api.Game.Builder gameBuilder = Api.Game.newBuilder();
     gameBuilder.setGameId(game.getGameID());
     gameBuilder.setDisplayName(game.getDisplayName());
     gameBuilder.setMaxPlayers(game.getMaxPlayers());
     gameBuilder.setHostPlayerId(game.getHostPlayerID());
+    gameBuilder.setStatus(status);
     for(String i: game.getPlayerIDs()){
       gameBuilder.addPlayerIds(i);
     }
