@@ -274,7 +274,15 @@ class StreamResponder {
     buf.putInt(responseData.size());
     System.out.println("sending length: " + buf.getInt(0));
     System.out.println("sending data: " + responseData);
-
+    for (int i = 0; i < buf.capacity(); i++) {
+      System.out.print(buf.get(i));
+      System.out.print(" ");
+    }
+    System.out.println();
+    for (int i = 0; i < buf.capacity(); i++) {
+      System.out.print((char)buf.get(i));
+    }
+    System.out.println();
     OutputStream out = exchange.getResponseBody();
     out.write(buf.array());
     responseData.writeTo(out);

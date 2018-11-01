@@ -232,9 +232,11 @@ public class GameHandlers extends Api.GameService {
       builder.setTrainCardCount(6);
     }
 
-    for (Player player : service.listPlayers(null)) {
-      builder.setPlayerId(player.getPlayerId());
-      playerStatsQueue.publish(builder.build());
-    }
+    builder.setPlayerId("player1");
+    playerStatsQueue.publish(builder.build());
+    builder.setPlayerId("player2");
+    playerStatsQueue.publish(builder.build());
+    builder.setPlayerId("player3");
+    playerStatsQueue.publish(builder.build());
   }
 }
