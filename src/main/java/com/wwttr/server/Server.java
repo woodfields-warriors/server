@@ -16,6 +16,10 @@ public class Server {
   Map<String, Service> services = new HashMap<String, Service>();
   HttpServer server;
 
+  public Server() {
+    server.setExecutor(java.util.concurrent.Executors.newCachedThreadPool());
+  }
+
   public void register(Service service)  {
     services.put(service.getDescriptorForType().getFullName(), service);
   }
@@ -25,8 +29,7 @@ public class Server {
       stop();
     }
     HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
-    
-    server.setExecutor(java.util.concurrent.Executors.newCachedThreadPool());
+
     server.createContext("/", new Handler(services));
     server.setExecutor(null); // creates a default executor
     server.start();
