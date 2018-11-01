@@ -153,24 +153,26 @@ class Handler implements HttpHandler {
 
   static RpcCallback<Message> unaryHandler(Controller controller) {
     return (Message response) -> {
-      if (controller.isCanceled()) {
-        return;
-      }
+      synchronized (controller) {
+        if (controller.isCanceled()) {
+          return;
+        }
 
-      if (response == null) {
-        throw new Error("server cannot respond with null");
-      }
+        if (response == null) {
+          throw new Error("server cannot respond with null");
+        }
 
-      Response.Builder responseWrapper = Response.newBuilder();
-      responseWrapper.setCode(Code.OK);
-      responseWrapper.setPayload(response.toByteString());
+        Response.Builder responseWrapper = Response.newBuilder();
+        responseWrapper.setCode(Code.OK);
+        responseWrapper.setPayload(response.toByteString());
 
-      UnaryResponder responder = new UnaryResponder(controller.getExchange());
-      try {
-        responder.respond(responseWrapper.build());
-      }
-      catch (IOException e) {
-        e.printStackTrace();
+        UnaryResponder responder = new UnaryResponder(controller.getExchange());
+        try {
+          responder.respond(responseWrapper.build());
+        }
+        catch (IOException e) {
+          e.printStackTrace();
+        }
       }
     };
   }
@@ -178,29 +180,31 @@ class Handler implements HttpHandler {
   static RpcCallback<Message> streamHandler(Controller controller) throws IOException {
     StreamResponder responder = new StreamResponder(controller.getExchange());
     return (Message response) -> {
-      if (!responder.isOpen()) {
-        return;
-      }
-      if (controller.isCanceled() || response == null) {
+      synchronized (responder) {
+        if (!responder.isOpen()) {
+          return;
+        }
+        if (controller.isCanceled() || response == null) {
+          try {
+            responder.close();
+          }
+          catch (IOException e) {
+            e.printStackTrace();
+          }
+          return;
+        }
+
+        Response.Builder responseWrapper = Response.newBuilder();
+        responseWrapper.setCode(Code.OK);
+        responseWrapper.setPayload(response.toByteString());
+
         try {
-          responder.close();
+          responder.respond(responseWrapper.build());
         }
         catch (IOException e) {
           e.printStackTrace();
+          controller.startCancel();
         }
-        return;
-      }
-
-      Response.Builder responseWrapper = Response.newBuilder();
-      responseWrapper.setCode(Code.OK);
-      responseWrapper.setPayload(response.toByteString());
-
-      try {
-        responder.respond(responseWrapper.build());
-      }
-      catch (IOException e) {
-        e.printStackTrace();
-        controller.startCancel();
       }
     };
   }
