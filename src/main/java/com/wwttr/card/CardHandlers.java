@@ -86,7 +86,7 @@ public class CardHandlers extends Api.CardService {
 
   public void streamDestinationCards(RpcController controller, Api.StreamDestinationCardsRequest request, RpcCallback<Api.DestinationCard> callback) {
     try {
-    service.streamDestinationCards(request.getPlayerId()).forEach((DestinationCard card) -> {
+      service.streamDestinationCards(request.getPlayerId()).forEach((DestinationCard card) -> {
         Api.DestinationCard.Builder builder = Api.DestinationCard.newBuilder();
         builder.setId(card.getId());
         builder.setFirstCityId(card.getFirstCityId());

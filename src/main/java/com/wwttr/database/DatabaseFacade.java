@@ -225,6 +225,7 @@ public class DatabaseFacade {
       }
       else{
         retrievedCard.update(card);
+        destinationCardQueue.publish(card);
       }
     }
   }
@@ -244,9 +245,6 @@ public class DatabaseFacade {
     synchronized (this) {
       Collections.shuffle(cards);
       destinationCards.addAll(cards);
-      for (DestinationCard card : cards) {
-        destinationCardQueue.publish(card);
-      }
     }
   }
 
