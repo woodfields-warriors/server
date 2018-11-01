@@ -11,6 +11,7 @@ import com.wwttr.api.Code;
 import com.google.protobuf.RpcCallback;
 import com.wwttr.game.GameFullException;
 import com.wwttr.api.NotFoundException;
+import com.wwttr.database.CommandQueue;
 
 public class GameHandlers extends Api.GameService {
 
@@ -20,6 +21,8 @@ public class GameHandlers extends Api.GameService {
   public GameHandlers(GameService service, AuthService authService) {
     this.service = service;
     this.authService = authService;
+
+    publishPlayerStats();
   }
 
   //Creates a player object, then creates a game and adds that to the
@@ -198,5 +201,40 @@ public class GameHandlers extends Api.GameService {
     callback.run(builder.build());
   }
 
+  public void togglePlayerStats(RpcController controller, Api.Empty req, RpcCallback<Api.Empty> callback) {
+    publishPlayerStats();
+    callback.run(Api.Empty.newBuilder().build());
+  }
 
+  CommandQueue<Api.PlayerStats> playerStatsQueue = new CommandQueue<Api.PlayerStats>();
+  boolean playerStatsState;
+
+  public void streamPlayerStats(RpcController controller, Api.StreamPlayerStatsRequest request, RpcCallback<Api.PlayerStats> callback) {
+    playerStatsQueue.subscribe()
+      .forEach((Api.PlayerStats stats) -> {
+        callback.run(stats);
+      });
+  }
+
+  void publishPlayerStats() {
+    playerStatsState = !playerStatsState;
+    Api.PlayerStats.Builder builder = Api.PlayerStats.newBuilder();
+
+    if (playerStatsState == true) {
+      builder.setPoints(0);
+      builder.setTrainCount(80);
+      builder.setDestinationCardCount(0);
+      builder.setTrainCardCount(0);
+    } else {
+      builder.setPoints(30);
+      builder.setTrainCount(40);
+      builder.setDestinationCardCount(2);
+      builder.setTrainCardCount(6);
+    }
+
+    for (Player player : service.listPlayers(null)) {
+      builder.setPlayerId(player.getPlayerId());
+      playerStatsQueue.publish(builder.build());
+    }
+  }
 }

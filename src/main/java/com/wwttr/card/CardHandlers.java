@@ -7,7 +7,10 @@ import com.wwttr.api.Code;
 import com.wwttr.api.NotFoundException;
 import com.wwttr.models.DestinationCard;
 
+
+import com.wwttr.database.CommandQueue;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class CardHandlers extends Api.CardService {
 
@@ -63,11 +66,44 @@ public class CardHandlers extends Api.CardService {
       service.claimDesinationCards(request.getDestinationCardIdsList(),request.getPlayerId());
     }
     catch (NotFoundException e) {
-      throw new ApiError(Code.NOT_FOUND, e.getMessage());
+      throw new ApiError(Code.NOT_FOUND, "");
     }
     catch (Exception e){
       e.printStackTrace();
       throw new ApiError(Code.INTERNAL,"");
     }
+  }
+
+  CommandQueue<Api.Route> routeQueue = new CommandQueue<Api.Route>();
+  CommandQueue<Api.TrainCard> trainCardQueue = new CommandQueue<Api.TrainCard>();
+  CommandQueue<Api.DestinationCard> destinationCardQueue = new CommandQueue<Api.DestinationCard>();
+  CommandQueue<Api.DeckStats> deckStatsQueue = new CommandQueue<Api.DeckStats>();
+
+  public void streamDestinationCards(RpcController controller, Api.StreamDestinationCardsRequest request, RpcCallback<Api.DestinationCard> callback) {
+    destinationCardQueue.subscribe()
+      .forEach((Api.DestinationCard card) -> {
+        callback.run(card);
+      });
+  }
+
+  public void streamDeckStats(RpcController controller, Api.StreamDeckStatsRequest request, RpcCallback<Api.DeckStats> callback) {
+    deckStatsQueue.subscribe()
+      .forEach((Api.DeckStats stats) -> {
+        callback.run(stats);
+      });
+  }
+
+  public void streamTrainCards(RpcController controller, Api.StreamTrainCardsRequest request, RpcCallback<Api.TrainCard> callback) {
+    trainCardQueue.subscribe()
+      .forEach((Api.TrainCard card) -> {
+        callback.run(card);
+      });
+  }
+
+  public void streamRoutes(RpcController controller, Api.StreamRoutesRequest request, RpcCallback<Api.Route> callback) {
+    routeQueue.subscribe()
+      .forEach((Api.Route route) -> {
+        callback.run(route);
+      });
   }
 }

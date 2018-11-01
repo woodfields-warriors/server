@@ -142,6 +142,10 @@ public class GameService {
     return database.getPlayer(playerID);
   }
 
+  public List<Player> listPlayers(String gameID) {
+    return database.listPlayers(gameID);
+  }
+
 /*      ---  DEPRECATED ---- /
   public Player joinGame(String userID, String gameID){
     Game game = database.getGame(gameID);

@@ -10,6 +10,16 @@ service CardService {
   rpc GetDestinationCard (GetDestinationCardRequest) returns (DestinationCard);
   rpc PeekDestinationCards (PeekDestinationCardsRequest) returns (PeekDestinationCardsResponse);
   rpc ClaimDestinationCards (ClaimDestinationCardsRequest) returns (Empty);
+  rpc StreamDestinationCards (StreamDestinationCardsRequest) returns (stream DestinationCard);
+
+  // rpc GetTrainCard (GetTrainCardRequest) returns (TrainCard);
+  // rpc ClaimTrainCard (ClaimTrainCardRequest) returns (Empty);
+  rpc StreamTrainCards (StreamTrainCardsRequest) returns (stream TrainCard);
+  rpc StreamDeckStats (StreamDeckStatsRequest) returns (stream DeckStats);
+
+  // rpc GetRoute (GetRouteRequest) returns (Route);
+  // rpc ClaimRoute (ClaimRouteRequest) returns (Empty);
+  rpc StreamRoutes (StreamRoutesRequest) returns (stream Route);
 }
 
 
@@ -39,6 +49,61 @@ message ClaimDestinationCardsRequest {
   string player_id = 2;
 }
 
+message StreamDestinationCardsRequest {
+  string player_id = 1;
+}
+
 message Empty {
+
+}
+
+message TrainCard {
+  string id = 1;
+  TrainColor color = 2;
+  Status status = 4;
+
+  enum Status {
+    UNSPECIFIED = 0;
+    HIDDEN = 1;
+    VISIBLE = 2;
+    OWNED = 3;
+  }
+}
+
+enum TrainColor {
+  UNSPECIFIED = 0;
+  ORANGE = 1;
+  PINK = 2;
+  GREEN = 3;
+  BLUE = 4;
+  BLACK = 5;
+  GREY = 6;
+  YELLOW = 7;
+  RED = 8;
+  WHITE = 9;
+}
+
+message StreamTrainCardsRequest {
+  string player_id = 1;
+}
+
+message DeckStats {
+  int32 hidden_train_card_count = 1;
+  int32 hidden_destination_card_count = 3;
+}
+
+message StreamDeckStatsRequest {
+
+}
+
+message Route {
+  string id = 1;
+  string first_city_id = 2;
+  string second_city_id = 3;
+  TrainColor color = 4;
+  string player_id = 5;
+}
+
+message StreamRoutesRequest {
 
 }

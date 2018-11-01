@@ -203,6 +203,7 @@ java_test(
     ":game_service",
     ":game_api",
     ":auth_service",
+    ":api_lib",
   ]
 )
 

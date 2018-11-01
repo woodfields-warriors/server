@@ -164,6 +164,20 @@ public class DatabaseFacade {
       }
     }
 
+    public List<Player> listPlayers(String gameId) {
+      ArrayList<Player> ret = new ArrayList<Player>();
+
+      synchronized (this) {
+        for (Player player : players) {
+          if (gameId == null || player.getGameId().equals(gameId)) {
+            ret.add(player);
+          }
+        }
+      }
+
+      return ret;
+    }
+
   //***********************************************************************************//
   //-------------------------------Card Service Methods------------------------------------
   public DestinationCard getDestinationCard(String destinationCardId) throws NotFoundException{

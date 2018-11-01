@@ -15,6 +15,8 @@ service GameService {
   rpc ListGames (ListGamesRequest) returns (ListGamesResponse);
   rpc CreatePlayer (CreatePlayerRequest) returns (CreatePlayerResponse);
   rpc GetPlayer (GetPlayerRequest) returns (Player);
+  rpc StreamPlayerStats (StreamPlayerStatsRequest) returns (PlayerStats);
+  rpc TogglePlayerStats (Empty) returns (Empty);
 }
 
 message Game {
@@ -151,4 +153,16 @@ message DeleteResponse {
 }
 message CreatePlayerResponse{
   string player_id = 1;
+}
+
+message StreamPlayerStatsRequest {
+
+}
+
+message PlayerStats {
+  string player_id = 1;
+  int32 points = 2;
+  int32 train_count = 3;
+  int32 train_card_count = 4;
+  int32 destination_card_count = 5;
 }

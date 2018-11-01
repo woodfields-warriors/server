@@ -12,7 +12,7 @@ public class CommandQueue<T> {
   List<BlockingQueue<T>> subscriptions = new LinkedList<BlockingQueue<T>>();
   List<T> elements = new LinkedList<T>();
 
-  Stream<T> subscribe() {
+  public Stream<T> subscribe() {
     synchronized (this) {
       BlockingQueue<T> q = new LinkedBlockingQueue<T>(elements);
       subscriptions.add(q);
@@ -37,7 +37,7 @@ public class CommandQueue<T> {
     }
   }
 
-  void publish(T t) {
+  public void publish(T t) {
     synchronized (this) {
       elements.add(t);
       for (BlockingQueue<T> q: subscriptions) {
