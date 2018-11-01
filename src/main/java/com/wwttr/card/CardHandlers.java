@@ -82,14 +82,23 @@ public class CardHandlers extends Api.CardService {
 
   CommandQueue<Api.Route> routeQueue = new CommandQueue<Api.Route>();
   CommandQueue<Api.TrainCard> trainCardQueue = new CommandQueue<Api.TrainCard>();
-  CommandQueue<Api.DestinationCard> destinationCardQueue = new CommandQueue<Api.DestinationCard>();
   CommandQueue<Api.DeckStats> deckStatsQueue = new CommandQueue<Api.DeckStats>();
 
   public void streamDestinationCards(RpcController controller, Api.StreamDestinationCardsRequest request, RpcCallback<Api.DestinationCard> callback) {
-    destinationCardQueue.subscribe()
-      .forEach((Api.DestinationCard card) -> {
-        callback.run(card);
+    try {
+    service.streamDestinationCards(request.getPlayerId()).forEach((DestinationCard card) -> {
+        Api.DestinationCard.Builder builder = Api.DestinationCard.newBuilder();
+        builder.setId(card.getId());
+        builder.setFirstCityId(card.getFirstCityId());
+        builder.setSecondCityId(card.getSecondCityId());
+        builder.setPointValue(card.getPointValue());
+        builder.setPlayerId(card.getPlayerId());
+        callback.run(builder.build());
       });
+    }
+    catch (NotFoundException e) {
+      throw new ApiError(Code.NOT_FOUND, "player " + request.getPlayerId() + " not found");
+    }
   }
 
   public void streamDeckStats(RpcController controller, Api.StreamDeckStatsRequest request, RpcCallback<Api.DeckStats> callback) {

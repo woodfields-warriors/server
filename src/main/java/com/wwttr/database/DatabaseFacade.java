@@ -17,6 +17,7 @@ public class DatabaseFacade {
     private Random rn = new Random();
     static private DatabaseFacade instance;
     private ArrayList<DestinationCard> destinationCards = new ArrayList<>();
+    private CommandQueue<DestinationCard> destinationCardQueue = new CommandQueue<DestinationCard>();
     private DatabaseFacade(){
 
     }
@@ -243,7 +244,14 @@ public class DatabaseFacade {
     synchronized (this) {
       Collections.shuffle(cards);
       destinationCards.addAll(cards);
+      for (DestinationCard card : cards) {
+        destinationCardQueue.publish(card);
+      }
     }
+  }
+
+  public Stream<DestinationCard> streamDestinationCards() {
+    return destinationCardQueue.subscribe();
   }
 
   public void clearCards(){
