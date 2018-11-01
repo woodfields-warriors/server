@@ -86,7 +86,7 @@ public class CardService {
     if (df.getPlayer(playerId) == null) {
       throw new NotFoundException("player with id " + playerId + " not found");
     }
-    return df.streamDestinationCards().filter((DestinationCard card) -> card.getPlayerId().equals(playerId));
+    return df.streamDestinationCards().filter((DestinationCard card) -> card.getPlayerId().equals(playerId) || card.getPlayerId().equals("") || card.getPlayerId() == null);
   }
 
   public void claimDesinationCards(List<String> destinationCardIds, String playerId) throws NotFoundException {
