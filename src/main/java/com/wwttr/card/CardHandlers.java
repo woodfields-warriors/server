@@ -18,6 +18,10 @@ public class CardHandlers extends Api.CardService {
 
   public CardHandlers() {
     service = CardService.getInstance();
+
+    toggleRoutes();
+    toggleTrainCards();
+    toggleDeckStats();
   }
 
   public void getDestinationCard(RpcController controller, Api.GetDestinationCardRequest request, RpcCallback<Api.DestinationCard> callback) {
@@ -57,7 +61,7 @@ public class CardHandlers extends Api.CardService {
       throw new ApiError(Code.INTERNAL,"");
     }
   }
-  public void claimDestinationCards (RpcController controller, Api.ClaimDestinationCardsRequest request, RpcCallback<Api.Empty> callback){
+  public void claimDestinationCards (RpcController controller, Api.ClaimDestinationCardsRequest request, RpcCallback<Api.ClaimDestinationCardsResponse> callback){
     try{
       if(request.getDestinationCardIdsCount() == 0)
         throw new ApiError(Code.INVALID_ARGUMENT, "argument 'destination_card_ids' is required");
@@ -72,6 +76,8 @@ public class CardHandlers extends Api.CardService {
       e.printStackTrace();
       throw new ApiError(Code.INTERNAL,"");
     }
+
+    callback.run(Api.ClaimDestinationCardsResponse.newBuilder().build());
   }
 
   CommandQueue<Api.Route> routeQueue = new CommandQueue<Api.Route>();
@@ -93,6 +99,22 @@ public class CardHandlers extends Api.CardService {
       });
   }
 
+  boolean deckStatsState;
+  void toggleDeckStats() {
+    deckStatsState = !deckStatsState;
+    Api.DeckStats.Builder builder = Api.DeckStats.newBuilder();
+
+    if (deckStatsState) {
+      builder.setHiddenTrainCardCount(100);
+      builder.setHiddenDestinationCardCount(100);
+      deckStatsQueue.publish(builder.build());
+    } else {
+      builder.setHiddenTrainCardCount(20);
+      builder.setHiddenDestinationCardCount(30);
+      deckStatsQueue.publish(builder.build());
+    }
+  }
+
   public void streamTrainCards(RpcController controller, Api.StreamTrainCardsRequest request, RpcCallback<Api.TrainCard> callback) {
     trainCardQueue.subscribe()
       .forEach((Api.TrainCard card) -> {
@@ -100,10 +122,161 @@ public class CardHandlers extends Api.CardService {
       });
   }
 
+  public void claimTrainCard(RpcController controller, Api.ClaimTrainCardRequest request, RpcCallback<Api.ClaimTrainCardResponse> callback) {
+    toggleTrainCards();
+    callback.run(Api.ClaimTrainCardResponse.newBuilder().build());
+  }
+
+  boolean trainCardState;
+
+  void toggleTrainCards() {
+    toggleDeckStats();
+    trainCardState = !trainCardState;
+    Api.TrainCard.Builder builder = Api.TrainCard.newBuilder();
+
+    if (trainCardState) {
+      builder.setId("trainCard1");
+      builder.setColor(Api.TrainColor.RED);
+      builder.setState(Api.TrainCard.State.VISIBLE);
+      trainCardQueue.publish(builder.build());
+      builder.setId("trainCard2");
+      builder.setColor(Api.TrainColor.BLUE);
+      builder.setState(Api.TrainCard.State.VISIBLE);
+      trainCardQueue.publish(builder.build());
+      builder.setId("trainCard3");
+      builder.setColor(Api.TrainColor.RED);
+      builder.setState(Api.TrainCard.State.VISIBLE);
+      trainCardQueue.publish(builder.build());
+      builder.setId("trainCard4");
+      builder.setColor(Api.TrainColor.BLUE);
+      builder.setState(Api.TrainCard.State.VISIBLE);
+      trainCardQueue.publish(builder.build());
+      builder.setId("trainCard5");
+      builder.setColor(Api.TrainColor.WHITE);
+      builder.setState(Api.TrainCard.State.VISIBLE);
+      trainCardQueue.publish(builder.build());
+      builder.setId("trainCard6");
+      builder.setColor(Api.TrainColor.BLACK);
+      builder.setState(Api.TrainCard.State.HIDDEN);
+      trainCardQueue.publish(builder.build());
+      builder.setId("trainCard7");
+      builder.setColor(Api.TrainColor.BLACK);
+      builder.setState(Api.TrainCard.State.HIDDEN);
+      trainCardQueue.publish(builder.build());
+      builder.setId("trainCard8");
+      builder.setColor(Api.TrainColor.BLACK);
+      builder.setState(Api.TrainCard.State.HIDDEN);
+      trainCardQueue.publish(builder.build());
+      builder.setId("trainCard9");
+      builder.setColor(Api.TrainColor.BLACK);
+      builder.setState(Api.TrainCard.State.HIDDEN);
+      trainCardQueue.publish(builder.build());
+      builder.setId("trainCard10");
+      builder.setColor(Api.TrainColor.BLACK);
+      builder.setState(Api.TrainCard.State.HIDDEN);
+      trainCardQueue.publish(builder.build());
+    } else {
+      builder.setId("trainCard1");
+      builder.setColor(Api.TrainColor.RED);
+      builder.setState(Api.TrainCard.State.OWNED);
+      trainCardQueue.publish(builder.build());
+      builder.setId("trainCard2");
+      builder.setColor(Api.TrainColor.BLUE);
+      builder.setState(Api.TrainCard.State.OWNED);
+      trainCardQueue.publish(builder.build());
+      builder.setId("trainCard3");
+      builder.setColor(Api.TrainColor.RED);
+      builder.setState(Api.TrainCard.State.OWNED);
+      trainCardQueue.publish(builder.build());
+      builder.setId("trainCard4");
+      builder.setColor(Api.TrainColor.BLUE);
+      builder.setState(Api.TrainCard.State.OWNED);
+      trainCardQueue.publish(builder.build());
+      builder.setId("trainCard5");
+      builder.setColor(Api.TrainColor.WHITE);
+      builder.setState(Api.TrainCard.State.OWNED);
+      trainCardQueue.publish(builder.build());
+      builder.setId("trainCard6");
+      builder.setColor(Api.TrainColor.BLACK);
+      builder.setState(Api.TrainCard.State.VISIBLE);
+      trainCardQueue.publish(builder.build());
+      builder.setId("trainCard7");
+      builder.setColor(Api.TrainColor.BLACK);
+      builder.setState(Api.TrainCard.State.VISIBLE);
+      trainCardQueue.publish(builder.build());
+      builder.setId("trainCard8");
+      builder.setColor(Api.TrainColor.BLACK);
+      builder.setState(Api.TrainCard.State.VISIBLE);
+      trainCardQueue.publish(builder.build());
+      builder.setId("trainCard9");
+      builder.setColor(Api.TrainColor.BLACK);
+      builder.setState(Api.TrainCard.State.VISIBLE);
+      trainCardQueue.publish(builder.build());
+      builder.setId("trainCard10");
+      builder.setColor(Api.TrainColor.BLACK);
+      builder.setState(Api.TrainCard.State.VISIBLE);
+      trainCardQueue.publish(builder.build());
+    }
+
+
+  }
+
   public void streamRoutes(RpcController controller, Api.StreamRoutesRequest request, RpcCallback<Api.Route> callback) {
     routeQueue.subscribe()
       .forEach((Api.Route route) -> {
         callback.run(route);
       });
+  }
+
+  public void claimRoute(RpcController controller, Api.ClaimRouteRequest request, RpcCallback<Api.ClaimRouteResponse> callback) {
+    toggleRoutes();
+    callback.run(Api.ClaimRouteResponse.newBuilder().build());
+  }
+
+  boolean routeState;
+
+  void toggleRoutes() {
+    routeState = !routeState;
+    Api.Route.Builder builder = Api.Route.newBuilder();
+
+    if (routeState) {
+      builder.setId("route1");
+      builder.setFirstCityId("city1");
+      builder.setSecondCityId("city2");
+      builder.setColor(Api.TrainColor.RED);
+      builder.setPlayerId("");
+      routeQueue.publish(builder.build());
+      builder.setId("route2");
+      builder.setFirstCityId("city1");
+      builder.setSecondCityId("city3");
+      builder.setColor(Api.TrainColor.BLUE);
+      builder.setPlayerId("");
+      routeQueue.publish(builder.build());
+      builder.setId("route3");
+      builder.setFirstCityId("city2");
+      builder.setSecondCityId("city3");
+      builder.setColor(Api.TrainColor.GREEN);
+      builder.setPlayerId("");
+      routeQueue.publish(builder.build());
+    } else {
+      builder.setId("route1");
+      builder.setFirstCityId("city1");
+      builder.setSecondCityId("city2");
+      builder.setColor(Api.TrainColor.RED);
+      builder.setPlayerId("player1");
+      routeQueue.publish(builder.build());
+      builder.setId("route2");
+      builder.setFirstCityId("city1");
+      builder.setSecondCityId("city3");
+      builder.setColor(Api.TrainColor.BLUE);
+      builder.setPlayerId("player1");
+      routeQueue.publish(builder.build());
+      builder.setId("route3");
+      builder.setFirstCityId("city2");
+      builder.setSecondCityId("city3");
+      builder.setColor(Api.TrainColor.GREEN);
+      builder.setPlayerId("player1");
+      routeQueue.publish(builder.build());
+    }
   }
 }
