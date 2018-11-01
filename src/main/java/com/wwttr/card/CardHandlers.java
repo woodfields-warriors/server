@@ -21,7 +21,6 @@ public class CardHandlers extends Api.CardService {
 
     toggleRoutes();
     toggleTrainCards();
-    toggleDeckStats();
   }
 
   public void getDestinationCard(RpcController controller, Api.GetDestinationCardRequest request, RpcCallback<Api.DestinationCard> callback) {
