@@ -15,7 +15,7 @@ service GameService {
   rpc ListGames (ListGamesRequest) returns (ListGamesResponse);
   rpc CreatePlayer (CreatePlayerRequest) returns (CreatePlayerResponse);
   rpc GetPlayer (GetPlayerRequest) returns (Player);
-  rpc StreamPlayerStats (StreamPlayerStatsRequest) returns (PlayerStats);
+  rpc StreamPlayerStats (StreamPlayerStatsRequest) returns (stream PlayerStats);
   rpc TogglePlayerStats (Empty) returns (Empty);
 }
 
