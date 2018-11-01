@@ -37,13 +37,9 @@ public class ChatHandlers extends Api.ChatService{
   }
 
   public void streamMessages(RpcController controller, Api.StreamMessagesRequest request, RpcCallback<Api.Message> callback){
-    Stream<Message> messages = service.streamMessages(request.getGameId());
-    messages.forEach((Message m) -> {
+      Stream<Message> messages = service.streamMessages(request.getGameId());
+      messages.forEach((Message m) -> {
       Api.Message.Builder builder = m.createBuilder();
-      m.setMessageId(m.getMessageId());
-      m.setContent(m.getContent());
-      m.setPlayerId(m.getPlayerId());
-      m.setTimestamp(m.getTimestamp());
       callback.run(builder.build());
     });
   }

@@ -18,6 +18,7 @@ import com.sun.net.httpserver.Headers;
 
 import java.util.Map;
 import java.util.HashMap;
+import java.util.Arrays;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -37,10 +38,10 @@ class Handler implements HttpHandler {
   @Override
   public void handle(HttpExchange exchange) throws IOException {
 
-    System.out.println(exchange.getRequestURI().getRawPath() + " " + exchange.getRequestMethod());
-    for (String key : exchange.getRequestHeaders().keySet()) {
-      System.out.println(key + ": " + exchange.getRequestHeaders().get(key));
-    }
+    // System.out.println(exchange.getRequestURI().getRawPath() + " " + exchange.getRequestMethod());
+    // for (String key : exchange.getRequestHeaders().keySet()) {
+    //   System.out.println(key + ": " + exchange.getRequestHeaders().get(key));
+    // }
 
     Message request;
     MethodDescriptor method;
@@ -268,6 +269,7 @@ class StreamResponder {
     buf.order(ByteOrder.LITTLE_ENDIAN);
     buf.putInt(responseData.size());
     System.out.println("sending length: " + buf.getInt(0));
+    System.out.println("sending data: " + responseData);
 
     OutputStream out = exchange.getResponseBody();
     out.write(buf.array());
