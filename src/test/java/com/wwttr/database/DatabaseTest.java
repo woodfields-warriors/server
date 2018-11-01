@@ -142,6 +142,22 @@ public class DatabaseTest {
   }
 
   @Test
+  public void failListDestinationCards() {
+    try {
+      df.clearCards();
+      List<DestinationCard> returnedList = df.listDestinationCards(3, "game");
+      fail();
+    }
+    catch (NotFoundException e){
+      e.printStackTrace();
+      assertNotNull(e);
+    }
+    catch (IllegalArgumentException e){
+      assertNotNull(e);
+    }
+  }
+
+  @Test
   public void updateDestinationCard() {
     try {
       DestinationCard tempCard = new DestinationCard("temp1", null,null, null, null, null);
@@ -164,5 +180,28 @@ public class DatabaseTest {
     }
     df.addDestinationCardDeck(cards);
     assertTrue(df.getDestinationCards().size() == FIRST_CITIES.length);
+  }
+
+  @Test
+  public void requestMoreCardsThanAvailable() {
+    System.out.println("running request more cards than available");
+    df.clearCards();
+    List<DestinationCard> cards = new ArrayList<>();
+    for(int i = 0; i < FIRST_CITIES.length; i++){
+      DestinationCard tempCard = new DestinationCard("temp" + i,FIRST_CITIES[i],SECOND_CITIES[i],POINTS[i],"player","game");
+      cards.add(tempCard);
+    }
+    df.addDestinationCardDeck(cards);
+    try {
+      List<DestinationCard> returnedList = df.listDestinationCards(FIRST_CITIES.length + 1, "game");
+      fail();
+    }
+    catch (NotFoundException e){
+      e.printStackTrace();
+      fail();
+    }
+    catch (IllegalArgumentException e){
+      assertNotNull(e);
+    }
   }
 }

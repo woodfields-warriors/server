@@ -180,17 +180,27 @@ public class DatabaseFacade {
     synchronized (this) {
       List<DestinationCard> listToReturn = new ArrayList<DestinationCard>();
       ArrayList<DestinationCard> cards = getCardsByGameId(gameId);
-
+      if(cards.size() < limit){
+        throw new IllegalArgumentException("only " + cards.size() + " cards in deck, " + limit + " requested");
+      }
+      if(cards.size() == 0){
+        throw new NotFoundException("Cards for id " + gameId + " not found" );
+      }
       for(int i = 0 ; i < limit;i++ ){
         int j = 0;
         while(!cards.get(j).getPlayerId().equals("")){
           j++;
           if(j >= cards.size()){
+            boolean newCardsToSend = false;
             for(DestinationCard card : cards){
               if(card.getPlayerId().equals("sent")) {
                 card.setPlayerId("");
                 updateDestinationCard(card);
+                newCardsToSend = true;
               }
+            }
+            if(!newCardsToSend){
+              return listToReturn;
             }
           }
         }
