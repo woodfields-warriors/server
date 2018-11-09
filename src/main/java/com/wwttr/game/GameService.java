@@ -142,65 +142,6 @@ public class GameService {
     return database.getPlayer(playerID);
   }
 
-/*      ---  DEPRECATED ---- /
-  public Player joinGame(String userID, String gameID){
-    Game game = database.getGame(gameID);
-    if(game == null){
-      throw new IllegalArgumentException("Couldn't find a game with the given gameID")
-    }
-    Api.Game.Builder gameBuilder = game.toBuilder();
-    List<String> players = gameBuilder.getPlayers();
-    Api.Player.Builder playerBuilder = Api.Player.newBuilder();
-    playerBuilder.setId("player" + rn.nextInt.toString());
-    playerBuilder.setAccountId(userId);
-    playerBuilder.setGameId(gameID);
-
-    players.add(playerBuilder.build)
-    database.updateGame(gameBuilder.build(),gameID);
-    String playerID = "player" + rn.nextInt().toString();
-    return toReturn;
-
-  //   Game game = database.getGame(gameID);
-  //   if(game == null){
-  //     throw new IllegalArgumentException("Couldn't find a game with the given gameID");
-  //   }
-  //   Api.Game.Builder gameBuilder = game.toBuilder();
-  //   List<String> players = gameBuilder.getPlayers();
-  //   Api.Player.Builder playerBuilder = Api.Player.newBuilder();
-  //   playerBuilder.setId("player" + rn.nextInt.toString());
-  //   playerBuilder.setAccountId(userId);
-  //   playerBuilder.setGameId(gameID);
-  //   //need to use players.size() to set a color for the player
-  //
-  //
-  // //  builder.build();
-  //
-  //   players.add(playerBuilder.build);
-  //
-  //
-  //   database.updateGame(gameBuilder.build(),gameID);
-  //   String playerID = "player" + rn.nextInt().toString();
-  //   return toReturn;
-  return null;
-  }
-
-  public LeaveResponse leaveGame(String userID, String gameID){
-    Game game = database.getGame(gameID);
-    if(game == null){
-      return new LeaveResponse("Couldn't find a game with the given gameID");
-    }
-    List<String> players = game.getPlayerUserIDs();
-    for(int i = 0; i < players.size(); i++){
-      if(userID == players.get(i)){
-        players.remove(i);
-        // database.updateGame(game);
-        LeaveResponse toReturn = new LeaveResponse(game.getDisplayName(), userID);
-      }
-    }
-    return null;
-  }
-// -----------------*/
-
 
   public void addGameListener(Context ctx, GameListener l) {
 
