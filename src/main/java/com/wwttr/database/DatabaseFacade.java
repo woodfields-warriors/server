@@ -6,6 +6,7 @@ import java.util.*;
 import com.wwttr.api.NotFoundException;
 import com.wwttr.models.*;
 import java.util.stream.Stream;
+import java.util.Random;
 
 
 public class DatabaseFacade {
@@ -17,6 +18,10 @@ public class DatabaseFacade {
     private Random rn = new Random();
     static private DatabaseFacade instance;
     private ArrayList<DestinationCard> destinationCards = new ArrayList<>();
+    private ArrayList<TrainCard> trainCards = new ArrayList<>();
+    private CommandQueue<TrainCard> trainCardQueue = new CommandQueue<TrainCard>();
+    private Random rn = new Random();
+
     private DatabaseFacade(){
 
     }
@@ -165,7 +170,7 @@ public class DatabaseFacade {
     }
 
   //***********************************************************************************//
-  //-------------------------------Card Service Methods------------------------------------
+  //-------------------------------Destination Card Service Methods------------------------------------
   public DestinationCard getDestinationCard(String destinationCardId) throws NotFoundException{
     synchronized (this) {
       for(DestinationCard card : destinationCards){
@@ -252,6 +257,80 @@ public class DatabaseFacade {
 
 
   //TODO TrainCard Functions
+  //***********************************************************************************//
+  //-------------------------------Train Card Service Methods------------------------------------
+
+  public TrainCard getTrainCard(String cardDrawnId){
+    synchronized (this) {
+      for (TrainCard card : trainCards) {
+        if (card.getId().equals(cardDrawnId))
+          return card;
+      }
+      throw new NotFoundError("card with id " + cardDrawnId + " not found");
+    }
+  }
+
+  public void updateTrainCard(TrainCard card){
+    synchronized (this) {
+      TrainCard retrievedCard = getTrainCard(card.getId());
+      if(retrievedCard == null){
+        throw new NotFoundException("id invalid, card not found");
+      }
+      else{
+        if(card.getState() == TrainCard.State.OWNED && retrievedCard.getState() == TrainCard.State.HIDDEN){
+          sendNewHiddenCard(card.getGameId());
+        }
+        retrievedCard.update(card);
+        trainCardQueue.publish(retrievedCard);
+      }
+    }
+  }
+
+  public void addTrainCardDeck(List<TrainCard> trainCardList){
+    synchronized (this) {
+      Collections.shuffle(trainCardList);
+      trainCards.addAll(trainCardList);
+    }
+  }
+
+  public void newFaceUpCard(String gameId){
+    synchronized (this) {
+      ArrayList<TrainCard> cards = getTrainCardsForGame(gameId);
+      TrainCard tempCard = cards.at(rn.nextInt(cards.size()));
+      while (tempCard.getState() != TrainCard.State.Hidden) {
+        tempCard = cards.at(rn.nextInt(cards.size()));
+      }
+      tempCard.setState(TrainCard.State.Visible);
+      updateTrainCard(tempCard);
+    }
+  }
+
+  public void sendNewHiddenCard(String gameId){
+    synchronized (this) {
+      ArrayList<TrainCard> cards = getTrainCardsForGame(gameId);
+      TrainCard tempCard = cards.at(rn.nextInt(cards.size()));
+      while (tempCard.getState() != TrainCard.State.HIDDEN) {
+        tempCard = cards.at(rn.nextInt(cards.size()));
+      }
+      trainCardQueue.publish(tempCard);
+    }
+  }
+
+  public ArrayList<TrainCard> getTrainCardsForGame(String gameId){
+    synchronized (this) {
+      ArrayList<TrainCard> toReturn = new ArrayList<>();
+      for (TrainCard temp : trainCards) {
+        if (temp.getGameId().equals(gameId))
+          toReturn.add(temp);
+      }
+      return toReturn;
+    }
+  }
+
+  void clearCards() {trainCards = new ArrayList<>();}
+
+  ArrayList<TrainCard> getTrainCards() {return trainCards;}
+
 
   //***********************************************************************************//
   //-------------------------------Chat Service Methods------------------------------------

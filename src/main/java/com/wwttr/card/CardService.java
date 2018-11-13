@@ -56,7 +56,26 @@ public class CardService {
       DestinationCard tempCard = new DestinationCard(newId, tempDestinationTemplate.getFirst(), tempDestinationTemplate.getSecond(), tempDestinationTemplate.getThird(),"",gameId);
       cardList.add(tempCard);
     }
+    List<TrainCard> trainCardList = new ArrayList<>();
+    for(TrainCardTemplate<TrainCard.Color,TrainCard.State> tempTrainCardTemplate : fullTrainCardDeckTemplate){
+      String newId = "trainCard" + rn.nextInt();
+      try{
+        while(df.getTrainCard(newId) != null){
+          newId = "trainCard" + rn.nextInt();
+        }
+      }
+      catch (NotFoundException e){
+
+      }
+      TrainCard tempCard = new TrainCard(newId,gameId,"",tempTrainCardTemplate.getColor(),tempTrainCardTemplate.getState());
+      trainCardList.add(tempCard);
+    }
+    for(int i = 0; i < 4; i++){
+      TrainCard tempCard = trainCardList.at(rn.nextInt(trainCardList.size()));
+      tempCard.setState(TrainCard.State.VISIBLE);
+    }
     df.addDestinationCardDeck(cardList);
+    df.addTrainCardDeck(trainCardList);
   }
 
   // Destination Card Functions -------------------------------------------
@@ -160,6 +179,7 @@ public class CardService {
         returned.setPlayerId(playerId);
         returned.setState(TrainCard.State.OWNED);
         df.updateTrainCard(returned);
+        df.newFaceUpCard(df.getPlayer(playerId).getGameId());
       }
     }
     else{
