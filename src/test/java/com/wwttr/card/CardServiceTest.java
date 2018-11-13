@@ -12,7 +12,6 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.PriorityQueue;
 
 import static org.junit.Assert.*;
 
@@ -27,7 +26,7 @@ public class CardServiceTest {
 
   @Before
   public void setUp() throws Exception {
-    cs.setDefaultTemplate();
+    cs.setDefaultTemplates();
     CreateResponse cr = gs.createGame("gameName", "user", 4);
     GameId = cr.getGameID();
     playerId = cr.getPlayerID();
@@ -46,8 +45,8 @@ public class CardServiceTest {
     String[] name = {"test", "test2"};
     Integer[] point = {1, 2};
     try {
-      cs.generateDeckTemplate(name, name, point);
-      assert (cs.getFullDeckTemplate().size() == 2);
+      cs.generateDestinationDeckTemplate(name, name, point);
+      assert (cs.getFullDestinationDeckTemplate().size() == 2);
     } catch (IllegalArgumentException e) {
       e.printStackTrace();
       fail();
@@ -57,8 +56,8 @@ public class CardServiceTest {
   @Test
   public void createFullDeckForGame() {
     try {
-      cs.generateDeckTemplate(name, name, points);
-      cs.createFullDeckForGame(GameId);
+      cs.generateDestinationDeckTemplate(name, name, points);
+      cs.createFullDecksForGame(GameId);
       assert (df.getDestinationCards().size() == name.length);
     } catch (Exception e) {
       e.printStackTrace();
@@ -69,7 +68,7 @@ public class CardServiceTest {
   @Test
   public void getDestinationCard() {
     try {
-      cs.createFullDeckForGame(GameId);
+      cs.createFullDecksForGame(GameId);
       List<DestinationCard> cards = cs.peekDestinationCards(GameId);
       DestinationCard card = cs.getDestinationCard(cards.get(0).getId());
       assertNotNull(card);
@@ -82,7 +81,7 @@ public class CardServiceTest {
   @Test
   public void peekDestinationCards() {
     try {
-      cs.createFullDeckForGame(GameId);
+      cs.createFullDecksForGame(GameId);
       List<DestinationCard> cards = cs.peekDestinationCards(GameId);
       assertNotNull(cards);
     } catch (NotFoundException e) {
@@ -94,7 +93,7 @@ public class CardServiceTest {
   @Test
   public void claimDesinationCards() {
     try {
-      cs.createFullDeckForGame(GameId);
+      cs.createFullDecksForGame(GameId);
       List<DestinationCard> cards = cs.peekDestinationCards(GameId);
       List<String> idsToClaim = new ArrayList<>();
       for (DestinationCard card : cards) {

@@ -9,10 +9,26 @@ option java_generic_services = true;
 service CardService {
   rpc GetDestinationCard (GetDestinationCardRequest) returns (DestinationCard);
   rpc PeekDestinationCards (PeekDestinationCardsRequest) returns (PeekDestinationCardsResponse);
-  rpc ClaimDestinationCards (ClaimDestinationCardsRequest) returns (Empty);
+  rpc ClaimDestinationCards (ClaimDestinationCardsRequest) returns (ClaimDestinationCardsResponse);
+  rpc StreamDestinationCards (StreamDestinationCardsRequest) returns (stream DestinationCard);
+
+  // rpc GetTrainCard (GetTrainCardRequest) returns (TrainCard);
+  rpc ClaimTrainCard (ClaimTrainCardRequest) returns (ClaimTrainCardResponse);
+  rpc StreamTrainCards (StreamTrainCardsRequest) returns (stream TrainCard);
+  rpc StreamDeckStats (StreamDeckStatsRequest) returns (stream DeckStats);
+
+  // rpc GetRoute (GetRouteRequest) returns (Route);
+  rpc ClaimRoute (ClaimRouteRequest) returns (ClaimRouteResponse);
+  rpc StreamRoutes (StreamRoutesRequest) returns (stream Route);
+
+  rpc DrawTrainCardFromDeck (DrawTrainCardFromDeckRequest) returns (Empty);
+  rpc DrawFaceUpTrainCard(DrawFaceUpTrainCardRequest) returns(Empty);
+  rpc getHand(GetTrainCardsInHandRequest) returns (GetTrainCardsInHandResponse);
 }
 
+message Empty {
 
+}
 
 message GetDestinationCardRequest {
   string destination_card_id = 1;
@@ -39,6 +55,105 @@ message ClaimDestinationCardsRequest {
   string player_id = 2;
 }
 
-message Empty {
+message ClaimDestinationCardsResponse {
 
+}
+
+message StreamDestinationCardsRequest {
+  string player_id = 1;
+}
+
+
+
+message DeckStats {
+  int32 hidden_train_card_count = 1;
+  int32 hidden_destination_card_count = 3;
+}
+
+message StreamDeckStatsRequest {
+
+}
+
+message Route {
+  string id = 1;
+  string first_city_id = 2;
+  string second_city_id = 3;
+  TrainColor color = 4;
+  string player_id = 5;
+}
+
+message StreamRoutesRequest {
+
+}
+
+message ClaimTrainCardRequest {
+
+}
+
+message ClaimTrainCardResponse {
+
+}
+
+message ClaimRouteRequest {
+
+}
+
+message ClaimRouteResponse {
+
+}
+
+//------------Train Card Data Structures--------------//
+message TrainCard {
+  string id = 1;
+  string player_id = 2;
+  TrainColor color = 3;
+  State state = 4;
+
+  enum State {
+    UNSPECIFIED = 0;
+    HIDDEN = 1;
+    VISIBLE = 2;
+    OWNED = 3;
+  }
+}
+
+enum TrainColor {
+  UNSPECIFIED = 0;
+  ORANGE = 1;
+  PINK = 2;
+  GREEN = 3;
+  BLUE = 4;
+  BLACK = 5;
+  GREY = 6;
+  YELLOW = 7;
+  RED = 8;
+  WHITE = 9;
+  RAINBOW = 10;
+}
+
+message StreamTrainCardsRequest {
+  string player_id = 1;
+}
+
+
+/* Do these requests really need to be separate?
+   We could just have the database fill the spot (add to the
+   deck or add to the face up cards) where necessary
+*/
+message DrawTrainCardFromDeckRequest {
+  string id = 1;
+  string card_drawn_id = 2;
+}
+
+message DrawFaceUpTrainCardRequest {
+  string id = 1;
+  string card_drawn_id = 2;
+}
+
+message GetTrainCardsInHandRequest {
+  string id = 1;
+}
+
+message GetTrainCardsInHandResponse {
+  repeated TrainCard cards = 1;
 }
