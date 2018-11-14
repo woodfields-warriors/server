@@ -150,8 +150,6 @@ public class GameHandlers extends Api.GameService {
     callback.run(gameBuilder.build());
   }
 
-
-
   public void startGame(RpcController controller, Api.StartGameRequest request, RpcCallback<Api.Game> callback){
     try {
       Game game = service.startGame(request.getGameId());
@@ -175,6 +173,15 @@ public class GameHandlers extends Api.GameService {
     Api.Empty.Builder toReturn = Api.Empty.newBuilder();
     callback.run(toReturn.build());
   }
+
+  public void streamHistory(RpcController controller, Api.StreamHistoryRequest request, RpcCallback<Api.Message> callback){
+    Stream<GameAction> gameActions = service.streamHistory(request.getGameId());
+    gameActions.forEach((GameAction action) -> {
+      Api.GameAction.Builder builder = action.createBuilder();
+      callback.run(builder.build());
+    });
+  }
+
 
   // This method is the replacement for JoinGame().
   // It takes the given request and creates a Player object,
