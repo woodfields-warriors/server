@@ -179,7 +179,8 @@ java_library(
     ":api_model",
     ":card_service",
     ":chat_api",
-    ":card_api"
+    ":card_api",
+    ":models",
   ],
 )
 
@@ -190,6 +191,7 @@ java_library(
         ":api_model",
         ":card_api",
         ":chat_api",
+        ":game_api",
   ],
 )
 
@@ -203,6 +205,7 @@ java_test(
     ":game_service",
     ":game_api",
     ":auth_service",
+    ":api_lib",
   ]
 )
 

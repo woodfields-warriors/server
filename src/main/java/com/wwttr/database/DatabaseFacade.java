@@ -14,6 +14,8 @@ public class DatabaseFacade {
     private ArrayList<Player> players = new ArrayList<Player>();
     private ArrayList<Message> messages = new ArrayList<>();
     private CommandQueue<Message> messageQueue = new CommandQueue<Message>();
+    private ArrayList<GameAction> gameActions = new ArrayList<>();
+    private CommandQueue<GameAction> historyQueue = new CommandQueue<GameAction>();
     private Random rn = new Random();
     static private DatabaseFacade instance;
     private ArrayList<DestinationCard> destinationCards = new ArrayList<>();
@@ -83,6 +85,17 @@ public class DatabaseFacade {
 
     public void clearPlayers() {players = new ArrayList<>();}
 
+    public Player getPlayer(String playerID) {
+      synchronized (this) {
+        for (Player p : players) {
+          if (p.getPlayerId().equals(playerID)) {
+            return p;
+          }
+        }
+        return null;
+      }
+    }
+
     //***********************************************************************************//
     //-------------------------------Game Service Methods------------------------------------
 
@@ -119,15 +132,6 @@ public class DatabaseFacade {
       }
     }
 
-
-  //  public CreateResponse createGame(String gameName, String hostUserID, Integer numberOfPlayers){
-        //arguments checked in GameService
-  //      Game game = new Game(hostUserID, new ArrayList(), gameName, numberOfPlayers, Integer.toString(rn.nextInt()));
-  //      CreateResponse toReturn = new CreateResponse(game.getDisplayName(),game.getHostPlayerID());
-  //      return toReturn;
-  //  }
-
-
     public void updateGame(Game game, String gameID){
       synchronized (this) {
         for(int i = 0; i < Games.size(); i++){
@@ -153,16 +157,34 @@ public class DatabaseFacade {
       //  return toReturn;
     }
 
-    public Player getPlayer(String playerID) {
+
+//***********************************************************************************//
+//-----------------------HISTORY -------------------------//
+    public void addGameAction(GameAction action){
       synchronized (this) {
-        for (Player p : players) {
-          if (p.getPlayerId().equals(playerID)) {
-            return p;
+        gameActions.add(action);
+        historyQueue.publish(action);
+      }
+    }
+
+    public GameAction getGameActionById(String actionId){
+      synchronized (this) {
+        for (GameAction action : gameActions){
+          if(action.getActionId().equals(actionId)){
+            return action;
           }
         }
         return null;
       }
     }
+
+    public Stream<GameAction> streamHistory(String gameId) {
+      return historyQueue
+        .subscribe()
+        .filter((GameAction action) -> action.getGameId().equals(gameId));
+    }
+
+
 
   //***********************************************************************************//
   //-------------------------------Card Service Methods------------------------------------
