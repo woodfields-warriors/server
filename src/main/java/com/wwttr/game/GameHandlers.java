@@ -11,6 +11,7 @@ import com.wwttr.api.Code;
 import com.google.protobuf.RpcCallback;
 import com.wwttr.game.GameFullException;
 import com.wwttr.api.NotFoundException;
+import com.wwttr.database.CommandQueue;
 
 public class GameHandlers extends Api.GameService {
 
@@ -20,6 +21,8 @@ public class GameHandlers extends Api.GameService {
   public GameHandlers(GameService service, AuthService authService) {
     this.service = service;
     this.authService = authService;
+
+    publishPlayerStats();
   }
 
   //Creates a player object, then creates a game and adds that to the
@@ -60,11 +63,29 @@ public class GameHandlers extends Api.GameService {
     List<Game> allGames = service.listGames();
     Api.ListGamesResponse.Builder builder = Api.ListGamesResponse.newBuilder();
     for(Game game: allGames){
+
+      Api.Game.Status status;
+      switch (game.getGameStatus()) {
+      case PRE:
+        status = Api.Game.Status.PRE;
+        break;
+      case STARTED:
+        status = Api.Game.Status.STARTED;
+        break;
+      case ENDED:
+        status = Api.Game.Status.FINISHED;
+        break;
+      default:
+        status = Api.Game.Status.UNKNOWN;
+        break;
+      }
+
       Api.Game.Builder gameBuilder = Api.Game.newBuilder();
       gameBuilder.setGameId(game.getGameID());
       gameBuilder.setDisplayName(game.getDisplayName());
       gameBuilder.setMaxPlayers(game.getMaxPlayers());
       gameBuilder.setHostPlayerId(game.getHostPlayerID());
+      gameBuilder.setStatus(status);
       for(String i: game.getPlayerIDs()){
         gameBuilder.addPlayerIds(i);
       }
@@ -100,18 +121,34 @@ public class GameHandlers extends Api.GameService {
     if (game == null){
         throw new ApiError(Code.NOT_FOUND, "Game with that ID not found");
     }
+
+    Api.Game.Status status;
+    switch (game.getGameStatus()) {
+    case PRE:
+      status = Api.Game.Status.PRE;
+      break;
+    case STARTED:
+      status = Api.Game.Status.STARTED;
+      break;
+    case ENDED:
+      status = Api.Game.Status.FINISHED;
+      break;
+    default:
+      status = Api.Game.Status.UNKNOWN;
+      break;
+    }
+
     Api.Game.Builder gameBuilder = Api.Game.newBuilder();
     gameBuilder.setGameId(game.getGameID());
     gameBuilder.setDisplayName(game.getDisplayName());
     gameBuilder.setMaxPlayers(game.getMaxPlayers());
     gameBuilder.setHostPlayerId(game.getHostPlayerID());
+    gameBuilder.setStatus(status);
     for(String i: game.getPlayerIDs()){
       gameBuilder.addPlayerIds(i);
     }
     callback.run(gameBuilder.build());
   }
-
-
 
   public void startGame(RpcController controller, Api.StartGameRequest request, RpcCallback<Api.Game> callback){
     try {
@@ -136,6 +173,15 @@ public class GameHandlers extends Api.GameService {
     Api.Empty.Builder toReturn = Api.Empty.newBuilder();
     callback.run(toReturn.build());
   }
+
+  public void streamHistory(RpcController controller, Api.StreamHistoryRequest request, RpcCallback<Api.Message> callback){
+    Stream<GameAction> gameActions = service.streamHistory(request.getGameId());
+    gameActions.forEach((GameAction action) -> {
+      Api.GameAction.Builder builder = action.createBuilder();
+      callback.run(builder.build());
+    });
+  }
+
 
   // This method is the replacement for JoinGame().
   // It takes the given request and creates a Player object,
@@ -198,5 +244,42 @@ public class GameHandlers extends Api.GameService {
     callback.run(builder.build());
   }
 
+  public void togglePlayerStats(RpcController controller, Api.Empty req, RpcCallback<Api.Empty> callback) {
+    publishPlayerStats();
+    callback.run(Api.Empty.newBuilder().build());
+  }
 
+  CommandQueue<Api.PlayerStats> playerStatsQueue = new CommandQueue<Api.PlayerStats>();
+  boolean playerStatsState;
+
+  public void streamPlayerStats(RpcController controller, Api.StreamPlayerStatsRequest request, RpcCallback<Api.PlayerStats> callback) {
+    playerStatsQueue.subscribe()
+      .forEach((Api.PlayerStats stats) -> {
+        callback.run(stats);
+      });
+  }
+
+  void publishPlayerStats() {
+    playerStatsState = !playerStatsState;
+    Api.PlayerStats.Builder builder = Api.PlayerStats.newBuilder();
+
+    if (playerStatsState == true) {
+      builder.setPoints(0);
+      builder.setTrainCount(80);
+      builder.setDestinationCardCount(0);
+      builder.setTrainCardCount(0);
+    } else {
+      builder.setPoints(30);
+      builder.setTrainCount(40);
+      builder.setDestinationCardCount(2);
+      builder.setTrainCardCount(6);
+    }
+
+    builder.setPlayerId("player1");
+    playerStatsQueue.publish(builder.build());
+    builder.setPlayerId("player2");
+    playerStatsQueue.publish(builder.build());
+    builder.setPlayerId("player3");
+    playerStatsQueue.publish(builder.build());
+  }
 }

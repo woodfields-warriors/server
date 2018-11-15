@@ -8,6 +8,7 @@ option java_generic_services = true;
 
 service HealthService {
   rpc GetHealth (GetHealthRequest) returns (Health);
+  rpc StreamHealth (GetHealthRequest) returns (stream Health);
 }
 
 message Health {

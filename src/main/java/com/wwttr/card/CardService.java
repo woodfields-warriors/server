@@ -12,6 +12,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Stream;
 
 public class CardService {
   private DatabaseFacade df;
@@ -109,6 +110,13 @@ public class CardService {
       throw new NotFoundException("game with id " + gameId + " not found");
     }
     return df.listDestinationCards(3,gameId);
+  }
+
+  public Stream<DestinationCard> streamDestinationCards(String playerId) throws NotFoundException {
+    if (df.getPlayer(playerId) == null) {
+      throw new NotFoundException("player with id " + playerId + " not found");
+    }
+    return df.streamDestinationCards().filter((DestinationCard card) -> card.getPlayerId().equals(playerId) || card.getPlayerId().equals("") || card.getPlayerId() == null);
   }
 
   public void claimDesinationCards(List<String> destinationCardIds, String playerId) throws NotFoundException {

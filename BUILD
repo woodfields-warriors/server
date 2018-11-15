@@ -33,6 +33,10 @@ java_image(
     ":game_api",
     ":health_service",
     ":health_api",
+    ":card_service",
+    ":card_api",
+    ":chat_service",
+    ":chat_api",
     "@com_google_protobuf//:protobuf_java",
     ],
   main_class = "com.wwttr.main.Main",
@@ -203,6 +207,7 @@ java_test(
     ":game_service",
     ":game_api",
     ":auth_service",
+    ":api_lib",
   ]
 )
 

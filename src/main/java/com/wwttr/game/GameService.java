@@ -141,6 +141,10 @@ public class GameService {
     return database.getPlayer(playerID);
   }
 
+  public List<Player> listPlayers(String gameID) {
+    return database.listPlayers(gameID);
+  }
+
 /*      ---  DEPRECATED ---- /
   public Player joinGame(String userID, String gameID){
     Game game = database.getGame(gameID);
@@ -199,20 +203,6 @@ public class GameService {
     return null;
   }
 // -----------------*/
-
-
-  public void addGameListener(Context ctx, GameListener l) {
-
-    ctx.addCallback(() -> gameListeners.remove(l));
-
-    gameListeners.add(l);
-  }
-
-  private void notifyGameListeners(Game g) {
-    for (GameListener l : gameListeners) {
-      l.notify(g);
-    }
-  }
 
   public static void main(String[] args) {
     GameService service = new GameService();

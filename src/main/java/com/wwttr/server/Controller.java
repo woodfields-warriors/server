@@ -16,6 +16,10 @@ class Controller implements RpcController {
     this.exchange = exchange;
   }
 
+  public HttpExchange getExchange() {
+    return exchange;
+  }
+
   public String errorText() {
     if (error == null) {
       return null;

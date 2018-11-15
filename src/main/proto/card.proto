@@ -97,6 +97,78 @@ message ClaimTrainCardResponse {
 message ClaimRouteRequest {
 
 }
+message ClaimDestinationCardsResponse {
+
+}
+
+message StreamDestinationCardsRequest {
+  string player_id = 1;
+}
+
+message TrainCard {
+  string id = 1;
+  TrainColor color = 2;
+  State state = 4;
+
+  enum State {
+    UNSPECIFIED = 0;
+    HIDDEN = 1;
+    VISIBLE = 2;
+    OWNED = 3;
+  }
+}
+
+enum TrainColor {
+  UNSPECIFIED = 0;
+  ORANGE = 1;
+  PINK = 2;
+  GREEN = 3;
+  BLUE = 4;
+  BLACK = 5;
+  GREY = 6;
+  YELLOW = 7;
+  RED = 8;
+  WHITE = 9;
+}
+
+message StreamTrainCardsRequest {
+  string player_id = 1;
+}
+
+message DeckStats {
+  int32 hidden_train_card_count = 1;
+  int32 hidden_destination_card_count = 3;
+}
+
+message StreamDeckStatsRequest {
+
+}
+
+message Route {
+  string id = 1;
+  string first_city_id = 2;
+  string second_city_id = 3;
+  TrainColor color = 4;
+  string player_id = 5;
+}
+
+message StreamRoutesRequest {
+
+}
+
+message ClaimTrainCardRequest {
+
+}
+
+message ClaimTrainCardResponse {
+
+}
+
+message ClaimRouteRequest {
+
+}
+
+message ClaimRouteResponse {
 
 message ClaimRouteResponse {
 

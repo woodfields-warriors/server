@@ -6,6 +6,7 @@ import com.wwttr.models.CreateResponse;
 import com.wwttr.models.Game;
 import com.wwttr.models.Player;
 import com.wwttr.models.LoginResponse;
+import com.wwttr.api.NotFoundException;
 
 import org.junit.After;
 import org.junit.Before;

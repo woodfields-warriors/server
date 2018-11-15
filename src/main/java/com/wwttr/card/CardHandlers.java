@@ -21,10 +21,6 @@ public class CardHandlers extends Api.CardService {
   public CardHandlers() {
     service = CardService.getInstance();
 
-    toggleRoutes();
-    toggleTrainCards();
-  }
-  //--------------Destination Card Functions-----------------//
   public void getDestinationCard(RpcController controller, Api.GetDestinationCardRequest request, RpcCallback<Api.DestinationCard> callback) {
     try{
       if(request.getDestinationCardId() == "")
