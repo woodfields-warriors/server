@@ -1,6 +1,7 @@
 package com.wwttr.database;
 
 
+import java.lang.reflect.Array;
 import java.util.*;
 
 import com.wwttr.api.NotFoundException;
@@ -18,9 +19,9 @@ public class DatabaseFacade {
     private Random rn = new Random();
     static private DatabaseFacade instance;
     private ArrayList<DestinationCard> destinationCards = new ArrayList<>();
+    private CommandQueue<DestinationCard> destinationCardQueue = new CommandQueue<>();
     private ArrayList<TrainCard> trainCards = new ArrayList<>();
     private CommandQueue<TrainCard> trainCardQueue = new CommandQueue<TrainCard>();
-    private Random rn = new Random();
 
     private DatabaseFacade(){
 
@@ -256,22 +257,28 @@ public class DatabaseFacade {
       return  destinationCards;
   }
 
+  public Stream<DestinationCard> streamDestinationCards(String playerId) {
+    return destinationCardQueue
+        .subscribe()
+        .filter((DestinationCard dc) -> dc.getPlayerId().equals(playerId)|| dc.getPlayerId().equals("") || dc.getPlayerId() == null);
+  }
+
 
   //TODO TrainCard Functions
   //***********************************************************************************//
   //-------------------------------Train Card Service Methods------------------------------------
 
-  public TrainCard getTrainCard(String cardDrawnId){
+  public TrainCard getTrainCard(String cardDrawnId) throws NotFoundException{
     synchronized (this) {
       for (TrainCard card : trainCards) {
         if (card.getId().equals(cardDrawnId))
           return card;
       }
-      throw new NotFoundError("card with id " + cardDrawnId + " not found");
+      throw new NotFoundException("card with id " + cardDrawnId + " not found");
     }
   }
 
-  public void updateTrainCard(TrainCard card){
+  public void updateTrainCard(TrainCard card) throws NotFoundException{
     synchronized (this) {
       TrainCard retrievedCard = getTrainCard(card.getId());
       if(retrievedCard == null){
@@ -295,25 +302,25 @@ public class DatabaseFacade {
   }
 
   public void newFaceUpCard(String gameId){
+
+      //TODO Special rule for Locomotives
     synchronized (this) {
       ArrayList<TrainCard> cards = getTrainCardsForGame(gameId);
-      TrainCard tempCard = cards.at(rn.nextInt(cards.size()));
-      while (tempCard.getState() != TrainCard.State.Hidden) {
-        tempCard = cards.at(rn.nextInt(cards.size()));
+      TrainCard tempCard = getRandomTrainCardFromDeck(gameId);
+      tempCard.setState(TrainCard.State.VISIBLE);
+      try {
+        updateTrainCard(tempCard);
       }
-      tempCard.setState(TrainCard.State.Visible);
-      updateTrainCard(tempCard);
+      catch (NotFoundException e){
+        e.printStackTrace();
+        newFaceUpCard(gameId);
+      }
     }
   }
 
   public void sendNewHiddenCard(String gameId){
     synchronized (this) {
-      ArrayList<TrainCard> cards = getTrainCardsForGame(gameId);
-      TrainCard tempCard = cards.at(rn.nextInt(cards.size()));
-      while (tempCard.getState() != TrainCard.State.HIDDEN) {
-        tempCard = cards.at(rn.nextInt(cards.size()));
-      }
-      trainCardQueue.publish(tempCard);
+      trainCardQueue.publish(getRandomTrainCardFromDeck(gameId));
     }
   }
 
@@ -328,7 +335,35 @@ public class DatabaseFacade {
     }
   }
 
-  void clearCards() {trainCards = new ArrayList<>();}
+  public List<TrainCard> getTrainCardsForPlayer(String playerId){
+      synchronized (this){
+        List<TrainCard> toReturn = new ArrayList<>();
+        for(TrainCard card : trainCards){
+          if(card.getPlayerId().equals(playerId))
+            toReturn.add(card);
+        }
+        return toReturn;
+      }
+  }
+
+  public TrainCard getRandomTrainCardFromDeck(String gameId){
+      ArrayList<TrainCard> cards = getTrainCardsForGame(gameId);
+      TrainCard temp = cards.get(rn.nextInt(cards.size()));
+      while(temp.getState() != TrainCard.State.HIDDEN){
+        temp = cards.get(rn.nextInt(cards.size()));
+      }
+      return temp;
+  }
+
+
+//TODO should this be done by gameId and we just give the Player too much invormation, or PlayerId?
+  public Stream<TrainCard> streamTrainCards(String gameId) {
+    return trainCardQueue
+        .subscribe()
+        .filter((TrainCard tc) -> tc.getGameId().equals(gameId));
+  }
+
+  void clearTrainCards() {trainCards = new ArrayList<>();}
 
   ArrayList<TrainCard> getTrainCards() {return trainCards;}
 

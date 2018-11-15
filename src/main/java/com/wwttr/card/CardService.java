@@ -8,7 +8,6 @@ import com.wwttr.api.Code;
 
 import org.omg.CosNaming.NamingContextPackage.NotFound;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -36,7 +35,7 @@ public class CardService {
 
   void setDefaultTemplates(){
     generateDestinationDeckTemplate(FIRST_CITIES,SECOND_CITIES,POINTS);
-    generateTrainCardDeckTemplate(TRAIN_COLORS,TRAIN_STATES);
+    generateTrainCardDeckTemplate(TRAIN_COLORS,TRAIN_STATES,COUNT);
   }
 
   public void createFullDecksForGame(String gameId) throws NotFoundException{
@@ -71,12 +70,13 @@ public class CardService {
       TrainCard tempCard = new TrainCard(newId,gameId,"",tempTrainCardTemplate.getColor(),tempTrainCardTemplate.getState());
       trainCardList.add(tempCard);
     }
-    for(int i = 0; i < 4; i++){
-      TrainCard tempCard = trainCardList.at(rn.nextInt(trainCardList.size()));
+    for(int i = 0; i < 5; i++){
+      TrainCard tempCard = trainCardList.get(rn.nextInt(trainCardList.size()));
       tempCard.setState(TrainCard.State.VISIBLE);
     }
     df.addDestinationCardDeck(cardList);
     df.addTrainCardDeck(trainCardList);
+    dealTrainCards(gameId);
   }
 
   // Destination Card Functions -------------------------------------------
@@ -112,13 +112,6 @@ public class CardService {
     return df.listDestinationCards(3,gameId);
   }
 
-  public Stream<DestinationCard> streamDestinationCards(String playerId) throws NotFoundException {
-    if (df.getPlayer(playerId) == null) {
-      throw new NotFoundException("player with id " + playerId + " not found");
-    }
-    return df.streamDestinationCards().filter((DestinationCard card) -> card.getPlayerId().equals(playerId) || card.getPlayerId().equals("") || card.getPlayerId() == null);
-  }
-
   public void claimDesinationCards(List<String> destinationCardIds, String playerId) throws NotFoundException {
     if(df.getPlayer(playerId) == null)
       throw new NotFoundException("player with id" + playerId + " not found");
@@ -135,21 +128,48 @@ public class CardService {
     }
   }
 
+  public Stream<DestinationCard> streamDestinationCards(String playerId) throws NotFoundException {
+    if(df.getPlayer(playerId) == null){
+      throw new NotFoundException("player not found");
+    }
+    return df.streamDestinationCards(playerId);
+  }
+
   //Train Card Functions--------------------------------------------------------------
 
   private ArrayList<TrainCardTemplate<TrainCard.Color,TrainCard.State>> fullTrainCardDeckTemplate = new ArrayList<>();
-//TODO Set Default Values
-  private final TrainCard.Color[] TRAIN_COLORS = {};
-  private final TrainCard.State[] TRAIN_STATES = {};
+  private final TrainCard.Color[] TRAIN_COLORS = {TrainCard.Color.PINK,TrainCard.Color.WHITE,TrainCard.Color.BLUE,TrainCard.Color.YELLOW,TrainCard.Color.ORANGE,
+                                                  TrainCard.Color.BLACK,TrainCard.Color.RED,TrainCard.Color.GREEN,TrainCard.Color.RAINBOW};
+  private final TrainCard.State[] TRAIN_STATES = {TrainCard.State.HIDDEN,TrainCard.State.HIDDEN,TrainCard.State.HIDDEN,TrainCard.State.HIDDEN,TrainCard.State.HIDDEN,
+                                                  TrainCard.State.HIDDEN,TrainCard.State.HIDDEN,TrainCard.State.HIDDEN,TrainCard.State.HIDDEN};
+  private final Integer[] COUNT = {12,12,12,12,12,12,12,12,14};
 
-  public void generateTrainCardDeckTemplate(TrainCard.Color[] colors, TrainCard.State[] states){
-    if(colors.length != states.length){
+  public void generateTrainCardDeckTemplate(TrainCard.Color[] colors, TrainCard.State[] states, Integer[] count){
+    if(colors.length != states.length || states.length != count.length){
       throw new IllegalArgumentException("lengths of Train Deck arrays do not match");
     }
     fullTrainCardDeckTemplate.clear();
     for(int i = 0; i < colors.length; i++){
-      TrainCardTemplate<TrainCard.Color,TrainCard.State> tempTrainCardTemplate = new TrainCardTemplate<TrainCard.Color, TrainCard.State>(colors[i],states[i]);
-      fullTrainCardDeckTemplate.add(tempTrainCardTemplate);
+      for(int j = 0; j < count.length; j++) {
+        TrainCardTemplate<TrainCard.Color, TrainCard.State> tempTrainCardTemplate = new TrainCardTemplate<>(colors[i], states[i]);
+        fullTrainCardDeckTemplate.add(tempTrainCardTemplate);
+      }
+    }
+  }
+
+  public void dealTrainCards(String gameId) throws NotFoundException{
+    Game game = df.getGame(gameId);
+    if(game == null){
+      throw new NotFoundException("game not found");
+    }
+    List<String> playerIDs = game.getPlayerIDs();
+    for(String id : playerIDs){
+      for(int i = 0; i < 4; i++){
+        TrainCard card = df.getRandomTrainCardFromDeck(gameId);
+        card.setPlayerId(id);
+        card.setState(TrainCard.State.OWNED);
+        df.updateTrainCard(card);
+      }
     }
   }
 
@@ -197,7 +217,17 @@ public class CardService {
   }
 
   public List<TrainCard> getTrainCardsInHand(String playerId) throws NotFoundException {
+    if(df.getPlayer(playerId) == null){
+      throw new NotFoundException("player with id" + playerId + " not found");
+    }
+    return df.getTrainCardsForPlayer(playerId);
+  }
 
+  public Stream<TrainCard> streamTrainCards(String gameId) throws NotFoundException {
+    if(df.getGame(gameId) == null){
+      throw new NotFoundException("game not found");
+    }
+    return df.streamTrainCards(gameId);
   }
 
   //Testing Functions-------------------------------------------------------------------
@@ -229,19 +259,19 @@ class DestinationTemplate<T,U,V>{
 }
 
 class TrainCardTemplate<V,X>{
-  private final V third;
-  private final X fourth;
+  private final V first;
+  private final X second;
 
   public TrainCardTemplate( V color, X state) {
-    this.third = color;
-    this.fourth = state;
+    this.first = color;
+    this.second = state;
   }
 
   public V getColor() {
-    return third;
+    return first;
   }
 
   public X getState() {
-    return fourth;
+    return second;
   }
 }
