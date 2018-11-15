@@ -119,12 +119,12 @@ public class CardService {
     return df.listDestinationCards(3,gameId);
   }
 
-  public void claimDesinationCards(List<String> destinationCardIds, String playerId) throws NotFoundException {
+  public void claimDestinationCards(List<String> destinationCardIds, String playerId) throws NotFoundException {
     if(df.getPlayer(playerId) == null)
       throw new NotFoundException("player with id" + playerId + " not found");
     for(String id : destinationCardIds){
       DestinationCard card = df.getDestinationCard(id);
-      if(card.getPlayerId().equals("")){
+      if(card.getPlayerId().equals("sent")){
         card.setPlayerId(playerId);
         df.updateDestinationCard(card);
       }

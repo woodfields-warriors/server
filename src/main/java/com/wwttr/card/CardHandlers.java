@@ -9,7 +9,6 @@ import com.wwttr.models.DeckStats;
 import com.wwttr.models.DestinationCard;
 
 
-import com.wwttr.database.CommandQueue;
 import com.wwttr.models.TrainCard;
 
 import java.util.List;
@@ -67,7 +66,7 @@ public class CardHandlers extends Api.CardService {
         throw new ApiError(Code.INVALID_ARGUMENT, "argument 'destination_card_ids' is required");
       if(request.getPlayerId().equals(""))
         throw new ApiError(Code.INVALID_ARGUMENT, "argument 'player_id' is required");
-      service.claimDesinationCards(request.getDestinationCardIdsList(),request.getPlayerId());
+      service.claimDestinationCards(request.getDestinationCardIdsList(),request.getPlayerId());
     }
     catch (NotFoundException e) {
       throw new ApiError(Code.NOT_FOUND, "");

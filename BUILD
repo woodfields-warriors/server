@@ -274,7 +274,6 @@ java_test(
     ":api_lib",
     ":database_lib",
     ":models",
-    ":game_service",
     ":game_api"
   ]
 )

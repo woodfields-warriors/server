@@ -2,7 +2,6 @@ package com.wwttr.card;
 
 import com.wwttr.api.NotFoundException;
 import com.wwttr.database.DatabaseFacade;
-import com.wwttr.game.GameService;
 import com.wwttr.models.DestinationCard;
 import com.wwttr.models.CreateResponse;
 
@@ -20,7 +19,7 @@ public class CardServiceTest {
   DatabaseFacade df = DatabaseFacade.getInstance();
   private String[] name = {"test", "test2"};
   private Integer[] points = {1, 2};
-  GameService gs = GameService.getInstance();
+  GameServiceFacade gs = GameServiceFacade.getInstance();
   String GameId = null;
   String playerId = null;
 
@@ -91,7 +90,7 @@ public class CardServiceTest {
   }
 
   @Test
-  public void claimDesinationCards() {
+  public void claimDestinationCards(){
     try {
       cs.createFullDecksForGame(GameId);
       List<DestinationCard> cards = cs.peekDestinationCards(GameId);
@@ -100,7 +99,7 @@ public class CardServiceTest {
         System.out.println(card.getId());
         idsToClaim.add(card.getId());
       }
-      cs.claimDesinationCards(idsToClaim, playerId);
+      cs.claimDestinationCards(idsToClaim, playerId);
       for (int i = 0; i < cards.size(); i++) {
         assert (cs.getDestinationCard(cards.get(i).getId()).getPlayerId().equals(playerId));
       }
@@ -108,5 +107,41 @@ public class CardServiceTest {
       e.printStackTrace();
       fail();
     }
+  }
+
+  @Test
+  public void setDefaultTemplates() {
+  }
+
+  @Test
+  public void createFullDecksForGame() {
+  }
+
+  @Test
+  public void streamDeckStats() {
+  }
+
+  @Test
+  public void generateTrainCardDeckTemplate() {
+  }
+
+  @Test
+  public void dealTrainCards() {
+  }
+
+  @Test
+  public void claimTrainCardFromDeck() {
+  }
+
+  @Test
+  public void claimFaceUpTrainCard() {
+  }
+
+  @Test
+  public void getTrainCardsInHand() {
+  }
+
+  @Test
+  public void streamTrainCards() {
   }
 }

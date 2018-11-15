@@ -15,7 +15,7 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-public class DatabaseTest {
+public class DatabaseFacadeTest {
 
     @Test
     public void pubSub() throws Exception {
@@ -203,5 +203,53 @@ public class DatabaseTest {
     catch (IllegalArgumentException e){
       assertNotNull(e);
     }
+  }
+
+  @Test
+  public void getTrainCard() {
+  }
+
+  @Test
+  public void updateTrainCard() {
+  }
+
+  @Test
+  public void addTrainCardDeck() {
+  }
+
+  @Test
+  public void newFaceUpCard() {
+  }
+
+  @Test
+  public void sendNewHiddenCard() {
+  }
+
+  @Test
+  public void getTrainCardsForGame() {
+  }
+
+  @Test
+  public void getTrainCardsForPlayer() {
+  }
+
+  @Test
+  public void getRandomTrainCardFromDeck() {
+  }
+
+  @Test
+  public void streamTrainCards() {
+  }
+
+  @Test
+  public void streamDeckStats() {
+  }
+
+  @Test
+  public void clearTrainCards() {
+  }
+
+  @Test
+  public void getTrainCards() {
   }
 }
