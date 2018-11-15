@@ -5,6 +5,7 @@ import com.google.protobuf.RpcCallback;
 import com.wwttr.api.ApiError;
 import com.wwttr.api.Code;
 import com.wwttr.api.NotFoundException;
+import com.wwttr.models.DeckStats;
 import com.wwttr.models.DestinationCard;
 
 
@@ -144,7 +145,7 @@ public class CardHandlers extends Api.CardService {
       Api.GetTrainCardsInHandResponse.Builder builder = Api.GetTrainCardsInHandResponse.newBuilder();
       for(TrainCard card : cards){
         Api.TrainCard.Builder cardBuilder = card.createBuilder();
-        builder.AddCards(cardBuilder.build());
+        builder.addCards(cardBuilder.build());
       }
       callback.run(builder.build());
     }
@@ -158,18 +159,37 @@ public class CardHandlers extends Api.CardService {
   }
 
   public void streamTrainCards(RpcController controller, Api.StreamTrainCardsRequest request, RpcCallback<Api.TrainCard> callback) {
-    Stream<TrainCard> trainCards = service.streamTrainCards(request.getGameId());
-    trainCards.forEach((TrainCard tc) -> {
-      Api.TrainCard.Builder builder = tc.createBuilder();
-      callback.run(builder.build());
-    });
+    try {
+      Stream<TrainCard> trainCards = service.streamTrainCards(request.getPlayerId());
+      trainCards.forEach((TrainCard tc) -> {
+        Api.TrainCard.Builder builder = tc.createBuilder();
+        callback.run(builder.build());
+      });
+    }
+    catch (NotFoundException e){
+      throw new ApiError(Code.NOT_FOUND,"");
+    }
+    catch (Exception e){
+      e.printStackTrace();
+      throw new ApiError(Code.INTERNAL,"");
+    }
   }
 
   public void streamDeckStats(RpcController controller, Api.StreamDeckStatsRequest request, RpcCallback<Api.DeckStats> callback) {
-    deckStatsQueue.subscribe()
-        .forEach((Api.DeckStats stats) -> {
-          callback.run(stats);
-        });
+    try {
+      service.streamDeckStats(request.getGameId())
+          .forEach((DeckStats stats) -> {
+            Api.DeckStats.Builder builder = stats.createBuilder();
+            callback.run(builder.build());
+          });
+    }
+    catch (NotFoundException e){
+      throw new ApiError(Code.NOT_FOUND,"");
+    }
+    catch (Exception e){
+      e.printStackTrace();
+      throw new ApiError(Code.INTERNAL,"");
+    }
   }
 
 

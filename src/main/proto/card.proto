@@ -71,7 +71,7 @@ message DeckStats {
 }
 
 message StreamDeckStatsRequest {
-
+  string game_id = 1;
 }
 
 message Route {

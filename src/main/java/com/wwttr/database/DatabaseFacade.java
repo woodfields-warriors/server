@@ -22,6 +22,7 @@ public class DatabaseFacade {
     private CommandQueue<DestinationCard> destinationCardQueue = new CommandQueue<>();
     private ArrayList<TrainCard> trainCards = new ArrayList<>();
     private CommandQueue<TrainCard> trainCardQueue = new CommandQueue<TrainCard>();
+    private CommandQueue<DeckStats> deckStatsCommandQueue = new CommandQueue<>();
 
     private DatabaseFacade(){
 
@@ -258,9 +259,11 @@ public class DatabaseFacade {
   }
 
   public Stream<DestinationCard> streamDestinationCards(String playerId) {
+    String gameId = getPlayer(playerId).getGameId();
     return destinationCardQueue
         .subscribe()
-        .filter((DestinationCard dc) -> dc.getPlayerId().equals(playerId)|| dc.getPlayerId().equals("") || dc.getPlayerId() == null);
+        .filter((DestinationCard dc) -> dc.getPlayerId().equals(playerId)|| dc.getPlayerId().equals("") || dc.getPlayerId() == null
+                                        && dc.getGameId().equals(gameId));
   }
 
 
@@ -356,11 +359,17 @@ public class DatabaseFacade {
   }
 
 
-//TODO should this be done by gameId and we just give the Player too much invormation, or PlayerId?
-  public Stream<TrainCard> streamTrainCards(String gameId) {
+  public Stream<TrainCard> streamTrainCards(String playerId) {
+    String gameId = getPlayer(playerId).getGameId();
     return trainCardQueue
         .subscribe()
-        .filter((TrainCard tc) -> tc.getGameId().equals(gameId));
+        .filter((TrainCard tc) -> tc.getGameId().equals(gameId) && ( tc.getPlayerId().equals(playerId)
+                                  || tc.getState().equals(TrainCard.State.VISIBLE) ));
+  }
+
+  public Stream<DeckStats> streamDeckStats(String gameId){
+      return deckStatsCommandQueue.subscribe()
+          .filter((DeckStats ds) -> ds.getGameId().equals(gameId));
   }
 
   void clearTrainCards() {trainCards = new ArrayList<>();}

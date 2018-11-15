@@ -79,6 +79,13 @@ public class CardService {
     dealTrainCards(gameId);
   }
 
+  public Stream<DeckStats> streamDeckStats(String gameId) throws NotFoundException{
+    if(df.getGame(gameId) == null){
+      throw new NotFoundException("game not found");
+    }
+    return df.streamDeckStats(gameId);
+  }
+
   // Destination Card Functions -------------------------------------------
 
   private ArrayList<DestinationTemplate<String,String,Integer>> fullDestinationDeckTemplate = new ArrayList<>();
@@ -223,11 +230,11 @@ public class CardService {
     return df.getTrainCardsForPlayer(playerId);
   }
 
-  public Stream<TrainCard> streamTrainCards(String gameId) throws NotFoundException {
-    if(df.getGame(gameId) == null){
-      throw new NotFoundException("game not found");
+  public Stream<TrainCard> streamTrainCards(String playerId) throws NotFoundException {
+    if(df.getPlayer(playerId) == null){
+      throw new NotFoundException("player not found");
     }
-    return df.streamTrainCards(gameId);
+    return df.streamTrainCards(playerId);
   }
 
   //Testing Functions-------------------------------------------------------------------
