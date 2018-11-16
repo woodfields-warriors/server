@@ -142,7 +142,9 @@ public class CardServiceTest {
           cardsInHand++;
       }
       assert(visibleCards == 5);
-      assert(cardsInHand == 16);
+      Game game = df.getGame(GameId);
+      Integer expectedCards = game.getPlayerIDs().size()*4;
+      assertEquals(expectedCards,cardsInHand);
     }
     catch (NotFoundException e){
       fail();
@@ -152,10 +154,12 @@ public class CardServiceTest {
   @Test
   public void claimTrainCardFromDeck() {
     try{
+      cs.createFullDecksForGame(GameId);
       Integer startingCardsInHand = df.getTrainCardsForPlayer(playerId).size();
       cs.claimTrainCardFromDeck(playerId);
       Integer cardsInHand =  df.getTrainCardsForPlayer(playerId).size();
-      assertEquals(startingCardsInHand++,cardsInHand);
+      Integer expectedCardsInHand = startingCardsInHand+1;
+      assertEquals(expectedCardsInHand,cardsInHand);
     }
     catch (NotFoundException e){
       fail();
@@ -165,6 +169,7 @@ public class CardServiceTest {
   @Test
   public void claimFaceUpTrainCard() {
     try{
+      cs.createFullDecksForGame(GameId);
       Integer startingCardsInHand = df.getTrainCardsForPlayer(playerId).size();
       ArrayList<TrainCard> trainCards = df.getTrainCardsForGame(GameId);
       ArrayList<TrainCard> visibleCards = new ArrayList<>();
@@ -175,8 +180,9 @@ public class CardServiceTest {
       TrainCard claimed = visibleCards.get(0);
       cs.claimFaceUpTrainCard(playerId,claimed.getId());
       Integer cardsInHand =  df.getTrainCardsForPlayer(playerId).size();
-      assertEquals(startingCardsInHand++,cardsInHand);
-      assertNotEquals(claimed.getState(),df.getTrainCard(claimed.getId()).getState());
+      Integer expectedCardsInHand = startingCardsInHand + 1;
+      assertEquals(expectedCardsInHand,cardsInHand);
+      assertEquals(TrainCard.State.OWNED,df.getTrainCard(claimed.getId()).getState());
     }
     catch (NotFoundException e){
       fail();
@@ -185,8 +191,14 @@ public class CardServiceTest {
 
   @Test
   public void getTrainCardsInHand() {
+    try{
+      cs.createFullDecksForGame(GameId);
       List<TrainCard> cards = df.getTrainCardsForPlayer(playerId);
-      assertEquals(5,cards.size());
+      assertEquals(4,cards.size());
+    }
+    catch (NotFoundException e){
+      fail();
+    }
   }
 
   @Test
