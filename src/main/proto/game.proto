@@ -163,8 +163,18 @@ message StreamPlayerStatsRequest {
 
 message PlayerStats {
   string player_id = 1;
-  int32 points = 2;
+  int32 train_card_points = 2;
+  int32 longest_route_points = 6;
+  int32 destination_card_points = 7;
   int32 train_count = 3;
   int32 train_card_count = 4;
   int32 destination_card_count = 5;
+  PlayerTurnState turn_state = 8;
+}
+
+enum PlayerTurnState {
+  UNSPECIFIED_PLAYER_TURN_STATE = 0;
+  PENDING = 1;
+  START = 2;
+  MID = 3;
 }
