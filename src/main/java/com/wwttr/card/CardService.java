@@ -74,6 +74,7 @@ public class CardService {
       TrainCard tempCard = trainCardList.get(rn.nextInt(trainCardList.size()));
       tempCard.setState(TrainCard.State.VISIBLE);
     }
+    System.out.println("Train card deck size" + trainCardList.size());
     df.addDestinationCardDeck(cardList);
     df.addTrainCardDeck(trainCardList);
     dealTrainCards(gameId);
@@ -157,7 +158,7 @@ public class CardService {
     }
     fullTrainCardDeckTemplate.clear();
     for(int i = 0; i < colors.length; i++){
-      for(int j = 0; j < count.length; j++) {
+      for(int j = 0; j < count[i]; j++) {
         TrainCardTemplate<TrainCard.Color, TrainCard.State> tempTrainCardTemplate = new TrainCardTemplate<>(colors[i], states[i]);
         fullTrainCardDeckTemplate.add(tempTrainCardTemplate);
       }

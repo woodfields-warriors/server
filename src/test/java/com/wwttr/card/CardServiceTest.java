@@ -4,6 +4,7 @@ import com.wwttr.api.NotFoundException;
 import com.wwttr.database.DatabaseFacade;
 import com.wwttr.models.DestinationCard;
 import com.wwttr.models.CreateResponse;
+import com.wwttr.models.TrainCard;
 
 import org.junit.After;
 import org.junit.Before;
@@ -19,6 +20,9 @@ public class CardServiceTest {
   DatabaseFacade df = DatabaseFacade.getInstance();
   private String[] name = {"test", "test2"};
   private Integer[] points = {1, 2};
+  private TrainCard.Color[] trainCardColors = {TrainCard.Color.PINK,TrainCard.Color.GREEN};
+  private TrainCard.State[] trainCardStates = {TrainCard.State.HIDDEN,TrainCard.State.HIDDEN};
+  private Integer[] trainCardCounts = {5,20};
   GameServiceFacade gs = GameServiceFacade.getInstance();
   String GameId = null;
   String playerId = null;
@@ -41,6 +45,7 @@ public class CardServiceTest {
 
   @Test
   public void generateDeckTemplate() {
+    System.out.println("generateDeckTemplateTest");
     String[] name = {"test", "test2"};
     Integer[] point = {1, 2};
     try {
@@ -54,10 +59,15 @@ public class CardServiceTest {
 
   @Test
   public void createFullDeckForGame() {
+    System.out.println("createFullDeckForGameTest");
     try {
+      df.clearTrainCards();
+      cs.generateTrainCardDeckTemplate(trainCardColors,trainCardStates,trainCardCounts);
       cs.generateDestinationDeckTemplate(name, name, points);
       cs.createFullDecksForGame(GameId);
       assert (df.getDestinationCards().size() == name.length);
+      System.out.println("train card deck size = " + df.getTrainCards().size());
+      assert (df.getTrainCards().size() == 25);
     } catch (Exception e) {
       e.printStackTrace();
       fail();
@@ -66,6 +76,7 @@ public class CardServiceTest {
 
   @Test
   public void getDestinationCard() {
+    System.out.println("getDestinationCardTest");
     try {
       cs.createFullDecksForGame(GameId);
       List<DestinationCard> cards = cs.peekDestinationCards(GameId);
@@ -79,6 +90,7 @@ public class CardServiceTest {
 
   @Test
   public void peekDestinationCards() {
+    System.out.println("peekDestinationCardsTest");
     try {
       cs.createFullDecksForGame(GameId);
       List<DestinationCard> cards = cs.peekDestinationCards(GameId);
@@ -91,6 +103,7 @@ public class CardServiceTest {
 
   @Test
   public void claimDestinationCards(){
+    System.out.println("claimDestinationCardsTest");
     try {
       cs.createFullDecksForGame(GameId);
       List<DestinationCard> cards = cs.peekDestinationCards(GameId);
@@ -109,20 +122,9 @@ public class CardServiceTest {
     }
   }
 
-  @Test
-  public void setDefaultTemplates() {
-  }
-
-  @Test
-  public void createFullDecksForGame() {
-  }
 
   @Test
   public void streamDeckStats() {
-  }
-
-  @Test
-  public void generateTrainCardDeckTemplate() {
   }
 
   @Test

@@ -139,7 +139,7 @@ java_library(
 
 java_test(
   name = "database",
-  test_class = "com.wwttr.database.DatabaseTest",
+  test_class = "com.wwttr.database.DatabaseFacadeTest",
   srcs = glob(["src/test/java/com/wwttr/database/*.java"]),
   deps = [
     ":database_lib",

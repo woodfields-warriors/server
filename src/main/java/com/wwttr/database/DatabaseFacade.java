@@ -267,7 +267,6 @@ public class DatabaseFacade {
   }
 
 
-  //TODO TrainCard Functions
   //***********************************************************************************//
   //-------------------------------Train Card Service Methods------------------------------------
 
@@ -304,7 +303,7 @@ public class DatabaseFacade {
     }
   }
 
-  public void newFaceUpCard(String gameId){
+  public void newFaceUpCard(String gameId) throws NotFoundException{
 
       //TODO Special rule for Locomotives
     synchronized (this) {
@@ -321,7 +320,7 @@ public class DatabaseFacade {
     }
   }
 
-  public void sendNewHiddenCard(String gameId){
+  public void sendNewHiddenCard(String gameId) throws NotFoundException{
     synchronized (this) {
       trainCardQueue.publish(getRandomTrainCardFromDeck(gameId));
     }
@@ -349,11 +348,16 @@ public class DatabaseFacade {
       }
   }
 
-  public TrainCard getRandomTrainCardFromDeck(String gameId){
+  public TrainCard getRandomTrainCardFromDeck(String gameId) throws NotFoundException{
       ArrayList<TrainCard> cards = getTrainCardsForGame(gameId);
       TrainCard temp = cards.get(rn.nextInt(cards.size()));
-      while(temp.getState() != TrainCard.State.HIDDEN){
-        temp = cards.get(rn.nextInt(cards.size()));
+      for(int i = 0; temp.getState() != TrainCard.State.HIDDEN; i++){
+        if(i != 100) {
+          temp = cards.get(rn.nextInt(cards.size()));
+        }
+        else{
+          throw new NotFoundException("random card cannot be generated");
+        }
       }
       return temp;
   }
@@ -372,9 +376,9 @@ public class DatabaseFacade {
           .filter((DeckStats ds) -> ds.getGameId().equals(gameId));
   }
 
-  void clearTrainCards() {trainCards = new ArrayList<>();}
+  public void clearTrainCards() {trainCards = new ArrayList<>();}
 
-  ArrayList<TrainCard> getTrainCards() {return trainCards;}
+  public ArrayList<TrainCard> getTrainCards() {return trainCards;}
 
 
   //***********************************************************************************//
