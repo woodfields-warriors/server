@@ -14,6 +14,7 @@ import java.util.Random;
 
 public class CardService {
   private DatabaseFacade df;
+  private GameService gameService;
   private static CardService instance;
   private Random rn = new Random();
   private ArrayList<Triplet<String,String,Integer>> fullDeckTemplate = new ArrayList<>();
@@ -26,6 +27,7 @@ public class CardService {
   private final Integer[] POINTS = {21,8,8,6,17,20,10,10,11,11,7,13,20,11,17,5,16,11,9,13,12,7,9,22,4,8,12,13,9,9};
   private CardService(){
     df = DatabaseFacade.getInstance();
+    gameService = GameService.getInstance();
     generateDeckTemplate(FIRST_CITIES,SECOND_CITIES,POINTS);
   }
 
@@ -95,6 +97,15 @@ public class CardService {
         throw new ApiError(Code.INVALID_ARGUMENT,"card with id " + id + " has already been claimed");
       }
     }
+    String actionString = "";
+    if(destinationCardIds.size() == 1){
+      actionString = "claimed 1 destination card";
+    }
+    else{
+      actionString = "claimed " + destinationCardIds.size() + " destination cards";
+    }
+    //unused
+    GameAction action = gameService.createGameAction(actionString; playerId);
   }
 
   ArrayList<Triplet<String, String, Integer>> getFullDeckTemplate() {

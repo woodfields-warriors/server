@@ -179,6 +179,7 @@ public class GameHandlers extends Api.GameService {
     builder.setId(player.getPlayerId());
     builder.setAccountId(player.getUserId());
     builder.setGameId(player.getGameId());
+    builder.setUsername(player.getUsername());
     Api.Player.Color color;
     switch (player.getPlayerColor()) {
     case RED:

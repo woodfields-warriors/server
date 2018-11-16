@@ -28,6 +28,9 @@ public class GameAction{
 	public String getGameId(){
 		return gameId;
 	}
+	public String getPlayerId(){
+		return playerId;
+	}
 	public void setActionId(String actionId){
 		this.actionId = actionId;
 	}
