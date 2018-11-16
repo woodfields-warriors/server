@@ -104,10 +104,7 @@ public class CardHandlers extends Api.CardService {
       if(request.getId().equals("")){
         throw new ApiError(Code.INVALID_ARGUMENT, "argument 'id' is required");
       }
-      if(request.getCardDrawnId().equals("")){
-        throw new ApiError(Code.INVALID_ARGUMENT, "argument 'card_drawn_id' is required");
-      }
-      service.claimTrainCardFromDeck(request.getId(),request.getCardDrawnId());
+      service.claimTrainCardFromDeck(request.getId());
     }
     catch (NotFoundException e){
       throw new ApiError(Code.NOT_FOUND,"");

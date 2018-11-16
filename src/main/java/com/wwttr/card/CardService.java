@@ -181,24 +181,18 @@ public class CardService {
     }
   }
 
-  public void claimTrainCardFromDeck(String playerId, String cardDrawnId) throws NotFoundException {
+  public void claimTrainCardFromDeck(String playerId) throws NotFoundException {
     if(df.getPlayer(playerId) == null){
       throw new NotFoundException("player with id" + playerId + " not found");
     }
-    TrainCard returned = df.getTrainCard(cardDrawnId);
+    TrainCard returned = df.getRandomTrainCardFromDeck(df.getPlayer(playerId).getGameId());
     if(returned.getPlayerId().equals("")){
-      if(!returned.getState().equals(TrainCard.State.HIDDEN)){
-        throw new ApiError(Code.INVALID_ARGUMENT, "card with id " + cardDrawnId + " is not in deck ");
-      }
-      else {
         returned.setPlayerId(playerId);
         returned.setState(TrainCard.State.OWNED);
         df.updateTrainCard(returned);
-      }
     }
     else{
-      System.out.println(" playerId = '" +returned.getPlayerId() + "'");
-      throw new ApiError(Code.INVALID_ARGUMENT,"card with id " + cardDrawnId + " has already been claimed");
+      throw new ApiError(Code.INVALID_ARGUMENT,"card has already been claimed");
     }
   }
 

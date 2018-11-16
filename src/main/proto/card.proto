@@ -143,7 +143,6 @@ enum TrainColor {
 */
 message DrawTrainCardFromDeckRequest {
   string id = 1;
-  string card_drawn_id = 2;
 }
 
 message DrawFaceUpTrainCardRequest {
