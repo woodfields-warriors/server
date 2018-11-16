@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+package route;
+
+import "card.proto";
+
+option java_package = "com.wwttr.route";
+option java_outer_classname = "Api";
+option java_generic_services = true;
+
+service RouteService {
+  // rpc GetRoute (GetRouteRequest) returns (Route);
+  rpc ClaimRoute (ClaimRouteRequest) returns (ClaimRouteResponse);
+  rpc StreamRoutes (StreamRoutesRequest) returns (stream Route);
+  
+}
+
+message Route {
+  string id = 1;
+  string first_city_id = 2;
+  string second_city_id = 3;
+  card.TrainColor color = 4;
+  string player_id = 5;
+}
+
+message StreamRoutesRequest {
+  string game_id = 1;
+}
+
+message ClaimRouteRequest {
+  string route_id = 1;
+  string player_id = 2;
+}
+
+message ClaimRouteResponse {
+  
+}

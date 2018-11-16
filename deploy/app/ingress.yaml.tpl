@@ -4,7 +4,7 @@ metadata:
   name: test
 spec:
   rules:
-  - host: $BRANCH_NAME.wwttr.umkhandi.com
+  - host: $LOWER_BRANCH_NAME.wwttr.umkhandi.com
     http:
       paths:
       - backend:
