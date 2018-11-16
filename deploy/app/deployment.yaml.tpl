@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: server
+  namespace: $LOWER_BRANCH_NAME
   labels:
     app: ticket-to-ride
 spec:

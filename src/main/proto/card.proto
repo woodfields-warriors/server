@@ -17,10 +17,6 @@ service CardService {
   rpc StreamTrainCards (StreamTrainCardsRequest) returns (stream TrainCard);
   rpc StreamDeckStats (StreamDeckStatsRequest) returns (stream DeckStats);
 
-  /* rpc GetRoute (GetRouteRequest) returns (Route);
-  rpc ClaimRoute (ClaimRouteRequest) returns (ClaimRouteResponse);
-  rpc StreamRoutes (StreamRoutesRequest) returns (stream Route);*/
-
   rpc DrawTrainCardFromDeck (DrawTrainCardFromDeckRequest) returns (Empty);
   rpc DrawFaceUpTrainCard(DrawFaceUpTrainCardRequest) returns(Empty);
   rpc getTrainCardsInHand(GetTrainCardsInHandRequest) returns (GetTrainCardsInHandResponse);
@@ -74,18 +70,6 @@ message StreamDeckStatsRequest {
   string game_id = 1;
 }
 
-message Route {
-  string id = 1;
-  string first_city_id = 2;
-  string second_city_id = 3;
-  TrainColor color = 4;
-  string player_id = 5;
-}
-
-message StreamRoutesRequest {
-
-}
-
 message ClaimTrainCardRequest {
 
 }
@@ -94,17 +78,8 @@ message ClaimTrainCardResponse {
 
 }
 
-message ClaimRouteRequest {
-
-}
-
-
 message StreamTrainCardsRequest {
   string player_id = 1;
-}
-
-message ClaimRouteResponse {
-
 }
 
 //------------Train Card Data Structures--------------//
