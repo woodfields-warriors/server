@@ -185,6 +185,7 @@ public class CardService {
     if(df.getPlayer(playerId) == null){
       throw new NotFoundException("player with id" + playerId + " not found");
     }
+    //TODO implement checking for Locomotive based off of PlayerState
     TrainCard returned = df.getRandomTrainCardFromDeck(df.getPlayer(playerId).getGameId());
     if(returned.getPlayerId().equals("")){
         returned.setPlayerId(playerId);
