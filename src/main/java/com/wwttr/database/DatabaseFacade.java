@@ -179,6 +179,21 @@ public class DatabaseFacade {
       return ret;
     }
 
+    //Given a player Id, this method returns the next player in the players list
+    //The players list is ordered in the order that people joined the game.
+    //This order is also the order of the turn.  So, this method can be used
+    // to get the player who is next up in turn order;
+    public Player getNextPlayer(String playerId){
+      synchronized(this) {
+        for (int i = 0; i<players.size();i++){
+          if(players.get(i).getPlayerId().equals(playerId)){
+            return players.get(i+1);
+          }
+        }
+        return null;
+      }
+    }
+
   //***********************************************************************************//
   //-------------------------------Card Service Methods------------------------------------
   public DestinationCard getDestinationCard(String destinationCardId) throws NotFoundException{

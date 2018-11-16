@@ -159,20 +159,11 @@ public class GameService {
 //------------------PLAYER STATES AND INTERFACE------------//
 
 public Interface IPlayerTurnState{
-  public void drawTrainCard(String playerId){
-
-  }
-  public void claimRoute(String playerId){
-
-  }
-  public void drawDestinationCards(){
-
-  }
-  public void drawFaceUpTrainCard(String playerId, String cardId){
-
-  }
+  public void drawTrainCard(String playerId);
+  public void claimRoute(String playerId);
+  public void drawDestinationCards();
+  public void drawFaceUpTrainCard(String playerId, String cardId);
 }
-
 
 
 
@@ -190,8 +181,6 @@ public class pendingState implements IPlayerTurnState{
     //tell client it isn't his/her turn
   }
 }
-
-
 
 
 
@@ -215,12 +204,16 @@ public class startState implements IPlayerTurnState{
   }
   public void drawFaceUpTrainCard(String playerId, String cardId)throws NotFoundException{
     cardService.claimFaceUpTrainCard(playerId,cardId);
+    boolean isLocomotiveCard  = cardService.isLocomotive(cardId);
     Player player = database.getPlayer(playerId);
-    player.setState(new MidState());
+    if(isLocomotiveCard){
+      player.setState(new PendingState());
+    }
+    else{
+      player.setState(new MidState());
+    }
   }
 }
-
-
 
 
 

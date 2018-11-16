@@ -1,6 +1,7 @@
 package com.wwttr.models;
 
-//TODO import TurnStates
+import  com.wwttr.game.IPlayerTurnState;
+
 
 public class Player{
 
@@ -41,7 +42,7 @@ public class Player{
   public void setGameId(String gameID){
     this.gameID = gameID;
   }
-  
+
   public void setState(IPlayerTurnState state){
     this.state = state;
   }

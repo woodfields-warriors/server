@@ -5,7 +5,7 @@ public class GameAction{
 	String action;
 	int timestamp;
 
-	public GameAction{
+	public GameAction(){
 		
 	}
 
