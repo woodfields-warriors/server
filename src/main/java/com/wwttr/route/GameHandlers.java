@@ -13,14 +13,16 @@ import com.wwttr.game.GameFullException;
 import com.wwttr.api.NotFoundException;
 import com.wwttr.database.CommandQueue;
 
-public class GameHandlers extends Api.GameService {
+public class RouteHandlers extends Api.GameService {
 
-  private GameService service;
+  private RouteService service;
   private AuthService authService;
 
-  public GameHandlers(GameService service, AuthService authService) {
+  public RouteHandlers(GameService service, AuthService authService) {
     this.service = service;
     this.authService = authService;
+
+    publishPlayerStats();
   }
 
   //Creates a player object, then creates a game and adds that to the
@@ -172,13 +174,13 @@ public class GameHandlers extends Api.GameService {
     callback.run(toReturn.build());
   }
 
-  // public void streamHistory(RpcController controller, Api.StreamHistoryRequest request, RpcCallback<Api.Message> callback){
-  //   Stream<GameAction> gameActions = service.streamHistory(request.getGameId());
-  //   gameActions.forEach((GameAction action) -> {
-  //     Api.GameAction.Builder builder = action.createBuilder();
-  //     callback.run(builder.build());
-  //   });
-  // }
+  public void streamHistory(RpcController controller, Api.StreamHistoryRequest request, RpcCallback<Api.Message> callback){
+    Stream<GameAction> gameActions = service.streamHistory(request.getGameId());
+    gameActions.forEach((GameAction action) -> {
+      Api.GameAction.Builder builder = action.createBuilder();
+      callback.run(builder.build());
+    });
+  }
 
 
   // This method is the replacement for JoinGame().
@@ -243,6 +245,7 @@ public class GameHandlers extends Api.GameService {
   }
 
   public void togglePlayerStats(RpcController controller, Api.Empty req, RpcCallback<Api.Empty> callback) {
+    publishPlayerStats();
     callback.run(Api.Empty.newBuilder().build());
   }
 
@@ -256,27 +259,27 @@ public class GameHandlers extends Api.GameService {
       });
   }
 
-  // void publishPlayerStats() {
-  //   playerStatsState = !playerStatsState;
-  //   Api.PlayerStats.Builder builder = Api.PlayerStats.newBuilder();
+  void publishPlayerStats() {
+    playerStatsState = !playerStatsState;
+    Api.PlayerStats.Builder builder = Api.PlayerStats.newBuilder();
 
-  //   if (playerStatsState == true) {
-  //     builder.setPoints(0);
-  //     builder.setTrainCount(80);
-  //     builder.setDestinationCardCount(0);
-  //     builder.setTrainCardCount(0);
-  //   } else {
-  //     builder.setPoints(30);
-  //     builder.setTrainCount(40);
-  //     builder.setDestinationCardCount(2);
-  //     builder.setTrainCardCount(6);
-  //   }
+    if (playerStatsState == true) {
+      builder.setPoints(0);
+      builder.setTrainCount(80);
+      builder.setDestinationCardCount(0);
+      builder.setTrainCardCount(0);
+    } else {
+      builder.setPoints(30);
+      builder.setTrainCount(40);
+      builder.setDestinationCardCount(2);
+      builder.setTrainCardCount(6);
+    }
 
-  //   builder.setPlayerId("player1");
-  //   playerStatsQueue.publish(builder.build());
-  //   builder.setPlayerId("player2");
-  //   playerStatsQueue.publish(builder.build());
-  //   builder.setPlayerId("player3");
-  //   playerStatsQueue.publish(builder.build());
-  // }
+    builder.setPlayerId("player1");
+    playerStatsQueue.publish(builder.build());
+    builder.setPlayerId("player2");
+    playerStatsQueue.publish(builder.build());
+    builder.setPlayerId("player3");
+    playerStatsQueue.publish(builder.build());
+  }
 }

@@ -8,6 +8,7 @@ import com.wwttr.database.DatabaseFacade;
 import com.wwttr.models.CreateResponse;
 import com.wwttr.models.Game;
 import com.wwttr.models.Player;
+import com.wwttr.models.DeleteResponse;
 import com.wwttr.api.NotFoundException;
 //import com.wwttr.player.Api.Player;
 import com.wwttr.api.Code;
@@ -87,7 +88,7 @@ public class GameService {
     Game game = database.getGame(gameID);
     if(game.getPlayerIDs().size() > 1) {
       game.changeGameStatus(Game.Status.STARTED);
-      cardService.createFullDecksForGame(game.getGameID());
+      cardService.createFullDeckForGame(game.getGameID());
       return game;
     }
     else{
@@ -141,9 +142,9 @@ public class GameService {
     return database.getPlayer(playerID);
   }
 
-  // public List<Player> listPlayers(String gameID) {
-  //   return database.listPlayers(gameID);
-  // }
+  public List<Player> listPlayers(String gameID) {
+    return database.listPlayers(gameID);
+  }
 
 /*      ---  DEPRECATED ---- /
   public Player joinGame(String userID, String gameID){

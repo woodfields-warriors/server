@@ -19,6 +19,8 @@ import com.sun.net.httpserver.Headers;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Arrays;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -207,90 +209,5 @@ class Handler implements HttpHandler {
         }
       }
     };
-  }
-}
-
-class UnaryResponder {
-
-  private HttpExchange exchange;
-  private boolean headerSent;
-
-  public UnaryResponder(HttpExchange exchange) {
-    this.exchange = exchange;
-  }
-
-  public void respond(Response response) throws IOException {
-
-    exchange.getResponseHeaders().set("Content-Type", "application/proto");
-
-    ByteString responseData = response.toByteString();
-    int status = UnaryResponder.codeToHTTPStatus(response.getCode());
-    exchange.sendResponseHeaders(status, responseData.size());
-
-    OutputStream out = exchange.getResponseBody();
-    responseData.writeTo(out);
-    out.close();
-  }
-
-  static int codeToHTTPStatus(Code code) {
-    switch (code) {
-    case OK:
-      return 200;
-    case NOT_FOUND:
-      return 404;
-    case INVALID_ARGUMENT:
-      return 400;
-    case INTERNAL:
-      return 500;
-    case UNAVAILABLE:
-      return 503;
-    default:
-      return 500;
-    }
-  }
-}
-
-class StreamResponder {
-
-  private HttpExchange exchange;
-  private boolean open;
-
-  public StreamResponder(HttpExchange exchange) throws IOException {
-    this.exchange = exchange;
-    exchange.getResponseHeaders().set("Content-Type", "application/proto");
-    exchange.sendResponseHeaders(200, 0);
-    open = true;
-  }
-
-  public boolean isOpen() {
-    return open;
-  }
-
-  public void respond(Response response) throws IOException {
-    ByteString responseData = response.toByteString();
-
-    ByteBuffer buf = ByteBuffer.allocate(4);
-    buf.order(ByteOrder.LITTLE_ENDIAN);
-    buf.putInt(responseData.size());
-    System.out.println("sending length: " + buf.getInt(0));
-    System.out.println("sending data: " + responseData);
-    for (int i = 0; i < buf.capacity(); i++) {
-      System.out.print(buf.get(i));
-      System.out.print(" ");
-    }
-    System.out.println();
-    for (int i = 0; i < buf.capacity(); i++) {
-      System.out.print((char)buf.get(i));
-    }
-    System.out.println();
-    OutputStream out = exchange.getResponseBody();
-    out.write(buf.array());
-    responseData.writeTo(out);
-    out.flush();
-  }
-
-  public void close() throws IOException {
-    open = false;
-    exchange.getResponseBody().close();
   }
 }
