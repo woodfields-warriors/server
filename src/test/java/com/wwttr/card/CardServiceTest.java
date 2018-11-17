@@ -96,6 +96,7 @@ public class CardServiceTest {
       cs.createFullDecksForGame(GameId);
       List<DestinationCard> cards = cs.peekDestinationCards(GameId);
       assertNotNull(cards);
+      assertEquals(cards.get(0).getGameId(),GameId);
     } catch (NotFoundException e) {
       e.printStackTrace();
       fail();
