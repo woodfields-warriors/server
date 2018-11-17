@@ -13,8 +13,8 @@ import com.wwttr.api.NotFoundException;
 //import com.wwttr.player.Api.Player;
 import com.wwttr.api.Code;
 
-
-
+//the id of the player who is currently taking their turn
+private Player currentPlayerId;
 // Game Service is of the Singleton Pattern
 public class GameService {
 
@@ -82,7 +82,17 @@ public class GameService {
     }
   }
 
-
+  public void StreamPlayerStats(String gameId){
+    Stream<PlayerStats> playerStats = service.streamPlayerStats(gameId);
+    playerStats.forEach((PlayerStats stats) -> {
+        //TODO
+    });
+    Stream<GameAction> gameActions = service.streamHistory(request.getGameId());
+    gameActions.forEach((GameAction action) -> {
+      Api.GameAction.Builder builder = action.createBuilder();
+      callback.run(builder.build());
+    });
+  }
 
   public Game startGame(String gameID) throws NotFoundException {
     Game game = database.getGame(gameID);
