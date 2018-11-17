@@ -90,6 +90,7 @@ public final class Api {
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:chat.Message)
       MessageOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use Message.newBuilder() to construct.
     private Message(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
@@ -104,14 +105,19 @@ public final class Api {
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
-      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+      return this.unknownFields;
     }
     private Message(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -120,12 +126,6 @@ public final class Api {
             case 0:
               done = true;
               break;
-            default: {
-              if (!input.skipField(tag)) {
-                done = true;
-              }
-              break;
-            }
             case 10: {
               java.lang.String s = input.readStringRequireUtf8();
 
@@ -149,6 +149,13 @@ public final class Api {
               timestamp_ = input.readInt32();
               break;
             }
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -157,6 +164,7 @@ public final class Api {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
+        this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
@@ -165,6 +173,7 @@ public final class Api {
       return com.wwttr.chat.Api.internal_static_chat_Message_descriptor;
     }
 
+    @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.wwttr.chat.Api.internal_static_chat_Message_fieldAccessorTable
@@ -314,6 +323,7 @@ public final class Api {
     }
 
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -323,6 +333,7 @@ public final class Api {
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (!getMessageIdBytes().isEmpty()) {
@@ -337,8 +348,10 @@ public final class Api {
       if (timestamp_ != 0) {
         output.writeInt32(4, timestamp_);
       }
+      unknownFields.writeTo(output);
     }
 
+    @java.lang.Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
@@ -357,11 +370,11 @@ public final class Api {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(4, timestamp_);
       }
+      size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
     }
 
-    private static final long serialVersionUID = 0L;
     @java.lang.Override
     public boolean equals(final java.lang.Object obj) {
       if (obj == this) {
@@ -381,6 +394,7 @@ public final class Api {
           .equals(other.getPlayerId());
       result = result && (getTimestamp()
           == other.getTimestamp());
+      result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
 
@@ -474,6 +488,7 @@ public final class Api {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
@@ -481,6 +496,7 @@ public final class Api {
     public static Builder newBuilder(com.wwttr.chat.Api.Message prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
+    @java.lang.Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
@@ -504,6 +520,7 @@ public final class Api {
         return com.wwttr.chat.Api.internal_static_chat_Message_descriptor;
       }
 
+      @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.wwttr.chat.Api.internal_static_chat_Message_fieldAccessorTable
@@ -526,6 +543,7 @@ public final class Api {
                 .alwaysUseFieldBuilders) {
         }
       }
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         messageId_ = "";
@@ -539,15 +557,18 @@ public final class Api {
         return this;
       }
 
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return com.wwttr.chat.Api.internal_static_chat_Message_descriptor;
       }
 
+      @java.lang.Override
       public com.wwttr.chat.Api.Message getDefaultInstanceForType() {
         return com.wwttr.chat.Api.Message.getDefaultInstance();
       }
 
+      @java.lang.Override
       public com.wwttr.chat.Api.Message build() {
         com.wwttr.chat.Api.Message result = buildPartial();
         if (!result.isInitialized()) {
@@ -556,6 +577,7 @@ public final class Api {
         return result;
       }
 
+      @java.lang.Override
       public com.wwttr.chat.Api.Message buildPartial() {
         com.wwttr.chat.Api.Message result = new com.wwttr.chat.Api.Message(this);
         result.messageId_ = messageId_;
@@ -566,32 +588,39 @@ public final class Api {
         return result;
       }
 
+      @java.lang.Override
       public Builder clone() {
         return (Builder) super.clone();
       }
+      @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
+          java.lang.Object value) {
         return (Builder) super.setField(field, value);
       }
+      @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
+      @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
+      @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, Object value) {
+          int index, java.lang.Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
+      @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
+          java.lang.Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.wwttr.chat.Api.Message) {
           return mergeFrom((com.wwttr.chat.Api.Message)other);
@@ -618,14 +647,17 @@ public final class Api {
         if (other.getTimestamp() != 0) {
           setTimestamp(other.getTimestamp());
         }
+        this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -953,14 +985,16 @@ public final class Api {
         onChanged();
         return this;
       }
+      @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
+        return super.setUnknownFieldsProto3(unknownFields);
       }
 
+      @java.lang.Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
+        return super.mergeUnknownFields(unknownFields);
       }
 
 
@@ -979,11 +1013,12 @@ public final class Api {
 
     private static final com.google.protobuf.Parser<Message>
         PARSER = new com.google.protobuf.AbstractParser<Message>() {
+      @java.lang.Override
       public Message parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-          return new Message(input, extensionRegistry);
+        return new Message(input, extensionRegistry);
       }
     };
 
@@ -996,6 +1031,7 @@ public final class Api {
       return PARSER;
     }
 
+    @java.lang.Override
     public com.wwttr.chat.Api.Message getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
@@ -1033,6 +1069,7 @@ public final class Api {
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:chat.CreateMessageRequest)
       CreateMessageRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use CreateMessageRequest.newBuilder() to construct.
     private CreateMessageRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
@@ -1045,14 +1082,19 @@ public final class Api {
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
-      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+      return this.unknownFields;
     }
     private CreateMessageRequest(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -1061,12 +1103,6 @@ public final class Api {
             case 0:
               done = true;
               break;
-            default: {
-              if (!input.skipField(tag)) {
-                done = true;
-              }
-              break;
-            }
             case 10: {
               java.lang.String s = input.readStringRequireUtf8();
 
@@ -1079,6 +1115,13 @@ public final class Api {
               playerId_ = s;
               break;
             }
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -1087,6 +1130,7 @@ public final class Api {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
+        this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
@@ -1095,6 +1139,7 @@ public final class Api {
       return com.wwttr.chat.Api.internal_static_chat_CreateMessageRequest_descriptor;
     }
 
+    @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.wwttr.chat.Api.internal_static_chat_CreateMessageRequest_fieldAccessorTable
@@ -1171,6 +1216,7 @@ public final class Api {
     }
 
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -1180,6 +1226,7 @@ public final class Api {
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (!getContentBytes().isEmpty()) {
@@ -1188,8 +1235,10 @@ public final class Api {
       if (!getPlayerIdBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 2, playerId_);
       }
+      unknownFields.writeTo(output);
     }
 
+    @java.lang.Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
@@ -1201,11 +1250,11 @@ public final class Api {
       if (!getPlayerIdBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, playerId_);
       }
+      size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
     }
 
-    private static final long serialVersionUID = 0L;
     @java.lang.Override
     public boolean equals(final java.lang.Object obj) {
       if (obj == this) {
@@ -1221,6 +1270,7 @@ public final class Api {
           .equals(other.getContent());
       result = result && getPlayerId()
           .equals(other.getPlayerId());
+      result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
 
@@ -1310,6 +1360,7 @@ public final class Api {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
@@ -1317,6 +1368,7 @@ public final class Api {
     public static Builder newBuilder(com.wwttr.chat.Api.CreateMessageRequest prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
+    @java.lang.Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
@@ -1340,6 +1392,7 @@ public final class Api {
         return com.wwttr.chat.Api.internal_static_chat_CreateMessageRequest_descriptor;
       }
 
+      @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.wwttr.chat.Api.internal_static_chat_CreateMessageRequest_fieldAccessorTable
@@ -1362,6 +1415,7 @@ public final class Api {
                 .alwaysUseFieldBuilders) {
         }
       }
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         content_ = "";
@@ -1371,15 +1425,18 @@ public final class Api {
         return this;
       }
 
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return com.wwttr.chat.Api.internal_static_chat_CreateMessageRequest_descriptor;
       }
 
+      @java.lang.Override
       public com.wwttr.chat.Api.CreateMessageRequest getDefaultInstanceForType() {
         return com.wwttr.chat.Api.CreateMessageRequest.getDefaultInstance();
       }
 
+      @java.lang.Override
       public com.wwttr.chat.Api.CreateMessageRequest build() {
         com.wwttr.chat.Api.CreateMessageRequest result = buildPartial();
         if (!result.isInitialized()) {
@@ -1388,6 +1445,7 @@ public final class Api {
         return result;
       }
 
+      @java.lang.Override
       public com.wwttr.chat.Api.CreateMessageRequest buildPartial() {
         com.wwttr.chat.Api.CreateMessageRequest result = new com.wwttr.chat.Api.CreateMessageRequest(this);
         result.content_ = content_;
@@ -1396,32 +1454,39 @@ public final class Api {
         return result;
       }
 
+      @java.lang.Override
       public Builder clone() {
         return (Builder) super.clone();
       }
+      @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
+          java.lang.Object value) {
         return (Builder) super.setField(field, value);
       }
+      @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
+      @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
+      @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, Object value) {
+          int index, java.lang.Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
+      @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
+          java.lang.Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.wwttr.chat.Api.CreateMessageRequest) {
           return mergeFrom((com.wwttr.chat.Api.CreateMessageRequest)other);
@@ -1441,14 +1506,17 @@ public final class Api {
           playerId_ = other.playerId_;
           onChanged();
         }
+        this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -1604,14 +1672,16 @@ public final class Api {
         onChanged();
         return this;
       }
+      @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
+        return super.setUnknownFieldsProto3(unknownFields);
       }
 
+      @java.lang.Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
+        return super.mergeUnknownFields(unknownFields);
       }
 
 
@@ -1630,11 +1700,12 @@ public final class Api {
 
     private static final com.google.protobuf.Parser<CreateMessageRequest>
         PARSER = new com.google.protobuf.AbstractParser<CreateMessageRequest>() {
+      @java.lang.Override
       public CreateMessageRequest parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-          return new CreateMessageRequest(input, extensionRegistry);
+        return new CreateMessageRequest(input, extensionRegistry);
       }
     };
 
@@ -1647,6 +1718,7 @@ public final class Api {
       return PARSER;
     }
 
+    @java.lang.Override
     public com.wwttr.chat.Api.CreateMessageRequest getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
@@ -1674,6 +1746,7 @@ public final class Api {
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:chat.GetMessageRequest)
       GetMessageRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use GetMessageRequest.newBuilder() to construct.
     private GetMessageRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
@@ -1685,14 +1758,19 @@ public final class Api {
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
-      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+      return this.unknownFields;
     }
     private GetMessageRequest(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -1701,16 +1779,17 @@ public final class Api {
             case 0:
               done = true;
               break;
-            default: {
-              if (!input.skipField(tag)) {
-                done = true;
-              }
-              break;
-            }
             case 10: {
               java.lang.String s = input.readStringRequireUtf8();
 
               messageId_ = s;
+              break;
+            }
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
               break;
             }
           }
@@ -1721,6 +1800,7 @@ public final class Api {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
+        this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
@@ -1729,6 +1809,7 @@ public final class Api {
       return com.wwttr.chat.Api.internal_static_chat_GetMessageRequest_descriptor;
     }
 
+    @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.wwttr.chat.Api.internal_static_chat_GetMessageRequest_fieldAccessorTable
@@ -1771,6 +1852,7 @@ public final class Api {
     }
 
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -1780,13 +1862,16 @@ public final class Api {
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (!getMessageIdBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, messageId_);
       }
+      unknownFields.writeTo(output);
     }
 
+    @java.lang.Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
@@ -1795,11 +1880,11 @@ public final class Api {
       if (!getMessageIdBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, messageId_);
       }
+      size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
     }
 
-    private static final long serialVersionUID = 0L;
     @java.lang.Override
     public boolean equals(final java.lang.Object obj) {
       if (obj == this) {
@@ -1813,6 +1898,7 @@ public final class Api {
       boolean result = true;
       result = result && getMessageId()
           .equals(other.getMessageId());
+      result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
 
@@ -1900,6 +1986,7 @@ public final class Api {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
@@ -1907,6 +1994,7 @@ public final class Api {
     public static Builder newBuilder(com.wwttr.chat.Api.GetMessageRequest prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
+    @java.lang.Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
@@ -1930,6 +2018,7 @@ public final class Api {
         return com.wwttr.chat.Api.internal_static_chat_GetMessageRequest_descriptor;
       }
 
+      @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.wwttr.chat.Api.internal_static_chat_GetMessageRequest_fieldAccessorTable
@@ -1952,6 +2041,7 @@ public final class Api {
                 .alwaysUseFieldBuilders) {
         }
       }
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         messageId_ = "";
@@ -1959,15 +2049,18 @@ public final class Api {
         return this;
       }
 
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return com.wwttr.chat.Api.internal_static_chat_GetMessageRequest_descriptor;
       }
 
+      @java.lang.Override
       public com.wwttr.chat.Api.GetMessageRequest getDefaultInstanceForType() {
         return com.wwttr.chat.Api.GetMessageRequest.getDefaultInstance();
       }
 
+      @java.lang.Override
       public com.wwttr.chat.Api.GetMessageRequest build() {
         com.wwttr.chat.Api.GetMessageRequest result = buildPartial();
         if (!result.isInitialized()) {
@@ -1976,6 +2069,7 @@ public final class Api {
         return result;
       }
 
+      @java.lang.Override
       public com.wwttr.chat.Api.GetMessageRequest buildPartial() {
         com.wwttr.chat.Api.GetMessageRequest result = new com.wwttr.chat.Api.GetMessageRequest(this);
         result.messageId_ = messageId_;
@@ -1983,32 +2077,39 @@ public final class Api {
         return result;
       }
 
+      @java.lang.Override
       public Builder clone() {
         return (Builder) super.clone();
       }
+      @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
+          java.lang.Object value) {
         return (Builder) super.setField(field, value);
       }
+      @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
+      @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
+      @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, Object value) {
+          int index, java.lang.Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
+      @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
+          java.lang.Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.wwttr.chat.Api.GetMessageRequest) {
           return mergeFrom((com.wwttr.chat.Api.GetMessageRequest)other);
@@ -2024,14 +2125,17 @@ public final class Api {
           messageId_ = other.messageId_;
           onChanged();
         }
+        this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -2118,14 +2222,16 @@ public final class Api {
         onChanged();
         return this;
       }
+      @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
+        return super.setUnknownFieldsProto3(unknownFields);
       }
 
+      @java.lang.Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
+        return super.mergeUnknownFields(unknownFields);
       }
 
 
@@ -2144,11 +2250,12 @@ public final class Api {
 
     private static final com.google.protobuf.Parser<GetMessageRequest>
         PARSER = new com.google.protobuf.AbstractParser<GetMessageRequest>() {
+      @java.lang.Override
       public GetMessageRequest parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-          return new GetMessageRequest(input, extensionRegistry);
+        return new GetMessageRequest(input, extensionRegistry);
       }
     };
 
@@ -2161,6 +2268,7 @@ public final class Api {
       return PARSER;
     }
 
+    @java.lang.Override
     public com.wwttr.chat.Api.GetMessageRequest getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
@@ -2188,6 +2296,7 @@ public final class Api {
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:chat.StreamMessagesRequest)
       StreamMessagesRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use StreamMessagesRequest.newBuilder() to construct.
     private StreamMessagesRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
@@ -2199,14 +2308,19 @@ public final class Api {
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
-      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+      return this.unknownFields;
     }
     private StreamMessagesRequest(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -2215,16 +2329,17 @@ public final class Api {
             case 0:
               done = true;
               break;
-            default: {
-              if (!input.skipField(tag)) {
-                done = true;
-              }
-              break;
-            }
             case 10: {
               java.lang.String s = input.readStringRequireUtf8();
 
               gameId_ = s;
+              break;
+            }
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
               break;
             }
           }
@@ -2235,6 +2350,7 @@ public final class Api {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
+        this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
@@ -2243,6 +2359,7 @@ public final class Api {
       return com.wwttr.chat.Api.internal_static_chat_StreamMessagesRequest_descriptor;
     }
 
+    @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.wwttr.chat.Api.internal_static_chat_StreamMessagesRequest_fieldAccessorTable
@@ -2285,6 +2402,7 @@ public final class Api {
     }
 
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -2294,13 +2412,16 @@ public final class Api {
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (!getGameIdBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, gameId_);
       }
+      unknownFields.writeTo(output);
     }
 
+    @java.lang.Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
@@ -2309,11 +2430,11 @@ public final class Api {
       if (!getGameIdBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, gameId_);
       }
+      size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
     }
 
-    private static final long serialVersionUID = 0L;
     @java.lang.Override
     public boolean equals(final java.lang.Object obj) {
       if (obj == this) {
@@ -2327,6 +2448,7 @@ public final class Api {
       boolean result = true;
       result = result && getGameId()
           .equals(other.getGameId());
+      result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
 
@@ -2414,6 +2536,7 @@ public final class Api {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
@@ -2421,6 +2544,7 @@ public final class Api {
     public static Builder newBuilder(com.wwttr.chat.Api.StreamMessagesRequest prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
+    @java.lang.Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
@@ -2444,6 +2568,7 @@ public final class Api {
         return com.wwttr.chat.Api.internal_static_chat_StreamMessagesRequest_descriptor;
       }
 
+      @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.wwttr.chat.Api.internal_static_chat_StreamMessagesRequest_fieldAccessorTable
@@ -2466,6 +2591,7 @@ public final class Api {
                 .alwaysUseFieldBuilders) {
         }
       }
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         gameId_ = "";
@@ -2473,15 +2599,18 @@ public final class Api {
         return this;
       }
 
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return com.wwttr.chat.Api.internal_static_chat_StreamMessagesRequest_descriptor;
       }
 
+      @java.lang.Override
       public com.wwttr.chat.Api.StreamMessagesRequest getDefaultInstanceForType() {
         return com.wwttr.chat.Api.StreamMessagesRequest.getDefaultInstance();
       }
 
+      @java.lang.Override
       public com.wwttr.chat.Api.StreamMessagesRequest build() {
         com.wwttr.chat.Api.StreamMessagesRequest result = buildPartial();
         if (!result.isInitialized()) {
@@ -2490,6 +2619,7 @@ public final class Api {
         return result;
       }
 
+      @java.lang.Override
       public com.wwttr.chat.Api.StreamMessagesRequest buildPartial() {
         com.wwttr.chat.Api.StreamMessagesRequest result = new com.wwttr.chat.Api.StreamMessagesRequest(this);
         result.gameId_ = gameId_;
@@ -2497,32 +2627,39 @@ public final class Api {
         return result;
       }
 
+      @java.lang.Override
       public Builder clone() {
         return (Builder) super.clone();
       }
+      @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
+          java.lang.Object value) {
         return (Builder) super.setField(field, value);
       }
+      @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
+      @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
+      @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, Object value) {
+          int index, java.lang.Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
+      @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
+          java.lang.Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.wwttr.chat.Api.StreamMessagesRequest) {
           return mergeFrom((com.wwttr.chat.Api.StreamMessagesRequest)other);
@@ -2538,14 +2675,17 @@ public final class Api {
           gameId_ = other.gameId_;
           onChanged();
         }
+        this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -2632,14 +2772,16 @@ public final class Api {
         onChanged();
         return this;
       }
+      @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
+        return super.setUnknownFieldsProto3(unknownFields);
       }
 
+      @java.lang.Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
+        return super.mergeUnknownFields(unknownFields);
       }
 
 
@@ -2658,11 +2800,12 @@ public final class Api {
 
     private static final com.google.protobuf.Parser<StreamMessagesRequest>
         PARSER = new com.google.protobuf.AbstractParser<StreamMessagesRequest>() {
+      @java.lang.Override
       public StreamMessagesRequest parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-          return new StreamMessagesRequest(input, extensionRegistry);
+        return new StreamMessagesRequest(input, extensionRegistry);
       }
     };
 
@@ -2675,6 +2818,7 @@ public final class Api {
       return PARSER;
     }
 
+    @java.lang.Override
     public com.wwttr.chat.Api.StreamMessagesRequest getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
@@ -2692,6 +2836,7 @@ public final class Api {
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:chat.Empty)
       EmptyOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use Empty.newBuilder() to construct.
     private Empty(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
@@ -2702,13 +2847,18 @@ public final class Api {
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
-      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+      return this.unknownFields;
     }
     private Empty(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -2718,7 +2868,8 @@ public final class Api {
               done = true;
               break;
             default: {
-              if (!input.skipField(tag)) {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
               break;
@@ -2731,6 +2882,7 @@ public final class Api {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
+        this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
@@ -2739,6 +2891,7 @@ public final class Api {
       return com.wwttr.chat.Api.internal_static_chat_Empty_descriptor;
     }
 
+    @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.wwttr.chat.Api.internal_static_chat_Empty_fieldAccessorTable
@@ -2747,6 +2900,7 @@ public final class Api {
     }
 
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -2756,20 +2910,23 @@ public final class Api {
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
+      unknownFields.writeTo(output);
     }
 
+    @java.lang.Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
+      size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
     }
 
-    private static final long serialVersionUID = 0L;
     @java.lang.Override
     public boolean equals(final java.lang.Object obj) {
       if (obj == this) {
@@ -2781,6 +2938,7 @@ public final class Api {
       com.wwttr.chat.Api.Empty other = (com.wwttr.chat.Api.Empty) obj;
 
       boolean result = true;
+      result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
 
@@ -2866,6 +3024,7 @@ public final class Api {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
@@ -2873,6 +3032,7 @@ public final class Api {
     public static Builder newBuilder(com.wwttr.chat.Api.Empty prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
+    @java.lang.Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
@@ -2896,6 +3056,7 @@ public final class Api {
         return com.wwttr.chat.Api.internal_static_chat_Empty_descriptor;
       }
 
+      @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.wwttr.chat.Api.internal_static_chat_Empty_fieldAccessorTable
@@ -2918,20 +3079,24 @@ public final class Api {
                 .alwaysUseFieldBuilders) {
         }
       }
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         return this;
       }
 
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return com.wwttr.chat.Api.internal_static_chat_Empty_descriptor;
       }
 
+      @java.lang.Override
       public com.wwttr.chat.Api.Empty getDefaultInstanceForType() {
         return com.wwttr.chat.Api.Empty.getDefaultInstance();
       }
 
+      @java.lang.Override
       public com.wwttr.chat.Api.Empty build() {
         com.wwttr.chat.Api.Empty result = buildPartial();
         if (!result.isInitialized()) {
@@ -2940,38 +3105,46 @@ public final class Api {
         return result;
       }
 
+      @java.lang.Override
       public com.wwttr.chat.Api.Empty buildPartial() {
         com.wwttr.chat.Api.Empty result = new com.wwttr.chat.Api.Empty(this);
         onBuilt();
         return result;
       }
 
+      @java.lang.Override
       public Builder clone() {
         return (Builder) super.clone();
       }
+      @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
+          java.lang.Object value) {
         return (Builder) super.setField(field, value);
       }
+      @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
+      @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
+      @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, Object value) {
+          int index, java.lang.Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
+      @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
+          java.lang.Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.wwttr.chat.Api.Empty) {
           return mergeFrom((com.wwttr.chat.Api.Empty)other);
@@ -2983,14 +3156,17 @@ public final class Api {
 
       public Builder mergeFrom(com.wwttr.chat.Api.Empty other) {
         if (other == com.wwttr.chat.Api.Empty.getDefaultInstance()) return this;
+        this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -3008,14 +3184,16 @@ public final class Api {
         }
         return this;
       }
+      @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
+        return super.setUnknownFieldsProto3(unknownFields);
       }
 
+      @java.lang.Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
+        return super.mergeUnknownFields(unknownFields);
       }
 
 
@@ -3034,11 +3212,12 @@ public final class Api {
 
     private static final com.google.protobuf.Parser<Empty>
         PARSER = new com.google.protobuf.AbstractParser<Empty>() {
+      @java.lang.Override
       public Empty parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-          return new Empty(input, extensionRegistry);
+        return new Empty(input, extensionRegistry);
       }
     };
 
@@ -3051,6 +3230,7 @@ public final class Api {
       return PARSER;
     }
 
+    @java.lang.Override
     public com.wwttr.chat.Api.Empty getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
@@ -3474,7 +3654,7 @@ public final class Api {
       "d\030\001 \001(\t\"\007\n\005Empty2\277\001\n\013ChatService\022:\n\rcrea" +
       "teMessage\022\032.chat.CreateMessageRequest\032\r." +
       "chat.Message\0224\n\ngetMessage\022\027.chat.GetMes" +
-      "sageRequest\032\r.chat.Message\022>\n\016streamMess",
+      "sageRequest\032\r.chat.Message\022>\n\016streamMess" +
       "ages\022\033.chat.StreamMessagesRequest\032\r.chat" +
       ".Message0\001B\030\n\016com.wwttr.chatB\003Api\210\001\001b\006pr" +
       "oto3"

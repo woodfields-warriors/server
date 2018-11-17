@@ -21,6 +21,8 @@ message Route {
   string second_city_id = 3;
   card.TrainColor color = 4;
   string player_id = 5;
+  int32 length = 6;
+  string game_id = 7;
 }
 
 message StreamRoutesRequest {

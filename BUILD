@@ -130,6 +130,7 @@ java_library(
     ":api_lib",
     "auth_service",
     ":card_service",
+    ":route_service",
     ":models",
     ":database_lib",
   ],

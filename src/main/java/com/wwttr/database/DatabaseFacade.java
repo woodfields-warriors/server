@@ -23,6 +23,8 @@ public class DatabaseFacade {
     private ArrayList<TrainCard> trainCards = new ArrayList<>();
     private CommandQueue<TrainCard> trainCardQueue = new CommandQueue<TrainCard>();
     private CommandQueue<DeckStats> deckStatsCommandQueue = new CommandQueue<>();
+  private ArrayList<Route> routes = new ArrayList<>();
+  private CommandQueue<Route> routeQueue = new CommandQueue<>();
 
     private DatabaseFacade(){
 
@@ -455,5 +457,28 @@ public class DatabaseFacade {
     return messageQueue
       .subscribe()
       .filter((Message m) -> m.getGameId().equals(gameId));
+  }
+
+
+  public void addRoute(Route r) {
+    synchronized (this) {
+      routes.add(r);
+      routeQueue.publish(r);
+    }
+  }
+
+  public Route getRoutebyId(String routeId) {
+    synchronized (this) {
+      for (Route route : routes) {
+        if (route.getRouteId().equals(routeId)) {
+          return route;
+        }
+      }
+      return null;
+    }
+  }
+
+  public Stream<Route> streamRoutes(String gameId) {
+    return routeQueue.subscribe().filter((Route r) -> r.getGameId().equals(gameId));
   }
 }
