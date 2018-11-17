@@ -110,7 +110,7 @@ public class CardService {
 
   public List<DestinationCard> peekDestinationCards(String gameId)throws NotFoundException{
     if(df.getGame(gameId) == null){
-      throw new NotFoundException("game with id " + gameId + " not found");
+      //throw new NotFoundException("game with id " + gameId + " not found");
     }
     return df.listDestinationCards(3,gameId);
   }
