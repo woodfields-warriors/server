@@ -292,6 +292,7 @@ public class DatabaseFacade {
         }
         retrievedCard.update(card);
         trainCardQueue.publish(retrievedCard);
+        updateDeckStats(card.getGameId());
       }
     }
   }
@@ -325,8 +326,6 @@ public class DatabaseFacade {
   }
 
   public void newFaceUpCard(String gameId) throws NotFoundException{
-
-      //TODO Special rule for Locomotives
     synchronized (this) {
       ArrayList<TrainCard> cards = getTrainCardsForGame(gameId);
       TrainCard tempCard = getRandomTrainCardFromDeck(gameId);

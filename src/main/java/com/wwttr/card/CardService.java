@@ -233,6 +233,11 @@ public class CardService {
     return df.streamTrainCards(playerId);
   }
 
+  public boolean isLocomotive(String cardId) throws NotFoundException{
+    TrainCard card = df.getTrainCard(cardId);
+    return card.getColor().equals(TrainCard.Color.RAINBOW);
+  }
+
   //Testing Functions-------------------------------------------------------------------
 
   ArrayList<DestinationTemplate<String, String, Integer>> getFullDestinationDeckTemplate() {

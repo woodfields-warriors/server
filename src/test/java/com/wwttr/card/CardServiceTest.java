@@ -13,6 +13,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 import static org.junit.Assert.*;
 
@@ -203,5 +204,12 @@ public class CardServiceTest {
 
   @Test
   public void streamTrainCards() {
+    try {
+      Stream<TrainCard> stream = cs.streamTrainCards(playerId);
+      assertNotNull(stream);
+    }
+    catch (NotFoundException e){
+      fail();
+    }
   }
 }
