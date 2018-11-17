@@ -3,7 +3,6 @@ package com.wwttr.card;
 import com.wwttr.api.ApiError;
 import com.wwttr.api.NotFoundException;
 import com.wwttr.database.DatabaseFacade;
-import com.wwttr.game.GameService;
 import com.wwttr.models.*;
 import com.wwttr.api.Code;
 
@@ -110,7 +109,7 @@ public class CardService {
   }
 
   public List<DestinationCard> peekDestinationCards(String gameId)throws NotFoundException{
-    if(GameService.getInstance().getGame(gameId) == null){
+    if(df.getGame(gameId) == null){
       throw new NotFoundException("game with id " + gameId + " not found");
     }
     return df.listDestinationCards(3,gameId);
