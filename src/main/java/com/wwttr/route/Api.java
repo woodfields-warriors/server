@@ -74,7 +74,6 @@ public final class Api {
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:route.Route)
       RouteOrBuilder {
-  private static final long serialVersionUID = 0L;
     // Use Route.newBuilder() to construct.
     private Route(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
@@ -90,19 +89,14 @@ public final class Api {
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
-      return this.unknownFields;
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
     private Route(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
-      if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
-      }
       int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -111,6 +105,12 @@ public final class Api {
             case 0:
               done = true;
               break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
             case 10: {
               java.lang.String s = input.readStringRequireUtf8();
 
@@ -141,13 +141,6 @@ public final class Api {
               playerId_ = s;
               break;
             }
-            default: {
-              if (!parseUnknownFieldProto3(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -156,7 +149,6 @@ public final class Api {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
@@ -165,7 +157,6 @@ public final class Api {
       return com.wwttr.route.Api.internal_static_route_Route_descriptor;
     }
 
-    @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.wwttr.route.Api.internal_static_route_Route_fieldAccessorTable
@@ -287,7 +278,6 @@ public final class Api {
      * <code>.card.TrainColor color = 4;</code>
      */
     public com.wwttr.card.Api.TrainColor getColor() {
-      @SuppressWarnings("deprecation")
       com.wwttr.card.Api.TrainColor result = com.wwttr.card.Api.TrainColor.valueOf(color_);
       return result == null ? com.wwttr.card.Api.TrainColor.UNRECOGNIZED : result;
     }
@@ -327,7 +317,6 @@ public final class Api {
     }
 
     private byte memoizedIsInitialized = -1;
-    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -337,7 +326,6 @@ public final class Api {
       return true;
     }
 
-    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (!getIdBytes().isEmpty()) {
@@ -355,10 +343,8 @@ public final class Api {
       if (!getPlayerIdBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 5, playerId_);
       }
-      unknownFields.writeTo(output);
     }
 
-    @java.lang.Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
@@ -380,11 +366,11 @@ public final class Api {
       if (!getPlayerIdBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, playerId_);
       }
-      size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
     }
 
+    private static final long serialVersionUID = 0L;
     @java.lang.Override
     public boolean equals(final java.lang.Object obj) {
       if (obj == this) {
@@ -405,7 +391,6 @@ public final class Api {
       result = result && color_ == other.color_;
       result = result && getPlayerId()
           .equals(other.getPlayerId());
-      result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
 
@@ -501,7 +486,6 @@ public final class Api {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
@@ -509,7 +493,6 @@ public final class Api {
     public static Builder newBuilder(com.wwttr.route.Api.Route prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
-    @java.lang.Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
@@ -533,7 +516,6 @@ public final class Api {
         return com.wwttr.route.Api.internal_static_route_Route_descriptor;
       }
 
-      @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.wwttr.route.Api.internal_static_route_Route_fieldAccessorTable
@@ -556,7 +538,6 @@ public final class Api {
                 .alwaysUseFieldBuilders) {
         }
       }
-      @java.lang.Override
       public Builder clear() {
         super.clear();
         id_ = "";
@@ -572,18 +553,15 @@ public final class Api {
         return this;
       }
 
-      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return com.wwttr.route.Api.internal_static_route_Route_descriptor;
       }
 
-      @java.lang.Override
       public com.wwttr.route.Api.Route getDefaultInstanceForType() {
         return com.wwttr.route.Api.Route.getDefaultInstance();
       }
 
-      @java.lang.Override
       public com.wwttr.route.Api.Route build() {
         com.wwttr.route.Api.Route result = buildPartial();
         if (!result.isInitialized()) {
@@ -592,7 +570,6 @@ public final class Api {
         return result;
       }
 
-      @java.lang.Override
       public com.wwttr.route.Api.Route buildPartial() {
         com.wwttr.route.Api.Route result = new com.wwttr.route.Api.Route(this);
         result.id_ = id_;
@@ -604,39 +581,32 @@ public final class Api {
         return result;
       }
 
-      @java.lang.Override
       public Builder clone() {
         return (Builder) super.clone();
       }
-      @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return (Builder) super.setField(field, value);
       }
-      @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
-      @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
-      @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
+          int index, Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
-      @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
-      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.wwttr.route.Api.Route) {
           return mergeFrom((com.wwttr.route.Api.Route)other);
@@ -667,17 +637,14 @@ public final class Api {
           playerId_ = other.playerId_;
           onChanged();
         }
-        this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
       }
 
-      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
-      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -922,7 +889,6 @@ public final class Api {
        * <code>.card.TrainColor color = 4;</code>
        */
       public com.wwttr.card.Api.TrainColor getColor() {
-        @SuppressWarnings("deprecation")
         com.wwttr.card.Api.TrainColor result = com.wwttr.card.Api.TrainColor.valueOf(color_);
         return result == null ? com.wwttr.card.Api.TrainColor.UNRECOGNIZED : result;
       }
@@ -1016,16 +982,14 @@ public final class Api {
         onChanged();
         return this;
       }
-      @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return this;
       }
 
-      @java.lang.Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
+        return this;
       }
 
 
@@ -1044,12 +1008,11 @@ public final class Api {
 
     private static final com.google.protobuf.Parser<Route>
         PARSER = new com.google.protobuf.AbstractParser<Route>() {
-      @java.lang.Override
       public Route parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new Route(input, extensionRegistry);
+          return new Route(input, extensionRegistry);
       }
     };
 
@@ -1062,7 +1025,6 @@ public final class Api {
       return PARSER;
     }
 
-    @java.lang.Override
     public com.wwttr.route.Api.Route getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
@@ -1090,7 +1052,6 @@ public final class Api {
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:route.StreamRoutesRequest)
       StreamRoutesRequestOrBuilder {
-  private static final long serialVersionUID = 0L;
     // Use StreamRoutesRequest.newBuilder() to construct.
     private StreamRoutesRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
@@ -1102,19 +1063,14 @@ public final class Api {
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
-      return this.unknownFields;
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
     private StreamRoutesRequest(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
-      if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
-      }
       int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -1123,17 +1079,16 @@ public final class Api {
             case 0:
               done = true;
               break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
             case 10: {
               java.lang.String s = input.readStringRequireUtf8();
 
               gameId_ = s;
-              break;
-            }
-            default: {
-              if (!parseUnknownFieldProto3(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
               break;
             }
           }
@@ -1144,7 +1099,6 @@ public final class Api {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
@@ -1153,7 +1107,6 @@ public final class Api {
       return com.wwttr.route.Api.internal_static_route_StreamRoutesRequest_descriptor;
     }
 
-    @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.wwttr.route.Api.internal_static_route_StreamRoutesRequest_fieldAccessorTable
@@ -1196,7 +1149,6 @@ public final class Api {
     }
 
     private byte memoizedIsInitialized = -1;
-    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -1206,16 +1158,13 @@ public final class Api {
       return true;
     }
 
-    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (!getGameIdBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, gameId_);
       }
-      unknownFields.writeTo(output);
     }
 
-    @java.lang.Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
@@ -1224,11 +1173,11 @@ public final class Api {
       if (!getGameIdBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, gameId_);
       }
-      size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
     }
 
+    private static final long serialVersionUID = 0L;
     @java.lang.Override
     public boolean equals(final java.lang.Object obj) {
       if (obj == this) {
@@ -1242,7 +1191,6 @@ public final class Api {
       boolean result = true;
       result = result && getGameId()
           .equals(other.getGameId());
-      result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
 
@@ -1330,7 +1278,6 @@ public final class Api {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
@@ -1338,7 +1285,6 @@ public final class Api {
     public static Builder newBuilder(com.wwttr.route.Api.StreamRoutesRequest prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
-    @java.lang.Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
@@ -1362,7 +1308,6 @@ public final class Api {
         return com.wwttr.route.Api.internal_static_route_StreamRoutesRequest_descriptor;
       }
 
-      @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.wwttr.route.Api.internal_static_route_StreamRoutesRequest_fieldAccessorTable
@@ -1385,7 +1330,6 @@ public final class Api {
                 .alwaysUseFieldBuilders) {
         }
       }
-      @java.lang.Override
       public Builder clear() {
         super.clear();
         gameId_ = "";
@@ -1393,18 +1337,15 @@ public final class Api {
         return this;
       }
 
-      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return com.wwttr.route.Api.internal_static_route_StreamRoutesRequest_descriptor;
       }
 
-      @java.lang.Override
       public com.wwttr.route.Api.StreamRoutesRequest getDefaultInstanceForType() {
         return com.wwttr.route.Api.StreamRoutesRequest.getDefaultInstance();
       }
 
-      @java.lang.Override
       public com.wwttr.route.Api.StreamRoutesRequest build() {
         com.wwttr.route.Api.StreamRoutesRequest result = buildPartial();
         if (!result.isInitialized()) {
@@ -1413,7 +1354,6 @@ public final class Api {
         return result;
       }
 
-      @java.lang.Override
       public com.wwttr.route.Api.StreamRoutesRequest buildPartial() {
         com.wwttr.route.Api.StreamRoutesRequest result = new com.wwttr.route.Api.StreamRoutesRequest(this);
         result.gameId_ = gameId_;
@@ -1421,39 +1361,32 @@ public final class Api {
         return result;
       }
 
-      @java.lang.Override
       public Builder clone() {
         return (Builder) super.clone();
       }
-      @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return (Builder) super.setField(field, value);
       }
-      @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
-      @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
-      @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
+          int index, Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
-      @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
-      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.wwttr.route.Api.StreamRoutesRequest) {
           return mergeFrom((com.wwttr.route.Api.StreamRoutesRequest)other);
@@ -1469,17 +1402,14 @@ public final class Api {
           gameId_ = other.gameId_;
           onChanged();
         }
-        this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
       }
 
-      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
-      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -1566,16 +1496,14 @@ public final class Api {
         onChanged();
         return this;
       }
-      @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return this;
       }
 
-      @java.lang.Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
+        return this;
       }
 
 
@@ -1594,12 +1522,11 @@ public final class Api {
 
     private static final com.google.protobuf.Parser<StreamRoutesRequest>
         PARSER = new com.google.protobuf.AbstractParser<StreamRoutesRequest>() {
-      @java.lang.Override
       public StreamRoutesRequest parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new StreamRoutesRequest(input, extensionRegistry);
+          return new StreamRoutesRequest(input, extensionRegistry);
       }
     };
 
@@ -1612,7 +1539,6 @@ public final class Api {
       return PARSER;
     }
 
-    @java.lang.Override
     public com.wwttr.route.Api.StreamRoutesRequest getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
@@ -1650,7 +1576,6 @@ public final class Api {
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:route.ClaimRouteRequest)
       ClaimRouteRequestOrBuilder {
-  private static final long serialVersionUID = 0L;
     // Use ClaimRouteRequest.newBuilder() to construct.
     private ClaimRouteRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
@@ -1663,19 +1588,14 @@ public final class Api {
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
-      return this.unknownFields;
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
     private ClaimRouteRequest(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
-      if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
-      }
       int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -1684,6 +1604,12 @@ public final class Api {
             case 0:
               done = true;
               break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
             case 10: {
               java.lang.String s = input.readStringRequireUtf8();
 
@@ -1696,13 +1622,6 @@ public final class Api {
               playerId_ = s;
               break;
             }
-            default: {
-              if (!parseUnknownFieldProto3(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -1711,7 +1630,6 @@ public final class Api {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
@@ -1720,7 +1638,6 @@ public final class Api {
       return com.wwttr.route.Api.internal_static_route_ClaimRouteRequest_descriptor;
     }
 
-    @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.wwttr.route.Api.internal_static_route_ClaimRouteRequest_fieldAccessorTable
@@ -1797,7 +1714,6 @@ public final class Api {
     }
 
     private byte memoizedIsInitialized = -1;
-    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -1807,7 +1723,6 @@ public final class Api {
       return true;
     }
 
-    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (!getRouteIdBytes().isEmpty()) {
@@ -1816,10 +1731,8 @@ public final class Api {
       if (!getPlayerIdBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 2, playerId_);
       }
-      unknownFields.writeTo(output);
     }
 
-    @java.lang.Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
@@ -1831,11 +1744,11 @@ public final class Api {
       if (!getPlayerIdBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, playerId_);
       }
-      size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
     }
 
+    private static final long serialVersionUID = 0L;
     @java.lang.Override
     public boolean equals(final java.lang.Object obj) {
       if (obj == this) {
@@ -1851,7 +1764,6 @@ public final class Api {
           .equals(other.getRouteId());
       result = result && getPlayerId()
           .equals(other.getPlayerId());
-      result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
 
@@ -1941,7 +1853,6 @@ public final class Api {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
@@ -1949,7 +1860,6 @@ public final class Api {
     public static Builder newBuilder(com.wwttr.route.Api.ClaimRouteRequest prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
-    @java.lang.Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
@@ -1973,7 +1883,6 @@ public final class Api {
         return com.wwttr.route.Api.internal_static_route_ClaimRouteRequest_descriptor;
       }
 
-      @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.wwttr.route.Api.internal_static_route_ClaimRouteRequest_fieldAccessorTable
@@ -1996,7 +1905,6 @@ public final class Api {
                 .alwaysUseFieldBuilders) {
         }
       }
-      @java.lang.Override
       public Builder clear() {
         super.clear();
         routeId_ = "";
@@ -2006,18 +1914,15 @@ public final class Api {
         return this;
       }
 
-      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return com.wwttr.route.Api.internal_static_route_ClaimRouteRequest_descriptor;
       }
 
-      @java.lang.Override
       public com.wwttr.route.Api.ClaimRouteRequest getDefaultInstanceForType() {
         return com.wwttr.route.Api.ClaimRouteRequest.getDefaultInstance();
       }
 
-      @java.lang.Override
       public com.wwttr.route.Api.ClaimRouteRequest build() {
         com.wwttr.route.Api.ClaimRouteRequest result = buildPartial();
         if (!result.isInitialized()) {
@@ -2026,7 +1931,6 @@ public final class Api {
         return result;
       }
 
-      @java.lang.Override
       public com.wwttr.route.Api.ClaimRouteRequest buildPartial() {
         com.wwttr.route.Api.ClaimRouteRequest result = new com.wwttr.route.Api.ClaimRouteRequest(this);
         result.routeId_ = routeId_;
@@ -2035,39 +1939,32 @@ public final class Api {
         return result;
       }
 
-      @java.lang.Override
       public Builder clone() {
         return (Builder) super.clone();
       }
-      @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return (Builder) super.setField(field, value);
       }
-      @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
-      @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
-      @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
+          int index, Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
-      @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
-      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.wwttr.route.Api.ClaimRouteRequest) {
           return mergeFrom((com.wwttr.route.Api.ClaimRouteRequest)other);
@@ -2087,17 +1984,14 @@ public final class Api {
           playerId_ = other.playerId_;
           onChanged();
         }
-        this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
       }
 
-      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
-      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -2253,16 +2147,14 @@ public final class Api {
         onChanged();
         return this;
       }
-      @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return this;
       }
 
-      @java.lang.Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
+        return this;
       }
 
 
@@ -2281,12 +2173,11 @@ public final class Api {
 
     private static final com.google.protobuf.Parser<ClaimRouteRequest>
         PARSER = new com.google.protobuf.AbstractParser<ClaimRouteRequest>() {
-      @java.lang.Override
       public ClaimRouteRequest parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new ClaimRouteRequest(input, extensionRegistry);
+          return new ClaimRouteRequest(input, extensionRegistry);
       }
     };
 
@@ -2299,7 +2190,6 @@ public final class Api {
       return PARSER;
     }
 
-    @java.lang.Override
     public com.wwttr.route.Api.ClaimRouteRequest getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
@@ -2317,7 +2207,6 @@ public final class Api {
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:route.ClaimRouteResponse)
       ClaimRouteResponseOrBuilder {
-  private static final long serialVersionUID = 0L;
     // Use ClaimRouteResponse.newBuilder() to construct.
     private ClaimRouteResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
@@ -2328,18 +2217,13 @@ public final class Api {
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
-      return this.unknownFields;
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
     private ClaimRouteResponse(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
-      if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
-      }
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -2349,8 +2233,7 @@ public final class Api {
               done = true;
               break;
             default: {
-              if (!parseUnknownFieldProto3(
-                  input, unknownFields, extensionRegistry, tag)) {
+              if (!input.skipField(tag)) {
                 done = true;
               }
               break;
@@ -2363,7 +2246,6 @@ public final class Api {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
@@ -2372,7 +2254,6 @@ public final class Api {
       return com.wwttr.route.Api.internal_static_route_ClaimRouteResponse_descriptor;
     }
 
-    @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.wwttr.route.Api.internal_static_route_ClaimRouteResponse_fieldAccessorTable
@@ -2381,7 +2262,6 @@ public final class Api {
     }
 
     private byte memoizedIsInitialized = -1;
-    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -2391,23 +2271,20 @@ public final class Api {
       return true;
     }
 
-    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      unknownFields.writeTo(output);
     }
 
-    @java.lang.Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
     }
 
+    private static final long serialVersionUID = 0L;
     @java.lang.Override
     public boolean equals(final java.lang.Object obj) {
       if (obj == this) {
@@ -2419,7 +2296,6 @@ public final class Api {
       com.wwttr.route.Api.ClaimRouteResponse other = (com.wwttr.route.Api.ClaimRouteResponse) obj;
 
       boolean result = true;
-      result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
 
@@ -2505,7 +2381,6 @@ public final class Api {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
@@ -2513,7 +2388,6 @@ public final class Api {
     public static Builder newBuilder(com.wwttr.route.Api.ClaimRouteResponse prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
-    @java.lang.Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
@@ -2537,7 +2411,6 @@ public final class Api {
         return com.wwttr.route.Api.internal_static_route_ClaimRouteResponse_descriptor;
       }
 
-      @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.wwttr.route.Api.internal_static_route_ClaimRouteResponse_fieldAccessorTable
@@ -2560,24 +2433,20 @@ public final class Api {
                 .alwaysUseFieldBuilders) {
         }
       }
-      @java.lang.Override
       public Builder clear() {
         super.clear();
         return this;
       }
 
-      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return com.wwttr.route.Api.internal_static_route_ClaimRouteResponse_descriptor;
       }
 
-      @java.lang.Override
       public com.wwttr.route.Api.ClaimRouteResponse getDefaultInstanceForType() {
         return com.wwttr.route.Api.ClaimRouteResponse.getDefaultInstance();
       }
 
-      @java.lang.Override
       public com.wwttr.route.Api.ClaimRouteResponse build() {
         com.wwttr.route.Api.ClaimRouteResponse result = buildPartial();
         if (!result.isInitialized()) {
@@ -2586,46 +2455,38 @@ public final class Api {
         return result;
       }
 
-      @java.lang.Override
       public com.wwttr.route.Api.ClaimRouteResponse buildPartial() {
         com.wwttr.route.Api.ClaimRouteResponse result = new com.wwttr.route.Api.ClaimRouteResponse(this);
         onBuilt();
         return result;
       }
 
-      @java.lang.Override
       public Builder clone() {
         return (Builder) super.clone();
       }
-      @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return (Builder) super.setField(field, value);
       }
-      @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
-      @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
-      @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
+          int index, Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
-      @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
-      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.wwttr.route.Api.ClaimRouteResponse) {
           return mergeFrom((com.wwttr.route.Api.ClaimRouteResponse)other);
@@ -2637,17 +2498,14 @@ public final class Api {
 
       public Builder mergeFrom(com.wwttr.route.Api.ClaimRouteResponse other) {
         if (other == com.wwttr.route.Api.ClaimRouteResponse.getDefaultInstance()) return this;
-        this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
       }
 
-      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
-      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -2665,16 +2523,14 @@ public final class Api {
         }
         return this;
       }
-      @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return this;
       }
 
-      @java.lang.Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
+        return this;
       }
 
 
@@ -2693,12 +2549,11 @@ public final class Api {
 
     private static final com.google.protobuf.Parser<ClaimRouteResponse>
         PARSER = new com.google.protobuf.AbstractParser<ClaimRouteResponse>() {
-      @java.lang.Override
       public ClaimRouteResponse parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new ClaimRouteResponse(input, extensionRegistry);
+          return new ClaimRouteResponse(input, extensionRegistry);
       }
     };
 
@@ -2711,7 +2566,6 @@ public final class Api {
       return PARSER;
     }
 
-    @java.lang.Override
     public com.wwttr.route.Api.ClaimRouteResponse getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
@@ -3067,7 +2921,7 @@ public final class Api {
       "r_id\030\002 \001(\t\"\024\n\022ClaimRouteResponse2\215\001\n\014Rou" +
       "teService\022A\n\nClaimRoute\022\030.route.ClaimRou" +
       "teRequest\032\031.route.ClaimRouteResponse\022:\n\014" +
-      "StreamRoutes\022\032.route.StreamRoutesRequest" +
+      "StreamRoutes\022\032.route.StreamRoutesRequest",
       "\032\014.route.Route0\001B\031\n\017com.wwttr.routeB\003Api" +
       "\210\001\001b\006proto3"
     };

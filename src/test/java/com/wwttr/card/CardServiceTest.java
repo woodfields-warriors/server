@@ -4,6 +4,7 @@ import com.wwttr.api.NotFoundException;
 import com.wwttr.database.DatabaseFacade;
 import com.wwttr.models.DestinationCard;
 import com.wwttr.models.CreateResponse;
+import com.wwttr.models.Game;
 import com.wwttr.models.TrainCard;
 
 import org.junit.After;
@@ -12,6 +13,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 import static org.junit.Assert.*;
 
@@ -66,7 +68,6 @@ public class CardServiceTest {
       cs.generateDestinationDeckTemplate(name, name, points);
       cs.createFullDecksForGame(GameId);
       assert (df.getDestinationCards().size() == name.length);
-      System.out.println("train card deck size = " + df.getTrainCards().size());
       assert (df.getTrainCards().size() == 25);
     } catch (Exception e) {
       e.printStackTrace();
@@ -109,7 +110,6 @@ public class CardServiceTest {
       List<DestinationCard> cards = cs.peekDestinationCards(GameId);
       List<String> idsToClaim = new ArrayList<>();
       for (DestinationCard card : cards) {
-        System.out.println(card.getId());
         idsToClaim.add(card.getId());
       }
       cs.claimDestinationCards(idsToClaim, playerId);
@@ -129,21 +129,90 @@ public class CardServiceTest {
 
   @Test
   public void dealTrainCards() {
+    try{
+      cs.createFullDecksForGame(GameId);
+      Integer visibleCards = 0;
+      Integer cardsInHand = 0;
+      for(TrainCard card : df.getTrainCardsForGame(GameId))
+      {
+        if(card.getState().equals(TrainCard.State.VISIBLE))
+          visibleCards++;
+        else if(card.getState().equals(TrainCard.State.OWNED))
+          cardsInHand++;
+      }
+      assert(visibleCards == 5);
+      Game game = df.getGame(GameId);
+      Integer expectedCards = game.getPlayerIDs().size()*4;
+      assertEquals(expectedCards,cardsInHand);
+    }
+    catch (NotFoundException e){
+      fail();
+    }
   }
 
   @Test
   public void claimTrainCardFromDeck() {
+    try{
+      cs.createFullDecksForGame(GameId);
+      Integer startingCardsInHand = df.getTrainCardsForPlayer(playerId).size();
+      cs.claimTrainCardFromDeck(playerId);
+      Integer cardsInHand =  df.getTrainCardsForPlayer(playerId).size();
+      Integer expectedCardsInHand = startingCardsInHand+1;
+      assertEquals(expectedCardsInHand,cardsInHand);
+    }
+    catch (NotFoundException e){
+      fail();
+    }
   }
 
   @Test
   public void claimFaceUpTrainCard() {
+    try{
+      cs.createFullDecksForGame(GameId);
+      Integer startingCardsInHand = df.getTrainCardsForPlayer(playerId).size();
+      ArrayList<TrainCard> trainCards = df.getTrainCardsForGame(GameId);
+      ArrayList<TrainCard> visibleCards = new ArrayList<>();
+      for(TrainCard card : trainCards){
+        if(card.getState().equals(TrainCard.State.VISIBLE))
+          visibleCards.add(card);
+      }
+      TrainCard claimed = visibleCards.get(0);
+      cs.claimFaceUpTrainCard(playerId,claimed.getId());
+      Integer cardsInHand =  df.getTrainCardsForPlayer(playerId).size();
+      Integer expectedCardsInHand = startingCardsInHand + 1;
+      assertEquals(expectedCardsInHand,cardsInHand);
+      assertEquals(TrainCard.State.OWNED,df.getTrainCard(claimed.getId()).getState());
+    }
+    catch (NotFoundException e){
+      fail();
+    }
   }
 
   @Test
   public void getTrainCardsInHand() {
+    try{
+      cs.createFullDecksForGame(GameId);
+      List<TrainCard> cards = df.getTrainCardsForPlayer(playerId);
+      assertEquals(4,cards.size());
+    }
+    catch (NotFoundException e){
+      fail();
+    }
   }
 
   @Test
   public void streamTrainCards() {
+    /*try {
+      System.out.println("streamTrainCardsStart");
+      cs.createFullDecksForGame(GameId);
+      Stream<TrainCard> stream = cs.streamTrainCards(playerId);
+      stream.forEach((TrainCard card) ->{
+                      assertNotEquals(TrainCard.State.HIDDEN,card.getState());
+                      assertNotEquals(TrainCard.State.UNSPECIFIED,card.getState());
+      });
+    }
+    catch (NotFoundException e){
+      fail();
+    }*/
   }
 }

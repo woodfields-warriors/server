@@ -186,7 +186,7 @@ public class DatabaseFacade {
   public List<DestinationCard> listDestinationCards(int limit, String gameId) throws NotFoundException{
     synchronized (this) {
       List<DestinationCard> listToReturn = new ArrayList<DestinationCard>();
-      ArrayList<DestinationCard> cards = getCardsByGameId(gameId);
+      ArrayList<DestinationCard> cards = getDestinationCardsByGameId(gameId);
       if(cards.size() < limit){
         throw new IllegalArgumentException("only " + cards.size() + " cards in deck, " + limit + " requested");
       }
@@ -232,7 +232,7 @@ public class DatabaseFacade {
     }
   }
 
-  private ArrayList<DestinationCard> getCardsByGameId(String gameId){
+  private ArrayList<DestinationCard> getDestinationCardsByGameId(String gameId){
     synchronized (this) {
       ArrayList<DestinationCard> toReturn = new ArrayList<>();
       for(DestinationCard card : destinationCards){
@@ -292,7 +292,29 @@ public class DatabaseFacade {
         }
         retrievedCard.update(card);
         trainCardQueue.publish(retrievedCard);
+        updateDeckStats(card.getGameId());
       }
+    }
+  }
+
+  private void updateDeckStats(String gameId) {
+    synchronized (this){
+      ArrayList<DestinationCard> dcards = getDestinationCardsByGameId(gameId);
+      ArrayList<DestinationCard> filteredDCards = new ArrayList<>();
+      for(DestinationCard card : dcards){
+        if(!card.getPlayerId().equals("") || card.getPlayerId().equals("sent")){
+          filteredDCards.add(card);
+        }
+      }
+      ArrayList<TrainCard> tcards = getTrainCardsForGame(gameId);
+      ArrayList<TrainCard> filteredtcards = new ArrayList<>();
+      for(TrainCard card : tcards){
+        if(card.getState() == TrainCard.State.HIDDEN ){
+          filteredtcards.add(card);
+        }
+      }
+      DeckStats newstats = new DeckStats(filteredtcards.size(),filteredDCards.size(),gameId);
+      deckStatsCommandQueue.publish(newstats);
     }
   }
 
@@ -304,8 +326,6 @@ public class DatabaseFacade {
   }
 
   public void newFaceUpCard(String gameId) throws NotFoundException{
-
-      //TODO Special rule for Locomotives
     synchronized (this) {
       ArrayList<TrainCard> cards = getTrainCardsForGame(gameId);
       TrainCard tempCard = getRandomTrainCardFromDeck(gameId);

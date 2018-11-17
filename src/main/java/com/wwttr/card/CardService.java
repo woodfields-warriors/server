@@ -70,11 +70,6 @@ public class CardService {
       TrainCard tempCard = new TrainCard(newId,gameId,"",tempTrainCardTemplate.getColor(),tempTrainCardTemplate.getState());
       trainCardList.add(tempCard);
     }
-    for(int i = 0; i < 5; i++){
-      TrainCard tempCard = trainCardList.get(rn.nextInt(trainCardList.size()));
-      tempCard.setState(TrainCard.State.VISIBLE);
-    }
-    System.out.println("Train card deck size" + trainCardList.size());
     df.addDestinationCardDeck(cardList);
     df.addTrainCardDeck(trainCardList);
     dealTrainCards(gameId);
@@ -170,6 +165,11 @@ public class CardService {
     if(game == null){
       throw new NotFoundException("game not found");
     }
+    for(int i = 0; i < 5; i++){
+      TrainCard tempCard = df.getRandomTrainCardFromDeck(gameId);
+      tempCard.setState(TrainCard.State.VISIBLE);
+      df.updateTrainCard(tempCard);
+    }
     List<String> playerIDs = game.getPlayerIDs();
     for(String id : playerIDs){
       for(int i = 0; i < 4; i++){
@@ -185,6 +185,7 @@ public class CardService {
     if(df.getPlayer(playerId) == null){
       throw new NotFoundException("player with id" + playerId + " not found");
     }
+    //TODO implement checking for Locomotive based off of PlayerState
     TrainCard returned = df.getRandomTrainCardFromDeck(df.getPlayer(playerId).getGameId());
     if(returned.getPlayerId().equals("")){
         returned.setPlayerId(playerId);
@@ -230,6 +231,11 @@ public class CardService {
       throw new NotFoundException("player not found");
     }
     return df.streamTrainCards(playerId);
+  }
+
+  public boolean isLocomotive(String cardId) throws NotFoundException{
+    TrainCard card = df.getTrainCard(cardId);
+    return card.getColor().equals(TrainCard.Color.RAINBOW);
   }
 
   //Testing Functions-------------------------------------------------------------------
