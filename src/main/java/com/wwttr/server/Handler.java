@@ -6,7 +6,6 @@ import com.wwttr.api.Code;
 import com.wwttr.api.ApiError;
 
 import com.google.protobuf.Service;
-import com.google.protobuf.RpcController;
 import com.google.protobuf.Descriptors.MethodDescriptor;
 import com.google.protobuf.Message;
 import com.google.protobuf.ByteString;
@@ -96,10 +95,10 @@ class Handler implements HttpHandler {
 
     RpcCallback<Message> callback;
     if (!method.toProto().getServerStreaming()) {
-      callback = Handler.unaryHandler(controller);
+      callback = controller.unaryHandler();
     } else {
       try {
-        callback = Handler.streamHandler(controller);
+        callback = controller.streamHandler();
       }
       catch (IOException e) {
         e.printStackTrace();
@@ -120,8 +119,13 @@ class Handler implements HttpHandler {
       response.setCode(e.getCode());
       response.setMessage(e.getMessage());
 
-      UnaryResponder responder = new UnaryResponder(exchange);
       try {
+        if (controller.getResponder() != null) {
+          controller.getResponder().respond(response.build());
+          controller.getResponder().close();
+          return;
+        }
+        UnaryResponder responder = new UnaryResponder(exchange);
         responder.respond(response.build());
       }
       catch (IOException ioE) {
@@ -142,8 +146,13 @@ class Handler implements HttpHandler {
       response.setCode(Code.INTERNAL);
       response.setMessage("");
 
-      UnaryResponder responder = new UnaryResponder(exchange);
       try {
+        if (controller.getResponder() != null) {
+          controller.getResponder().respond(response.build());
+          controller.getResponder().close();
+          return;
+        }
+        UnaryResponder responder = new UnaryResponder(exchange);
         responder.respond(response.build());
       }
       catch (IOException e) {
@@ -151,63 +160,5 @@ class Handler implements HttpHandler {
       }
       return;
     }
-  }
-
-  static RpcCallback<Message> unaryHandler(Controller controller) {
-    return (Message response) -> {
-      synchronized (controller) {
-        if (controller.isCanceled()) {
-          return;
-        }
-
-        if (response == null) {
-          throw new Error("server cannot respond with null");
-        }
-
-        Response.Builder responseWrapper = Response.newBuilder();
-        responseWrapper.setCode(Code.OK);
-        responseWrapper.setPayload(response.toByteString());
-
-        UnaryResponder responder = new UnaryResponder(controller.getExchange());
-        try {
-          responder.respond(responseWrapper.build());
-        }
-        catch (IOException e) {
-          e.printStackTrace();
-        }
-      }
-    };
-  }
-
-  static RpcCallback<Message> streamHandler(Controller controller) throws IOException {
-    StreamResponder responder = new StreamResponder(controller.getExchange());
-    return (Message response) -> {
-      synchronized (responder) {
-        if (!responder.isOpen()) {
-          return;
-        }
-        if (controller.isCanceled() || response == null) {
-          try {
-            responder.close();
-          }
-          catch (IOException e) {
-            e.printStackTrace();
-          }
-          return;
-        }
-
-        Response.Builder responseWrapper = Response.newBuilder();
-        responseWrapper.setCode(Code.OK);
-        responseWrapper.setPayload(response.toByteString());
-
-        try {
-          responder.respond(responseWrapper.build());
-        }
-        catch (IOException e) {
-          e.printStackTrace();
-          controller.startCancel();
-        }
-      }
-    };
   }
 }
