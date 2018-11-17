@@ -4,6 +4,7 @@ import com.google.protobuf.RpcController;
 import com.wwttr.models.CreateResponse;
 import com.wwttr.models.Game;
 import com.wwttr.models.Player;
+import com.wwttr.models.GameAction;
 import java.util.*;
 import com.wwttr.api.ApiError;
 import com.wwttr.auth.AuthService;
@@ -12,6 +13,8 @@ import com.google.protobuf.RpcCallback;
 import com.wwttr.game.GameFullException;
 import com.wwttr.api.NotFoundException;
 import com.wwttr.database.CommandQueue;
+import java.util.stream.*;
+
 
 public class GameHandlers extends Api.GameService {
 
@@ -172,13 +175,13 @@ public class GameHandlers extends Api.GameService {
     callback.run(toReturn.build());
   }
 
-  // public void streamHistory(RpcController controller, Api.StreamHistoryRequest request, RpcCallback<Api.Message> callback){
-  //   Stream<GameAction> gameActions = service.streamHistory(request.getGameId());
-  //   gameActions.forEach((GameAction action) -> {
-  //     Api.GameAction.Builder builder = action.createBuilder();
-  //     callback.run(builder.build());
-  //   });
-  // }
+  public void streamHistory(RpcController controller, Api.StreamHistoryRequest request, RpcCallback<Api.GameAction> callback){
+    Stream<GameAction> gameActions = service.streamHistory(request.getGameId());
+    gameActions.forEach((GameAction action) -> {
+      Api.GameAction.Builder builder = action.createBuilder();
+      callback.run(builder.build());
+    });
+  }
 
 
   // This method is the replacement for JoinGame().
@@ -213,6 +216,7 @@ public class GameHandlers extends Api.GameService {
     builder.setId(player.getPlayerId());
     builder.setAccountId(player.getUserId());
     builder.setGameId(player.getGameId());
+    builder.setUsername(player.getUsername());
     Api.Player.Color color;
     switch (player.getPlayerColor()) {
     case RED:

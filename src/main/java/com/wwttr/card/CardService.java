@@ -15,6 +15,7 @@ import java.util.stream.Stream;
 
 public class CardService {
   private DatabaseFacade df;
+  private GameService gameService;
   private static CardService instance;
   private Random rn = new Random();
 
@@ -22,7 +23,8 @@ public class CardService {
 
   private CardService(){
     df = DatabaseFacade.getInstance();
-    setDefaultTemplates();
+    gameService = GameService.getInstance();
+    generateDeckTemplate(FIRST_CITIES,SECOND_CITIES,POINTS);
   }
 
   public static CardService getInstance(){
@@ -129,6 +131,15 @@ public class CardService {
         throw new ApiError(Code.INVALID_ARGUMENT,"card with id " + id + " has already been claimed");
       }
     }
+    String actionString = "";
+    if(destinationCardIds.size() == 1){
+      actionString = "claimed 1 destination card";
+    }
+    else{
+      actionString = "claimed " + destinationCardIds.size() + " destination cards";
+    }
+    //unused
+    GameAction action = gameService.createGameAction(actionString; playerId);
   }
 
   public Stream<DestinationCard> streamDestinationCards(String playerId) throws NotFoundException {

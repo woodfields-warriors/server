@@ -5,6 +5,7 @@ import com.wwttr.database.DatabaseFacade;
 import com.wwttr.models.CreateResponse;
 import com.wwttr.models.Game;
 import com.wwttr.models.Player;
+import com.wwttr.models.GameAction;
 import com.wwttr.models.LoginResponse;
 import com.wwttr.api.NotFoundException;
 
@@ -185,7 +186,6 @@ public class GameServiceTest {
       try{
         CreateResponse game = service.createGame("valid", userID, 2);
         String playerID = service.createPlayer(userID, game.getGameID());
-        System.out.println("get player id " + playerID);
         Player player = service.getPlayer(playerID);
         assertNotNull(player);
         assertEquals(playerID, player.getPlayerId());
@@ -193,6 +193,26 @@ public class GameServiceTest {
         assertEquals(userID, player.getUserId());
       }
       catch (Exception e){
+        fail();
+      }
+    }
+
+
+    @Test
+    public void testGameAction(){
+      try{
+        CreateResponse game = service.createGame("valid", userID, 2);
+        String playerId = service.createPlayer(userID, game.getGameID());
+        Player player = service.getPlayer(playerId);
+        GameAction action = service.createGameAction("claimed a route",playerId);
+        System.out.println(action.getActionId());
+        assertEquals(action.getGameId(),game.getGameID());
+        assertEquals(action.getPlayerId(),playerId);
+      }
+      catch (NotFoundException e){
+        fail();
+      }
+      catch(GameFullException e){
         fail();
       }
     }

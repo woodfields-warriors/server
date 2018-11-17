@@ -17,6 +17,7 @@ service GameService {
   rpc GetPlayer (GetPlayerRequest) returns (Player);
   rpc StreamPlayerStats (StreamPlayerStatsRequest) returns (stream PlayerStats);
   rpc TogglePlayerStats (Empty) returns (Empty);
+  rpc StreamHistory (StreamHistoryRequest) returns (stream GameAction);
 }
 
 message Game {
@@ -58,6 +59,22 @@ message Game {
 
 }
 
+message GameAction{
+  // The unique identifier of the message.
+  // Server assigned.
+  string action_id = 1;
+
+  //The contents of the message.  What different players see
+  string action = 2;
+
+  //Server assigned.  The time the action occured
+  int32 timestamp = 3;
+
+  //The player Id associated witht the player who took the action
+  string player_id = 4;
+
+}
+
 //-----------------Requests-------------//
 message CreateGameRequest {
   //The userID of User trying to create the game
@@ -95,6 +112,13 @@ message DeleteGameRequest {
   // Required.
   string game_id = 1;
 }
+
+message StreamHistoryRequest {
+  string game_id = 1;
+}
+
+
+
 message CreatePlayerRequest{
   //the id of the user who wants to join a game
   string user_id = 1;
@@ -112,6 +136,8 @@ message Player {
   string game_id = 3;
   // The color that the player will be inGame and lobby
   Color color = 4;
+  //The username of the player
+  string username = 5;
 
   enum Color{
     UNKNOWN = 0;

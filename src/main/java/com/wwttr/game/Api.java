@@ -1720,6 +1720,1030 @@ public final class Api {
 
   }
 
+  public interface GameActionOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:game.GameAction)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * The unique identifier of the message.
+     * Server assigned.
+     * </pre>
+     *
+     * <code>string action_id = 1;</code>
+     */
+    java.lang.String getActionId();
+    /**
+     * <pre>
+     * The unique identifier of the message.
+     * Server assigned.
+     * </pre>
+     *
+     * <code>string action_id = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getActionIdBytes();
+
+    /**
+     * <pre>
+     *The contents of the message.  What different players see
+     * </pre>
+     *
+     * <code>string action = 2;</code>
+     */
+    java.lang.String getAction();
+    /**
+     * <pre>
+     *The contents of the message.  What different players see
+     * </pre>
+     *
+     * <code>string action = 2;</code>
+     */
+    com.google.protobuf.ByteString
+        getActionBytes();
+
+    /**
+     * <pre>
+     *Server assigned.  The time the action occured
+     * </pre>
+     *
+     * <code>int32 timestamp = 3;</code>
+     */
+    int getTimestamp();
+
+    /**
+     * <pre>
+     *The player Id associated witht the player who took the action
+     * </pre>
+     *
+     * <code>string player_id = 4;</code>
+     */
+    java.lang.String getPlayerId();
+    /**
+     * <pre>
+     *The player Id associated witht the player who took the action
+     * </pre>
+     *
+     * <code>string player_id = 4;</code>
+     */
+    com.google.protobuf.ByteString
+        getPlayerIdBytes();
+  }
+  /**
+   * Protobuf type {@code game.GameAction}
+   */
+  public  static final class GameAction extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:game.GameAction)
+      GameActionOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use GameAction.newBuilder() to construct.
+    private GameAction(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private GameAction() {
+      actionId_ = "";
+      action_ = "";
+      timestamp_ = 0;
+      playerId_ = "";
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private GameAction(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              actionId_ = s;
+              break;
+            }
+            case 18: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              action_ = s;
+              break;
+            }
+            case 24: {
+
+              timestamp_ = input.readInt32();
+              break;
+            }
+            case 34: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              playerId_ = s;
+              break;
+            }
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.wwttr.game.Api.internal_static_game_GameAction_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.wwttr.game.Api.internal_static_game_GameAction_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.wwttr.game.Api.GameAction.class, com.wwttr.game.Api.GameAction.Builder.class);
+    }
+
+    public static final int ACTION_ID_FIELD_NUMBER = 1;
+    private volatile java.lang.Object actionId_;
+    /**
+     * <pre>
+     * The unique identifier of the message.
+     * Server assigned.
+     * </pre>
+     *
+     * <code>string action_id = 1;</code>
+     */
+    public java.lang.String getActionId() {
+      java.lang.Object ref = actionId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        actionId_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * The unique identifier of the message.
+     * Server assigned.
+     * </pre>
+     *
+     * <code>string action_id = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getActionIdBytes() {
+      java.lang.Object ref = actionId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        actionId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int ACTION_FIELD_NUMBER = 2;
+    private volatile java.lang.Object action_;
+    /**
+     * <pre>
+     *The contents of the message.  What different players see
+     * </pre>
+     *
+     * <code>string action = 2;</code>
+     */
+    public java.lang.String getAction() {
+      java.lang.Object ref = action_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        action_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     *The contents of the message.  What different players see
+     * </pre>
+     *
+     * <code>string action = 2;</code>
+     */
+    public com.google.protobuf.ByteString
+        getActionBytes() {
+      java.lang.Object ref = action_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        action_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int TIMESTAMP_FIELD_NUMBER = 3;
+    private int timestamp_;
+    /**
+     * <pre>
+     *Server assigned.  The time the action occured
+     * </pre>
+     *
+     * <code>int32 timestamp = 3;</code>
+     */
+    public int getTimestamp() {
+      return timestamp_;
+    }
+
+    public static final int PLAYER_ID_FIELD_NUMBER = 4;
+    private volatile java.lang.Object playerId_;
+    /**
+     * <pre>
+     *The player Id associated witht the player who took the action
+     * </pre>
+     *
+     * <code>string player_id = 4;</code>
+     */
+    public java.lang.String getPlayerId() {
+      java.lang.Object ref = playerId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        playerId_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     *The player Id associated witht the player who took the action
+     * </pre>
+     *
+     * <code>string player_id = 4;</code>
+     */
+    public com.google.protobuf.ByteString
+        getPlayerIdBytes() {
+      java.lang.Object ref = playerId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        playerId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getActionIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, actionId_);
+      }
+      if (!getActionBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, action_);
+      }
+      if (timestamp_ != 0) {
+        output.writeInt32(3, timestamp_);
+      }
+      if (!getPlayerIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 4, playerId_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getActionIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, actionId_);
+      }
+      if (!getActionBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, action_);
+      }
+      if (timestamp_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(3, timestamp_);
+      }
+      if (!getPlayerIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, playerId_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.wwttr.game.Api.GameAction)) {
+        return super.equals(obj);
+      }
+      com.wwttr.game.Api.GameAction other = (com.wwttr.game.Api.GameAction) obj;
+
+      boolean result = true;
+      result = result && getActionId()
+          .equals(other.getActionId());
+      result = result && getAction()
+          .equals(other.getAction());
+      result = result && (getTimestamp()
+          == other.getTimestamp());
+      result = result && getPlayerId()
+          .equals(other.getPlayerId());
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + ACTION_ID_FIELD_NUMBER;
+      hash = (53 * hash) + getActionId().hashCode();
+      hash = (37 * hash) + ACTION_FIELD_NUMBER;
+      hash = (53 * hash) + getAction().hashCode();
+      hash = (37 * hash) + TIMESTAMP_FIELD_NUMBER;
+      hash = (53 * hash) + getTimestamp();
+      hash = (37 * hash) + PLAYER_ID_FIELD_NUMBER;
+      hash = (53 * hash) + getPlayerId().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.wwttr.game.Api.GameAction parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.wwttr.game.Api.GameAction parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.wwttr.game.Api.GameAction parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.wwttr.game.Api.GameAction parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.wwttr.game.Api.GameAction parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.wwttr.game.Api.GameAction parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.wwttr.game.Api.GameAction parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.wwttr.game.Api.GameAction parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.wwttr.game.Api.GameAction parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.wwttr.game.Api.GameAction parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.wwttr.game.Api.GameAction parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.wwttr.game.Api.GameAction parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.wwttr.game.Api.GameAction prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code game.GameAction}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:game.GameAction)
+        com.wwttr.game.Api.GameActionOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.wwttr.game.Api.internal_static_game_GameAction_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.wwttr.game.Api.internal_static_game_GameAction_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.wwttr.game.Api.GameAction.class, com.wwttr.game.Api.GameAction.Builder.class);
+      }
+
+      // Construct using com.wwttr.game.Api.GameAction.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        actionId_ = "";
+
+        action_ = "";
+
+        timestamp_ = 0;
+
+        playerId_ = "";
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.wwttr.game.Api.internal_static_game_GameAction_descriptor;
+      }
+
+      @java.lang.Override
+      public com.wwttr.game.Api.GameAction getDefaultInstanceForType() {
+        return com.wwttr.game.Api.GameAction.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.wwttr.game.Api.GameAction build() {
+        com.wwttr.game.Api.GameAction result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.wwttr.game.Api.GameAction buildPartial() {
+        com.wwttr.game.Api.GameAction result = new com.wwttr.game.Api.GameAction(this);
+        result.actionId_ = actionId_;
+        result.action_ = action_;
+        result.timestamp_ = timestamp_;
+        result.playerId_ = playerId_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.wwttr.game.Api.GameAction) {
+          return mergeFrom((com.wwttr.game.Api.GameAction)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.wwttr.game.Api.GameAction other) {
+        if (other == com.wwttr.game.Api.GameAction.getDefaultInstance()) return this;
+        if (!other.getActionId().isEmpty()) {
+          actionId_ = other.actionId_;
+          onChanged();
+        }
+        if (!other.getAction().isEmpty()) {
+          action_ = other.action_;
+          onChanged();
+        }
+        if (other.getTimestamp() != 0) {
+          setTimestamp(other.getTimestamp());
+        }
+        if (!other.getPlayerId().isEmpty()) {
+          playerId_ = other.playerId_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.wwttr.game.Api.GameAction parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.wwttr.game.Api.GameAction) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object actionId_ = "";
+      /**
+       * <pre>
+       * The unique identifier of the message.
+       * Server assigned.
+       * </pre>
+       *
+       * <code>string action_id = 1;</code>
+       */
+      public java.lang.String getActionId() {
+        java.lang.Object ref = actionId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          actionId_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * The unique identifier of the message.
+       * Server assigned.
+       * </pre>
+       *
+       * <code>string action_id = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getActionIdBytes() {
+        java.lang.Object ref = actionId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          actionId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * The unique identifier of the message.
+       * Server assigned.
+       * </pre>
+       *
+       * <code>string action_id = 1;</code>
+       */
+      public Builder setActionId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        actionId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * The unique identifier of the message.
+       * Server assigned.
+       * </pre>
+       *
+       * <code>string action_id = 1;</code>
+       */
+      public Builder clearActionId() {
+        
+        actionId_ = getDefaultInstance().getActionId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * The unique identifier of the message.
+       * Server assigned.
+       * </pre>
+       *
+       * <code>string action_id = 1;</code>
+       */
+      public Builder setActionIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        actionId_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object action_ = "";
+      /**
+       * <pre>
+       *The contents of the message.  What different players see
+       * </pre>
+       *
+       * <code>string action = 2;</code>
+       */
+      public java.lang.String getAction() {
+        java.lang.Object ref = action_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          action_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       *The contents of the message.  What different players see
+       * </pre>
+       *
+       * <code>string action = 2;</code>
+       */
+      public com.google.protobuf.ByteString
+          getActionBytes() {
+        java.lang.Object ref = action_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          action_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       *The contents of the message.  What different players see
+       * </pre>
+       *
+       * <code>string action = 2;</code>
+       */
+      public Builder setAction(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        action_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *The contents of the message.  What different players see
+       * </pre>
+       *
+       * <code>string action = 2;</code>
+       */
+      public Builder clearAction() {
+        
+        action_ = getDefaultInstance().getAction();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *The contents of the message.  What different players see
+       * </pre>
+       *
+       * <code>string action = 2;</code>
+       */
+      public Builder setActionBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        action_ = value;
+        onChanged();
+        return this;
+      }
+
+      private int timestamp_ ;
+      /**
+       * <pre>
+       *Server assigned.  The time the action occured
+       * </pre>
+       *
+       * <code>int32 timestamp = 3;</code>
+       */
+      public int getTimestamp() {
+        return timestamp_;
+      }
+      /**
+       * <pre>
+       *Server assigned.  The time the action occured
+       * </pre>
+       *
+       * <code>int32 timestamp = 3;</code>
+       */
+      public Builder setTimestamp(int value) {
+        
+        timestamp_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *Server assigned.  The time the action occured
+       * </pre>
+       *
+       * <code>int32 timestamp = 3;</code>
+       */
+      public Builder clearTimestamp() {
+        
+        timestamp_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object playerId_ = "";
+      /**
+       * <pre>
+       *The player Id associated witht the player who took the action
+       * </pre>
+       *
+       * <code>string player_id = 4;</code>
+       */
+      public java.lang.String getPlayerId() {
+        java.lang.Object ref = playerId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          playerId_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       *The player Id associated witht the player who took the action
+       * </pre>
+       *
+       * <code>string player_id = 4;</code>
+       */
+      public com.google.protobuf.ByteString
+          getPlayerIdBytes() {
+        java.lang.Object ref = playerId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          playerId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       *The player Id associated witht the player who took the action
+       * </pre>
+       *
+       * <code>string player_id = 4;</code>
+       */
+      public Builder setPlayerId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        playerId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *The player Id associated witht the player who took the action
+       * </pre>
+       *
+       * <code>string player_id = 4;</code>
+       */
+      public Builder clearPlayerId() {
+        
+        playerId_ = getDefaultInstance().getPlayerId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *The player Id associated witht the player who took the action
+       * </pre>
+       *
+       * <code>string player_id = 4;</code>
+       */
+      public Builder setPlayerIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        playerId_ = value;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFieldsProto3(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:game.GameAction)
+    }
+
+    // @@protoc_insertion_point(class_scope:game.GameAction)
+    private static final com.wwttr.game.Api.GameAction DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.wwttr.game.Api.GameAction();
+    }
+
+    public static com.wwttr.game.Api.GameAction getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<GameAction>
+        PARSER = new com.google.protobuf.AbstractParser<GameAction>() {
+      @java.lang.Override
+      public GameAction parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new GameAction(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<GameAction> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<GameAction> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.wwttr.game.Api.GameAction getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   public interface CreateGameRequestOrBuilder extends
       // @@protoc_insertion_point(interface_extends:game.CreateGameRequest)
       com.google.protobuf.MessageOrBuilder {
@@ -5526,6 +6550,556 @@ public final class Api {
 
   }
 
+  public interface StreamHistoryRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:game.StreamHistoryRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string game_id = 1;</code>
+     */
+    java.lang.String getGameId();
+    /**
+     * <code>string game_id = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getGameIdBytes();
+  }
+  /**
+   * Protobuf type {@code game.StreamHistoryRequest}
+   */
+  public  static final class StreamHistoryRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:game.StreamHistoryRequest)
+      StreamHistoryRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use StreamHistoryRequest.newBuilder() to construct.
+    private StreamHistoryRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private StreamHistoryRequest() {
+      gameId_ = "";
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private StreamHistoryRequest(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              gameId_ = s;
+              break;
+            }
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.wwttr.game.Api.internal_static_game_StreamHistoryRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.wwttr.game.Api.internal_static_game_StreamHistoryRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.wwttr.game.Api.StreamHistoryRequest.class, com.wwttr.game.Api.StreamHistoryRequest.Builder.class);
+    }
+
+    public static final int GAME_ID_FIELD_NUMBER = 1;
+    private volatile java.lang.Object gameId_;
+    /**
+     * <code>string game_id = 1;</code>
+     */
+    public java.lang.String getGameId() {
+      java.lang.Object ref = gameId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        gameId_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string game_id = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getGameIdBytes() {
+      java.lang.Object ref = gameId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        gameId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getGameIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, gameId_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getGameIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, gameId_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.wwttr.game.Api.StreamHistoryRequest)) {
+        return super.equals(obj);
+      }
+      com.wwttr.game.Api.StreamHistoryRequest other = (com.wwttr.game.Api.StreamHistoryRequest) obj;
+
+      boolean result = true;
+      result = result && getGameId()
+          .equals(other.getGameId());
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + GAME_ID_FIELD_NUMBER;
+      hash = (53 * hash) + getGameId().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.wwttr.game.Api.StreamHistoryRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.wwttr.game.Api.StreamHistoryRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.wwttr.game.Api.StreamHistoryRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.wwttr.game.Api.StreamHistoryRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.wwttr.game.Api.StreamHistoryRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.wwttr.game.Api.StreamHistoryRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.wwttr.game.Api.StreamHistoryRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.wwttr.game.Api.StreamHistoryRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.wwttr.game.Api.StreamHistoryRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.wwttr.game.Api.StreamHistoryRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.wwttr.game.Api.StreamHistoryRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.wwttr.game.Api.StreamHistoryRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.wwttr.game.Api.StreamHistoryRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code game.StreamHistoryRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:game.StreamHistoryRequest)
+        com.wwttr.game.Api.StreamHistoryRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.wwttr.game.Api.internal_static_game_StreamHistoryRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.wwttr.game.Api.internal_static_game_StreamHistoryRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.wwttr.game.Api.StreamHistoryRequest.class, com.wwttr.game.Api.StreamHistoryRequest.Builder.class);
+      }
+
+      // Construct using com.wwttr.game.Api.StreamHistoryRequest.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        gameId_ = "";
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.wwttr.game.Api.internal_static_game_StreamHistoryRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public com.wwttr.game.Api.StreamHistoryRequest getDefaultInstanceForType() {
+        return com.wwttr.game.Api.StreamHistoryRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.wwttr.game.Api.StreamHistoryRequest build() {
+        com.wwttr.game.Api.StreamHistoryRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.wwttr.game.Api.StreamHistoryRequest buildPartial() {
+        com.wwttr.game.Api.StreamHistoryRequest result = new com.wwttr.game.Api.StreamHistoryRequest(this);
+        result.gameId_ = gameId_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.wwttr.game.Api.StreamHistoryRequest) {
+          return mergeFrom((com.wwttr.game.Api.StreamHistoryRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.wwttr.game.Api.StreamHistoryRequest other) {
+        if (other == com.wwttr.game.Api.StreamHistoryRequest.getDefaultInstance()) return this;
+        if (!other.getGameId().isEmpty()) {
+          gameId_ = other.gameId_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.wwttr.game.Api.StreamHistoryRequest parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.wwttr.game.Api.StreamHistoryRequest) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object gameId_ = "";
+      /**
+       * <code>string game_id = 1;</code>
+       */
+      public java.lang.String getGameId() {
+        java.lang.Object ref = gameId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          gameId_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string game_id = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getGameIdBytes() {
+        java.lang.Object ref = gameId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          gameId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string game_id = 1;</code>
+       */
+      public Builder setGameId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        gameId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string game_id = 1;</code>
+       */
+      public Builder clearGameId() {
+        
+        gameId_ = getDefaultInstance().getGameId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string game_id = 1;</code>
+       */
+      public Builder setGameIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        gameId_ = value;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFieldsProto3(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:game.StreamHistoryRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:game.StreamHistoryRequest)
+    private static final com.wwttr.game.Api.StreamHistoryRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.wwttr.game.Api.StreamHistoryRequest();
+    }
+
+    public static com.wwttr.game.Api.StreamHistoryRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<StreamHistoryRequest>
+        PARSER = new com.google.protobuf.AbstractParser<StreamHistoryRequest>() {
+      @java.lang.Override
+      public StreamHistoryRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new StreamHistoryRequest(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<StreamHistoryRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<StreamHistoryRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.wwttr.game.Api.StreamHistoryRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   public interface CreatePlayerRequestOrBuilder extends
       // @@protoc_insertion_point(interface_extends:game.CreatePlayerRequest)
       com.google.protobuf.MessageOrBuilder {
@@ -6361,6 +7935,24 @@ public final class Api {
      * <code>.game.Player.Color color = 4;</code>
      */
     com.wwttr.game.Api.Player.Color getColor();
+
+    /**
+     * <pre>
+     *The username of the player
+     * </pre>
+     *
+     * <code>string username = 5;</code>
+     */
+    java.lang.String getUsername();
+    /**
+     * <pre>
+     *The username of the player
+     * </pre>
+     *
+     * <code>string username = 5;</code>
+     */
+    com.google.protobuf.ByteString
+        getUsernameBytes();
   }
   /**
    * Protobuf type {@code game.Player}
@@ -6379,6 +7971,7 @@ public final class Api {
       accountId_ = "";
       gameId_ = "";
       color_ = 0;
+      username_ = "";
     }
 
     @java.lang.Override
@@ -6427,6 +8020,12 @@ public final class Api {
               int rawValue = input.readEnum();
 
               color_ = rawValue;
+              break;
+            }
+            case 42: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              username_ = s;
               break;
             }
             default: {
@@ -6757,6 +8356,48 @@ public final class Api {
       return result == null ? com.wwttr.game.Api.Player.Color.UNRECOGNIZED : result;
     }
 
+    public static final int USERNAME_FIELD_NUMBER = 5;
+    private volatile java.lang.Object username_;
+    /**
+     * <pre>
+     *The username of the player
+     * </pre>
+     *
+     * <code>string username = 5;</code>
+     */
+    public java.lang.String getUsername() {
+      java.lang.Object ref = username_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        username_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     *The username of the player
+     * </pre>
+     *
+     * <code>string username = 5;</code>
+     */
+    public com.google.protobuf.ByteString
+        getUsernameBytes() {
+      java.lang.Object ref = username_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        username_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -6783,6 +8424,9 @@ public final class Api {
       if (color_ != com.wwttr.game.Api.Player.Color.UNKNOWN.getNumber()) {
         output.writeEnum(4, color_);
       }
+      if (!getUsernameBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 5, username_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -6804,6 +8448,9 @@ public final class Api {
       if (color_ != com.wwttr.game.Api.Player.Color.UNKNOWN.getNumber()) {
         size += com.google.protobuf.CodedOutputStream
           .computeEnumSize(4, color_);
+      }
+      if (!getUsernameBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, username_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -6828,6 +8475,8 @@ public final class Api {
       result = result && getGameId()
           .equals(other.getGameId());
       result = result && color_ == other.color_;
+      result = result && getUsername()
+          .equals(other.getUsername());
       result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
@@ -6847,6 +8496,8 @@ public final class Api {
       hash = (53 * hash) + getGameId().hashCode();
       hash = (37 * hash) + COLOR_FIELD_NUMBER;
       hash = (53 * hash) + color_;
+      hash = (37 * hash) + USERNAME_FIELD_NUMBER;
+      hash = (53 * hash) + getUsername().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -6988,6 +8639,8 @@ public final class Api {
 
         color_ = 0;
 
+        username_ = "";
+
         return this;
       }
 
@@ -7018,6 +8671,7 @@ public final class Api {
         result.accountId_ = accountId_;
         result.gameId_ = gameId_;
         result.color_ = color_;
+        result.username_ = username_;
         onBuilt();
         return result;
       }
@@ -7080,6 +8734,10 @@ public final class Api {
         }
         if (other.color_ != 0) {
           setColorValue(other.getColorValue());
+        }
+        if (!other.getUsername().isEmpty()) {
+          username_ = other.username_;
+          onChanged();
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -7443,6 +9101,95 @@ public final class Api {
       public Builder clearColor() {
         
         color_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object username_ = "";
+      /**
+       * <pre>
+       *The username of the player
+       * </pre>
+       *
+       * <code>string username = 5;</code>
+       */
+      public java.lang.String getUsername() {
+        java.lang.Object ref = username_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          username_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       *The username of the player
+       * </pre>
+       *
+       * <code>string username = 5;</code>
+       */
+      public com.google.protobuf.ByteString
+          getUsernameBytes() {
+        java.lang.Object ref = username_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          username_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       *The username of the player
+       * </pre>
+       *
+       * <code>string username = 5;</code>
+       */
+      public Builder setUsername(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        username_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *The username of the player
+       * </pre>
+       *
+       * <code>string username = 5;</code>
+       */
+      public Builder clearUsername() {
+        
+        username_ = getDefaultInstance().getUsername();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *The username of the player
+       * </pre>
+       *
+       * <code>string username = 5;</code>
+       */
+      public Builder setUsernameBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        username_ = value;
         onChanged();
         return this;
       }
@@ -13001,6 +14748,14 @@ public final class Api {
           com.wwttr.game.Api.Empty request,
           com.google.protobuf.RpcCallback<com.wwttr.game.Api.Empty> done);
 
+      /**
+       * <code>rpc StreamHistory(.game.StreamHistoryRequest) returns (stream .game.GameAction);</code>
+       */
+      public abstract void streamHistory(
+          com.google.protobuf.RpcController controller,
+          com.wwttr.game.Api.StreamHistoryRequest request,
+          com.google.protobuf.RpcCallback<com.wwttr.game.Api.GameAction> done);
+
     }
 
     public static com.google.protobuf.Service newReflectiveService(
@@ -13086,6 +14841,14 @@ public final class Api {
           impl.togglePlayerStats(controller, request, done);
         }
 
+        @java.lang.Override
+        public  void streamHistory(
+            com.google.protobuf.RpcController controller,
+            com.wwttr.game.Api.StreamHistoryRequest request,
+            com.google.protobuf.RpcCallback<com.wwttr.game.Api.GameAction> done) {
+          impl.streamHistory(controller, request, done);
+        }
+
       };
     }
 
@@ -13128,6 +14891,8 @@ public final class Api {
               return impl.streamPlayerStats(controller, (com.wwttr.game.Api.StreamPlayerStatsRequest)request);
             case 9:
               return impl.togglePlayerStats(controller, (com.wwttr.game.Api.Empty)request);
+            case 10:
+              return impl.streamHistory(controller, (com.wwttr.game.Api.StreamHistoryRequest)request);
             default:
               throw new java.lang.AssertionError("Can't get here.");
           }
@@ -13162,6 +14927,8 @@ public final class Api {
               return com.wwttr.game.Api.StreamPlayerStatsRequest.getDefaultInstance();
             case 9:
               return com.wwttr.game.Api.Empty.getDefaultInstance();
+            case 10:
+              return com.wwttr.game.Api.StreamHistoryRequest.getDefaultInstance();
             default:
               throw new java.lang.AssertionError("Can't get here.");
           }
@@ -13196,6 +14963,8 @@ public final class Api {
               return com.wwttr.game.Api.PlayerStats.getDefaultInstance();
             case 9:
               return com.wwttr.game.Api.Empty.getDefaultInstance();
+            case 10:
+              return com.wwttr.game.Api.GameAction.getDefaultInstance();
             default:
               throw new java.lang.AssertionError("Can't get here.");
           }
@@ -13284,6 +15053,14 @@ public final class Api {
         com.wwttr.game.Api.Empty request,
         com.google.protobuf.RpcCallback<com.wwttr.game.Api.Empty> done);
 
+    /**
+     * <code>rpc StreamHistory(.game.StreamHistoryRequest) returns (stream .game.GameAction);</code>
+     */
+    public abstract void streamHistory(
+        com.google.protobuf.RpcController controller,
+        com.wwttr.game.Api.StreamHistoryRequest request,
+        com.google.protobuf.RpcCallback<com.wwttr.game.Api.GameAction> done);
+
     public static final
         com.google.protobuf.Descriptors.ServiceDescriptor
         getDescriptor() {
@@ -13356,6 +15133,11 @@ public final class Api {
             com.google.protobuf.RpcUtil.<com.wwttr.game.Api.Empty>specializeCallback(
               done));
           return;
+        case 10:
+          this.streamHistory(controller, (com.wwttr.game.Api.StreamHistoryRequest)request,
+            com.google.protobuf.RpcUtil.<com.wwttr.game.Api.GameAction>specializeCallback(
+              done));
+          return;
         default:
           throw new java.lang.AssertionError("Can't get here.");
       }
@@ -13390,6 +15172,8 @@ public final class Api {
           return com.wwttr.game.Api.StreamPlayerStatsRequest.getDefaultInstance();
         case 9:
           return com.wwttr.game.Api.Empty.getDefaultInstance();
+        case 10:
+          return com.wwttr.game.Api.StreamHistoryRequest.getDefaultInstance();
         default:
           throw new java.lang.AssertionError("Can't get here.");
       }
@@ -13424,6 +15208,8 @@ public final class Api {
           return com.wwttr.game.Api.PlayerStats.getDefaultInstance();
         case 9:
           return com.wwttr.game.Api.Empty.getDefaultInstance();
+        case 10:
+          return com.wwttr.game.Api.GameAction.getDefaultInstance();
         default:
           throw new java.lang.AssertionError("Can't get here.");
       }
@@ -13594,6 +15380,21 @@ public final class Api {
             com.wwttr.game.Api.Empty.class,
             com.wwttr.game.Api.Empty.getDefaultInstance()));
       }
+
+      public  void streamHistory(
+          com.google.protobuf.RpcController controller,
+          com.wwttr.game.Api.StreamHistoryRequest request,
+          com.google.protobuf.RpcCallback<com.wwttr.game.Api.GameAction> done) {
+        channel.callMethod(
+          getDescriptor().getMethods().get(10),
+          controller,
+          request,
+          com.wwttr.game.Api.GameAction.getDefaultInstance(),
+          com.google.protobuf.RpcUtil.generalizeCallback(
+            done,
+            com.wwttr.game.Api.GameAction.class,
+            com.wwttr.game.Api.GameAction.getDefaultInstance()));
+      }
     }
 
     public static BlockingInterface newBlockingStub(
@@ -13650,6 +15451,11 @@ public final class Api {
       public com.wwttr.game.Api.Empty togglePlayerStats(
           com.google.protobuf.RpcController controller,
           com.wwttr.game.Api.Empty request)
+          throws com.google.protobuf.ServiceException;
+
+      public com.wwttr.game.Api.GameAction streamHistory(
+          com.google.protobuf.RpcController controller,
+          com.wwttr.game.Api.StreamHistoryRequest request)
           throws com.google.protobuf.ServiceException;
     }
 
@@ -13779,6 +15585,18 @@ public final class Api {
           com.wwttr.game.Api.Empty.getDefaultInstance());
       }
 
+
+      public com.wwttr.game.Api.GameAction streamHistory(
+          com.google.protobuf.RpcController controller,
+          com.wwttr.game.Api.StreamHistoryRequest request)
+          throws com.google.protobuf.ServiceException {
+        return (com.wwttr.game.Api.GameAction) channel.callBlockingMethod(
+          getDescriptor().getMethods().get(10),
+          controller,
+          request,
+          com.wwttr.game.Api.GameAction.getDefaultInstance());
+      }
+
     }
 
     // @@protoc_insertion_point(class_scope:game.GameService)
@@ -13789,6 +15607,11 @@ public final class Api {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_game_Game_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_game_GameAction_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_game_GameAction_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_game_CreateGameRequest_descriptor;
   private static final 
@@ -13819,6 +15642,11 @@ public final class Api {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_game_DeleteGameRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_game_StreamHistoryRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_game_StreamHistoryRequest_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_game_CreatePlayerRequest_descriptor;
   private static final 
@@ -13883,50 +15711,56 @@ public final class Api {
       "s\030\003 \001(\005\022\026\n\016host_player_id\030\004 \001(\t\022\022\n\nplaye" +
       "r_ids\030\005 \003(\t\022!\n\006status\030\006 \001(\0162\021.game.Game." +
       "Status\"9\n\006Status\022\013\n\007UNKNOWN\020\000\022\007\n\003PRE\020\001\022\013" +
-      "\n\007STARTED\020\002\022\014\n\010FINISHED\020\003\"N\n\021CreateGameR" +
-      "equest\022\017\n\007user_id\030\001 \001(\t\022\024\n\014display_name\030" +
-      "\002 \001(\t\022\022\n\nmaxPlayers\030\003 \001(\005\"6\n\020LeaveGameRe" +
-      "quest\022\021\n\tplayer_id\030\001 \001(\t\022\017\n\007game_id\030\002 \001(" +
-      "\t\"\022\n\020ListGamesRequest\"!\n\016GetGameRequest\022" +
-      "\017\n\007game_id\030\001 \001(\t\"#\n\020StartGameRequest\022\017\n\007" +
-      "game_id\030\001 \001(\t\"$\n\021DeleteGameRequest\022\017\n\007ga" +
-      "me_id\030\001 \001(\t\"7\n\023CreatePlayerRequest\022\017\n\007us" +
-      "er_id\030\001 \001(\t\022\017\n\007game_id\030\002 \001(\t\"\264\001\n\006Player\022" +
-      "\n\n\002id\030\001 \001(\t\022\022\n\naccount_id\030\002 \001(\t\022\017\n\007game_" +
-      "id\030\003 \001(\t\022!\n\005color\030\004 \001(\0162\022.game.Player.Co" +
-      "lor\"V\n\005Color\022\013\n\007UNKNOWN\020\000\022\007\n\003RED\020\001\022\010\n\004BL" +
-      "UE\020\002\022\t\n\005GREEN\020\003\022\n\n\006YELLOW\020\004\022\n\n\006PURPLE\020\005\022" +
-      "\n\n\006ORANGE\020\006\"%\n\020GetPlayerRequest\022\021\n\tplaye" +
-      "r_id\030\001 \001(\t\"\007\n\005Empty\".\n\021ListGamesResponse" +
-      "\022\031\n\005games\030\001 \003(\0132\n.game.Game\"4\n\016CreateRes" +
-      "ponse\022\017\n\007game_id\030\001 \001(\t\022\021\n\tplayer_id\030\002 \001(" +
-      "\t\";\n\016DeleteResponse\022\021\n\tgame_name\030\001 \001(\t\022\026" +
-      "\n\016orphaned_users\030\002 \003(\005\")\n\024CreatePlayerRe" +
-      "sponse\022\021\n\tplayer_id\030\001 \001(\t\"\032\n\030StreamPlaye" +
-      "rStatsRequest\"\364\001\n\013PlayerStats\022\021\n\tplayer_" +
-      "id\030\001 \001(\t\022\031\n\021train_card_points\030\002 \001(\005\022\034\n\024l" +
-      "ongest_route_points\030\006 \001(\005\022\037\n\027destination" +
-      "_card_points\030\007 \001(\005\022\023\n\013train_count\030\003 \001(\005\022" +
-      "\030\n\020train_card_count\030\004 \001(\005\022\036\n\026destination" +
-      "_card_count\030\005 \001(\005\022)\n\nturn_state\030\010 \001(\0162\025." +
-      "game.PlayerTurnState*U\n\017PlayerTurnState\022" +
-      "!\n\035UNSPECIFIED_PLAYER_TURN_STATE\020\000\022\013\n\007PE" +
-      "NDING\020\001\022\t\n\005START\020\002\022\007\n\003MID\020\0032\277\004\n\013GameServ" +
-      "ice\022;\n\nCreateGame\022\027.game.CreateGameReque" +
-      "st\032\024.game.CreateResponse\0220\n\tLeaveGame\022\026." +
-      "game.LeaveGameRequest\032\013.game.Empty\0222\n\nDe" +
-      "leteGame\022\027.game.DeleteGameRequest\032\013.game" +
-      ".Empty\022+\n\007GetGame\022\024.game.GetGameRequest\032" +
-      "\n.game.Game\022/\n\tStartGame\022\026.game.StartGam" +
-      "eRequest\032\n.game.Game\022<\n\tListGames\022\026.game" +
-      ".ListGamesRequest\032\027.game.ListGamesRespon" +
-      "se\022E\n\014CreatePlayer\022\031.game.CreatePlayerRe" +
-      "quest\032\032.game.CreatePlayerResponse\0221\n\tGet" +
-      "Player\022\026.game.GetPlayerRequest\032\014.game.Pl" +
-      "ayer\022H\n\021StreamPlayerStats\022\036.game.StreamP" +
-      "layerStatsRequest\032\021.game.PlayerStats0\001\022-" +
-      "\n\021TogglePlayerStats\022\013.game.Empty\032\013.game." +
-      "EmptyB\030\n\016com.wwttr.gameB\003Api\210\001\001b\006proto3"
+      "\n\007STARTED\020\002\022\014\n\010FINISHED\020\003\"U\n\nGameAction\022" +
+      "\021\n\taction_id\030\001 \001(\t\022\016\n\006action\030\002 \001(\t\022\021\n\tti" +
+      "mestamp\030\003 \001(\005\022\021\n\tplayer_id\030\004 \001(\t\"N\n\021Crea" +
+      "teGameRequest\022\017\n\007user_id\030\001 \001(\t\022\024\n\014displa" +
+      "y_name\030\002 \001(\t\022\022\n\nmaxPlayers\030\003 \001(\005\"6\n\020Leav" +
+      "eGameRequest\022\021\n\tplayer_id\030\001 \001(\t\022\017\n\007game_" +
+      "id\030\002 \001(\t\"\022\n\020ListGamesRequest\"!\n\016GetGameR" +
+      "equest\022\017\n\007game_id\030\001 \001(\t\"#\n\020StartGameRequ" +
+      "est\022\017\n\007game_id\030\001 \001(\t\"$\n\021DeleteGameReques" +
+      "t\022\017\n\007game_id\030\001 \001(\t\"\'\n\024StreamHistoryReque" +
+      "st\022\017\n\007game_id\030\001 \001(\t\"7\n\023CreatePlayerReque" +
+      "st\022\017\n\007user_id\030\001 \001(\t\022\017\n\007game_id\030\002 \001(\t\"\306\001\n" +
+      "\006Player\022\n\n\002id\030\001 \001(\t\022\022\n\naccount_id\030\002 \001(\t\022" +
+      "\017\n\007game_id\030\003 \001(\t\022!\n\005color\030\004 \001(\0162\022.game.P" +
+      "layer.Color\022\020\n\010username\030\005 \001(\t\"V\n\005Color\022\013" +
+      "\n\007UNKNOWN\020\000\022\007\n\003RED\020\001\022\010\n\004BLUE\020\002\022\t\n\005GREEN\020" +
+      "\003\022\n\n\006YELLOW\020\004\022\n\n\006PURPLE\020\005\022\n\n\006ORANGE\020\006\"%\n" +
+      "\020GetPlayerRequest\022\021\n\tplayer_id\030\001 \001(\t\"\007\n\005" +
+      "Empty\".\n\021ListGamesResponse\022\031\n\005games\030\001 \003(" +
+      "\0132\n.game.Game\"4\n\016CreateResponse\022\017\n\007game_" +
+      "id\030\001 \001(\t\022\021\n\tplayer_id\030\002 \001(\t\";\n\016DeleteRes" +
+      "ponse\022\021\n\tgame_name\030\001 \001(\t\022\026\n\016orphaned_use" +
+      "rs\030\002 \003(\005\")\n\024CreatePlayerResponse\022\021\n\tplay" +
+      "er_id\030\001 \001(\t\"\032\n\030StreamPlayerStatsRequest\"" +
+      "\364\001\n\013PlayerStats\022\021\n\tplayer_id\030\001 \001(\t\022\031\n\021tr" +
+      "ain_card_points\030\002 \001(\005\022\034\n\024longest_route_p" +
+      "oints\030\006 \001(\005\022\037\n\027destination_card_points\030\007" +
+      " \001(\005\022\023\n\013train_count\030\003 \001(\005\022\030\n\020train_card_" +
+      "count\030\004 \001(\005\022\036\n\026destination_card_count\030\005 " +
+      "\001(\005\022)\n\nturn_state\030\010 \001(\0162\025.game.PlayerTur" +
+      "nState*U\n\017PlayerTurnState\022!\n\035UNSPECIFIED" +
+      "_PLAYER_TURN_STATE\020\000\022\013\n\007PENDING\020\001\022\t\n\005STA" +
+      "RT\020\002\022\007\n\003MID\020\0032\200\005\n\013GameService\022;\n\nCreateG" +
+      "ame\022\027.game.CreateGameRequest\032\024.game.Crea" +
+      "teResponse\0220\n\tLeaveGame\022\026.game.LeaveGame" +
+      "Request\032\013.game.Empty\0222\n\nDeleteGame\022\027.gam" +
+      "e.DeleteGameRequest\032\013.game.Empty\022+\n\007GetG" +
+      "ame\022\024.game.GetGameRequest\032\n.game.Game\022/\n" +
+      "\tStartGame\022\026.game.StartGameRequest\032\n.gam" +
+      "e.Game\022<\n\tListGames\022\026.game.ListGamesRequ" +
+      "est\032\027.game.ListGamesResponse\022E\n\014CreatePl" +
+      "ayer\022\031.game.CreatePlayerRequest\032\032.game.C" +
+      "reatePlayerResponse\0221\n\tGetPlayer\022\026.game." +
+      "GetPlayerRequest\032\014.game.Player\022H\n\021Stream" +
+      "PlayerStats\022\036.game.StreamPlayerStatsRequ" +
+      "est\032\021.game.PlayerStats0\001\022-\n\021TogglePlayer" +
+      "Stats\022\013.game.Empty\032\013.game.Empty\022?\n\rStrea" +
+      "mHistory\022\032.game.StreamHistoryRequest\032\020.g" +
+      "ame.GameAction0\001B\030\n\016com.wwttr.gameB\003Api\210" +
+      "\001\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -13946,98 +15780,110 @@ public final class Api {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_game_Game_descriptor,
         new java.lang.String[] { "GameId", "DisplayName", "MaxPlayers", "HostPlayerId", "PlayerIds", "Status", });
-    internal_static_game_CreateGameRequest_descriptor =
+    internal_static_game_GameAction_descriptor =
       getDescriptor().getMessageTypes().get(1);
+    internal_static_game_GameAction_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_game_GameAction_descriptor,
+        new java.lang.String[] { "ActionId", "Action", "Timestamp", "PlayerId", });
+    internal_static_game_CreateGameRequest_descriptor =
+      getDescriptor().getMessageTypes().get(2);
     internal_static_game_CreateGameRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_game_CreateGameRequest_descriptor,
         new java.lang.String[] { "UserId", "DisplayName", "MaxPlayers", });
     internal_static_game_LeaveGameRequest_descriptor =
-      getDescriptor().getMessageTypes().get(2);
+      getDescriptor().getMessageTypes().get(3);
     internal_static_game_LeaveGameRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_game_LeaveGameRequest_descriptor,
         new java.lang.String[] { "PlayerId", "GameId", });
     internal_static_game_ListGamesRequest_descriptor =
-      getDescriptor().getMessageTypes().get(3);
+      getDescriptor().getMessageTypes().get(4);
     internal_static_game_ListGamesRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_game_ListGamesRequest_descriptor,
         new java.lang.String[] { });
     internal_static_game_GetGameRequest_descriptor =
-      getDescriptor().getMessageTypes().get(4);
+      getDescriptor().getMessageTypes().get(5);
     internal_static_game_GetGameRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_game_GetGameRequest_descriptor,
         new java.lang.String[] { "GameId", });
     internal_static_game_StartGameRequest_descriptor =
-      getDescriptor().getMessageTypes().get(5);
+      getDescriptor().getMessageTypes().get(6);
     internal_static_game_StartGameRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_game_StartGameRequest_descriptor,
         new java.lang.String[] { "GameId", });
     internal_static_game_DeleteGameRequest_descriptor =
-      getDescriptor().getMessageTypes().get(6);
+      getDescriptor().getMessageTypes().get(7);
     internal_static_game_DeleteGameRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_game_DeleteGameRequest_descriptor,
         new java.lang.String[] { "GameId", });
+    internal_static_game_StreamHistoryRequest_descriptor =
+      getDescriptor().getMessageTypes().get(8);
+    internal_static_game_StreamHistoryRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_game_StreamHistoryRequest_descriptor,
+        new java.lang.String[] { "GameId", });
     internal_static_game_CreatePlayerRequest_descriptor =
-      getDescriptor().getMessageTypes().get(7);
+      getDescriptor().getMessageTypes().get(9);
     internal_static_game_CreatePlayerRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_game_CreatePlayerRequest_descriptor,
         new java.lang.String[] { "UserId", "GameId", });
     internal_static_game_Player_descriptor =
-      getDescriptor().getMessageTypes().get(8);
+      getDescriptor().getMessageTypes().get(10);
     internal_static_game_Player_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_game_Player_descriptor,
-        new java.lang.String[] { "Id", "AccountId", "GameId", "Color", });
+        new java.lang.String[] { "Id", "AccountId", "GameId", "Color", "Username", });
     internal_static_game_GetPlayerRequest_descriptor =
-      getDescriptor().getMessageTypes().get(9);
+      getDescriptor().getMessageTypes().get(11);
     internal_static_game_GetPlayerRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_game_GetPlayerRequest_descriptor,
         new java.lang.String[] { "PlayerId", });
     internal_static_game_Empty_descriptor =
-      getDescriptor().getMessageTypes().get(10);
+      getDescriptor().getMessageTypes().get(12);
     internal_static_game_Empty_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_game_Empty_descriptor,
         new java.lang.String[] { });
     internal_static_game_ListGamesResponse_descriptor =
-      getDescriptor().getMessageTypes().get(11);
+      getDescriptor().getMessageTypes().get(13);
     internal_static_game_ListGamesResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_game_ListGamesResponse_descriptor,
         new java.lang.String[] { "Games", });
     internal_static_game_CreateResponse_descriptor =
-      getDescriptor().getMessageTypes().get(12);
+      getDescriptor().getMessageTypes().get(14);
     internal_static_game_CreateResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_game_CreateResponse_descriptor,
         new java.lang.String[] { "GameId", "PlayerId", });
     internal_static_game_DeleteResponse_descriptor =
-      getDescriptor().getMessageTypes().get(13);
+      getDescriptor().getMessageTypes().get(15);
     internal_static_game_DeleteResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_game_DeleteResponse_descriptor,
         new java.lang.String[] { "GameName", "OrphanedUsers", });
     internal_static_game_CreatePlayerResponse_descriptor =
-      getDescriptor().getMessageTypes().get(14);
+      getDescriptor().getMessageTypes().get(16);
     internal_static_game_CreatePlayerResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_game_CreatePlayerResponse_descriptor,
         new java.lang.String[] { "PlayerId", });
     internal_static_game_StreamPlayerStatsRequest_descriptor =
-      getDescriptor().getMessageTypes().get(15);
+      getDescriptor().getMessageTypes().get(17);
     internal_static_game_StreamPlayerStatsRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_game_StreamPlayerStatsRequest_descriptor,
         new java.lang.String[] { });
     internal_static_game_PlayerStats_descriptor =
-      getDescriptor().getMessageTypes().get(16);
+      getDescriptor().getMessageTypes().get(18);
     internal_static_game_PlayerStats_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_game_PlayerStats_descriptor,

@@ -9,9 +9,14 @@ import com.wwttr.database.DatabaseFacade;
 import com.wwttr.models.CreateResponse;
 import com.wwttr.models.Game;
 import com.wwttr.models.Player;
+import com.wwttr.models.User;
+import com.wwttr.models.GameAction;
+import com.wwttr.models.DeleteResponse;
 import com.wwttr.api.NotFoundException;
 //import com.wwttr.player.Api.Player;
 import com.wwttr.api.Code;
+import java.util.stream.*;
+
 
 //the id of the player who is currently taking their turn
 private Player currentPlayerId;
@@ -62,9 +67,9 @@ public class GameService {
 
   public Game getGame(String gameID){
     Game game = database.getGame(gameID);
-  //  if(game == null){
+    //  if(game == null){
     //  System.out.println("returning null from game service");
-  //  }
+    //  }
     return game;
   }
 
@@ -112,10 +117,41 @@ public class GameService {
     database.deleteGame(gameID);
   }
 
+
+  //  This method will get the userName associated with the playerId and
+  //    ADD it to the FRONT of the action taken.
+  //  I did this for two reasons.  One, that way the individual services only
+  //    have to concern themselves with the action that they perform and secondly
+  //  that limits all interactions with the database facade (in terms of
+  //    creating GameActions) only happens in this method rather than across
+  //  multiple services.
+  public GameAction createGameAction(String actionTaken, String playerId) {
+    int unixTime = (int) (System.currentTimeMillis() / 1000L);
+    Player player = database.getPlayer(playerId);
+    String actionTakenWithUsername = player.getUsername() + " " + actionTaken;
+    GameAction action = new GameAction("act" + Integer.toString(rn.nextInt() & Integer.MAX_VALUE),
+                       actionTakenWithUsername,player.getPlayerId(), player.getGameId(),unixTime);
+    database.addGameAction(action);
+    return action;
+  }
+
+  public Stream<GameAction> streamHistory(String gameId) {
+    return database.streamHistory(gameId);
+  }
+
+  public GameAction getGameAction(String actionId){
+    GameAction action = database.getGameActionById(actionId);
+    return action;
+  }
+
+
+
+  //--------------------Player methods ------------------------------------------//
+
   public String createPlayer(String userId, String gameId)throws NotFoundException, GameFullException{
     Game game = database.getGame(gameId);
     if (game == null){
-      throw new NotFoundException("");
+      throw new NotFoundException("Game with that ID not found");
     }
     int currentNumberofPlayers = game.getPlayerIDs().size();
     if(currentNumberofPlayers == game.getMaxPlayers()){
@@ -141,12 +177,15 @@ public class GameService {
       case 6: playerColor = Player.Color.ORANGE;
               break;
     }
-    Player player = new Player("p" + Integer.toString(rn.nextInt()),userId, playerColor);
-    player.setGameId(game.getGameID());
+    User user = database.getUserByID(userId);
+    if (user == null){
+      throw new NotFoundException("User with that ID doesn't exist");
+    }
+    //(String playerID, String userID, String gameID,Color color, String username)
+    Player player = new Player("p" + Integer.toString(rn.nextInt() & Integer.MAX_VALUE),
+                                userId, game.getGameID(), playerColor, user.getUsername());
     game.getPlayerIDs().add(player.getPlayerId());
-
     database.addPlayer(player);
-
     return player.getPlayerId();
   }
 
@@ -157,20 +196,24 @@ public class GameService {
   // public List<Player> listPlayers(String gameID) {
   //   return database.listPlayers(gameID);
   // }
+//-----------------------------------------------------------//
 
 
 
-  public static void main(String[] args) {
-    GameService service = new GameService();
-    //System.out.println(service.getGame());
-  }
+
+  // public static void main(String[] args) {
+  //   GameService service = new GameService();
+  //   //System.out.println(service.getGame());
+  //   ctx.addCallback(() -> gameListeners.remove(l));
+  //   gameListeners.add(l);
+  // }
 
 }
 
 //*********************************************************//
 //------------------PLAYER STATES AND INTERFACE------------//
 
-public Interface IPlayerTurnState{
+public interface IPlayerTurnState{
   public void drawTrainCard(String playerId);
   public void claimRoute(String playerId);
   public void drawDestinationCards();
