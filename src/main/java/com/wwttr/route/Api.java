@@ -66,6 +66,21 @@ public final class Api {
      */
     com.google.protobuf.ByteString
         getPlayerIdBytes();
+
+    /**
+     * <code>int32 length = 6;</code>
+     */
+    int getLength();
+
+    /**
+     * <code>string game_id = 7;</code>
+     */
+    java.lang.String getGameId();
+    /**
+     * <code>string game_id = 7;</code>
+     */
+    com.google.protobuf.ByteString
+        getGameIdBytes();
   }
   /**
    * Protobuf type {@code route.Route}
@@ -85,6 +100,8 @@ public final class Api {
       secondCityId_ = "";
       color_ = 0;
       playerId_ = "";
+      length_ = 0;
+      gameId_ = "";
     }
 
     @java.lang.Override
@@ -139,6 +156,17 @@ public final class Api {
               java.lang.String s = input.readStringRequireUtf8();
 
               playerId_ = s;
+              break;
+            }
+            case 48: {
+
+              length_ = input.readInt32();
+              break;
+            }
+            case 58: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              gameId_ = s;
               break;
             }
             default: {
@@ -326,6 +354,49 @@ public final class Api {
       }
     }
 
+    public static final int LENGTH_FIELD_NUMBER = 6;
+    private int length_;
+    /**
+     * <code>int32 length = 6;</code>
+     */
+    public int getLength() {
+      return length_;
+    }
+
+    public static final int GAME_ID_FIELD_NUMBER = 7;
+    private volatile java.lang.Object gameId_;
+    /**
+     * <code>string game_id = 7;</code>
+     */
+    public java.lang.String getGameId() {
+      java.lang.Object ref = gameId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        gameId_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string game_id = 7;</code>
+     */
+    public com.google.protobuf.ByteString
+        getGameIdBytes() {
+      java.lang.Object ref = gameId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        gameId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -355,6 +426,12 @@ public final class Api {
       if (!getPlayerIdBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 5, playerId_);
       }
+      if (length_ != 0) {
+        output.writeInt32(6, length_);
+      }
+      if (!getGameIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 7, gameId_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -379,6 +456,13 @@ public final class Api {
       }
       if (!getPlayerIdBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, playerId_);
+      }
+      if (length_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(6, length_);
+      }
+      if (!getGameIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(7, gameId_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -405,6 +489,10 @@ public final class Api {
       result = result && color_ == other.color_;
       result = result && getPlayerId()
           .equals(other.getPlayerId());
+      result = result && (getLength()
+          == other.getLength());
+      result = result && getGameId()
+          .equals(other.getGameId());
       result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
@@ -426,6 +514,10 @@ public final class Api {
       hash = (53 * hash) + color_;
       hash = (37 * hash) + PLAYER_ID_FIELD_NUMBER;
       hash = (53 * hash) + getPlayerId().hashCode();
+      hash = (37 * hash) + LENGTH_FIELD_NUMBER;
+      hash = (53 * hash) + getLength();
+      hash = (37 * hash) + GAME_ID_FIELD_NUMBER;
+      hash = (53 * hash) + getGameId().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -569,6 +661,10 @@ public final class Api {
 
         playerId_ = "";
 
+        length_ = 0;
+
+        gameId_ = "";
+
         return this;
       }
 
@@ -600,6 +696,8 @@ public final class Api {
         result.secondCityId_ = secondCityId_;
         result.color_ = color_;
         result.playerId_ = playerId_;
+        result.length_ = length_;
+        result.gameId_ = gameId_;
         onBuilt();
         return result;
       }
@@ -665,6 +763,13 @@ public final class Api {
         }
         if (!other.getPlayerId().isEmpty()) {
           playerId_ = other.playerId_;
+          onChanged();
+        }
+        if (other.getLength() != 0) {
+          setLength(other.getLength());
+        }
+        if (!other.getGameId().isEmpty()) {
+          gameId_ = other.gameId_;
           onChanged();
         }
         this.mergeUnknownFields(other.unknownFields);
@@ -1013,6 +1118,101 @@ public final class Api {
   checkByteStringIsUtf8(value);
         
         playerId_ = value;
+        onChanged();
+        return this;
+      }
+
+      private int length_ ;
+      /**
+       * <code>int32 length = 6;</code>
+       */
+      public int getLength() {
+        return length_;
+      }
+      /**
+       * <code>int32 length = 6;</code>
+       */
+      public Builder setLength(int value) {
+        
+        length_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 length = 6;</code>
+       */
+      public Builder clearLength() {
+        
+        length_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object gameId_ = "";
+      /**
+       * <code>string game_id = 7;</code>
+       */
+      public java.lang.String getGameId() {
+        java.lang.Object ref = gameId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          gameId_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string game_id = 7;</code>
+       */
+      public com.google.protobuf.ByteString
+          getGameIdBytes() {
+        java.lang.Object ref = gameId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          gameId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string game_id = 7;</code>
+       */
+      public Builder setGameId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        gameId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string game_id = 7;</code>
+       */
+      public Builder clearGameId() {
+        
+        gameId_ = getDefaultInstance().getGameId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string game_id = 7;</code>
+       */
+      public Builder setGameIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        gameId_ = value;
         onChanged();
         return this;
       }
@@ -3058,18 +3258,19 @@ public final class Api {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\013route.proto\022\005route\032\ncard.proto\"v\n\005Rout" +
-      "e\022\n\n\002id\030\001 \001(\t\022\025\n\rfirst_city_id\030\002 \001(\t\022\026\n\016" +
-      "second_city_id\030\003 \001(\t\022\037\n\005color\030\004 \001(\0162\020.ca" +
-      "rd.TrainColor\022\021\n\tplayer_id\030\005 \001(\t\"&\n\023Stre" +
-      "amRoutesRequest\022\017\n\007game_id\030\001 \001(\t\"8\n\021Clai" +
-      "mRouteRequest\022\020\n\010route_id\030\001 \001(\t\022\021\n\tplaye" +
-      "r_id\030\002 \001(\t\"\024\n\022ClaimRouteResponse2\215\001\n\014Rou" +
-      "teService\022A\n\nClaimRoute\022\030.route.ClaimRou" +
-      "teRequest\032\031.route.ClaimRouteResponse\022:\n\014" +
-      "StreamRoutes\022\032.route.StreamRoutesRequest" +
-      "\032\014.route.Route0\001B\031\n\017com.wwttr.routeB\003Api" +
-      "\210\001\001b\006proto3"
+      "\n\013route.proto\022\005route\032\ncard.proto\"\227\001\n\005Rou" +
+      "te\022\n\n\002id\030\001 \001(\t\022\025\n\rfirst_city_id\030\002 \001(\t\022\026\n" +
+      "\016second_city_id\030\003 \001(\t\022\037\n\005color\030\004 \001(\0162\020.c" +
+      "ard.TrainColor\022\021\n\tplayer_id\030\005 \001(\t\022\016\n\006len" +
+      "gth\030\006 \001(\005\022\017\n\007game_id\030\007 \001(\t\"&\n\023StreamRout" +
+      "esRequest\022\017\n\007game_id\030\001 \001(\t\"8\n\021ClaimRoute" +
+      "Request\022\020\n\010route_id\030\001 \001(\t\022\021\n\tplayer_id\030\002" +
+      " \001(\t\"\024\n\022ClaimRouteResponse2\215\001\n\014RouteServ" +
+      "ice\022A\n\nClaimRoute\022\030.route.ClaimRouteRequ" +
+      "est\032\031.route.ClaimRouteResponse\022:\n\014Stream" +
+      "Routes\022\032.route.StreamRoutesRequest\032\014.rou" +
+      "te.Route0\001B\031\n\017com.wwttr.routeB\003Api\210\001\001b\006p" +
+      "roto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -3089,7 +3290,7 @@ public final class Api {
     internal_static_route_Route_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_route_Route_descriptor,
-        new java.lang.String[] { "Id", "FirstCityId", "SecondCityId", "Color", "PlayerId", });
+        new java.lang.String[] { "Id", "FirstCityId", "SecondCityId", "Color", "PlayerId", "Length", "GameId", });
     internal_static_route_StreamRoutesRequest_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_route_StreamRoutesRequest_fieldAccessorTable = new

@@ -1,0 +1,29 @@
+package com.wwttr.route;
+
+import com.google.protobuf.RpcController;
+import java.util.*;
+import com.wwttr.api.ApiError;
+import com.wwttr.api.Code;
+import com.google.protobuf.RpcCallback;
+import com.wwttr.api.NotFoundException;
+import com.wwttr.database.CommandQueue;
+import com.wwttr.models.Route;
+
+public class RouteHandlers extends Api.RouteService {
+
+  private RouteService service;
+
+  public RouteHandlers(RouteService service) {
+    this.service = service;
+  }
+
+  public void streamRoutes(RpcController controller, Api.StreamRoutesRequest request, RpcCallback<Api.Route> callback) {
+    service.streamRoutes(request.getGameId()).forEach((Route r) -> {
+      callback.run(r.toProto());
+    });
+  }
+
+  public void claimRoute(RpcController controller, Api.ClaimRouteRequest request, RpcCallback<Api.ClaimRouteResponse> callback) {
+    // gameService.claimRoute(request.getRouteId(), request.getPlayerId());
+  }
+}

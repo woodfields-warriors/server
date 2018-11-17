@@ -40,6 +40,10 @@ public enum Code
    * <code>PING = 7;</code>
    */
   PING(7),
+  /**
+   * <code>FAILED_PRECONDITION = 8;</code>
+   */
+  FAILED_PRECONDITION(8),
   UNRECOGNIZED(-1),
   ;
 
@@ -75,6 +79,10 @@ public enum Code
    * <code>PING = 7;</code>
    */
   public static final int PING_VALUE = 7;
+  /**
+   * <code>FAILED_PRECONDITION = 8;</code>
+   */
+  public static final int FAILED_PRECONDITION_VALUE = 8;
 
 
   public final int getNumber() {
@@ -103,6 +111,7 @@ public enum Code
       case 5: return NOT_FOUND;
       case 6: return ACCESS_DENIED;
       case 7: return PING;
+      case 8: return FAILED_PRECONDITION;
       default: return null;
     }
   }

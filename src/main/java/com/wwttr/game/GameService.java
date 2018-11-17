@@ -4,6 +4,7 @@ import java.util.*;
 
 import com.wwttr.api.ApiError;
 import com.wwttr.card.CardService;
+import com.wwttr.route.RouteService;
 import com.wwttr.database.DatabaseFacade;
 import com.wwttr.models.CreateResponse;
 import com.wwttr.models.Game;
@@ -25,6 +26,7 @@ public class GameService {
   private static GameService gameServiceInstance = null;
 
   private CardService cardService = CardService.getInstance();
+  private RouteService routeService = RouteService.getInstance();
 
   public static GameService getInstance(){
     if(gameServiceInstance == null){
@@ -49,6 +51,7 @@ public class GameService {
       game.getPlayerIDs().add(player.getPlayerId());
       database.addPlayer(player);
       database.addGame(game);
+      routeService.initRoutes(game.getGameID());
       CreateResponse toReturn = new CreateResponse(game.getGameID(), player.getPlayerId());
       return toReturn;
   }

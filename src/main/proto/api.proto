@@ -26,4 +26,5 @@ enum Code {
   NOT_FOUND = 5;
   ACCESS_DENIED = 6;
   PING = 7;
+  FAILED_PRECONDITION = 8;
 }
