@@ -12,8 +12,8 @@ import com.wwttr.api.NotFoundException;
 //import com.wwttr.player.Api.Player;
 import com.wwttr.api.Code;
 
-
-
+//the id of the player who is currently taking their turn
+private Player currentPlayerId;
 // Game Service is of the Singleton Pattern
 public class GameService {
 
@@ -81,7 +81,17 @@ public class GameService {
     }
   }
 
-
+  public void StreamPlayerStats(String gameId){
+    Stream<PlayerStats> playerStats = service.streamPlayerStats(gameId);
+    playerStats.forEach((PlayerStats stats) -> {
+        //TODO
+    });
+    Stream<GameAction> gameActions = service.streamHistory(request.getGameId());
+    gameActions.forEach((GameAction action) -> {
+      Api.GameAction.Builder builder = action.createBuilder();
+      callback.run(builder.build());
+    });
+  }
 
   public Game startGame(String gameID) throws NotFoundException {
     Game game = database.getGame(gameID);
@@ -145,68 +155,92 @@ public class GameService {
   //   return database.listPlayers(gameID);
   // }
 
-/*      ---  DEPRECATED ---- /
-  public Player joinGame(String userID, String gameID){
-    Game game = database.getGame(gameID);
-    if(game == null){
-      throw new IllegalArgumentException("Couldn't find a game with the given gameID")
-    }
-    Api.Game.Builder gameBuilder = game.toBuilder();
-    List<String> players = gameBuilder.getPlayers();
-    Api.Player.Builder playerBuilder = Api.Player.newBuilder();
-    playerBuilder.setId("player" + rn.nextInt.toString());
-    playerBuilder.setAccountId(userId);
-    playerBuilder.setGameId(gameID);
 
-    players.add(playerBuilder.build)
-    database.updateGame(gameBuilder.build(),gameID);
-    String playerID = "player" + rn.nextInt().toString();
-    return toReturn;
-
-  //   Game game = database.getGame(gameID);
-  //   if(game == null){
-  //     throw new IllegalArgumentException("Couldn't find a game with the given gameID");
-  //   }
-  //   Api.Game.Builder gameBuilder = game.toBuilder();
-  //   List<String> players = gameBuilder.getPlayers();
-  //   Api.Player.Builder playerBuilder = Api.Player.newBuilder();
-  //   playerBuilder.setId("player" + rn.nextInt.toString());
-  //   playerBuilder.setAccountId(userId);
-  //   playerBuilder.setGameId(gameID);
-  //   //need to use players.size() to set a color for the player
-  //
-  //
-  // //  builder.build();
-  //
-  //   players.add(playerBuilder.build);
-  //
-  //
-  //   database.updateGame(gameBuilder.build(),gameID);
-  //   String playerID = "player" + rn.nextInt().toString();
-  //   return toReturn;
-  return null;
-  }
-
-  public LeaveResponse leaveGame(String userID, String gameID){
-    Game game = database.getGame(gameID);
-    if(game == null){
-      return new LeaveResponse("Couldn't find a game with the given gameID");
-    }
-    List<String> players = game.getPlayerUserIDs();
-    for(int i = 0; i < players.size(); i++){
-      if(userID == players.get(i)){
-        players.remove(i);
-        // database.updateGame(game);
-        LeaveResponse toReturn = new LeaveResponse(game.getDisplayName(), userID);
-      }
-    }
-    return null;
-  }
-// -----------------*/
 
   public static void main(String[] args) {
     GameService service = new GameService();
     //System.out.println(service.getGame());
   }
 
+}
+
+//*********************************************************//
+//------------------PLAYER STATES AND INTERFACE------------//
+
+public Interface IPlayerTurnState{
+  public void drawTrainCard(String playerId);
+  public void claimRoute(String playerId);
+  public void drawDestinationCards();
+  public void drawFaceUpTrainCard(String playerId, String cardId);
+}
+
+
+
+public class pendingState implements IPlayerTurnState{
+  public void drawTrainCard(String playerId){
+    //Tell the client it isn't his/her turn
+  }
+  public void claimRoute(String playerId){
+    //tell client it isn't his/her turn
+  }
+  public void drawDestinationCards(){
+    //tell client it isn't his/her turn
+  }
+  public void drawFaceUpTrainCard(){
+    //tell client it isn't his/her turn
+  }
+}
+
+
+
+public class startState implements IPlayerTurnState{
+  public void drawTrainCard(String playerId)throws NotFoundException{
+    cardService.claimTrainCardFromDeck(playerId);
+    Player player = database.getPlayer(playerId);
+    player.setState(new MidState());
+    //TODO handle returning...
+  }
+  public void claimRoute(String playerId){
+
+    Player player = database.getPlayer(playerId);
+    player.setState(new PendingState());
+  }
+  public void drawDestinationCards(String playerId, List<String> destinationCardIds)
+                                   throws NotFoundException{
+    cardService.claimDesinationCards(destinationCardIds,playerId);
+    Player player = database.getPlayer(playerId);
+    player.setState(new PendingState());
+  }
+  public void drawFaceUpTrainCard(String playerId, String cardId)throws NotFoundException{
+    cardService.claimFaceUpTrainCard(playerId,cardId);
+    boolean isLocomotiveCard  = cardService.isLocomotive(cardId);
+    Player player = database.getPlayer(playerId);
+    if(isLocomotiveCard){
+      player.setState(new PendingState());
+    }
+    else{
+      player.setState(new MidState());
+    }
+  }
+}
+
+
+
+public class MidState implements IPlayerTurnState{
+  public void drawTrainCard(String playerId)throws NotFoundException{
+    cardService.claimTrainCardFromDeck(playerId);
+    Player player = database.getPlayer(playerId);
+    player.setState(new PendingState());
+  }
+  public void claimRoute(String playerId){
+    //tell client action isn't possible
+  }
+  public void drawDestinationCards(){
+    //tell client action isn't possible
+  }
+  public void drawFaceUpTrainCard()throws NotFoundException{
+    cardService.claimTrainCardFromDeck(playerId);
+    Player player = database.getPlayer(playerId);
+    player.setState(new PendingState());
+  }
 }

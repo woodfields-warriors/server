@@ -114,7 +114,7 @@ public class GameHandlers extends Api.GameService {
   }
 
   public void getGame(RpcController controller, Api.GetGameRequest request, RpcCallback<Api.Game> callback) {
-  //  System.out.println("The game ID coming in from the request is: " + request.getGameId());
+    //  System.out.println("The game ID coming in from the request is: " + request.getGameId());
     Game game = service.getGame(request.getGameId());
     if (game == null){
         throw new ApiError(Code.NOT_FOUND, "Game with that ID not found");
