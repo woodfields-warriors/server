@@ -1,8 +1,5 @@
 package com.wwttr.models;
 
-import  com.wwttr.game.IPlayerTurnState;
-
-
 public class Player{
 
   private String playerID;
@@ -11,8 +8,10 @@ public class Player{
   //Game ID that the player is a part of.
   private String gameID;
   private int points;
-  private IPlayerTurnState state;
   private Color playerColor;
+
+  private IPlayerTurnState state;
+
   public enum Color{
     UNKOWN, RED, BLUE,GREEN,YELLOW, PURPLE, ORANGE
   }
@@ -49,8 +48,7 @@ public class Player{
     this.gameID = gameID;
   }
 
-  public void setState(IPlayerTurnState state){
+  public void setState(IPlayerTurnState state) {
     this.state = state;
   }
-
 }

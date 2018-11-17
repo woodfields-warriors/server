@@ -9,6 +9,7 @@ import com.wwttr.database.DatabaseFacade;
 import com.wwttr.models.CreateResponse;
 import com.wwttr.models.Game;
 import com.wwttr.models.Player;
+import com.wwttr.models.IPlayerTurnState;
 import com.wwttr.models.User;
 import com.wwttr.models.GameAction;
 import com.wwttr.models.DeleteResponse;
@@ -18,10 +19,11 @@ import com.wwttr.api.Code;
 import java.util.stream.*;
 
 
-//the id of the player who is currently taking their turn
-private Player currentPlayerId;
 // Game Service is of the Singleton Pattern
 public class GameService {
+
+  // the id of the player who is currently taking their turn
+  private Player currentPlayerId;
 
   //singleton object
   private DatabaseFacade database;
@@ -90,15 +92,15 @@ public class GameService {
   }
 
   public void StreamPlayerStats(String gameId){
-    Stream<PlayerStats> playerStats = service.streamPlayerStats(gameId);
-    playerStats.forEach((PlayerStats stats) -> {
-        //TODO
-    });
-    Stream<GameAction> gameActions = service.streamHistory(request.getGameId());
-    gameActions.forEach((GameAction action) -> {
-      Api.GameAction.Builder builder = action.createBuilder();
-      callback.run(builder.build());
-    });
+    // Stream<PlayerStats> playerStats = service.streamPlayerStats(gameId);
+    // playerStats.forEach((PlayerStats stats) -> {
+    //     //TODO
+    // });
+    // Stream<GameAction> gameActions = service.streamHistory(request.getGameId());
+    // gameActions.forEach((GameAction action) -> {
+    //   Api.GameAction.Builder builder = action.createBuilder();
+    //   callback.run(builder.build());
+    // });
   }
 
   public Game startGame(String gameID) throws NotFoundException {
@@ -213,47 +215,43 @@ public class GameService {
 //*********************************************************//
 //------------------PLAYER STATES AND INTERFACE------------//
 
-public interface IPlayerTurnState{
-  public void drawTrainCard(String playerId);
-  public void claimRoute(String playerId);
-  public void drawDestinationCards();
-  public void drawFaceUpTrainCard(String playerId, String cardId);
-}
 
-
-
-public class pendingState implements IPlayerTurnState{
-  public void drawTrainCard(String playerId){
+class PendingState implements IPlayerTurnState{
+  public void drawTrainCard(String playerId) throws NotFoundException {
     //Tell the client it isn't his/her turn
   }
-  public void claimRoute(String playerId){
+  public void claimRoute(String playerId) throws NotFoundException {
     //tell client it isn't his/her turn
   }
-  public void drawDestinationCards(){
+  public void drawDestinationCards(String playerId, List<String> destinationCardIds) throws NotFoundException {
     //tell client it isn't his/her turn
   }
-  public void drawFaceUpTrainCard(){
+  public void drawFaceUpTrainCard(String playerId, String cardId) throws NotFoundException {
     //tell client it isn't his/her turn
   }
 }
 
 
 
-public class startState implements IPlayerTurnState{
-  public void drawTrainCard(String playerId)throws NotFoundException{
+class StartState implements IPlayerTurnState{
+
+  DatabaseFacade database = DatabaseFacade.getInstance();
+  CardService cardService = CardService.getInstance();
+
+  public void drawTrainCard(String playerId) throws NotFoundException {
     cardService.claimTrainCardFromDeck(playerId);
     Player player = database.getPlayer(playerId);
     player.setState(new MidState());
     //TODO handle returning...
   }
-  public void claimRoute(String playerId){
+  public void claimRoute(String playerId) throws NotFoundException {
 
     Player player = database.getPlayer(playerId);
     player.setState(new PendingState());
   }
   public void drawDestinationCards(String playerId, List<String> destinationCardIds)
                                    throws NotFoundException{
-    cardService.claimDesinationCards(destinationCardIds,playerId);
+    cardService.claimDestinationCards(destinationCardIds,playerId);
     Player player = database.getPlayer(playerId);
     player.setState(new PendingState());
   }
@@ -271,20 +269,23 @@ public class startState implements IPlayerTurnState{
 }
 
 
+class MidState implements IPlayerTurnState{
 
-public class MidState implements IPlayerTurnState{
+  DatabaseFacade database = DatabaseFacade.getInstance();
+  CardService cardService = CardService.getInstance();
+
   public void drawTrainCard(String playerId)throws NotFoundException{
     cardService.claimTrainCardFromDeck(playerId);
     Player player = database.getPlayer(playerId);
     player.setState(new PendingState());
   }
-  public void claimRoute(String playerId){
+  public void claimRoute(String playerId) throws NotFoundException {
     //tell client action isn't possible
   }
-  public void drawDestinationCards(){
+  public void drawDestinationCards(String playerId, List<String> destinationCardIds) throws NotFoundException {
     //tell client action isn't possible
   }
-  public void drawFaceUpTrainCard()throws NotFoundException{
+  public void drawFaceUpTrainCard(String playerId, String cardId)throws NotFoundException{
     cardService.claimTrainCardFromDeck(playerId);
     Player player = database.getPlayer(playerId);
     player.setState(new PendingState());

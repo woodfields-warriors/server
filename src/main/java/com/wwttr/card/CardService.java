@@ -3,6 +3,7 @@ package com.wwttr.card;
 import com.wwttr.api.ApiError;
 import com.wwttr.api.NotFoundException;
 import com.wwttr.database.DatabaseFacade;
+import com.wwttr.game.GameService;
 import com.wwttr.models.*;
 import com.wwttr.api.Code;
 
@@ -21,10 +22,9 @@ public class CardService {
 
 
 
-  private CardService(){
+  private CardService() {
     df = DatabaseFacade.getInstance();
-    gameService = GameService.getInstance();
-    generateDeckTemplate(FIRST_CITIES,SECOND_CITIES,POINTS);
+    setDefaultTemplates();
   }
 
   public static CardService getInstance(){
@@ -139,7 +139,7 @@ public class CardService {
       actionString = "claimed " + destinationCardIds.size() + " destination cards";
     }
     //unused
-    GameAction action = gameService.createGameAction(actionString; playerId);
+    GameAction action = gameService.createGameAction(actionString, playerId);
   }
 
   public Stream<DestinationCard> streamDestinationCards(String playerId) throws NotFoundException {

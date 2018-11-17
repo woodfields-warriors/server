@@ -499,7 +499,7 @@ public class DatabaseFacade {
     }
   }
 
-  public Stream<Route> streamRoutes(String gameId) {
-    return routeQueue.subscribe().filter((Route r) -> r.getGameId().equals(gameId));
+  public Stream<Route> streamRoutes() {
+    return routeQueue.subscribe();
   }
 }

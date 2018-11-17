@@ -8,11 +8,7 @@ java_binary(
   srcs = glob(["src/main/java/com/wwttr/main/*.java"]),
   deps = [
     ":server_lib",
-    ":auth_service",
-    ":game_service",
-    ":health_service",
-    ":card_service",
-    ":chat_service",
+    ":services",
     ],
   main_class = "com.wwttr.main.Main",
 )
@@ -22,11 +18,7 @@ java_image(
   srcs = glob(["src/main/java/com/wwttr/main/*.java"]),
   deps = [
     ":server_lib",
-    ":auth_service",
-    ":game_service",
-    ":health_service",
-    ":card_service",
-    ":chat_service",
+    ":services",
     "@com_google_protobuf//:protobuf_java",
     ],
   main_class = "com.wwttr.main.Main",
@@ -71,30 +63,6 @@ java_library(
   ],
 )
 
-### Auth Service ###
-
-java_library(
-  name = "auth_service",
-  srcs = glob(["src/main/java/com/wwttr/auth/*.java"]),
-  deps = [
-    "@com_google_protobuf//:protobuf_java",
-    ":models",
-    ":database_lib",
-    ":api_lib",
-  ],
-)
-
-java_test(
-  name = "auth",
-  test_class = "com.wwttr.auth.AuthServiceTest",
-  srcs = glob(["src/test/java/com/wwttr/auth/*.java"]),
-  deps = [
-    ":auth_service",
-    ":models",
-    ":database_lib",
-  ]
-)
-
 ### Database ###
 
 java_library(
@@ -118,25 +86,6 @@ java_test(
   ]
 )
 
-### Game Service ###
-
-java_library(
-  name = "game_service",
-  srcs = glob([
-    "src/main/java/com/wwttr/game/*.java",
-  ]),
-  deps = [
-    "@com_google_protobuf//:protobuf_java",
-    ":api_lib",
-    "auth_service",
-    ":card_service",
-    ":chat_service",
-    ":route_service",
-    ":models",
-    ":database_lib",
-  ],
-)
-
 java_library(
   name = "models",
   srcs = glob([
@@ -149,107 +98,168 @@ java_library(
   ]
 )
 
-java_test(
-  name = "game",
-  test_class = "com.wwttr.game.GameServiceTest",
-  srcs = glob([
-    "src/test/java/com/wwttr/game/*.java",
-    ]),
-  deps = [
-    ":game_service",
-    ":models",
-    ":auth_service",
-    ":database_lib",
-    ":api_lib",
-  ]
-)
+# ### Auth Service ###
 
-### Health Service ###
-
-java_library(
-  name = "health_service",
-  srcs = glob(["src/main/java/com/wwttr/health/*.java"]),
-  deps = [
-    "@com_google_protobuf//:protobuf_java",
-    ":models",
-  ],
-)
-# java_test(
-#   name = "health",
-#   test_class = "com.wwttr.health.HealthTest",
-#   srcs = glob(["src/test/java/com/wwttr/health/*.java"]),
+# java_library(
+#   name = "auth_service",
+#   srcs = glob(["src/main/java/com/wwttr/auth/*.java"]),
 #   deps = [
-#     ":health_service",
+#     "@com_google_protobuf//:protobuf_java",
+#     ":models",
+#     ":database_lib",
+#     ":api_lib",
+#   ],
+# )
+
+# java_test(
+#   name = "auth",
+#   test_class = "com.wwttr.auth.AuthServiceTest",
+#   srcs = glob(["src/test/java/com/wwttr/auth/*.java"]),
+#   deps = [
+#     ":auth_service",
+#     ":models",
+#     ":database_lib",
 #   ]
 # )
 
-### Card Service ###
+# ### Game Service ###
+
+# java_library(
+#   name = "game_service",
+#   srcs = glob([
+#     "src/main/java/com/wwttr/game/*.java",
+#   ]),
+#   deps = [
+#     "@com_google_protobuf//:protobuf_java",
+#     ":api_lib",
+#     "auth_service",
+#     ":card_service",
+#     ":chat_service",
+#     ":models",
+#     ":database_lib",
+#   ],
+# )
+
+# java_test(
+#   name = "game",
+#   test_class = "com.wwttr.game.GameServiceTest",
+#   srcs = glob([
+#     "src/test/java/com/wwttr/game/*.java",
+#     ]),
+#   deps = [
+#     ":game_service",
+#     ":models",
+#     ":auth_service",
+#     ":database_lib",
+#     ":api_lib",
+#   ]
+# )
+
+# ### Health Service ###
+
+# java_library(
+#   name = "health_service",
+#   srcs = glob(["src/main/java/com/wwttr/health/*.java"]),
+#   deps = [
+#     "@com_google_protobuf//:protobuf_java",
+#     ":models",
+#   ],
+# )
+# # java_test(
+# #   name = "health",
+# #   test_class = "com.wwttr.health.HealthTest",
+# #   srcs = glob(["src/test/java/com/wwttr/health/*.java"]),
+# #   deps = [
+# #     ":health_service",
+# #   ]
+# # )
+
+# ### Card Service ###
+
+# java_library(
+#   name = "card_service",
+#   srcs = glob(["src/main/java/com/wwttr/card/*.java"]),
+#   deps = [
+#     ":models",
+#     ":api_lib",
+#     ":database_lib",
+#     "@com_google_protobuf//:protobuf_java"
+#   ],
+# )
+
+# java_test(
+#   name = "card",
+#   test_class = "com.wwttr.card.CardServiceTest",
+#   srcs = glob(["src/test/java/com/wwttr/card/*.java"]),
+#   deps = [
+#     "card_service",
+#     ":api_lib",
+#     ":database_lib",
+#     ":models",
+#     ":game_service",
+#   ]
+# )
+
+# ### Chat Service ###
+
+
+# java_library(
+#   name = "chat_service",
+#   srcs = glob(["src/main/java/com/wwttr/chat/*.java"]),
+#   deps = [
+#     ":models",
+#     ":database_lib",
+#     ":api_lib",
+#     "@com_google_protobuf//:protobuf_java",
+#   ],
+# )
+
+# java_test(
+#   name = "chat",
+#   test_class = "com.wwttr.chat.ChatServiceTest",
+#   srcs = glob(["src/test/java/com/wwttr/chat/*.java"]),
+#   deps = [
+#     "chat_service"
+#   ]
+# )
+
+# ### Route Service ###
+
+# java_library(
+#   name = "route_service",
+#   srcs = glob(["src/main/java/com/wwttr/route/*.java"]),
+#   deps = [
+#     ":models",
+#     ":database_lib",
+#     ":api_lib",
+#     ":game_service",
+#     "@com_google_protobuf//:protobuf_java",
+#   ],
+# )
+
+# java_test(
+#   name = "route",
+#   test_class = "com.wwttr.route.RouteServiceTest",
+#   srcs = glob(["src/test/java/com/wwttr/route/*.java"]),
+#   deps = [
+#     "route_service"
+#   ]
+# )
 
 java_library(
-  name = "card_service",
-  srcs = glob(["src/main/java/com/wwttr/card/*.java"]),
+  name = "services",
+  srcs = glob([
+    "src/main/java/com/wwttr/game/*.java",
+    "src/main/java/com/wwttr/auth/*.java",
+    "src/main/java/com/wwttr/chat/*.java",
+    "src/main/java/com/wwttr/route/*.java",
+    "src/main/java/com/wwttr/card/*.java",
+    "src/main/java/com/wwttr/health/*.java",
+  ]),
   deps = [
-    ":models",
-    ":api_lib",
-    ":database_lib",
-    "@com_google_protobuf//:protobuf_java"
-  ],
-)
-
-java_test(
-  name = "card",
-  test_class = "com.wwttr.card.CardServiceTest",
-  srcs = glob(["src/test/java/com/wwttr/card/*.java"]),
-  deps = [
-    "card_service",
     ":api_lib",
     ":database_lib",
     ":models",
-    ":game_service",
-  ]
-)
-
-### Chat Service ###
-
-
-java_library(
-  name = "chat_service",
-  srcs = glob(["src/main/java/com/wwttr/chat/*.java"]),
-  deps = [
-    ":models",
-    ":database_lib",
-    ":api_lib",
     "@com_google_protobuf//:protobuf_java",
-  ],
-)
-
-java_test(
-  name = "chat",
-  test_class = "com.wwttr.chat.ChatServiceTest",
-  srcs = glob(["src/test/java/com/wwttr/chat/*.java"]),
-  deps = [
-    "chat_service"
-  ]
-)
-
-### Route Service ###
-
-java_library(
-  name = "route_service",
-  srcs = glob(["src/main/java/com/wwttr/route/*.java"]),
-  deps = [
-    ":models",
-    ":database_lib",
-    ":api_lib",
-    "@com_google_protobuf//:protobuf_java",
-  ],
-)
-
-java_test(
-  name = "route",
-  test_class = "com.wwttr.route.RouteServiceTest",
-  srcs = glob(["src/test/java/com/wwttr/route/*.java"]),
-  deps = [
-    "route_service"
   ]
 )
