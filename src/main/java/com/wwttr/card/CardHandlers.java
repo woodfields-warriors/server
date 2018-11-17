@@ -7,6 +7,7 @@ import com.wwttr.api.Code;
 import com.wwttr.api.NotFoundException;
 import com.wwttr.models.DeckStats;
 import com.wwttr.models.DestinationCard;
+import com.wwttr.game.Api.Empty;
 
 
 import com.wwttr.models.TrainCard;
@@ -99,7 +100,7 @@ public class CardHandlers extends Api.CardService {
   }
 
   //--------------Train Card Functions----------------//
-  public void drawTrainCardFromDeck(RpcController controller, Api.DrawTrainCardFromDeckRequest request, RpcCallback<Api.Empty> callback){
+  public void drawTrainCardFromDeck(RpcController controller, Api.DrawTrainCardFromDeckRequest request, RpcCallback<Empty> callback){
     try{
       if(request.getId().equals("")){
         throw new ApiError(Code.INVALID_ARGUMENT, "argument 'id' is required");
@@ -114,7 +115,7 @@ public class CardHandlers extends Api.CardService {
       throw new ApiError(Code.INTERNAL,"");
     }
   }
-  public void drawFaceUpTrainCard(RpcController controller, Api.DrawFaceUpTrainCardRequest request, RpcCallback<Api.Empty> callback) {
+  public void drawFaceUpTrainCard(RpcController controller, Api.DrawFaceUpTrainCardRequest request, RpcCallback<Empty> callback) {
     try{
       if(request.getId().equals("")){
         throw new ApiError(Code.INVALID_ARGUMENT, "argument 'id' is required");
