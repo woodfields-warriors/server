@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package card;
 
+import "game.proto";
+
 option java_package = "com.wwttr.card";
 option java_outer_classname = "Api";
 option java_generic_services = true;
@@ -17,14 +19,11 @@ service CardService {
   rpc StreamTrainCards (StreamTrainCardsRequest) returns (stream TrainCard);
   rpc StreamDeckStats (StreamDeckStatsRequest) returns (stream DeckStats);
 
-  rpc DrawTrainCardFromDeck (DrawTrainCardFromDeckRequest) returns (Empty);
-  rpc DrawFaceUpTrainCard(DrawFaceUpTrainCardRequest) returns(Empty);
+  rpc DrawTrainCardFromDeck (DrawTrainCardFromDeckRequest) returns (game.Empty);
+  rpc DrawFaceUpTrainCard(DrawFaceUpTrainCardRequest) returns(game.Empty);
   rpc getTrainCardsInHand(GetTrainCardsInHandRequest) returns (GetTrainCardsInHandResponse);
 }
 
-message Empty {
-
-}
 
 message GetDestinationCardRequest {
   string destination_card_id = 1;

@@ -70,11 +70,6 @@ public class CardService {
       TrainCard tempCard = new TrainCard(newId,gameId,"",tempTrainCardTemplate.getColor(),tempTrainCardTemplate.getState());
       trainCardList.add(tempCard);
     }
-    for(int i = 0; i < 5; i++){
-      TrainCard tempCard = trainCardList.get(rn.nextInt(trainCardList.size()));
-      tempCard.setState(TrainCard.State.VISIBLE);
-    }
-    System.out.println("Train card deck size" + trainCardList.size());
     df.addDestinationCardDeck(cardList);
     df.addTrainCardDeck(trainCardList);
     dealTrainCards(gameId);
@@ -169,6 +164,11 @@ public class CardService {
     Game game = df.getGame(gameId);
     if(game == null){
       throw new NotFoundException("game not found");
+    }
+    for(int i = 0; i < 5; i++){
+      TrainCard tempCard = df.getRandomTrainCardFromDeck(gameId);
+      tempCard.setState(TrainCard.State.VISIBLE);
+      df.updateTrainCard(tempCard);
     }
     List<String> playerIDs = game.getPlayerIDs();
     for(String id : playerIDs){
