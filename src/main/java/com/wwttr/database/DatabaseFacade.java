@@ -280,6 +280,7 @@ public class DatabaseFacade {
       else{
         retrievedCard.update(card);
         destinationCardQueue.publish(card);
+        updateDeckStats(card.getGameId());
       }
     }
   }
