@@ -112,8 +112,8 @@ public class RouteService {
       database.addRoute(new Route("Atlanta - Raleigh 2", "Atlanta", "Raleigh", TrainCard.Color.GREY,   2, gameId));
       database.addRoute(new Route("Charleston - Raleigh", "Charleston", "Raleigh", TrainCard.Color.GREY,  2, gameId));
       database.addRoute(new Route("Charleston - Miami", "Charleston", "Miami", TrainCard.Color.PINK,  4, gameId));
-      database.addRoute(new Route("Releigh - Washington 1", "Releigh", "Washington", TrainCard.Color.GREY,  2, gameId));
-      database.addRoute(new Route("Releigh - Washington 2", "Releigh", "Washington", TrainCard.Color.GREY,  2, gameId));
+      database.addRoute(new Route("Raleigh - Washington 1", "Raleigh", "Washington", TrainCard.Color.GREY,  2, gameId));
+      database.addRoute(new Route("Raleigh - Washington 2", "Raleigh", "Washington", TrainCard.Color.GREY,  2, gameId));
       database.addRoute(new Route("New York - Washington 1", "New York", "Washington", TrainCard.Color.ORANGE,  2, gameId));
       database.addRoute(new Route("New York - Washington 2", "New York", "Washington", TrainCard.Color.BLACK,  2, gameId));
       database.addRoute(new Route("New York - Boston 1", "New York", "Boston", TrainCard.Color.YELLOW,  2, gameId));
