@@ -50,7 +50,7 @@ public class RouteService {
       database.addRoute(new Route("Helena - Winnipeg", "Helena", "Winnipeg", TrainCard.Color.BLUE,    4, gameId));
       database.addRoute(new Route("Helena - Duluth", "Helena", "Duluth", TrainCard.Color.ORANGE,   6, gameId));
       database.addRoute(new Route("Helena - Omaha", "Helena", "Omaha", TrainCard.Color.RED,    5, gameId));
-      database.addRoute(new Route("Helena - Denver", "Helena", "Denver", TrainCard.Color.GREEN,   4, gameId));
+      database.addRoute(new Route("Helena - Denver", "Helena", "Denver", TrainCard.Color.GREEN,   4, gameId));{}
       database.addRoute(new Route("Salt Lake City - Helena", "Salt Lake City", "Helena", TrainCard.Color.PINK,  3, gameId));
       database.addRoute(new Route("Pheonix - El Paso", "Pheonix", "El Paso", TrainCard.Color.GREY,  3, gameId));
       database.addRoute(new Route("Pheonix - Santa Fe", "Pheonix", "Santa Fe", TrainCard.Color.GREY,   3, gameId));
