@@ -18,8 +18,8 @@ public class RouteHandlers extends Api.RouteService {
   }
 
   public void streamRoutes(RpcController controller, Api.StreamRoutesRequest request, RpcCallback<Api.Route> callback) {
-    System.log.println("STREAM ROUTES");
-    System.log.println(request.getGameId());
+    System.out.println("STREAM ROUTES");
+    System.out.println(request.getGameId());
     if (request.getGameId() == "") {
       throw new ApiError(Code.INVALID_ARGUMENT, "missing argument game_id");
     }
