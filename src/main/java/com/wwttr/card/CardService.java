@@ -28,8 +28,11 @@ public class CardService {
   }
 
   public static CardService getInstance(){
-    if(instance == null)
+
+    if(instance == null) {
       instance = new CardService();
+      instance.gameService = GameService.getInstance();
+    }
     return instance;
   }
 

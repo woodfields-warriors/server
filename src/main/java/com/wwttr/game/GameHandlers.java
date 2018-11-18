@@ -46,12 +46,17 @@ public class GameHandlers extends Api.GameService {
     if(maxPlayers < 2 || maxPlayers > 6){
       throw new ApiError(Code.INVALID_ARGUMENT,"argument 'max_players' must be between 2 and 6");
     }
-    CreateResponse response = service.createGame(request.getDisplayName(),request.getUserId(),
+    try {
+      CreateResponse response = service.createGame(request.getDisplayName(),request.getUserId(),
                                                  request.getMaxPlayers());
-    Api.CreateResponse.Builder builder = Api.CreateResponse.newBuilder();
-    builder.setGameId(response.getGameID());
-    builder.setPlayerId(response.getPlayerID());
-    callback.run(builder.build());
+      Api.CreateResponse.Builder builder = Api.CreateResponse.newBuilder();
+      builder.setGameId(response.getGameID());
+      builder.setPlayerId(response.getPlayerID());
+      callback.run(builder.build());
+    }
+    catch (NotFoundException e) {
+      throw new ApiError(Code.NOT_FOUND, e.getMessage());
+    }
   }
 
   public void leaveGame(RpcController controller, Api.LeaveGameRequest request, RpcCallback<Api.Empty> callback) {

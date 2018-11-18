@@ -23,10 +23,11 @@ public class Player{
     this.playerColor = color;
     this.username = username;
   }
-  public Player(String playerID, String userID, Color color){
+  public Player(String playerID, String userID, Color color, String username){
     this.playerID = playerID;
     this.userID = userID;
     playerColor = color;
+    this.username = username;
   }
 
   public String getPlayerId(){

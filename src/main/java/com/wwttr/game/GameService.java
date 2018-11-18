@@ -33,11 +33,13 @@ public class GameService {
   private static GameService gameServiceInstance = null;
 
   private CardService cardService = CardService.getInstance();
-  private RouteService routeService = RouteService.getInstance();
+  private RouteService routeService;
 
   public static GameService getInstance(){
     if(gameServiceInstance == null){
       gameServiceInstance = new GameService();
+      gameServiceInstance.cardService = CardService.getInstance();
+      gameServiceInstance.routeService = RouteService.getInstance();
     }
     return gameServiceInstance;
   }
@@ -51,8 +53,12 @@ public class GameService {
 
   /* creates a game with given Name making the given userID the host*/
   /* hostID should have been verified by ServerFacade */
-  public CreateResponse createGame(String gameName, String userID, int numberOfPlayers){
-      Player player = new Player("p" + Integer.toString(rn.nextInt()) ,userID, Player.Color.RED);
+  public CreateResponse createGame(String gameName, String userID, int numberOfPlayers) throws NotFoundException {
+      User user = database.getUserByID(userID);
+      if (user == null) {
+        throw new NotFoundException("user " + userID + " was not found");
+      }
+      Player player = new Player("p" + Integer.toString(rn.nextInt()) ,userID, Player.Color.RED, user.getUsername());
       Game game = new Game(player.getPlayerId(), new ArrayList<String>(), gameName, numberOfPlayers, "game" + Integer.toString(rn.nextInt() & Integer.MAX_VALUE));
       player.setGameId(game.getGameID());
       game.getPlayerIDs().add(player.getPlayerId());

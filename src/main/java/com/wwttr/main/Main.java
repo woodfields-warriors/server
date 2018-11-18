@@ -10,6 +10,8 @@ import com.wwttr.card.CardHandlers;
 import com.wwttr.card.CardService;
 import com.wwttr.health.HealthHandlers;
 import com.wwttr.server.Server;
+import com.wwttr.route.RouteHandlers;
+import com.wwttr.route.RouteService;
 
 import java.io.IOException;
 
@@ -18,12 +20,14 @@ public class Main {
     GameService gameService = GameService.getInstance();
     AuthService authService = AuthService.getInstance();
     ChatService chatService = ChatService.getInstance();
+    RouteService routeService = RouteService.getInstance();
     // CardService cardService = CardService.getInstance();
 
     GameHandlers gameHandlers = new GameHandlers(gameService, authService);
     AuthHandlers authHandlers = new AuthHandlers(authService);
     ChatHandlers chatHandlers = new ChatHandlers(chatService);
     CardHandlers cardHandlers = new CardHandlers();
+    RouteHandlers routeHandlers = new RouteHandlers(routeService);
     HealthHandlers healthHandlers = new HealthHandlers();
 
     Server server = new Server();
