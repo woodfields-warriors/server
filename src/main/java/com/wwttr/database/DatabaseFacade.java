@@ -354,7 +354,7 @@ public class DatabaseFacade {
       ArrayList<DestinationCard> dcards = getDestinationCardsByGameId(gameId);
       ArrayList<DestinationCard> filteredDCards = new ArrayList<>();
       for(DestinationCard card : dcards){
-        if(!card.getPlayerId().equals("") || card.getPlayerId().equals("sent")){
+        if(card.getPlayerId().equals("") || card.getPlayerId().equals("sent")){
           filteredDCards.add(card);
         }
       }
