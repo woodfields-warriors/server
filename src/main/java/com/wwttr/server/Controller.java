@@ -92,7 +92,7 @@ class Controller implements RpcController {
         try {
 
           if (responder == null) {
-            responder = new StreamResponder(this.getExchange());
+            responder = new StreamResponder(this);
           }
           if (!responder.isOpen()) {
             return;

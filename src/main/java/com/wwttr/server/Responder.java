@@ -59,16 +59,16 @@ class UnaryResponder {
 
 class StreamResponder {
 
-  private HttpExchange exchange;
+  private Controller controller;
   private boolean open;
   private Timer timer;
   // 15 second delay.
   private long pingDelay = 15000;
 
-  public StreamResponder(HttpExchange exchange) throws IOException {
-    this.exchange = exchange;
-    exchange.getResponseHeaders().set("Content-Type", "application/proto");
-    exchange.sendResponseHeaders(200, 0);
+  public StreamResponder(Controller controller) throws IOException {
+    this.controller = controller;
+    controller.getExchange().getResponseHeaders().set("Content-Type", "application/proto");
+    controller.getExchange().sendResponseHeaders(200, 0);
     open = true;
     setTimer();
   }
@@ -78,13 +78,17 @@ class StreamResponder {
   }
 
   public void respond(Response response) throws IOException {
+    if (controller.isCanceled()) {
+      return;
+    }
+
     ByteString responseData = response.toByteString();
 
     ByteBuffer buf = ByteBuffer.allocate(4);
     buf.order(ByteOrder.LITTLE_ENDIAN);
     buf.putInt(responseData.size());
 
-    OutputStream out = exchange.getResponseBody();
+    OutputStream out = controller.getExchange().getResponseBody();
 
     synchronized (this) {
       out.write(buf.array());
@@ -98,7 +102,10 @@ class StreamResponder {
     open = false;
     timer.cancel();
     timer.purge();
-    exchange.getResponseBody().close();
+    if (!controller.isCanceled()) {
+      controller.startCancel();
+    }
+    controller.getExchange().getResponseBody().close();
   }
 
   private void setTimer() {
@@ -108,7 +115,6 @@ class StreamResponder {
         timer.purge();
       }
 
-      StreamResponder responder = this;
       timer = new Timer();
       timer.schedule(new TimerTask() {
         @Override
@@ -116,9 +122,14 @@ class StreamResponder {
           try {
             Response.Builder builder = Response.newBuilder();
             builder.setCode(Code.PING);
-            responder.respond(builder.build());
+            respond(builder.build());
           } catch (IOException e) {
             e.printStackTrace();
+            try {
+              close();
+            } catch (IOException e2) {
+              // e2.printStackTrace();
+            }
           }
         }
       }, pingDelay, pingDelay);
