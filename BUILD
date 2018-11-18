@@ -111,16 +111,16 @@ java_library(
 #   ],
 # )
 
-# java_test(
-#   name = "auth",
-#   test_class = "com.wwttr.auth.AuthServiceTest",
-#   srcs = glob(["src/test/java/com/wwttr/auth/*.java"]),
-#   deps = [
-#     ":auth_service",
-#     ":models",
-#     ":database_lib",
-#   ]
-# )
+java_test(
+  name = "auth",
+  test_class = "com.wwttr.auth.AuthServiceTest",
+  srcs = glob(["src/test/java/com/wwttr/auth/*.java"]),
+  deps = [
+    ":services",
+    ":models",
+    ":database_lib",
+  ]
+)
 
 # ### Game Service ###
 
@@ -140,20 +140,19 @@ java_library(
 #   ],
 # )
 
-# java_test(
-#   name = "game",
-#   test_class = "com.wwttr.game.GameServiceTest",
-#   srcs = glob([
-#     "src/test/java/com/wwttr/game/*.java",
-#     ]),
-#   deps = [
-#     ":game_service",
-#     ":models",
-#     ":auth_service",
-#     ":database_lib",
-#     ":api_lib",
-#   ]
-# )
+java_test(
+  name = "game",
+  test_class = "com.wwttr.game.GameServiceTest",
+  srcs = glob([
+    "src/test/java/com/wwttr/game/*.java",
+    ]),
+  deps = [
+    ":services",
+    ":models",
+    ":database_lib",
+    ":api_lib",
+  ]
+)
 
 # ### Health Service ###
 
@@ -165,14 +164,14 @@ java_library(
 #     ":models",
 #   ],
 # )
-# # java_test(
-# #   name = "health",
-# #   test_class = "com.wwttr.health.HealthTest",
-# #   srcs = glob(["src/test/java/com/wwttr/health/*.java"]),
-# #   deps = [
-# #     ":health_service",
-# #   ]
-# # )
+java_test(
+  name = "health",
+  test_class = "com.wwttr.health.HealthTest",
+  srcs = glob(["src/test/java/com/wwttr/health/*.java"]),
+  deps = [
+    ":services",
+  ]
+)
 
 # ### Card Service ###
 
@@ -187,18 +186,17 @@ java_library(
 #   ],
 # )
 
-# java_test(
-#   name = "card",
-#   test_class = "com.wwttr.card.CardServiceTest",
-#   srcs = glob(["src/test/java/com/wwttr/card/*.java"]),
-#   deps = [
-#     "card_service",
-#     ":api_lib",
-#     ":database_lib",
-#     ":models",
-#     ":game_service",
-#   ]
-# )
+java_test(
+  name = "card",
+  test_class = "com.wwttr.card.CardServiceTest",
+  srcs = glob(["src/test/java/com/wwttr/card/*.java"]),
+  deps = [
+    ":api_lib",
+    ":database_lib",
+    ":models",
+    ":services",
+  ]
+)
 
 # ### Chat Service ###
 
@@ -214,14 +212,14 @@ java_library(
 #   ],
 # )
 
-# java_test(
-#   name = "chat",
-#   test_class = "com.wwttr.chat.ChatServiceTest",
-#   srcs = glob(["src/test/java/com/wwttr/chat/*.java"]),
-#   deps = [
-#     "chat_service"
-#   ]
-# )
+java_test(
+  name = "chat",
+  test_class = "com.wwttr.chat.ChatServiceTest",
+  srcs = glob(["src/test/java/com/wwttr/chat/*.java"]),
+  deps = [
+    "services"
+  ]
+)
 
 # ### Route Service ###
 
@@ -237,14 +235,17 @@ java_library(
 #   ],
 # )
 
-# java_test(
-#   name = "route",
-#   test_class = "com.wwttr.route.RouteServiceTest",
-#   srcs = glob(["src/test/java/com/wwttr/route/*.java"]),
-#   deps = [
-#     "route_service"
-#   ]
-# )
+java_test(
+  name = "route",
+  test_class = "com.wwttr.route.RouteServiceTest",
+  srcs = glob(["src/test/java/com/wwttr/route/*.java"]),
+  deps = [
+    "services",
+    "database_lib",
+    "api_lib",
+    "models",
+  ]
+)
 
 java_library(
   name = "services",

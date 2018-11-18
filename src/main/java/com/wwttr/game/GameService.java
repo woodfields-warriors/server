@@ -28,7 +28,6 @@ public class GameService {
   //singleton object
   private DatabaseFacade database;
   Random rn;
-  private List<GameListener> gameListeners = new LinkedList<GameListener>();
 
   private static GameService gameServiceInstance = null;
 

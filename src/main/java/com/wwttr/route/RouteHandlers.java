@@ -18,9 +18,14 @@ public class RouteHandlers extends Api.RouteService {
   }
 
   public void streamRoutes(RpcController controller, Api.StreamRoutesRequest request, RpcCallback<Api.Route> callback) {
-    service.streamRoutes(request.getGameId()).forEach((Route r) -> {
-      callback.run(r.toProto());
-    });
+    if (request.getGameId() == "") {
+      throw new ApiError(Code.INVALID_ARGUMENT, "missing argument game_id");
+    }
+    service.streamRoutes(request.getGameId())
+      // .takeWhile((Route r) -> !controller.isCanceled())
+      .forEach((Route r) -> {
+        callback.run(r.toProto());
+      });
   }
 
   public void claimRoute(RpcController controller, Api.ClaimRouteRequest request, RpcCallback<Api.ClaimRouteResponse> callback) {
