@@ -2,13 +2,13 @@ package com.wwttr.models;
 
 public class Route {
 
-  private String routeId;
-  private String firstCityId;
+  private String routeId = "";
+  private String firstCityId = "";
   // Game ID that the player is a part of.
-  private String secondCityId;
+  private String secondCityId = "";
   private TrainCard.Color trainColor;
-  private String playerId;
-  private String gameId;
+  private String playerId = "";
+  private String gameId = "";
   private int length;
 
   public Route(String routeId, String firstCityId, String secondCityId, TrainCard.Color trainColor, int length, String gameId, String playerId) {
