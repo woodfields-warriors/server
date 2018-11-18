@@ -42,9 +42,9 @@ public class RouteService {
       database.addRoute(new Route("Portland - Salt Lake City", "Portland", "Salt Lake City", TrainCard.Color.BLUE,  6, gameId));
       database.addRoute(new Route("Seattle - Calgary", "Seattle", "Calgary", TrainCard.Color.GREY,  4, gameId));
       database.addRoute(new Route("Los Angeles - Las Vegas", "Los Angeles", "Las Vegas", TrainCard.Color.GREY,   2, gameId));
-      database.addRoute(new Route("Los Angeles - Pheonix", "Los Angeles", "Pheonix", TrainCard.Color.GREY,   3, gameId));
+      database.addRoute(new Route("Los Angeles - Phoenix", "Los Angeles", "Phoenix", TrainCard.Color.GREY,   3, gameId));
       database.addRoute(new Route("Los Angeles - El Paso", "Los Angeles", "El Paso", TrainCard.Color.BLACK,  6, gameId));
-      database.addRoute(new Route("Las Vegas - SaltLake City", "Las Vegas", "SaltLake City", TrainCard.Color.ORANGE,  3, gameId));
+      database.addRoute(new Route("Las Vegas - Salt Lake City", "Las Vegas", "Salt Lake City", TrainCard.Color.ORANGE,  3, gameId));
       database.addRoute(new Route("Calgary - Helena", "Calgary", "Helena", TrainCard.Color.GREY,    4, gameId));
       database.addRoute(new Route("Calgary - Winnipeg", "Calgary", "Winnipeg", TrainCard.Color.WHITE,    6, gameId));
       database.addRoute(new Route("Helena - Winnipeg", "Helena", "Winnipeg", TrainCard.Color.BLUE,    4, gameId));
@@ -52,9 +52,9 @@ public class RouteService {
       database.addRoute(new Route("Helena - Omaha", "Helena", "Omaha", TrainCard.Color.RED,    5, gameId));
       database.addRoute(new Route("Helena - Denver", "Helena", "Denver", TrainCard.Color.GREEN,   4, gameId));{}
       database.addRoute(new Route("Salt Lake City - Helena", "Salt Lake City", "Helena", TrainCard.Color.PINK,  3, gameId));
-      database.addRoute(new Route("Pheonix - El Paso", "Pheonix", "El Paso", TrainCard.Color.GREY,  3, gameId));
-      database.addRoute(new Route("Pheonix - Santa Fe", "Pheonix", "Santa Fe", TrainCard.Color.GREY,   3, gameId));
-      database.addRoute(new Route("Pheonix - Denver", "Pheonix", "Denver", TrainCard.Color.WHITE,  5, gameId));
+      database.addRoute(new Route("Phoenix - El Paso", "Phoenix", "El Paso", TrainCard.Color.GREY,  3, gameId));
+      database.addRoute(new Route("Phoenix - Santa Fe", "Phoenix", "Santa Fe", TrainCard.Color.GREY,   3, gameId));
+      database.addRoute(new Route("Phoenix - Denver", "Phoenix", "Denver", TrainCard.Color.WHITE,  5, gameId));
       database.addRoute(new Route("Santa Fe - Denver", "Santa Fe", "Denver", TrainCard.Color.GREY,   2, gameId));
       database.addRoute(new Route("Santa Fe - El Paso", "Santa Fe", "El Paso", TrainCard.Color.GREY,   2, gameId));
       database.addRoute(new Route("Santa Fe - Oklahoma City", "Santa Fe", "Oklahoma City", TrainCard.Color.BLUE,   3, gameId));
