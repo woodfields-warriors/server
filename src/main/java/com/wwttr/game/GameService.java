@@ -291,8 +291,13 @@ class MidState implements IPlayerTurnState{
     //tell client action isn't possible
   }
   public void drawFaceUpTrainCard(String playerId, String cardId)throws NotFoundException{
-    cardService.claimTrainCardFromDeck(playerId);
-    Player player = database.getPlayer(playerId);
-    player.setState(new PendingState());
+    if(!cardService.isLocomotive(cardId)) {
+      cardService.claimFaceUpTrainCard(playerId, cardId);
+      Player player = database.getPlayer(playerId);
+      player.setState(new PendingState());
+    }
+    else{
+      //tell client action isn't possible
+    }
   }
 }

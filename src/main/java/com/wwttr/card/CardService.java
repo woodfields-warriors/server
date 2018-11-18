@@ -7,7 +7,7 @@ import com.wwttr.game.GameService;
 import com.wwttr.models.*;
 import com.wwttr.api.Code;
 
-import org.omg.CosNaming.NamingContextPackage.NotFound;
+//import org.omg.CosNaming.NamingContextPackage.NotFound;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -250,6 +250,15 @@ public class CardService {
   public boolean isLocomotive(String cardId) throws NotFoundException{
     TrainCard card = df.getTrainCard(cardId);
     return card.getColor().equals(TrainCard.Color.RAINBOW);
+  }
+
+  public void returnTrainCardsToDeck(ArrayList<String> cardIds) throws NotFoundException{
+    for(String Id : cardIds){
+      TrainCard temp = df.getTrainCard(Id);
+      temp.setState(TrainCard.State.HIDDEN);
+      temp.setPlayerId("");
+      df.updateTrainCard(temp);
+    }
   }
 
   //Testing Functions-------------------------------------------------------------------

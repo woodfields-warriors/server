@@ -121,6 +121,7 @@ public class TrainCard {
       }
       case OWNED:{
         builder.setState(com.wwttr.card.Api.TrainCard.State.OWNED);
+        break;
       }
       default: {
         builder.setState(com.wwttr.card.Api.TrainCard.State.UNSPECIFIED);

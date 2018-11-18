@@ -1,7 +1,10 @@
 package com.wwttr.card;
 
 import com.wwttr.api.NotFoundException;
+import com.wwttr.auth.AuthService;
 import com.wwttr.database.DatabaseFacade;
+import com.wwttr.game.GameService;
+import com.wwttr.models.DeckStats;
 import com.wwttr.models.DestinationCard;
 import com.wwttr.models.CreateResponse;
 import com.wwttr.models.Game;
@@ -13,6 +16,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static org.junit.Assert.*;
@@ -25,15 +29,19 @@ public class CardServiceTest {
   private TrainCard.Color[] trainCardColors = {TrainCard.Color.PINK,TrainCard.Color.GREEN};
   private TrainCard.State[] trainCardStates = {TrainCard.State.HIDDEN,TrainCard.State.HIDDEN};
   private Integer[] trainCardCounts = {5,20};
-  GameServiceFacade gs = GameServiceFacade.getInstance();
+  GameService gs = GameService.getInstance();
   String GameId = null;
   String playerId = null;
+  String user = null;
 
   @Before
   public void setUp() throws Exception {
     cs.setDefaultTemplates();
-    CreateResponse cr = gs.createGame("gameName", "user", 4);
+    AuthService.getInstance().register("user","password");
+    user = df.getUser("user").getUserID();
+    CreateResponse cr = gs.createGame("gameName", user, 4);
     GameId = cr.getGameID();
+    gs.createPlayer(user,GameId);
     playerId = cr.getPlayerID();
   }
 
@@ -66,7 +74,7 @@ public class CardServiceTest {
       df.clearTrainCards();
       cs.generateTrainCardDeckTemplate(trainCardColors,trainCardStates,trainCardCounts);
       cs.generateDestinationDeckTemplate(name, name, points);
-      GameServiceFacade.getInstance().startGame(GameId);
+      GameService.getInstance().startGame(GameId);
       //cs.createFullDecksForGame(GameId);
       assert (df.getDestinationCards().size() == name.length);
       assert (df.getTrainCards().size() == 25);
@@ -127,6 +135,19 @@ public class CardServiceTest {
 
   @Test
   public void streamDeckStats() {
+      try {
+        System.out.println("streamDeckStats");
+        cs.createFullDecksForGame(GameId);
+        Stream<DeckStats> stream = cs.streamDeckStats(GameId).limit(9);
+        List<DeckStats> list = stream.collect(Collectors.toList());
+        assert(list.size()>0);
+        for(DeckStats card : list){
+          assertNotNull(card);
+        }
+      }
+      catch (NotFoundException e){
+        fail();
+      }
   }
 
   @Test
@@ -204,17 +225,19 @@ public class CardServiceTest {
 
   @Test
   public void streamTrainCards() {
-    /*try {
+    try {
       System.out.println("streamTrainCardsStart");
       cs.createFullDecksForGame(GameId);
-      Stream<TrainCard> stream = cs.streamTrainCards(playerId);
-      stream.forEach((TrainCard card) ->{
-                      assertNotEquals(TrainCard.State.HIDDEN,card.getState());
-                      assertNotEquals(TrainCard.State.UNSPECIFIED,card.getState());
-      });
+      Stream<TrainCard> stream = cs.streamTrainCards(playerId).limit(9);
+      List<TrainCard> list = stream.collect(Collectors.toList());
+      assertEquals(9,list.size());
+      for(TrainCard card : list){
+        assertNotEquals(TrainCard.State.UNSPECIFIED,card.getState());
+        assertNotEquals(TrainCard.State.HIDDEN,card.getState());
+      }
     }
     catch (NotFoundException e){
       fail();
-    }*/
+    }
   }
 }
