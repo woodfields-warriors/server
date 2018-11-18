@@ -54,7 +54,7 @@ public class CardHandlers extends Api.CardService {
       callback.run(builder.build());
     }
     catch (NotFoundException e){
-      throw new ApiError(Code.NOT_FOUND, "game_id not found");
+      throw new ApiError(Code.NOT_FOUND, e.getMessage());
     }
     catch (Exception e){
       e.printStackTrace();

@@ -1,6 +1,7 @@
 package com.wwttr.card;
 
 import com.wwttr.api.ApiError;
+import com.wwttr.api.Code;
 import com.wwttr.api.NotFoundException;
 import com.wwttr.database.DatabaseFacade;
 import com.wwttr.models.CreateResponse;
@@ -62,6 +63,13 @@ public class GameServiceFacade {
     //  System.out.println("returning null from game service");
     //  }
     return game;
+  }
+
+  public Game startGame(String gameID) throws NotFoundException {
+    Game game = database.getGame(gameID);
+      game.changeGameStatus(Game.Status.STARTED);
+      cardService.createFullDecksForGame(game.getGameID());
+      return game;
   }
 
   public String createPlayer(String userId, String gameId)throws NotFoundException {
