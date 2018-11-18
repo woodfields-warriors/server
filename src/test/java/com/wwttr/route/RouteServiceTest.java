@@ -21,7 +21,16 @@ public class RouteServiceTest {
   @Test
   public void StreamRoutes() {
     service.initRoutes("testgame1");
+    service.initRoutes("testgame2");
+
     assertEquals(service.streamRoutes("testgame1").limit(98).count(), 98);
+    // assertEquals(service.streamRoutes("testgame1").skip(98).count(), 0);
+    // service.streamRoutes("testgame1").forEach((Route r) -> {
+    //   System.out.println("GOT GAME");
+    //   System.out.println(r.getGameId());
+    //   System.out.println(r.getRouteId());
+    //   throw new Error();
+    // });
   }
 
 }
