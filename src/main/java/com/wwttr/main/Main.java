@@ -37,6 +37,8 @@ public class Main {
     server.register(healthHandlers);
     server.register(chatHandlers);
     server.register(cardHandlers);
+    server.register(routeHandlers);
+    server.register(cardHandlers);
 
     try {
       server.start(8080);
