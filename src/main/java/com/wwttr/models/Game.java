@@ -11,7 +11,7 @@ public class Game{
 	private String gameID;
 	private Status gameStatus;
 	public enum Status{
-		PRE,STARTED,ENDED
+		PRE,STARTED,ENDED,LASTROUND
 	}
 
 	public Game(String hostPlayerID, List<String> playerIDs, String displayName,

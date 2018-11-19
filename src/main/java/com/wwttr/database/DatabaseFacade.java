@@ -106,60 +106,72 @@ public class DatabaseFacade {
       }
     }
 
-    public void updatePlayer(Player player){
-      for (int i = 0; i <players.size();i++){
+    public void updatePlayer(Player player) {
+      for (int i = 0; i < players.size(); i++) {
         Player databasePlayer = players.get(i);
-        if (databasePlayer.getPlayerId().equals(player.getPlayerId()))){
-          players.add(i,player);
+        if (databasePlayer.getPlayerId().equals(player.getPlayerId())) {
+          players.add(i, player);
         }
+      }
     }
     //manually aggregates all current stats for the given player id.
-    public void updatePlayerStats(String playerId){
-      for (Player player: players){
-        if (player.getPlayerId().equals(playerId)){
+    public void updatePlayerStats(String playerId) {
+      for (Player player : players) {
+        if (player.getPlayerId().equals(playerId)) {
           PlayerStats newstats = new PlayerStats();
           newstats.setPlayerId(playerId);
           int trainsUsed = 0;
-          routePoints = 0;
-          for(Route route : routes){
-            if(route.getPlayerId().equals(playerId)){
+          int routePoints = 0;
+          for (Route route : routes) {
+            if (route.getPlayerId().equals(playerId)) {
               int length = route.getLength();
               trainsUsed += length;
               switch (length) {
                 case 1:
-                  routePoints +=1;
+                  routePoints += 1;
                   break;
                 case 2: {
-                  routePoints +=2;
+                  routePoints += 2;
                   break;
                 }
                 case 3: {
-                  routePoints +=4;
+                  routePoints += 4;
                   break;
                 }
                 case 4: {
-                  routePoints +=7;
+                  routePoints += 7;
                   break;
                 }
                 case 5: {
-                  routePoints +=10;
+                  routePoints += 10;
                   break;
                 }
                 case 6: {
-                  routePoints +=15;
+                  routePoints += 15;
                   break;
                 }
             }
           }
           newstats.setroutePoints(routePoints);
-          newStats.setLongestRoutePoints(0);
+          newstats.setLongestRoutePoints(0);
           List<DestinationCard> routesCompleted = findCompletedRoutesForPlayer(playerId);
-          newStats.setDestinationCardPoints();
-          newStats.setTrainCount(45-trainsUsed);
-          newStats.setTrainCardCount(getTrainCardsForPlayer().size());
-          newStats.setDestinationCardCount(getDestinationCardsByPlayerId(playerId));
+          int pointsFromRoutes = 0;
+          for(DestinationCard card: routesCompleted){
+            pointsFromRoutes+= card.getPointValue();
+          }
+          newstats.setDestinationCardPoints(pointsFromRoutes);
+          int trainsLeft = 45 - trainsUsed;
+          if(trainsLeft <= 3){
+            Game game = getGame(player.getGameId());
+            game.changeGameStatus(Game.Status.LASTROUND);
+            updateGame(game,game.getGameID());
+          }
+          newstats.setTrainCount(trainsLeft);
+          newstats.setTrainCardCount(getTrainCardsForPlayer(playerId).size());
+          newstats.setDestinationCardCount(getDestinationCardsByPlayerId(playerId).size());
         }
       }
+    }
     }
 
     //takes a player id
@@ -178,12 +190,12 @@ public class DatabaseFacade {
         //find if we have a route from the starting city
         for(Route route: playerRoutes){
           //find route that has where we currently are and check if we've been to where it goes
-          if(route.getFirstCityId().equals(currentCity) && !routesTraveled.conatins(route.getSecondCityId())){
+          if(route.getFirstCityId().equals(currentCity) && !citiesVisited.contains(route.getSecondCityId())){
             currentCity = route.getSecondCityId();
             citiesVisited.add(currentCity);
 
           }
-          else if(route.getSecondCityId().equals(currentCity) && !routesTraveled.contains(route.getFirstCityId())){
+          else if(route.getSecondCityId().equals(currentCity) && !citiesVisited.contains(route.getFirstCityId())){
             currentCity = route.getFirstCityId();
             citiesVisited.add(currentCity);
 
@@ -200,7 +212,7 @@ public class DatabaseFacade {
     List<Route> getRoutesOwnedByPlayer(String playerId){
       List<Route> toReturn = new ArrayList<>();
       for (Route route: routes){
-        if(route.getPlayerId.equals(playerId)){
+        if(route.getPlayerId().equals(playerId)){
           toReturn.add(route);
         }
       }
@@ -622,7 +634,7 @@ public class DatabaseFacade {
         if(route.getRouteId().equals(newRoute.getRouteId())){
           route.update(newRoute);
           routeQueue.publish(route);
-          //updatePlayerStats(route.getPlayerId());
+          updatePlayerStats(route.getPlayerId());
         }
       }
     }
