@@ -34,6 +34,7 @@ public final class Api {
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:health.Health)
       HealthOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use Health.newBuilder() to construct.
     private Health(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
@@ -45,14 +46,19 @@ public final class Api {
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
-      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+      return this.unknownFields;
     }
     private Health(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -61,16 +67,17 @@ public final class Api {
             case 0:
               done = true;
               break;
-            default: {
-              if (!input.skipField(tag)) {
-                done = true;
-              }
-              break;
-            }
             case 8: {
               int rawValue = input.readEnum();
 
               status_ = rawValue;
+              break;
+            }
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
               break;
             }
           }
@@ -81,6 +88,7 @@ public final class Api {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
+        this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
@@ -89,6 +97,7 @@ public final class Api {
       return com.wwttr.health.Api.internal_static_health_Health_descriptor;
     }
 
+    @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.wwttr.health.Api.internal_static_health_Health_fieldAccessorTable
@@ -215,11 +224,13 @@ public final class Api {
      * <code>.health.Health.Status status = 1;</code>
      */
     public com.wwttr.health.Api.Health.Status getStatus() {
+      @SuppressWarnings("deprecation")
       com.wwttr.health.Api.Health.Status result = com.wwttr.health.Api.Health.Status.valueOf(status_);
       return result == null ? com.wwttr.health.Api.Health.Status.UNRECOGNIZED : result;
     }
 
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -229,13 +240,16 @@ public final class Api {
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (status_ != com.wwttr.health.Api.Health.Status.UNSPECIFIED.getNumber()) {
         output.writeEnum(1, status_);
       }
+      unknownFields.writeTo(output);
     }
 
+    @java.lang.Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
@@ -245,11 +259,11 @@ public final class Api {
         size += com.google.protobuf.CodedOutputStream
           .computeEnumSize(1, status_);
       }
+      size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
     }
 
-    private static final long serialVersionUID = 0L;
     @java.lang.Override
     public boolean equals(final java.lang.Object obj) {
       if (obj == this) {
@@ -262,6 +276,7 @@ public final class Api {
 
       boolean result = true;
       result = result && status_ == other.status_;
+      result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
 
@@ -279,6 +294,17 @@ public final class Api {
       return hash;
     }
 
+    public static com.wwttr.health.Api.Health parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.wwttr.health.Api.Health parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static com.wwttr.health.Api.Health parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -338,6 +364,7 @@ public final class Api {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
@@ -345,6 +372,7 @@ public final class Api {
     public static Builder newBuilder(com.wwttr.health.Api.Health prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
+    @java.lang.Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
@@ -368,6 +396,7 @@ public final class Api {
         return com.wwttr.health.Api.internal_static_health_Health_descriptor;
       }
 
+      @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.wwttr.health.Api.internal_static_health_Health_fieldAccessorTable
@@ -390,6 +419,7 @@ public final class Api {
                 .alwaysUseFieldBuilders) {
         }
       }
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         status_ = 0;
@@ -397,15 +427,18 @@ public final class Api {
         return this;
       }
 
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return com.wwttr.health.Api.internal_static_health_Health_descriptor;
       }
 
+      @java.lang.Override
       public com.wwttr.health.Api.Health getDefaultInstanceForType() {
         return com.wwttr.health.Api.Health.getDefaultInstance();
       }
 
+      @java.lang.Override
       public com.wwttr.health.Api.Health build() {
         com.wwttr.health.Api.Health result = buildPartial();
         if (!result.isInitialized()) {
@@ -414,6 +447,7 @@ public final class Api {
         return result;
       }
 
+      @java.lang.Override
       public com.wwttr.health.Api.Health buildPartial() {
         com.wwttr.health.Api.Health result = new com.wwttr.health.Api.Health(this);
         result.status_ = status_;
@@ -421,32 +455,39 @@ public final class Api {
         return result;
       }
 
+      @java.lang.Override
       public Builder clone() {
         return (Builder) super.clone();
       }
+      @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
+          java.lang.Object value) {
         return (Builder) super.setField(field, value);
       }
+      @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
+      @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
+      @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, Object value) {
+          int index, java.lang.Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
+      @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
+          java.lang.Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.wwttr.health.Api.Health) {
           return mergeFrom((com.wwttr.health.Api.Health)other);
@@ -461,14 +502,17 @@ public final class Api {
         if (other.status_ != 0) {
           setStatusValue(other.getStatusValue());
         }
+        this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -506,6 +550,7 @@ public final class Api {
        * <code>.health.Health.Status status = 1;</code>
        */
       public com.wwttr.health.Api.Health.Status getStatus() {
+        @SuppressWarnings("deprecation")
         com.wwttr.health.Api.Health.Status result = com.wwttr.health.Api.Health.Status.valueOf(status_);
         return result == null ? com.wwttr.health.Api.Health.Status.UNRECOGNIZED : result;
       }
@@ -530,14 +575,16 @@ public final class Api {
         onChanged();
         return this;
       }
+      @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
+        return super.setUnknownFieldsProto3(unknownFields);
       }
 
+      @java.lang.Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
+        return super.mergeUnknownFields(unknownFields);
       }
 
 
@@ -556,11 +603,12 @@ public final class Api {
 
     private static final com.google.protobuf.Parser<Health>
         PARSER = new com.google.protobuf.AbstractParser<Health>() {
+      @java.lang.Override
       public Health parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-          return new Health(input, extensionRegistry);
+        return new Health(input, extensionRegistry);
       }
     };
 
@@ -573,6 +621,7 @@ public final class Api {
       return PARSER;
     }
 
+    @java.lang.Override
     public com.wwttr.health.Api.Health getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
@@ -590,6 +639,7 @@ public final class Api {
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:health.GetHealthRequest)
       GetHealthRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use GetHealthRequest.newBuilder() to construct.
     private GetHealthRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
@@ -600,13 +650,18 @@ public final class Api {
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
-      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+      return this.unknownFields;
     }
     private GetHealthRequest(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -616,7 +671,8 @@ public final class Api {
               done = true;
               break;
             default: {
-              if (!input.skipField(tag)) {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
               break;
@@ -629,6 +685,7 @@ public final class Api {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
+        this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
@@ -637,6 +694,7 @@ public final class Api {
       return com.wwttr.health.Api.internal_static_health_GetHealthRequest_descriptor;
     }
 
+    @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.wwttr.health.Api.internal_static_health_GetHealthRequest_fieldAccessorTable
@@ -645,6 +703,7 @@ public final class Api {
     }
 
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -654,20 +713,23 @@ public final class Api {
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
+      unknownFields.writeTo(output);
     }
 
+    @java.lang.Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
+      size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
     }
 
-    private static final long serialVersionUID = 0L;
     @java.lang.Override
     public boolean equals(final java.lang.Object obj) {
       if (obj == this) {
@@ -679,6 +741,7 @@ public final class Api {
       com.wwttr.health.Api.GetHealthRequest other = (com.wwttr.health.Api.GetHealthRequest) obj;
 
       boolean result = true;
+      result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
 
@@ -694,6 +757,17 @@ public final class Api {
       return hash;
     }
 
+    public static com.wwttr.health.Api.GetHealthRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.wwttr.health.Api.GetHealthRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static com.wwttr.health.Api.GetHealthRequest parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -753,6 +827,7 @@ public final class Api {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
@@ -760,6 +835,7 @@ public final class Api {
     public static Builder newBuilder(com.wwttr.health.Api.GetHealthRequest prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
+    @java.lang.Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
@@ -783,6 +859,7 @@ public final class Api {
         return com.wwttr.health.Api.internal_static_health_GetHealthRequest_descriptor;
       }
 
+      @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.wwttr.health.Api.internal_static_health_GetHealthRequest_fieldAccessorTable
@@ -805,20 +882,24 @@ public final class Api {
                 .alwaysUseFieldBuilders) {
         }
       }
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         return this;
       }
 
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return com.wwttr.health.Api.internal_static_health_GetHealthRequest_descriptor;
       }
 
+      @java.lang.Override
       public com.wwttr.health.Api.GetHealthRequest getDefaultInstanceForType() {
         return com.wwttr.health.Api.GetHealthRequest.getDefaultInstance();
       }
 
+      @java.lang.Override
       public com.wwttr.health.Api.GetHealthRequest build() {
         com.wwttr.health.Api.GetHealthRequest result = buildPartial();
         if (!result.isInitialized()) {
@@ -827,38 +908,46 @@ public final class Api {
         return result;
       }
 
+      @java.lang.Override
       public com.wwttr.health.Api.GetHealthRequest buildPartial() {
         com.wwttr.health.Api.GetHealthRequest result = new com.wwttr.health.Api.GetHealthRequest(this);
         onBuilt();
         return result;
       }
 
+      @java.lang.Override
       public Builder clone() {
         return (Builder) super.clone();
       }
+      @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
+          java.lang.Object value) {
         return (Builder) super.setField(field, value);
       }
+      @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
+      @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
+      @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, Object value) {
+          int index, java.lang.Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
+      @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
+          java.lang.Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.wwttr.health.Api.GetHealthRequest) {
           return mergeFrom((com.wwttr.health.Api.GetHealthRequest)other);
@@ -870,14 +959,17 @@ public final class Api {
 
       public Builder mergeFrom(com.wwttr.health.Api.GetHealthRequest other) {
         if (other == com.wwttr.health.Api.GetHealthRequest.getDefaultInstance()) return this;
+        this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -895,14 +987,16 @@ public final class Api {
         }
         return this;
       }
+      @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
+        return super.setUnknownFieldsProto3(unknownFields);
       }
 
+      @java.lang.Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
+        return super.mergeUnknownFields(unknownFields);
       }
 
 
@@ -921,11 +1015,12 @@ public final class Api {
 
     private static final com.google.protobuf.Parser<GetHealthRequest>
         PARSER = new com.google.protobuf.AbstractParser<GetHealthRequest>() {
+      @java.lang.Override
       public GetHealthRequest parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-          return new GetHealthRequest(input, extensionRegistry);
+        return new GetHealthRequest(input, extensionRegistry);
       }
     };
 
@@ -938,6 +1033,7 @@ public final class Api {
       return PARSER;
     }
 
+    @java.lang.Override
     public com.wwttr.health.Api.GetHealthRequest getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }

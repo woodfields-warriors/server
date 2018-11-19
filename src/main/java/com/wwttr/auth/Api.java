@@ -85,6 +85,7 @@ public final class Api {
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:auth.Account)
       AccountOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use Account.newBuilder() to construct.
     private Account(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
@@ -98,14 +99,19 @@ public final class Api {
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
-      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+      return this.unknownFields;
     }
     private Account(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -114,12 +120,6 @@ public final class Api {
             case 0:
               done = true;
               break;
-            default: {
-              if (!input.skipField(tag)) {
-                done = true;
-              }
-              break;
-            }
             case 10: {
               java.lang.String s = input.readStringRequireUtf8();
 
@@ -138,6 +138,13 @@ public final class Api {
               password_ = s;
               break;
             }
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -146,6 +153,7 @@ public final class Api {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
+        this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
@@ -154,6 +162,7 @@ public final class Api {
       return com.wwttr.auth.Api.internal_static_auth_Account_descriptor;
     }
 
+    @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.wwttr.auth.Api.internal_static_auth_Account_fieldAccessorTable
@@ -294,6 +303,7 @@ public final class Api {
     }
 
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -303,6 +313,7 @@ public final class Api {
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (!getIdBytes().isEmpty()) {
@@ -314,8 +325,10 @@ public final class Api {
       if (!getPasswordBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 3, password_);
       }
+      unknownFields.writeTo(output);
     }
 
+    @java.lang.Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
@@ -330,11 +343,11 @@ public final class Api {
       if (!getPasswordBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, password_);
       }
+      size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
     }
 
-    private static final long serialVersionUID = 0L;
     @java.lang.Override
     public boolean equals(final java.lang.Object obj) {
       if (obj == this) {
@@ -352,6 +365,7 @@ public final class Api {
           .equals(other.getUsername());
       result = result && getPassword()
           .equals(other.getPassword());
+      result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
 
@@ -373,6 +387,17 @@ public final class Api {
       return hash;
     }
 
+    public static com.wwttr.auth.Api.Account parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.wwttr.auth.Api.Account parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static com.wwttr.auth.Api.Account parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -432,6 +457,7 @@ public final class Api {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
@@ -439,6 +465,7 @@ public final class Api {
     public static Builder newBuilder(com.wwttr.auth.Api.Account prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
+    @java.lang.Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
@@ -462,6 +489,7 @@ public final class Api {
         return com.wwttr.auth.Api.internal_static_auth_Account_descriptor;
       }
 
+      @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.wwttr.auth.Api.internal_static_auth_Account_fieldAccessorTable
@@ -484,6 +512,7 @@ public final class Api {
                 .alwaysUseFieldBuilders) {
         }
       }
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         id_ = "";
@@ -495,15 +524,18 @@ public final class Api {
         return this;
       }
 
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return com.wwttr.auth.Api.internal_static_auth_Account_descriptor;
       }
 
+      @java.lang.Override
       public com.wwttr.auth.Api.Account getDefaultInstanceForType() {
         return com.wwttr.auth.Api.Account.getDefaultInstance();
       }
 
+      @java.lang.Override
       public com.wwttr.auth.Api.Account build() {
         com.wwttr.auth.Api.Account result = buildPartial();
         if (!result.isInitialized()) {
@@ -512,6 +544,7 @@ public final class Api {
         return result;
       }
 
+      @java.lang.Override
       public com.wwttr.auth.Api.Account buildPartial() {
         com.wwttr.auth.Api.Account result = new com.wwttr.auth.Api.Account(this);
         result.id_ = id_;
@@ -521,32 +554,39 @@ public final class Api {
         return result;
       }
 
+      @java.lang.Override
       public Builder clone() {
         return (Builder) super.clone();
       }
+      @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
+          java.lang.Object value) {
         return (Builder) super.setField(field, value);
       }
+      @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
+      @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
+      @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, Object value) {
+          int index, java.lang.Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
+      @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
+          java.lang.Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.wwttr.auth.Api.Account) {
           return mergeFrom((com.wwttr.auth.Api.Account)other);
@@ -570,14 +610,17 @@ public final class Api {
           password_ = other.password_;
           onChanged();
         }
+        this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -877,14 +920,16 @@ public final class Api {
         onChanged();
         return this;
       }
+      @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
+        return super.setUnknownFieldsProto3(unknownFields);
       }
 
+      @java.lang.Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
+        return super.mergeUnknownFields(unknownFields);
       }
 
 
@@ -903,11 +948,12 @@ public final class Api {
 
     private static final com.google.protobuf.Parser<Account>
         PARSER = new com.google.protobuf.AbstractParser<Account>() {
+      @java.lang.Override
       public Account parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-          return new Account(input, extensionRegistry);
+        return new Account(input, extensionRegistry);
       }
     };
 
@@ -920,6 +966,7 @@ public final class Api {
       return PARSER;
     }
 
+    @java.lang.Override
     public com.wwttr.auth.Api.Account getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
@@ -957,6 +1004,7 @@ public final class Api {
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:auth.LoginAccountRequest)
       LoginAccountRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use LoginAccountRequest.newBuilder() to construct.
     private LoginAccountRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
@@ -969,14 +1017,19 @@ public final class Api {
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
-      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+      return this.unknownFields;
     }
     private LoginAccountRequest(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -985,12 +1038,6 @@ public final class Api {
             case 0:
               done = true;
               break;
-            default: {
-              if (!input.skipField(tag)) {
-                done = true;
-              }
-              break;
-            }
             case 10: {
               java.lang.String s = input.readStringRequireUtf8();
 
@@ -1003,6 +1050,13 @@ public final class Api {
               password_ = s;
               break;
             }
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -1011,6 +1065,7 @@ public final class Api {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
+        this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
@@ -1019,6 +1074,7 @@ public final class Api {
       return com.wwttr.auth.Api.internal_static_auth_LoginAccountRequest_descriptor;
     }
 
+    @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.wwttr.auth.Api.internal_static_auth_LoginAccountRequest_fieldAccessorTable
@@ -1095,6 +1151,7 @@ public final class Api {
     }
 
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -1104,6 +1161,7 @@ public final class Api {
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (!getUsernameBytes().isEmpty()) {
@@ -1112,8 +1170,10 @@ public final class Api {
       if (!getPasswordBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 2, password_);
       }
+      unknownFields.writeTo(output);
     }
 
+    @java.lang.Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
@@ -1125,11 +1185,11 @@ public final class Api {
       if (!getPasswordBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, password_);
       }
+      size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
     }
 
-    private static final long serialVersionUID = 0L;
     @java.lang.Override
     public boolean equals(final java.lang.Object obj) {
       if (obj == this) {
@@ -1145,6 +1205,7 @@ public final class Api {
           .equals(other.getUsername());
       result = result && getPassword()
           .equals(other.getPassword());
+      result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
 
@@ -1164,6 +1225,17 @@ public final class Api {
       return hash;
     }
 
+    public static com.wwttr.auth.Api.LoginAccountRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.wwttr.auth.Api.LoginAccountRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static com.wwttr.auth.Api.LoginAccountRequest parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -1223,6 +1295,7 @@ public final class Api {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
@@ -1230,6 +1303,7 @@ public final class Api {
     public static Builder newBuilder(com.wwttr.auth.Api.LoginAccountRequest prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
+    @java.lang.Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
@@ -1253,6 +1327,7 @@ public final class Api {
         return com.wwttr.auth.Api.internal_static_auth_LoginAccountRequest_descriptor;
       }
 
+      @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.wwttr.auth.Api.internal_static_auth_LoginAccountRequest_fieldAccessorTable
@@ -1275,6 +1350,7 @@ public final class Api {
                 .alwaysUseFieldBuilders) {
         }
       }
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         username_ = "";
@@ -1284,15 +1360,18 @@ public final class Api {
         return this;
       }
 
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return com.wwttr.auth.Api.internal_static_auth_LoginAccountRequest_descriptor;
       }
 
+      @java.lang.Override
       public com.wwttr.auth.Api.LoginAccountRequest getDefaultInstanceForType() {
         return com.wwttr.auth.Api.LoginAccountRequest.getDefaultInstance();
       }
 
+      @java.lang.Override
       public com.wwttr.auth.Api.LoginAccountRequest build() {
         com.wwttr.auth.Api.LoginAccountRequest result = buildPartial();
         if (!result.isInitialized()) {
@@ -1301,6 +1380,7 @@ public final class Api {
         return result;
       }
 
+      @java.lang.Override
       public com.wwttr.auth.Api.LoginAccountRequest buildPartial() {
         com.wwttr.auth.Api.LoginAccountRequest result = new com.wwttr.auth.Api.LoginAccountRequest(this);
         result.username_ = username_;
@@ -1309,32 +1389,39 @@ public final class Api {
         return result;
       }
 
+      @java.lang.Override
       public Builder clone() {
         return (Builder) super.clone();
       }
+      @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
+          java.lang.Object value) {
         return (Builder) super.setField(field, value);
       }
+      @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
+      @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
+      @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, Object value) {
+          int index, java.lang.Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
+      @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
+          java.lang.Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.wwttr.auth.Api.LoginAccountRequest) {
           return mergeFrom((com.wwttr.auth.Api.LoginAccountRequest)other);
@@ -1354,14 +1441,17 @@ public final class Api {
           password_ = other.password_;
           onChanged();
         }
+        this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -1517,14 +1607,16 @@ public final class Api {
         onChanged();
         return this;
       }
+      @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
+        return super.setUnknownFieldsProto3(unknownFields);
       }
 
+      @java.lang.Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
+        return super.mergeUnknownFields(unknownFields);
       }
 
 
@@ -1543,11 +1635,12 @@ public final class Api {
 
     private static final com.google.protobuf.Parser<LoginAccountRequest>
         PARSER = new com.google.protobuf.AbstractParser<LoginAccountRequest>() {
+      @java.lang.Override
       public LoginAccountRequest parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-          return new LoginAccountRequest(input, extensionRegistry);
+        return new LoginAccountRequest(input, extensionRegistry);
       }
     };
 
@@ -1560,6 +1653,7 @@ public final class Api {
       return PARSER;
     }
 
+    @java.lang.Override
     public com.wwttr.auth.Api.LoginAccountRequest getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
@@ -1587,6 +1681,7 @@ public final class Api {
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:auth.LoginResponse)
       LoginResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use LoginResponse.newBuilder() to construct.
     private LoginResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
@@ -1598,14 +1693,19 @@ public final class Api {
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
-      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+      return this.unknownFields;
     }
     private LoginResponse(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -1614,16 +1714,17 @@ public final class Api {
             case 0:
               done = true;
               break;
-            default: {
-              if (!input.skipField(tag)) {
-                done = true;
-              }
-              break;
-            }
             case 10: {
               java.lang.String s = input.readStringRequireUtf8();
 
               userId_ = s;
+              break;
+            }
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
               break;
             }
           }
@@ -1634,6 +1735,7 @@ public final class Api {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
+        this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
@@ -1642,6 +1744,7 @@ public final class Api {
       return com.wwttr.auth.Api.internal_static_auth_LoginResponse_descriptor;
     }
 
+    @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.wwttr.auth.Api.internal_static_auth_LoginResponse_fieldAccessorTable
@@ -1684,6 +1787,7 @@ public final class Api {
     }
 
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -1693,13 +1797,16 @@ public final class Api {
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (!getUserIdBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, userId_);
       }
+      unknownFields.writeTo(output);
     }
 
+    @java.lang.Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
@@ -1708,11 +1815,11 @@ public final class Api {
       if (!getUserIdBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, userId_);
       }
+      size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
     }
 
-    private static final long serialVersionUID = 0L;
     @java.lang.Override
     public boolean equals(final java.lang.Object obj) {
       if (obj == this) {
@@ -1726,6 +1833,7 @@ public final class Api {
       boolean result = true;
       result = result && getUserId()
           .equals(other.getUserId());
+      result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
 
@@ -1743,6 +1851,17 @@ public final class Api {
       return hash;
     }
 
+    public static com.wwttr.auth.Api.LoginResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.wwttr.auth.Api.LoginResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static com.wwttr.auth.Api.LoginResponse parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -1802,6 +1921,7 @@ public final class Api {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
@@ -1809,6 +1929,7 @@ public final class Api {
     public static Builder newBuilder(com.wwttr.auth.Api.LoginResponse prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
+    @java.lang.Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
@@ -1832,6 +1953,7 @@ public final class Api {
         return com.wwttr.auth.Api.internal_static_auth_LoginResponse_descriptor;
       }
 
+      @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.wwttr.auth.Api.internal_static_auth_LoginResponse_fieldAccessorTable
@@ -1854,6 +1976,7 @@ public final class Api {
                 .alwaysUseFieldBuilders) {
         }
       }
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         userId_ = "";
@@ -1861,15 +1984,18 @@ public final class Api {
         return this;
       }
 
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return com.wwttr.auth.Api.internal_static_auth_LoginResponse_descriptor;
       }
 
+      @java.lang.Override
       public com.wwttr.auth.Api.LoginResponse getDefaultInstanceForType() {
         return com.wwttr.auth.Api.LoginResponse.getDefaultInstance();
       }
 
+      @java.lang.Override
       public com.wwttr.auth.Api.LoginResponse build() {
         com.wwttr.auth.Api.LoginResponse result = buildPartial();
         if (!result.isInitialized()) {
@@ -1878,6 +2004,7 @@ public final class Api {
         return result;
       }
 
+      @java.lang.Override
       public com.wwttr.auth.Api.LoginResponse buildPartial() {
         com.wwttr.auth.Api.LoginResponse result = new com.wwttr.auth.Api.LoginResponse(this);
         result.userId_ = userId_;
@@ -1885,32 +2012,39 @@ public final class Api {
         return result;
       }
 
+      @java.lang.Override
       public Builder clone() {
         return (Builder) super.clone();
       }
+      @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
+          java.lang.Object value) {
         return (Builder) super.setField(field, value);
       }
+      @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
+      @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
+      @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, Object value) {
+          int index, java.lang.Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
+      @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
+          java.lang.Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.wwttr.auth.Api.LoginResponse) {
           return mergeFrom((com.wwttr.auth.Api.LoginResponse)other);
@@ -1926,14 +2060,17 @@ public final class Api {
           userId_ = other.userId_;
           onChanged();
         }
+        this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -2020,14 +2157,16 @@ public final class Api {
         onChanged();
         return this;
       }
+      @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
+        return super.setUnknownFieldsProto3(unknownFields);
       }
 
+      @java.lang.Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
+        return super.mergeUnknownFields(unknownFields);
       }
 
 
@@ -2046,11 +2185,12 @@ public final class Api {
 
     private static final com.google.protobuf.Parser<LoginResponse>
         PARSER = new com.google.protobuf.AbstractParser<LoginResponse>() {
+      @java.lang.Override
       public LoginResponse parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-          return new LoginResponse(input, extensionRegistry);
+        return new LoginResponse(input, extensionRegistry);
       }
     };
 
@@ -2063,6 +2203,7 @@ public final class Api {
       return PARSER;
     }
 
+    @java.lang.Override
     public com.wwttr.auth.Api.LoginResponse getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
@@ -2090,6 +2231,7 @@ public final class Api {
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:auth.GetUsernameRequest)
       GetUsernameRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use GetUsernameRequest.newBuilder() to construct.
     private GetUsernameRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
@@ -2101,14 +2243,19 @@ public final class Api {
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
-      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+      return this.unknownFields;
     }
     private GetUsernameRequest(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -2117,16 +2264,17 @@ public final class Api {
             case 0:
               done = true;
               break;
-            default: {
-              if (!input.skipField(tag)) {
-                done = true;
-              }
-              break;
-            }
             case 10: {
               java.lang.String s = input.readStringRequireUtf8();
 
               userId_ = s;
+              break;
+            }
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
               break;
             }
           }
@@ -2137,6 +2285,7 @@ public final class Api {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
+        this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
@@ -2145,6 +2294,7 @@ public final class Api {
       return com.wwttr.auth.Api.internal_static_auth_GetUsernameRequest_descriptor;
     }
 
+    @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.wwttr.auth.Api.internal_static_auth_GetUsernameRequest_fieldAccessorTable
@@ -2187,6 +2337,7 @@ public final class Api {
     }
 
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -2196,13 +2347,16 @@ public final class Api {
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (!getUserIdBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, userId_);
       }
+      unknownFields.writeTo(output);
     }
 
+    @java.lang.Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
@@ -2211,11 +2365,11 @@ public final class Api {
       if (!getUserIdBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, userId_);
       }
+      size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
     }
 
-    private static final long serialVersionUID = 0L;
     @java.lang.Override
     public boolean equals(final java.lang.Object obj) {
       if (obj == this) {
@@ -2229,6 +2383,7 @@ public final class Api {
       boolean result = true;
       result = result && getUserId()
           .equals(other.getUserId());
+      result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
 
@@ -2246,6 +2401,17 @@ public final class Api {
       return hash;
     }
 
+    public static com.wwttr.auth.Api.GetUsernameRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.wwttr.auth.Api.GetUsernameRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static com.wwttr.auth.Api.GetUsernameRequest parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -2305,6 +2471,7 @@ public final class Api {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
@@ -2312,6 +2479,7 @@ public final class Api {
     public static Builder newBuilder(com.wwttr.auth.Api.GetUsernameRequest prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
+    @java.lang.Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
@@ -2335,6 +2503,7 @@ public final class Api {
         return com.wwttr.auth.Api.internal_static_auth_GetUsernameRequest_descriptor;
       }
 
+      @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.wwttr.auth.Api.internal_static_auth_GetUsernameRequest_fieldAccessorTable
@@ -2357,6 +2526,7 @@ public final class Api {
                 .alwaysUseFieldBuilders) {
         }
       }
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         userId_ = "";
@@ -2364,15 +2534,18 @@ public final class Api {
         return this;
       }
 
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return com.wwttr.auth.Api.internal_static_auth_GetUsernameRequest_descriptor;
       }
 
+      @java.lang.Override
       public com.wwttr.auth.Api.GetUsernameRequest getDefaultInstanceForType() {
         return com.wwttr.auth.Api.GetUsernameRequest.getDefaultInstance();
       }
 
+      @java.lang.Override
       public com.wwttr.auth.Api.GetUsernameRequest build() {
         com.wwttr.auth.Api.GetUsernameRequest result = buildPartial();
         if (!result.isInitialized()) {
@@ -2381,6 +2554,7 @@ public final class Api {
         return result;
       }
 
+      @java.lang.Override
       public com.wwttr.auth.Api.GetUsernameRequest buildPartial() {
         com.wwttr.auth.Api.GetUsernameRequest result = new com.wwttr.auth.Api.GetUsernameRequest(this);
         result.userId_ = userId_;
@@ -2388,32 +2562,39 @@ public final class Api {
         return result;
       }
 
+      @java.lang.Override
       public Builder clone() {
         return (Builder) super.clone();
       }
+      @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
+          java.lang.Object value) {
         return (Builder) super.setField(field, value);
       }
+      @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
+      @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
+      @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, Object value) {
+          int index, java.lang.Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
+      @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
+          java.lang.Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.wwttr.auth.Api.GetUsernameRequest) {
           return mergeFrom((com.wwttr.auth.Api.GetUsernameRequest)other);
@@ -2429,14 +2610,17 @@ public final class Api {
           userId_ = other.userId_;
           onChanged();
         }
+        this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -2523,14 +2707,16 @@ public final class Api {
         onChanged();
         return this;
       }
+      @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
+        return super.setUnknownFieldsProto3(unknownFields);
       }
 
+      @java.lang.Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
+        return super.mergeUnknownFields(unknownFields);
       }
 
 
@@ -2549,11 +2735,12 @@ public final class Api {
 
     private static final com.google.protobuf.Parser<GetUsernameRequest>
         PARSER = new com.google.protobuf.AbstractParser<GetUsernameRequest>() {
+      @java.lang.Override
       public GetUsernameRequest parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-          return new GetUsernameRequest(input, extensionRegistry);
+        return new GetUsernameRequest(input, extensionRegistry);
       }
     };
 
@@ -2566,6 +2753,7 @@ public final class Api {
       return PARSER;
     }
 
+    @java.lang.Override
     public com.wwttr.auth.Api.GetUsernameRequest getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
@@ -2593,6 +2781,7 @@ public final class Api {
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:auth.GetUsernameResponse)
       GetUsernameResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use GetUsernameResponse.newBuilder() to construct.
     private GetUsernameResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
@@ -2604,14 +2793,19 @@ public final class Api {
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
-      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+      return this.unknownFields;
     }
     private GetUsernameResponse(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -2620,16 +2814,17 @@ public final class Api {
             case 0:
               done = true;
               break;
-            default: {
-              if (!input.skipField(tag)) {
-                done = true;
-              }
-              break;
-            }
             case 10: {
               java.lang.String s = input.readStringRequireUtf8();
 
               username_ = s;
+              break;
+            }
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
               break;
             }
           }
@@ -2640,6 +2835,7 @@ public final class Api {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
+        this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
@@ -2648,6 +2844,7 @@ public final class Api {
       return com.wwttr.auth.Api.internal_static_auth_GetUsernameResponse_descriptor;
     }
 
+    @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.wwttr.auth.Api.internal_static_auth_GetUsernameResponse_fieldAccessorTable
@@ -2690,6 +2887,7 @@ public final class Api {
     }
 
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -2699,13 +2897,16 @@ public final class Api {
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (!getUsernameBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, username_);
       }
+      unknownFields.writeTo(output);
     }
 
+    @java.lang.Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
@@ -2714,11 +2915,11 @@ public final class Api {
       if (!getUsernameBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, username_);
       }
+      size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
     }
 
-    private static final long serialVersionUID = 0L;
     @java.lang.Override
     public boolean equals(final java.lang.Object obj) {
       if (obj == this) {
@@ -2732,6 +2933,7 @@ public final class Api {
       boolean result = true;
       result = result && getUsername()
           .equals(other.getUsername());
+      result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
 
@@ -2749,6 +2951,17 @@ public final class Api {
       return hash;
     }
 
+    public static com.wwttr.auth.Api.GetUsernameResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.wwttr.auth.Api.GetUsernameResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static com.wwttr.auth.Api.GetUsernameResponse parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -2808,6 +3021,7 @@ public final class Api {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
@@ -2815,6 +3029,7 @@ public final class Api {
     public static Builder newBuilder(com.wwttr.auth.Api.GetUsernameResponse prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
+    @java.lang.Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
@@ -2838,6 +3053,7 @@ public final class Api {
         return com.wwttr.auth.Api.internal_static_auth_GetUsernameResponse_descriptor;
       }
 
+      @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.wwttr.auth.Api.internal_static_auth_GetUsernameResponse_fieldAccessorTable
@@ -2860,6 +3076,7 @@ public final class Api {
                 .alwaysUseFieldBuilders) {
         }
       }
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         username_ = "";
@@ -2867,15 +3084,18 @@ public final class Api {
         return this;
       }
 
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return com.wwttr.auth.Api.internal_static_auth_GetUsernameResponse_descriptor;
       }
 
+      @java.lang.Override
       public com.wwttr.auth.Api.GetUsernameResponse getDefaultInstanceForType() {
         return com.wwttr.auth.Api.GetUsernameResponse.getDefaultInstance();
       }
 
+      @java.lang.Override
       public com.wwttr.auth.Api.GetUsernameResponse build() {
         com.wwttr.auth.Api.GetUsernameResponse result = buildPartial();
         if (!result.isInitialized()) {
@@ -2884,6 +3104,7 @@ public final class Api {
         return result;
       }
 
+      @java.lang.Override
       public com.wwttr.auth.Api.GetUsernameResponse buildPartial() {
         com.wwttr.auth.Api.GetUsernameResponse result = new com.wwttr.auth.Api.GetUsernameResponse(this);
         result.username_ = username_;
@@ -2891,32 +3112,39 @@ public final class Api {
         return result;
       }
 
+      @java.lang.Override
       public Builder clone() {
         return (Builder) super.clone();
       }
+      @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
+          java.lang.Object value) {
         return (Builder) super.setField(field, value);
       }
+      @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
+      @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
+      @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, Object value) {
+          int index, java.lang.Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
+      @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
+          java.lang.Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.wwttr.auth.Api.GetUsernameResponse) {
           return mergeFrom((com.wwttr.auth.Api.GetUsernameResponse)other);
@@ -2932,14 +3160,17 @@ public final class Api {
           username_ = other.username_;
           onChanged();
         }
+        this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -3026,14 +3257,16 @@ public final class Api {
         onChanged();
         return this;
       }
+      @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
+        return super.setUnknownFieldsProto3(unknownFields);
       }
 
+      @java.lang.Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
+        return super.mergeUnknownFields(unknownFields);
       }
 
 
@@ -3052,11 +3285,12 @@ public final class Api {
 
     private static final com.google.protobuf.Parser<GetUsernameResponse>
         PARSER = new com.google.protobuf.AbstractParser<GetUsernameResponse>() {
+      @java.lang.Override
       public GetUsernameResponse parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-          return new GetUsernameResponse(input, extensionRegistry);
+        return new GetUsernameResponse(input, extensionRegistry);
       }
     };
 
@@ -3069,6 +3303,7 @@ public final class Api {
       return PARSER;
     }
 
+    @java.lang.Override
     public com.wwttr.auth.Api.GetUsernameResponse getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
@@ -3492,7 +3727,7 @@ public final class Api {
       "name\030\001 \001(\t2\306\001\n\013AuthService\0227\n\005Login\022\031.au" +
       "th.LoginAccountRequest\032\023.auth.LoginRespo" +
       "nse\022:\n\010Register\022\031.auth.LoginAccountReque" +
-      "st\032\023.auth.LoginResponse\022B\n\013GetUsername\022\030",
+      "st\032\023.auth.LoginResponse\022B\n\013GetUsername\022\030" +
       ".auth.GetUsernameRequest\032\031.auth.GetUsern" +
       "ameResponseB\030\n\016com.wwttr.authB\003Api\210\001\001b\006p" +
       "roto3"

@@ -214,6 +214,7 @@ public final class Api {
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:card.GetDestinationCardRequest)
       GetDestinationCardRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use GetDestinationCardRequest.newBuilder() to construct.
     private GetDestinationCardRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
@@ -225,14 +226,19 @@ public final class Api {
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
-      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+      return this.unknownFields;
     }
     private GetDestinationCardRequest(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -241,16 +247,17 @@ public final class Api {
             case 0:
               done = true;
               break;
-            default: {
-              if (!input.skipField(tag)) {
-                done = true;
-              }
-              break;
-            }
             case 10: {
               java.lang.String s = input.readStringRequireUtf8();
 
               destinationCardId_ = s;
+              break;
+            }
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
               break;
             }
           }
@@ -261,6 +268,7 @@ public final class Api {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
+        this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
@@ -269,6 +277,7 @@ public final class Api {
       return com.wwttr.card.Api.internal_static_card_GetDestinationCardRequest_descriptor;
     }
 
+    @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.wwttr.card.Api.internal_static_card_GetDestinationCardRequest_fieldAccessorTable
@@ -311,6 +320,7 @@ public final class Api {
     }
 
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -320,13 +330,16 @@ public final class Api {
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (!getDestinationCardIdBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, destinationCardId_);
       }
+      unknownFields.writeTo(output);
     }
 
+    @java.lang.Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
@@ -335,11 +348,11 @@ public final class Api {
       if (!getDestinationCardIdBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, destinationCardId_);
       }
+      size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
     }
 
-    private static final long serialVersionUID = 0L;
     @java.lang.Override
     public boolean equals(final java.lang.Object obj) {
       if (obj == this) {
@@ -353,6 +366,7 @@ public final class Api {
       boolean result = true;
       result = result && getDestinationCardId()
           .equals(other.getDestinationCardId());
+      result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
 
@@ -370,6 +384,17 @@ public final class Api {
       return hash;
     }
 
+    public static com.wwttr.card.Api.GetDestinationCardRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.wwttr.card.Api.GetDestinationCardRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static com.wwttr.card.Api.GetDestinationCardRequest parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -429,6 +454,7 @@ public final class Api {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
@@ -436,6 +462,7 @@ public final class Api {
     public static Builder newBuilder(com.wwttr.card.Api.GetDestinationCardRequest prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
+    @java.lang.Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
@@ -459,6 +486,7 @@ public final class Api {
         return com.wwttr.card.Api.internal_static_card_GetDestinationCardRequest_descriptor;
       }
 
+      @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.wwttr.card.Api.internal_static_card_GetDestinationCardRequest_fieldAccessorTable
@@ -481,6 +509,7 @@ public final class Api {
                 .alwaysUseFieldBuilders) {
         }
       }
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         destinationCardId_ = "";
@@ -488,15 +517,18 @@ public final class Api {
         return this;
       }
 
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return com.wwttr.card.Api.internal_static_card_GetDestinationCardRequest_descriptor;
       }
 
+      @java.lang.Override
       public com.wwttr.card.Api.GetDestinationCardRequest getDefaultInstanceForType() {
         return com.wwttr.card.Api.GetDestinationCardRequest.getDefaultInstance();
       }
 
+      @java.lang.Override
       public com.wwttr.card.Api.GetDestinationCardRequest build() {
         com.wwttr.card.Api.GetDestinationCardRequest result = buildPartial();
         if (!result.isInitialized()) {
@@ -505,6 +537,7 @@ public final class Api {
         return result;
       }
 
+      @java.lang.Override
       public com.wwttr.card.Api.GetDestinationCardRequest buildPartial() {
         com.wwttr.card.Api.GetDestinationCardRequest result = new com.wwttr.card.Api.GetDestinationCardRequest(this);
         result.destinationCardId_ = destinationCardId_;
@@ -512,32 +545,39 @@ public final class Api {
         return result;
       }
 
+      @java.lang.Override
       public Builder clone() {
         return (Builder) super.clone();
       }
+      @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
+          java.lang.Object value) {
         return (Builder) super.setField(field, value);
       }
+      @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
+      @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
+      @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, Object value) {
+          int index, java.lang.Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
+      @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
+          java.lang.Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.wwttr.card.Api.GetDestinationCardRequest) {
           return mergeFrom((com.wwttr.card.Api.GetDestinationCardRequest)other);
@@ -553,14 +593,17 @@ public final class Api {
           destinationCardId_ = other.destinationCardId_;
           onChanged();
         }
+        this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -647,14 +690,16 @@ public final class Api {
         onChanged();
         return this;
       }
+      @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
+        return super.setUnknownFieldsProto3(unknownFields);
       }
 
+      @java.lang.Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
+        return super.mergeUnknownFields(unknownFields);
       }
 
 
@@ -673,11 +718,12 @@ public final class Api {
 
     private static final com.google.protobuf.Parser<GetDestinationCardRequest>
         PARSER = new com.google.protobuf.AbstractParser<GetDestinationCardRequest>() {
+      @java.lang.Override
       public GetDestinationCardRequest parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-          return new GetDestinationCardRequest(input, extensionRegistry);
+        return new GetDestinationCardRequest(input, extensionRegistry);
       }
     };
 
@@ -690,6 +736,7 @@ public final class Api {
       return PARSER;
     }
 
+    @java.lang.Override
     public com.wwttr.card.Api.GetDestinationCardRequest getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
@@ -752,6 +799,7 @@ public final class Api {
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:card.DestinationCard)
       DestinationCardOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use DestinationCard.newBuilder() to construct.
     private DestinationCard(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
@@ -767,14 +815,19 @@ public final class Api {
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
-      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+      return this.unknownFields;
     }
     private DestinationCard(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -783,12 +836,6 @@ public final class Api {
             case 0:
               done = true;
               break;
-            default: {
-              if (!input.skipField(tag)) {
-                done = true;
-              }
-              break;
-            }
             case 10: {
               java.lang.String s = input.readStringRequireUtf8();
 
@@ -818,6 +865,13 @@ public final class Api {
               playerId_ = s;
               break;
             }
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -826,6 +880,7 @@ public final class Api {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
+        this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
@@ -834,6 +889,7 @@ public final class Api {
       return com.wwttr.card.Api.internal_static_card_DestinationCard_descriptor;
     }
 
+    @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.wwttr.card.Api.internal_static_card_DestinationCard_fieldAccessorTable
@@ -987,6 +1043,7 @@ public final class Api {
     }
 
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -996,6 +1053,7 @@ public final class Api {
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (!getIdBytes().isEmpty()) {
@@ -1013,8 +1071,10 @@ public final class Api {
       if (!getPlayerIdBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 5, playerId_);
       }
+      unknownFields.writeTo(output);
     }
 
+    @java.lang.Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
@@ -1036,11 +1096,11 @@ public final class Api {
       if (!getPlayerIdBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, playerId_);
       }
+      size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
     }
 
-    private static final long serialVersionUID = 0L;
     @java.lang.Override
     public boolean equals(final java.lang.Object obj) {
       if (obj == this) {
@@ -1062,6 +1122,7 @@ public final class Api {
           == other.getPointValue());
       result = result && getPlayerId()
           .equals(other.getPlayerId());
+      result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
 
@@ -1087,6 +1148,17 @@ public final class Api {
       return hash;
     }
 
+    public static com.wwttr.card.Api.DestinationCard parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.wwttr.card.Api.DestinationCard parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static com.wwttr.card.Api.DestinationCard parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -1146,6 +1218,7 @@ public final class Api {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
@@ -1153,6 +1226,7 @@ public final class Api {
     public static Builder newBuilder(com.wwttr.card.Api.DestinationCard prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
+    @java.lang.Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
@@ -1176,6 +1250,7 @@ public final class Api {
         return com.wwttr.card.Api.internal_static_card_DestinationCard_descriptor;
       }
 
+      @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.wwttr.card.Api.internal_static_card_DestinationCard_fieldAccessorTable
@@ -1198,6 +1273,7 @@ public final class Api {
                 .alwaysUseFieldBuilders) {
         }
       }
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         id_ = "";
@@ -1213,15 +1289,18 @@ public final class Api {
         return this;
       }
 
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return com.wwttr.card.Api.internal_static_card_DestinationCard_descriptor;
       }
 
+      @java.lang.Override
       public com.wwttr.card.Api.DestinationCard getDefaultInstanceForType() {
         return com.wwttr.card.Api.DestinationCard.getDefaultInstance();
       }
 
+      @java.lang.Override
       public com.wwttr.card.Api.DestinationCard build() {
         com.wwttr.card.Api.DestinationCard result = buildPartial();
         if (!result.isInitialized()) {
@@ -1230,6 +1309,7 @@ public final class Api {
         return result;
       }
 
+      @java.lang.Override
       public com.wwttr.card.Api.DestinationCard buildPartial() {
         com.wwttr.card.Api.DestinationCard result = new com.wwttr.card.Api.DestinationCard(this);
         result.id_ = id_;
@@ -1241,32 +1321,39 @@ public final class Api {
         return result;
       }
 
+      @java.lang.Override
       public Builder clone() {
         return (Builder) super.clone();
       }
+      @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
+          java.lang.Object value) {
         return (Builder) super.setField(field, value);
       }
+      @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
+      @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
+      @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, Object value) {
+          int index, java.lang.Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
+      @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
+          java.lang.Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.wwttr.card.Api.DestinationCard) {
           return mergeFrom((com.wwttr.card.Api.DestinationCard)other);
@@ -1297,14 +1384,17 @@ public final class Api {
           playerId_ = other.playerId_;
           onChanged();
         }
+        this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -1624,14 +1714,16 @@ public final class Api {
         onChanged();
         return this;
       }
+      @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
+        return super.setUnknownFieldsProto3(unknownFields);
       }
 
+      @java.lang.Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
+        return super.mergeUnknownFields(unknownFields);
       }
 
 
@@ -1650,11 +1742,12 @@ public final class Api {
 
     private static final com.google.protobuf.Parser<DestinationCard>
         PARSER = new com.google.protobuf.AbstractParser<DestinationCard>() {
+      @java.lang.Override
       public DestinationCard parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-          return new DestinationCard(input, extensionRegistry);
+        return new DestinationCard(input, extensionRegistry);
       }
     };
 
@@ -1667,6 +1760,7 @@ public final class Api {
       return PARSER;
     }
 
+    @java.lang.Override
     public com.wwttr.card.Api.DestinationCard getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
@@ -1694,6 +1788,7 @@ public final class Api {
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:card.PeekDestinationCardsRequest)
       PeekDestinationCardsRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use PeekDestinationCardsRequest.newBuilder() to construct.
     private PeekDestinationCardsRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
@@ -1705,14 +1800,19 @@ public final class Api {
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
-      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+      return this.unknownFields;
     }
     private PeekDestinationCardsRequest(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -1721,16 +1821,17 @@ public final class Api {
             case 0:
               done = true;
               break;
-            default: {
-              if (!input.skipField(tag)) {
-                done = true;
-              }
-              break;
-            }
             case 10: {
               java.lang.String s = input.readStringRequireUtf8();
 
               gameId_ = s;
+              break;
+            }
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
               break;
             }
           }
@@ -1741,6 +1842,7 @@ public final class Api {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
+        this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
@@ -1749,6 +1851,7 @@ public final class Api {
       return com.wwttr.card.Api.internal_static_card_PeekDestinationCardsRequest_descriptor;
     }
 
+    @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.wwttr.card.Api.internal_static_card_PeekDestinationCardsRequest_fieldAccessorTable
@@ -1791,6 +1894,7 @@ public final class Api {
     }
 
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -1800,13 +1904,16 @@ public final class Api {
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (!getGameIdBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, gameId_);
       }
+      unknownFields.writeTo(output);
     }
 
+    @java.lang.Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
@@ -1815,11 +1922,11 @@ public final class Api {
       if (!getGameIdBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, gameId_);
       }
+      size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
     }
 
-    private static final long serialVersionUID = 0L;
     @java.lang.Override
     public boolean equals(final java.lang.Object obj) {
       if (obj == this) {
@@ -1833,6 +1940,7 @@ public final class Api {
       boolean result = true;
       result = result && getGameId()
           .equals(other.getGameId());
+      result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
 
@@ -1850,6 +1958,17 @@ public final class Api {
       return hash;
     }
 
+    public static com.wwttr.card.Api.PeekDestinationCardsRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.wwttr.card.Api.PeekDestinationCardsRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static com.wwttr.card.Api.PeekDestinationCardsRequest parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -1909,6 +2028,7 @@ public final class Api {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
@@ -1916,6 +2036,7 @@ public final class Api {
     public static Builder newBuilder(com.wwttr.card.Api.PeekDestinationCardsRequest prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
+    @java.lang.Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
@@ -1939,6 +2060,7 @@ public final class Api {
         return com.wwttr.card.Api.internal_static_card_PeekDestinationCardsRequest_descriptor;
       }
 
+      @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.wwttr.card.Api.internal_static_card_PeekDestinationCardsRequest_fieldAccessorTable
@@ -1961,6 +2083,7 @@ public final class Api {
                 .alwaysUseFieldBuilders) {
         }
       }
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         gameId_ = "";
@@ -1968,15 +2091,18 @@ public final class Api {
         return this;
       }
 
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return com.wwttr.card.Api.internal_static_card_PeekDestinationCardsRequest_descriptor;
       }
 
+      @java.lang.Override
       public com.wwttr.card.Api.PeekDestinationCardsRequest getDefaultInstanceForType() {
         return com.wwttr.card.Api.PeekDestinationCardsRequest.getDefaultInstance();
       }
 
+      @java.lang.Override
       public com.wwttr.card.Api.PeekDestinationCardsRequest build() {
         com.wwttr.card.Api.PeekDestinationCardsRequest result = buildPartial();
         if (!result.isInitialized()) {
@@ -1985,6 +2111,7 @@ public final class Api {
         return result;
       }
 
+      @java.lang.Override
       public com.wwttr.card.Api.PeekDestinationCardsRequest buildPartial() {
         com.wwttr.card.Api.PeekDestinationCardsRequest result = new com.wwttr.card.Api.PeekDestinationCardsRequest(this);
         result.gameId_ = gameId_;
@@ -1992,32 +2119,39 @@ public final class Api {
         return result;
       }
 
+      @java.lang.Override
       public Builder clone() {
         return (Builder) super.clone();
       }
+      @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
+          java.lang.Object value) {
         return (Builder) super.setField(field, value);
       }
+      @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
+      @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
+      @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, Object value) {
+          int index, java.lang.Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
+      @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
+          java.lang.Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.wwttr.card.Api.PeekDestinationCardsRequest) {
           return mergeFrom((com.wwttr.card.Api.PeekDestinationCardsRequest)other);
@@ -2033,14 +2167,17 @@ public final class Api {
           gameId_ = other.gameId_;
           onChanged();
         }
+        this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -2127,14 +2264,16 @@ public final class Api {
         onChanged();
         return this;
       }
+      @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
+        return super.setUnknownFieldsProto3(unknownFields);
       }
 
+      @java.lang.Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
+        return super.mergeUnknownFields(unknownFields);
       }
 
 
@@ -2153,11 +2292,12 @@ public final class Api {
 
     private static final com.google.protobuf.Parser<PeekDestinationCardsRequest>
         PARSER = new com.google.protobuf.AbstractParser<PeekDestinationCardsRequest>() {
+      @java.lang.Override
       public PeekDestinationCardsRequest parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-          return new PeekDestinationCardsRequest(input, extensionRegistry);
+        return new PeekDestinationCardsRequest(input, extensionRegistry);
       }
     };
 
@@ -2170,6 +2310,7 @@ public final class Api {
       return PARSER;
     }
 
+    @java.lang.Override
     public com.wwttr.card.Api.PeekDestinationCardsRequest getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
@@ -2211,6 +2352,7 @@ public final class Api {
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:card.PeekDestinationCardsResponse)
       PeekDestinationCardsResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use PeekDestinationCardsResponse.newBuilder() to construct.
     private PeekDestinationCardsResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
@@ -2222,14 +2364,19 @@ public final class Api {
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
-      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+      return this.unknownFields;
     }
     private PeekDestinationCardsResponse(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -2238,12 +2385,6 @@ public final class Api {
             case 0:
               done = true;
               break;
-            default: {
-              if (!input.skipField(tag)) {
-                done = true;
-              }
-              break;
-            }
             case 10: {
               if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
                 destinationCards_ = new java.util.ArrayList<com.wwttr.card.Api.DestinationCard>();
@@ -2251,6 +2392,13 @@ public final class Api {
               }
               destinationCards_.add(
                   input.readMessage(com.wwttr.card.Api.DestinationCard.parser(), extensionRegistry));
+              break;
+            }
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
               break;
             }
           }
@@ -2264,6 +2412,7 @@ public final class Api {
         if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
           destinationCards_ = java.util.Collections.unmodifiableList(destinationCards_);
         }
+        this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
@@ -2272,6 +2421,7 @@ public final class Api {
       return com.wwttr.card.Api.internal_static_card_PeekDestinationCardsResponse_descriptor;
     }
 
+    @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.wwttr.card.Api.internal_static_card_PeekDestinationCardsResponse_fieldAccessorTable
@@ -2315,6 +2465,7 @@ public final class Api {
     }
 
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -2324,13 +2475,16 @@ public final class Api {
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       for (int i = 0; i < destinationCards_.size(); i++) {
         output.writeMessage(1, destinationCards_.get(i));
       }
+      unknownFields.writeTo(output);
     }
 
+    @java.lang.Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
@@ -2340,11 +2494,11 @@ public final class Api {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(1, destinationCards_.get(i));
       }
+      size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
     }
 
-    private static final long serialVersionUID = 0L;
     @java.lang.Override
     public boolean equals(final java.lang.Object obj) {
       if (obj == this) {
@@ -2358,6 +2512,7 @@ public final class Api {
       boolean result = true;
       result = result && getDestinationCardsList()
           .equals(other.getDestinationCardsList());
+      result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
 
@@ -2377,6 +2532,17 @@ public final class Api {
       return hash;
     }
 
+    public static com.wwttr.card.Api.PeekDestinationCardsResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.wwttr.card.Api.PeekDestinationCardsResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static com.wwttr.card.Api.PeekDestinationCardsResponse parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -2436,6 +2602,7 @@ public final class Api {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
@@ -2443,6 +2610,7 @@ public final class Api {
     public static Builder newBuilder(com.wwttr.card.Api.PeekDestinationCardsResponse prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
+    @java.lang.Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
@@ -2466,6 +2634,7 @@ public final class Api {
         return com.wwttr.card.Api.internal_static_card_PeekDestinationCardsResponse_descriptor;
       }
 
+      @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.wwttr.card.Api.internal_static_card_PeekDestinationCardsResponse_fieldAccessorTable
@@ -2489,6 +2658,7 @@ public final class Api {
           getDestinationCardsFieldBuilder();
         }
       }
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         if (destinationCardsBuilder_ == null) {
@@ -2500,15 +2670,18 @@ public final class Api {
         return this;
       }
 
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return com.wwttr.card.Api.internal_static_card_PeekDestinationCardsResponse_descriptor;
       }
 
+      @java.lang.Override
       public com.wwttr.card.Api.PeekDestinationCardsResponse getDefaultInstanceForType() {
         return com.wwttr.card.Api.PeekDestinationCardsResponse.getDefaultInstance();
       }
 
+      @java.lang.Override
       public com.wwttr.card.Api.PeekDestinationCardsResponse build() {
         com.wwttr.card.Api.PeekDestinationCardsResponse result = buildPartial();
         if (!result.isInitialized()) {
@@ -2517,6 +2690,7 @@ public final class Api {
         return result;
       }
 
+      @java.lang.Override
       public com.wwttr.card.Api.PeekDestinationCardsResponse buildPartial() {
         com.wwttr.card.Api.PeekDestinationCardsResponse result = new com.wwttr.card.Api.PeekDestinationCardsResponse(this);
         int from_bitField0_ = bitField0_;
@@ -2533,32 +2707,39 @@ public final class Api {
         return result;
       }
 
+      @java.lang.Override
       public Builder clone() {
         return (Builder) super.clone();
       }
+      @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
+          java.lang.Object value) {
         return (Builder) super.setField(field, value);
       }
+      @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
+      @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
+      @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, Object value) {
+          int index, java.lang.Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
+      @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
+          java.lang.Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.wwttr.card.Api.PeekDestinationCardsResponse) {
           return mergeFrom((com.wwttr.card.Api.PeekDestinationCardsResponse)other);
@@ -2596,14 +2777,17 @@ public final class Api {
             }
           }
         }
+        this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -2862,14 +3046,16 @@ public final class Api {
         }
         return destinationCardsBuilder_;
       }
+      @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
+        return super.setUnknownFieldsProto3(unknownFields);
       }
 
+      @java.lang.Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
+        return super.mergeUnknownFields(unknownFields);
       }
 
 
@@ -2888,11 +3074,12 @@ public final class Api {
 
     private static final com.google.protobuf.Parser<PeekDestinationCardsResponse>
         PARSER = new com.google.protobuf.AbstractParser<PeekDestinationCardsResponse>() {
+      @java.lang.Override
       public PeekDestinationCardsResponse parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-          return new PeekDestinationCardsResponse(input, extensionRegistry);
+        return new PeekDestinationCardsResponse(input, extensionRegistry);
       }
     };
 
@@ -2905,6 +3092,7 @@ public final class Api {
       return PARSER;
     }
 
+    @java.lang.Override
     public com.wwttr.card.Api.PeekDestinationCardsResponse getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
@@ -2951,6 +3139,7 @@ public final class Api {
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:card.ClaimDestinationCardsRequest)
       ClaimDestinationCardsRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use ClaimDestinationCardsRequest.newBuilder() to construct.
     private ClaimDestinationCardsRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
@@ -2963,14 +3152,19 @@ public final class Api {
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
-      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+      return this.unknownFields;
     }
     private ClaimDestinationCardsRequest(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -2979,12 +3173,6 @@ public final class Api {
             case 0:
               done = true;
               break;
-            default: {
-              if (!input.skipField(tag)) {
-                done = true;
-              }
-              break;
-            }
             case 10: {
               java.lang.String s = input.readStringRequireUtf8();
               if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
@@ -3000,6 +3188,13 @@ public final class Api {
               playerId_ = s;
               break;
             }
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -3011,6 +3206,7 @@ public final class Api {
         if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
           destinationCardIds_ = destinationCardIds_.getUnmodifiableView();
         }
+        this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
@@ -3019,6 +3215,7 @@ public final class Api {
       return com.wwttr.card.Api.internal_static_card_ClaimDestinationCardsRequest_descriptor;
     }
 
+    @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.wwttr.card.Api.internal_static_card_ClaimDestinationCardsRequest_fieldAccessorTable
@@ -3091,6 +3288,7 @@ public final class Api {
     }
 
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -3100,6 +3298,7 @@ public final class Api {
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       for (int i = 0; i < destinationCardIds_.size(); i++) {
@@ -3108,8 +3307,10 @@ public final class Api {
       if (!getPlayerIdBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 2, playerId_);
       }
+      unknownFields.writeTo(output);
     }
 
+    @java.lang.Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
@@ -3126,11 +3327,11 @@ public final class Api {
       if (!getPlayerIdBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, playerId_);
       }
+      size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
     }
 
-    private static final long serialVersionUID = 0L;
     @java.lang.Override
     public boolean equals(final java.lang.Object obj) {
       if (obj == this) {
@@ -3146,6 +3347,7 @@ public final class Api {
           .equals(other.getDestinationCardIdsList());
       result = result && getPlayerId()
           .equals(other.getPlayerId());
+      result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
 
@@ -3167,6 +3369,17 @@ public final class Api {
       return hash;
     }
 
+    public static com.wwttr.card.Api.ClaimDestinationCardsRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.wwttr.card.Api.ClaimDestinationCardsRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static com.wwttr.card.Api.ClaimDestinationCardsRequest parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -3226,6 +3439,7 @@ public final class Api {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
@@ -3233,6 +3447,7 @@ public final class Api {
     public static Builder newBuilder(com.wwttr.card.Api.ClaimDestinationCardsRequest prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
+    @java.lang.Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
@@ -3256,6 +3471,7 @@ public final class Api {
         return com.wwttr.card.Api.internal_static_card_ClaimDestinationCardsRequest_descriptor;
       }
 
+      @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.wwttr.card.Api.internal_static_card_ClaimDestinationCardsRequest_fieldAccessorTable
@@ -3278,6 +3494,7 @@ public final class Api {
                 .alwaysUseFieldBuilders) {
         }
       }
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         destinationCardIds_ = com.google.protobuf.LazyStringArrayList.EMPTY;
@@ -3287,15 +3504,18 @@ public final class Api {
         return this;
       }
 
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return com.wwttr.card.Api.internal_static_card_ClaimDestinationCardsRequest_descriptor;
       }
 
+      @java.lang.Override
       public com.wwttr.card.Api.ClaimDestinationCardsRequest getDefaultInstanceForType() {
         return com.wwttr.card.Api.ClaimDestinationCardsRequest.getDefaultInstance();
       }
 
+      @java.lang.Override
       public com.wwttr.card.Api.ClaimDestinationCardsRequest build() {
         com.wwttr.card.Api.ClaimDestinationCardsRequest result = buildPartial();
         if (!result.isInitialized()) {
@@ -3304,6 +3524,7 @@ public final class Api {
         return result;
       }
 
+      @java.lang.Override
       public com.wwttr.card.Api.ClaimDestinationCardsRequest buildPartial() {
         com.wwttr.card.Api.ClaimDestinationCardsRequest result = new com.wwttr.card.Api.ClaimDestinationCardsRequest(this);
         int from_bitField0_ = bitField0_;
@@ -3319,32 +3540,39 @@ public final class Api {
         return result;
       }
 
+      @java.lang.Override
       public Builder clone() {
         return (Builder) super.clone();
       }
+      @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
+          java.lang.Object value) {
         return (Builder) super.setField(field, value);
       }
+      @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
+      @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
+      @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, Object value) {
+          int index, java.lang.Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
+      @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
+          java.lang.Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.wwttr.card.Api.ClaimDestinationCardsRequest) {
           return mergeFrom((com.wwttr.card.Api.ClaimDestinationCardsRequest)other);
@@ -3370,14 +3598,17 @@ public final class Api {
           playerId_ = other.playerId_;
           onChanged();
         }
+        this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -3559,14 +3790,16 @@ public final class Api {
         onChanged();
         return this;
       }
+      @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
+        return super.setUnknownFieldsProto3(unknownFields);
       }
 
+      @java.lang.Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
+        return super.mergeUnknownFields(unknownFields);
       }
 
 
@@ -3585,11 +3818,12 @@ public final class Api {
 
     private static final com.google.protobuf.Parser<ClaimDestinationCardsRequest>
         PARSER = new com.google.protobuf.AbstractParser<ClaimDestinationCardsRequest>() {
+      @java.lang.Override
       public ClaimDestinationCardsRequest parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-          return new ClaimDestinationCardsRequest(input, extensionRegistry);
+        return new ClaimDestinationCardsRequest(input, extensionRegistry);
       }
     };
 
@@ -3602,6 +3836,7 @@ public final class Api {
       return PARSER;
     }
 
+    @java.lang.Override
     public com.wwttr.card.Api.ClaimDestinationCardsRequest getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
@@ -3619,6 +3854,7 @@ public final class Api {
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:card.ClaimDestinationCardsResponse)
       ClaimDestinationCardsResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use ClaimDestinationCardsResponse.newBuilder() to construct.
     private ClaimDestinationCardsResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
@@ -3629,13 +3865,18 @@ public final class Api {
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
-      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+      return this.unknownFields;
     }
     private ClaimDestinationCardsResponse(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -3645,7 +3886,8 @@ public final class Api {
               done = true;
               break;
             default: {
-              if (!input.skipField(tag)) {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
               break;
@@ -3658,6 +3900,7 @@ public final class Api {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
+        this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
@@ -3666,6 +3909,7 @@ public final class Api {
       return com.wwttr.card.Api.internal_static_card_ClaimDestinationCardsResponse_descriptor;
     }
 
+    @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.wwttr.card.Api.internal_static_card_ClaimDestinationCardsResponse_fieldAccessorTable
@@ -3674,6 +3918,7 @@ public final class Api {
     }
 
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -3683,20 +3928,23 @@ public final class Api {
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
+      unknownFields.writeTo(output);
     }
 
+    @java.lang.Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
+      size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
     }
 
-    private static final long serialVersionUID = 0L;
     @java.lang.Override
     public boolean equals(final java.lang.Object obj) {
       if (obj == this) {
@@ -3708,6 +3956,7 @@ public final class Api {
       com.wwttr.card.Api.ClaimDestinationCardsResponse other = (com.wwttr.card.Api.ClaimDestinationCardsResponse) obj;
 
       boolean result = true;
+      result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
 
@@ -3723,6 +3972,17 @@ public final class Api {
       return hash;
     }
 
+    public static com.wwttr.card.Api.ClaimDestinationCardsResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.wwttr.card.Api.ClaimDestinationCardsResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static com.wwttr.card.Api.ClaimDestinationCardsResponse parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -3782,6 +4042,7 @@ public final class Api {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
@@ -3789,6 +4050,7 @@ public final class Api {
     public static Builder newBuilder(com.wwttr.card.Api.ClaimDestinationCardsResponse prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
+    @java.lang.Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
@@ -3812,6 +4074,7 @@ public final class Api {
         return com.wwttr.card.Api.internal_static_card_ClaimDestinationCardsResponse_descriptor;
       }
 
+      @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.wwttr.card.Api.internal_static_card_ClaimDestinationCardsResponse_fieldAccessorTable
@@ -3834,20 +4097,24 @@ public final class Api {
                 .alwaysUseFieldBuilders) {
         }
       }
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         return this;
       }
 
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return com.wwttr.card.Api.internal_static_card_ClaimDestinationCardsResponse_descriptor;
       }
 
+      @java.lang.Override
       public com.wwttr.card.Api.ClaimDestinationCardsResponse getDefaultInstanceForType() {
         return com.wwttr.card.Api.ClaimDestinationCardsResponse.getDefaultInstance();
       }
 
+      @java.lang.Override
       public com.wwttr.card.Api.ClaimDestinationCardsResponse build() {
         com.wwttr.card.Api.ClaimDestinationCardsResponse result = buildPartial();
         if (!result.isInitialized()) {
@@ -3856,38 +4123,46 @@ public final class Api {
         return result;
       }
 
+      @java.lang.Override
       public com.wwttr.card.Api.ClaimDestinationCardsResponse buildPartial() {
         com.wwttr.card.Api.ClaimDestinationCardsResponse result = new com.wwttr.card.Api.ClaimDestinationCardsResponse(this);
         onBuilt();
         return result;
       }
 
+      @java.lang.Override
       public Builder clone() {
         return (Builder) super.clone();
       }
+      @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
+          java.lang.Object value) {
         return (Builder) super.setField(field, value);
       }
+      @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
+      @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
+      @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, Object value) {
+          int index, java.lang.Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
+      @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
+          java.lang.Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.wwttr.card.Api.ClaimDestinationCardsResponse) {
           return mergeFrom((com.wwttr.card.Api.ClaimDestinationCardsResponse)other);
@@ -3899,14 +4174,17 @@ public final class Api {
 
       public Builder mergeFrom(com.wwttr.card.Api.ClaimDestinationCardsResponse other) {
         if (other == com.wwttr.card.Api.ClaimDestinationCardsResponse.getDefaultInstance()) return this;
+        this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -3924,14 +4202,16 @@ public final class Api {
         }
         return this;
       }
+      @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
+        return super.setUnknownFieldsProto3(unknownFields);
       }
 
+      @java.lang.Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
+        return super.mergeUnknownFields(unknownFields);
       }
 
 
@@ -3950,11 +4230,12 @@ public final class Api {
 
     private static final com.google.protobuf.Parser<ClaimDestinationCardsResponse>
         PARSER = new com.google.protobuf.AbstractParser<ClaimDestinationCardsResponse>() {
+      @java.lang.Override
       public ClaimDestinationCardsResponse parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-          return new ClaimDestinationCardsResponse(input, extensionRegistry);
+        return new ClaimDestinationCardsResponse(input, extensionRegistry);
       }
     };
 
@@ -3967,6 +4248,7 @@ public final class Api {
       return PARSER;
     }
 
+    @java.lang.Override
     public com.wwttr.card.Api.ClaimDestinationCardsResponse getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
@@ -3994,6 +4276,7 @@ public final class Api {
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:card.StreamDestinationCardsRequest)
       StreamDestinationCardsRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use StreamDestinationCardsRequest.newBuilder() to construct.
     private StreamDestinationCardsRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
@@ -4005,14 +4288,19 @@ public final class Api {
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
-      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+      return this.unknownFields;
     }
     private StreamDestinationCardsRequest(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -4021,16 +4309,17 @@ public final class Api {
             case 0:
               done = true;
               break;
-            default: {
-              if (!input.skipField(tag)) {
-                done = true;
-              }
-              break;
-            }
             case 10: {
               java.lang.String s = input.readStringRequireUtf8();
 
               playerId_ = s;
+              break;
+            }
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
               break;
             }
           }
@@ -4041,6 +4330,7 @@ public final class Api {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
+        this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
@@ -4049,6 +4339,7 @@ public final class Api {
       return com.wwttr.card.Api.internal_static_card_StreamDestinationCardsRequest_descriptor;
     }
 
+    @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.wwttr.card.Api.internal_static_card_StreamDestinationCardsRequest_fieldAccessorTable
@@ -4091,6 +4382,7 @@ public final class Api {
     }
 
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -4100,13 +4392,16 @@ public final class Api {
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (!getPlayerIdBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, playerId_);
       }
+      unknownFields.writeTo(output);
     }
 
+    @java.lang.Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
@@ -4115,11 +4410,11 @@ public final class Api {
       if (!getPlayerIdBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, playerId_);
       }
+      size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
     }
 
-    private static final long serialVersionUID = 0L;
     @java.lang.Override
     public boolean equals(final java.lang.Object obj) {
       if (obj == this) {
@@ -4133,6 +4428,7 @@ public final class Api {
       boolean result = true;
       result = result && getPlayerId()
           .equals(other.getPlayerId());
+      result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
 
@@ -4150,6 +4446,17 @@ public final class Api {
       return hash;
     }
 
+    public static com.wwttr.card.Api.StreamDestinationCardsRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.wwttr.card.Api.StreamDestinationCardsRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static com.wwttr.card.Api.StreamDestinationCardsRequest parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -4209,6 +4516,7 @@ public final class Api {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
@@ -4216,6 +4524,7 @@ public final class Api {
     public static Builder newBuilder(com.wwttr.card.Api.StreamDestinationCardsRequest prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
+    @java.lang.Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
@@ -4239,6 +4548,7 @@ public final class Api {
         return com.wwttr.card.Api.internal_static_card_StreamDestinationCardsRequest_descriptor;
       }
 
+      @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.wwttr.card.Api.internal_static_card_StreamDestinationCardsRequest_fieldAccessorTable
@@ -4261,6 +4571,7 @@ public final class Api {
                 .alwaysUseFieldBuilders) {
         }
       }
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         playerId_ = "";
@@ -4268,15 +4579,18 @@ public final class Api {
         return this;
       }
 
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return com.wwttr.card.Api.internal_static_card_StreamDestinationCardsRequest_descriptor;
       }
 
+      @java.lang.Override
       public com.wwttr.card.Api.StreamDestinationCardsRequest getDefaultInstanceForType() {
         return com.wwttr.card.Api.StreamDestinationCardsRequest.getDefaultInstance();
       }
 
+      @java.lang.Override
       public com.wwttr.card.Api.StreamDestinationCardsRequest build() {
         com.wwttr.card.Api.StreamDestinationCardsRequest result = buildPartial();
         if (!result.isInitialized()) {
@@ -4285,6 +4599,7 @@ public final class Api {
         return result;
       }
 
+      @java.lang.Override
       public com.wwttr.card.Api.StreamDestinationCardsRequest buildPartial() {
         com.wwttr.card.Api.StreamDestinationCardsRequest result = new com.wwttr.card.Api.StreamDestinationCardsRequest(this);
         result.playerId_ = playerId_;
@@ -4292,32 +4607,39 @@ public final class Api {
         return result;
       }
 
+      @java.lang.Override
       public Builder clone() {
         return (Builder) super.clone();
       }
+      @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
+          java.lang.Object value) {
         return (Builder) super.setField(field, value);
       }
+      @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
+      @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
+      @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, Object value) {
+          int index, java.lang.Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
+      @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
+          java.lang.Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.wwttr.card.Api.StreamDestinationCardsRequest) {
           return mergeFrom((com.wwttr.card.Api.StreamDestinationCardsRequest)other);
@@ -4333,14 +4655,17 @@ public final class Api {
           playerId_ = other.playerId_;
           onChanged();
         }
+        this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -4427,14 +4752,16 @@ public final class Api {
         onChanged();
         return this;
       }
+      @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
+        return super.setUnknownFieldsProto3(unknownFields);
       }
 
+      @java.lang.Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
+        return super.mergeUnknownFields(unknownFields);
       }
 
 
@@ -4453,11 +4780,12 @@ public final class Api {
 
     private static final com.google.protobuf.Parser<StreamDestinationCardsRequest>
         PARSER = new com.google.protobuf.AbstractParser<StreamDestinationCardsRequest>() {
+      @java.lang.Override
       public StreamDestinationCardsRequest parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-          return new StreamDestinationCardsRequest(input, extensionRegistry);
+        return new StreamDestinationCardsRequest(input, extensionRegistry);
       }
     };
 
@@ -4470,6 +4798,7 @@ public final class Api {
       return PARSER;
     }
 
+    @java.lang.Override
     public com.wwttr.card.Api.StreamDestinationCardsRequest getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
@@ -4497,6 +4826,7 @@ public final class Api {
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:card.DeckStats)
       DeckStatsOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use DeckStats.newBuilder() to construct.
     private DeckStats(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
@@ -4509,14 +4839,19 @@ public final class Api {
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
-      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+      return this.unknownFields;
     }
     private DeckStats(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -4525,12 +4860,6 @@ public final class Api {
             case 0:
               done = true;
               break;
-            default: {
-              if (!input.skipField(tag)) {
-                done = true;
-              }
-              break;
-            }
             case 8: {
 
               hiddenTrainCardCount_ = input.readInt32();
@@ -4541,6 +4870,13 @@ public final class Api {
               hiddenDestinationCardCount_ = input.readInt32();
               break;
             }
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -4549,6 +4885,7 @@ public final class Api {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
+        this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
@@ -4557,6 +4894,7 @@ public final class Api {
       return com.wwttr.card.Api.internal_static_card_DeckStats_descriptor;
     }
 
+    @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.wwttr.card.Api.internal_static_card_DeckStats_fieldAccessorTable
@@ -4583,6 +4921,7 @@ public final class Api {
     }
 
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -4592,6 +4931,7 @@ public final class Api {
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (hiddenTrainCardCount_ != 0) {
@@ -4600,8 +4940,10 @@ public final class Api {
       if (hiddenDestinationCardCount_ != 0) {
         output.writeInt32(3, hiddenDestinationCardCount_);
       }
+      unknownFields.writeTo(output);
     }
 
+    @java.lang.Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
@@ -4615,11 +4957,11 @@ public final class Api {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(3, hiddenDestinationCardCount_);
       }
+      size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
     }
 
-    private static final long serialVersionUID = 0L;
     @java.lang.Override
     public boolean equals(final java.lang.Object obj) {
       if (obj == this) {
@@ -4635,6 +4977,7 @@ public final class Api {
           == other.getHiddenTrainCardCount());
       result = result && (getHiddenDestinationCardCount()
           == other.getHiddenDestinationCardCount());
+      result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
 
@@ -4654,6 +4997,17 @@ public final class Api {
       return hash;
     }
 
+    public static com.wwttr.card.Api.DeckStats parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.wwttr.card.Api.DeckStats parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static com.wwttr.card.Api.DeckStats parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -4713,6 +5067,7 @@ public final class Api {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
@@ -4720,6 +5075,7 @@ public final class Api {
     public static Builder newBuilder(com.wwttr.card.Api.DeckStats prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
+    @java.lang.Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
@@ -4743,6 +5099,7 @@ public final class Api {
         return com.wwttr.card.Api.internal_static_card_DeckStats_descriptor;
       }
 
+      @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.wwttr.card.Api.internal_static_card_DeckStats_fieldAccessorTable
@@ -4765,6 +5122,7 @@ public final class Api {
                 .alwaysUseFieldBuilders) {
         }
       }
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         hiddenTrainCardCount_ = 0;
@@ -4774,15 +5132,18 @@ public final class Api {
         return this;
       }
 
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return com.wwttr.card.Api.internal_static_card_DeckStats_descriptor;
       }
 
+      @java.lang.Override
       public com.wwttr.card.Api.DeckStats getDefaultInstanceForType() {
         return com.wwttr.card.Api.DeckStats.getDefaultInstance();
       }
 
+      @java.lang.Override
       public com.wwttr.card.Api.DeckStats build() {
         com.wwttr.card.Api.DeckStats result = buildPartial();
         if (!result.isInitialized()) {
@@ -4791,6 +5152,7 @@ public final class Api {
         return result;
       }
 
+      @java.lang.Override
       public com.wwttr.card.Api.DeckStats buildPartial() {
         com.wwttr.card.Api.DeckStats result = new com.wwttr.card.Api.DeckStats(this);
         result.hiddenTrainCardCount_ = hiddenTrainCardCount_;
@@ -4799,32 +5161,39 @@ public final class Api {
         return result;
       }
 
+      @java.lang.Override
       public Builder clone() {
         return (Builder) super.clone();
       }
+      @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
+          java.lang.Object value) {
         return (Builder) super.setField(field, value);
       }
+      @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
+      @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
+      @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, Object value) {
+          int index, java.lang.Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
+      @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
+          java.lang.Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.wwttr.card.Api.DeckStats) {
           return mergeFrom((com.wwttr.card.Api.DeckStats)other);
@@ -4842,14 +5211,17 @@ public final class Api {
         if (other.getHiddenDestinationCardCount() != 0) {
           setHiddenDestinationCardCount(other.getHiddenDestinationCardCount());
         }
+        this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -4919,14 +5291,16 @@ public final class Api {
         onChanged();
         return this;
       }
+      @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
+        return super.setUnknownFieldsProto3(unknownFields);
       }
 
+      @java.lang.Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
+        return super.mergeUnknownFields(unknownFields);
       }
 
 
@@ -4945,11 +5319,12 @@ public final class Api {
 
     private static final com.google.protobuf.Parser<DeckStats>
         PARSER = new com.google.protobuf.AbstractParser<DeckStats>() {
+      @java.lang.Override
       public DeckStats parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-          return new DeckStats(input, extensionRegistry);
+        return new DeckStats(input, extensionRegistry);
       }
     };
 
@@ -4962,6 +5337,7 @@ public final class Api {
       return PARSER;
     }
 
+    @java.lang.Override
     public com.wwttr.card.Api.DeckStats getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
@@ -4989,6 +5365,7 @@ public final class Api {
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:card.StreamDeckStatsRequest)
       StreamDeckStatsRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use StreamDeckStatsRequest.newBuilder() to construct.
     private StreamDeckStatsRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
@@ -5000,14 +5377,19 @@ public final class Api {
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
-      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+      return this.unknownFields;
     }
     private StreamDeckStatsRequest(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -5016,16 +5398,17 @@ public final class Api {
             case 0:
               done = true;
               break;
-            default: {
-              if (!input.skipField(tag)) {
-                done = true;
-              }
-              break;
-            }
             case 10: {
               java.lang.String s = input.readStringRequireUtf8();
 
               gameId_ = s;
+              break;
+            }
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
               break;
             }
           }
@@ -5036,6 +5419,7 @@ public final class Api {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
+        this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
@@ -5044,6 +5428,7 @@ public final class Api {
       return com.wwttr.card.Api.internal_static_card_StreamDeckStatsRequest_descriptor;
     }
 
+    @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.wwttr.card.Api.internal_static_card_StreamDeckStatsRequest_fieldAccessorTable
@@ -5086,6 +5471,7 @@ public final class Api {
     }
 
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -5095,13 +5481,16 @@ public final class Api {
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (!getGameIdBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, gameId_);
       }
+      unknownFields.writeTo(output);
     }
 
+    @java.lang.Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
@@ -5110,11 +5499,11 @@ public final class Api {
       if (!getGameIdBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, gameId_);
       }
+      size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
     }
 
-    private static final long serialVersionUID = 0L;
     @java.lang.Override
     public boolean equals(final java.lang.Object obj) {
       if (obj == this) {
@@ -5128,6 +5517,7 @@ public final class Api {
       boolean result = true;
       result = result && getGameId()
           .equals(other.getGameId());
+      result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
 
@@ -5145,6 +5535,17 @@ public final class Api {
       return hash;
     }
 
+    public static com.wwttr.card.Api.StreamDeckStatsRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.wwttr.card.Api.StreamDeckStatsRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static com.wwttr.card.Api.StreamDeckStatsRequest parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -5204,6 +5605,7 @@ public final class Api {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
@@ -5211,6 +5613,7 @@ public final class Api {
     public static Builder newBuilder(com.wwttr.card.Api.StreamDeckStatsRequest prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
+    @java.lang.Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
@@ -5234,6 +5637,7 @@ public final class Api {
         return com.wwttr.card.Api.internal_static_card_StreamDeckStatsRequest_descriptor;
       }
 
+      @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.wwttr.card.Api.internal_static_card_StreamDeckStatsRequest_fieldAccessorTable
@@ -5256,6 +5660,7 @@ public final class Api {
                 .alwaysUseFieldBuilders) {
         }
       }
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         gameId_ = "";
@@ -5263,15 +5668,18 @@ public final class Api {
         return this;
       }
 
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return com.wwttr.card.Api.internal_static_card_StreamDeckStatsRequest_descriptor;
       }
 
+      @java.lang.Override
       public com.wwttr.card.Api.StreamDeckStatsRequest getDefaultInstanceForType() {
         return com.wwttr.card.Api.StreamDeckStatsRequest.getDefaultInstance();
       }
 
+      @java.lang.Override
       public com.wwttr.card.Api.StreamDeckStatsRequest build() {
         com.wwttr.card.Api.StreamDeckStatsRequest result = buildPartial();
         if (!result.isInitialized()) {
@@ -5280,6 +5688,7 @@ public final class Api {
         return result;
       }
 
+      @java.lang.Override
       public com.wwttr.card.Api.StreamDeckStatsRequest buildPartial() {
         com.wwttr.card.Api.StreamDeckStatsRequest result = new com.wwttr.card.Api.StreamDeckStatsRequest(this);
         result.gameId_ = gameId_;
@@ -5287,32 +5696,39 @@ public final class Api {
         return result;
       }
 
+      @java.lang.Override
       public Builder clone() {
         return (Builder) super.clone();
       }
+      @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
+          java.lang.Object value) {
         return (Builder) super.setField(field, value);
       }
+      @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
+      @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
+      @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, Object value) {
+          int index, java.lang.Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
+      @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
+          java.lang.Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.wwttr.card.Api.StreamDeckStatsRequest) {
           return mergeFrom((com.wwttr.card.Api.StreamDeckStatsRequest)other);
@@ -5328,14 +5744,17 @@ public final class Api {
           gameId_ = other.gameId_;
           onChanged();
         }
+        this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -5422,14 +5841,16 @@ public final class Api {
         onChanged();
         return this;
       }
+      @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
+        return super.setUnknownFieldsProto3(unknownFields);
       }
 
+      @java.lang.Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
+        return super.mergeUnknownFields(unknownFields);
       }
 
 
@@ -5448,11 +5869,12 @@ public final class Api {
 
     private static final com.google.protobuf.Parser<StreamDeckStatsRequest>
         PARSER = new com.google.protobuf.AbstractParser<StreamDeckStatsRequest>() {
+      @java.lang.Override
       public StreamDeckStatsRequest parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-          return new StreamDeckStatsRequest(input, extensionRegistry);
+        return new StreamDeckStatsRequest(input, extensionRegistry);
       }
     };
 
@@ -5465,6 +5887,7 @@ public final class Api {
       return PARSER;
     }
 
+    @java.lang.Override
     public com.wwttr.card.Api.StreamDeckStatsRequest getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
@@ -5482,6 +5905,7 @@ public final class Api {
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:card.ClaimTrainCardRequest)
       ClaimTrainCardRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use ClaimTrainCardRequest.newBuilder() to construct.
     private ClaimTrainCardRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
@@ -5492,13 +5916,18 @@ public final class Api {
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
-      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+      return this.unknownFields;
     }
     private ClaimTrainCardRequest(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -5508,7 +5937,8 @@ public final class Api {
               done = true;
               break;
             default: {
-              if (!input.skipField(tag)) {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
               break;
@@ -5521,6 +5951,7 @@ public final class Api {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
+        this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
@@ -5529,6 +5960,7 @@ public final class Api {
       return com.wwttr.card.Api.internal_static_card_ClaimTrainCardRequest_descriptor;
     }
 
+    @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.wwttr.card.Api.internal_static_card_ClaimTrainCardRequest_fieldAccessorTable
@@ -5537,6 +5969,7 @@ public final class Api {
     }
 
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -5546,20 +5979,23 @@ public final class Api {
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
+      unknownFields.writeTo(output);
     }
 
+    @java.lang.Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
+      size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
     }
 
-    private static final long serialVersionUID = 0L;
     @java.lang.Override
     public boolean equals(final java.lang.Object obj) {
       if (obj == this) {
@@ -5571,6 +6007,7 @@ public final class Api {
       com.wwttr.card.Api.ClaimTrainCardRequest other = (com.wwttr.card.Api.ClaimTrainCardRequest) obj;
 
       boolean result = true;
+      result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
 
@@ -5586,6 +6023,17 @@ public final class Api {
       return hash;
     }
 
+    public static com.wwttr.card.Api.ClaimTrainCardRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.wwttr.card.Api.ClaimTrainCardRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static com.wwttr.card.Api.ClaimTrainCardRequest parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -5645,6 +6093,7 @@ public final class Api {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
@@ -5652,6 +6101,7 @@ public final class Api {
     public static Builder newBuilder(com.wwttr.card.Api.ClaimTrainCardRequest prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
+    @java.lang.Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
@@ -5675,6 +6125,7 @@ public final class Api {
         return com.wwttr.card.Api.internal_static_card_ClaimTrainCardRequest_descriptor;
       }
 
+      @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.wwttr.card.Api.internal_static_card_ClaimTrainCardRequest_fieldAccessorTable
@@ -5697,20 +6148,24 @@ public final class Api {
                 .alwaysUseFieldBuilders) {
         }
       }
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         return this;
       }
 
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return com.wwttr.card.Api.internal_static_card_ClaimTrainCardRequest_descriptor;
       }
 
+      @java.lang.Override
       public com.wwttr.card.Api.ClaimTrainCardRequest getDefaultInstanceForType() {
         return com.wwttr.card.Api.ClaimTrainCardRequest.getDefaultInstance();
       }
 
+      @java.lang.Override
       public com.wwttr.card.Api.ClaimTrainCardRequest build() {
         com.wwttr.card.Api.ClaimTrainCardRequest result = buildPartial();
         if (!result.isInitialized()) {
@@ -5719,38 +6174,46 @@ public final class Api {
         return result;
       }
 
+      @java.lang.Override
       public com.wwttr.card.Api.ClaimTrainCardRequest buildPartial() {
         com.wwttr.card.Api.ClaimTrainCardRequest result = new com.wwttr.card.Api.ClaimTrainCardRequest(this);
         onBuilt();
         return result;
       }
 
+      @java.lang.Override
       public Builder clone() {
         return (Builder) super.clone();
       }
+      @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
+          java.lang.Object value) {
         return (Builder) super.setField(field, value);
       }
+      @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
+      @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
+      @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, Object value) {
+          int index, java.lang.Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
+      @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
+          java.lang.Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.wwttr.card.Api.ClaimTrainCardRequest) {
           return mergeFrom((com.wwttr.card.Api.ClaimTrainCardRequest)other);
@@ -5762,14 +6225,17 @@ public final class Api {
 
       public Builder mergeFrom(com.wwttr.card.Api.ClaimTrainCardRequest other) {
         if (other == com.wwttr.card.Api.ClaimTrainCardRequest.getDefaultInstance()) return this;
+        this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -5787,14 +6253,16 @@ public final class Api {
         }
         return this;
       }
+      @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
+        return super.setUnknownFieldsProto3(unknownFields);
       }
 
+      @java.lang.Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
+        return super.mergeUnknownFields(unknownFields);
       }
 
 
@@ -5813,11 +6281,12 @@ public final class Api {
 
     private static final com.google.protobuf.Parser<ClaimTrainCardRequest>
         PARSER = new com.google.protobuf.AbstractParser<ClaimTrainCardRequest>() {
+      @java.lang.Override
       public ClaimTrainCardRequest parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-          return new ClaimTrainCardRequest(input, extensionRegistry);
+        return new ClaimTrainCardRequest(input, extensionRegistry);
       }
     };
 
@@ -5830,6 +6299,7 @@ public final class Api {
       return PARSER;
     }
 
+    @java.lang.Override
     public com.wwttr.card.Api.ClaimTrainCardRequest getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
@@ -5847,6 +6317,7 @@ public final class Api {
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:card.ClaimTrainCardResponse)
       ClaimTrainCardResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use ClaimTrainCardResponse.newBuilder() to construct.
     private ClaimTrainCardResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
@@ -5857,13 +6328,18 @@ public final class Api {
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
-      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+      return this.unknownFields;
     }
     private ClaimTrainCardResponse(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -5873,7 +6349,8 @@ public final class Api {
               done = true;
               break;
             default: {
-              if (!input.skipField(tag)) {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
               break;
@@ -5886,6 +6363,7 @@ public final class Api {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
+        this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
@@ -5894,6 +6372,7 @@ public final class Api {
       return com.wwttr.card.Api.internal_static_card_ClaimTrainCardResponse_descriptor;
     }
 
+    @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.wwttr.card.Api.internal_static_card_ClaimTrainCardResponse_fieldAccessorTable
@@ -5902,6 +6381,7 @@ public final class Api {
     }
 
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -5911,20 +6391,23 @@ public final class Api {
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
+      unknownFields.writeTo(output);
     }
 
+    @java.lang.Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
+      size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
     }
 
-    private static final long serialVersionUID = 0L;
     @java.lang.Override
     public boolean equals(final java.lang.Object obj) {
       if (obj == this) {
@@ -5936,6 +6419,7 @@ public final class Api {
       com.wwttr.card.Api.ClaimTrainCardResponse other = (com.wwttr.card.Api.ClaimTrainCardResponse) obj;
 
       boolean result = true;
+      result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
 
@@ -5951,6 +6435,17 @@ public final class Api {
       return hash;
     }
 
+    public static com.wwttr.card.Api.ClaimTrainCardResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.wwttr.card.Api.ClaimTrainCardResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static com.wwttr.card.Api.ClaimTrainCardResponse parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -6010,6 +6505,7 @@ public final class Api {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
@@ -6017,6 +6513,7 @@ public final class Api {
     public static Builder newBuilder(com.wwttr.card.Api.ClaimTrainCardResponse prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
+    @java.lang.Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
@@ -6040,6 +6537,7 @@ public final class Api {
         return com.wwttr.card.Api.internal_static_card_ClaimTrainCardResponse_descriptor;
       }
 
+      @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.wwttr.card.Api.internal_static_card_ClaimTrainCardResponse_fieldAccessorTable
@@ -6062,20 +6560,24 @@ public final class Api {
                 .alwaysUseFieldBuilders) {
         }
       }
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         return this;
       }
 
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return com.wwttr.card.Api.internal_static_card_ClaimTrainCardResponse_descriptor;
       }
 
+      @java.lang.Override
       public com.wwttr.card.Api.ClaimTrainCardResponse getDefaultInstanceForType() {
         return com.wwttr.card.Api.ClaimTrainCardResponse.getDefaultInstance();
       }
 
+      @java.lang.Override
       public com.wwttr.card.Api.ClaimTrainCardResponse build() {
         com.wwttr.card.Api.ClaimTrainCardResponse result = buildPartial();
         if (!result.isInitialized()) {
@@ -6084,38 +6586,46 @@ public final class Api {
         return result;
       }
 
+      @java.lang.Override
       public com.wwttr.card.Api.ClaimTrainCardResponse buildPartial() {
         com.wwttr.card.Api.ClaimTrainCardResponse result = new com.wwttr.card.Api.ClaimTrainCardResponse(this);
         onBuilt();
         return result;
       }
 
+      @java.lang.Override
       public Builder clone() {
         return (Builder) super.clone();
       }
+      @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
+          java.lang.Object value) {
         return (Builder) super.setField(field, value);
       }
+      @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
+      @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
+      @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, Object value) {
+          int index, java.lang.Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
+      @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
+          java.lang.Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.wwttr.card.Api.ClaimTrainCardResponse) {
           return mergeFrom((com.wwttr.card.Api.ClaimTrainCardResponse)other);
@@ -6127,14 +6637,17 @@ public final class Api {
 
       public Builder mergeFrom(com.wwttr.card.Api.ClaimTrainCardResponse other) {
         if (other == com.wwttr.card.Api.ClaimTrainCardResponse.getDefaultInstance()) return this;
+        this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -6152,14 +6665,16 @@ public final class Api {
         }
         return this;
       }
+      @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
+        return super.setUnknownFieldsProto3(unknownFields);
       }
 
+      @java.lang.Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
+        return super.mergeUnknownFields(unknownFields);
       }
 
 
@@ -6178,11 +6693,12 @@ public final class Api {
 
     private static final com.google.protobuf.Parser<ClaimTrainCardResponse>
         PARSER = new com.google.protobuf.AbstractParser<ClaimTrainCardResponse>() {
+      @java.lang.Override
       public ClaimTrainCardResponse parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-          return new ClaimTrainCardResponse(input, extensionRegistry);
+        return new ClaimTrainCardResponse(input, extensionRegistry);
       }
     };
 
@@ -6195,6 +6711,7 @@ public final class Api {
       return PARSER;
     }
 
+    @java.lang.Override
     public com.wwttr.card.Api.ClaimTrainCardResponse getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
@@ -6222,6 +6739,7 @@ public final class Api {
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:card.StreamTrainCardsRequest)
       StreamTrainCardsRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use StreamTrainCardsRequest.newBuilder() to construct.
     private StreamTrainCardsRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
@@ -6233,14 +6751,19 @@ public final class Api {
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
-      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+      return this.unknownFields;
     }
     private StreamTrainCardsRequest(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -6249,16 +6772,17 @@ public final class Api {
             case 0:
               done = true;
               break;
-            default: {
-              if (!input.skipField(tag)) {
-                done = true;
-              }
-              break;
-            }
             case 10: {
               java.lang.String s = input.readStringRequireUtf8();
 
               playerId_ = s;
+              break;
+            }
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
               break;
             }
           }
@@ -6269,6 +6793,7 @@ public final class Api {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
+        this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
@@ -6277,6 +6802,7 @@ public final class Api {
       return com.wwttr.card.Api.internal_static_card_StreamTrainCardsRequest_descriptor;
     }
 
+    @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.wwttr.card.Api.internal_static_card_StreamTrainCardsRequest_fieldAccessorTable
@@ -6319,6 +6845,7 @@ public final class Api {
     }
 
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -6328,13 +6855,16 @@ public final class Api {
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (!getPlayerIdBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, playerId_);
       }
+      unknownFields.writeTo(output);
     }
 
+    @java.lang.Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
@@ -6343,11 +6873,11 @@ public final class Api {
       if (!getPlayerIdBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, playerId_);
       }
+      size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
     }
 
-    private static final long serialVersionUID = 0L;
     @java.lang.Override
     public boolean equals(final java.lang.Object obj) {
       if (obj == this) {
@@ -6361,6 +6891,7 @@ public final class Api {
       boolean result = true;
       result = result && getPlayerId()
           .equals(other.getPlayerId());
+      result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
 
@@ -6378,6 +6909,17 @@ public final class Api {
       return hash;
     }
 
+    public static com.wwttr.card.Api.StreamTrainCardsRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.wwttr.card.Api.StreamTrainCardsRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static com.wwttr.card.Api.StreamTrainCardsRequest parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -6437,6 +6979,7 @@ public final class Api {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
@@ -6444,6 +6987,7 @@ public final class Api {
     public static Builder newBuilder(com.wwttr.card.Api.StreamTrainCardsRequest prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
+    @java.lang.Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
@@ -6467,6 +7011,7 @@ public final class Api {
         return com.wwttr.card.Api.internal_static_card_StreamTrainCardsRequest_descriptor;
       }
 
+      @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.wwttr.card.Api.internal_static_card_StreamTrainCardsRequest_fieldAccessorTable
@@ -6489,6 +7034,7 @@ public final class Api {
                 .alwaysUseFieldBuilders) {
         }
       }
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         playerId_ = "";
@@ -6496,15 +7042,18 @@ public final class Api {
         return this;
       }
 
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return com.wwttr.card.Api.internal_static_card_StreamTrainCardsRequest_descriptor;
       }
 
+      @java.lang.Override
       public com.wwttr.card.Api.StreamTrainCardsRequest getDefaultInstanceForType() {
         return com.wwttr.card.Api.StreamTrainCardsRequest.getDefaultInstance();
       }
 
+      @java.lang.Override
       public com.wwttr.card.Api.StreamTrainCardsRequest build() {
         com.wwttr.card.Api.StreamTrainCardsRequest result = buildPartial();
         if (!result.isInitialized()) {
@@ -6513,6 +7062,7 @@ public final class Api {
         return result;
       }
 
+      @java.lang.Override
       public com.wwttr.card.Api.StreamTrainCardsRequest buildPartial() {
         com.wwttr.card.Api.StreamTrainCardsRequest result = new com.wwttr.card.Api.StreamTrainCardsRequest(this);
         result.playerId_ = playerId_;
@@ -6520,32 +7070,39 @@ public final class Api {
         return result;
       }
 
+      @java.lang.Override
       public Builder clone() {
         return (Builder) super.clone();
       }
+      @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
+          java.lang.Object value) {
         return (Builder) super.setField(field, value);
       }
+      @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
+      @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
+      @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, Object value) {
+          int index, java.lang.Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
+      @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
+          java.lang.Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.wwttr.card.Api.StreamTrainCardsRequest) {
           return mergeFrom((com.wwttr.card.Api.StreamTrainCardsRequest)other);
@@ -6561,14 +7118,17 @@ public final class Api {
           playerId_ = other.playerId_;
           onChanged();
         }
+        this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -6655,14 +7215,16 @@ public final class Api {
         onChanged();
         return this;
       }
+      @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
+        return super.setUnknownFieldsProto3(unknownFields);
       }
 
+      @java.lang.Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
+        return super.mergeUnknownFields(unknownFields);
       }
 
 
@@ -6681,11 +7243,12 @@ public final class Api {
 
     private static final com.google.protobuf.Parser<StreamTrainCardsRequest>
         PARSER = new com.google.protobuf.AbstractParser<StreamTrainCardsRequest>() {
+      @java.lang.Override
       public StreamTrainCardsRequest parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-          return new StreamTrainCardsRequest(input, extensionRegistry);
+        return new StreamTrainCardsRequest(input, extensionRegistry);
       }
     };
 
@@ -6698,6 +7261,7 @@ public final class Api {
       return PARSER;
     }
 
+    @java.lang.Override
     public com.wwttr.card.Api.StreamTrainCardsRequest getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
@@ -6757,6 +7321,7 @@ public final class Api {
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:card.TrainCard)
       TrainCardOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use TrainCard.newBuilder() to construct.
     private TrainCard(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
@@ -6771,14 +7336,19 @@ public final class Api {
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
-      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+      return this.unknownFields;
     }
     private TrainCard(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -6787,12 +7357,6 @@ public final class Api {
             case 0:
               done = true;
               break;
-            default: {
-              if (!input.skipField(tag)) {
-                done = true;
-              }
-              break;
-            }
             case 10: {
               java.lang.String s = input.readStringRequireUtf8();
 
@@ -6817,6 +7381,13 @@ public final class Api {
               state_ = rawValue;
               break;
             }
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -6825,6 +7396,7 @@ public final class Api {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
+        this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
@@ -6833,6 +7405,7 @@ public final class Api {
       return com.wwttr.card.Api.internal_static_card_TrainCard_descriptor;
     }
 
+    @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.wwttr.card.Api.internal_static_card_TrainCard_fieldAccessorTable
@@ -7036,6 +7609,7 @@ public final class Api {
      * <code>.card.TrainColor color = 3;</code>
      */
     public com.wwttr.card.Api.TrainColor getColor() {
+      @SuppressWarnings("deprecation")
       com.wwttr.card.Api.TrainColor result = com.wwttr.card.Api.TrainColor.valueOf(color_);
       return result == null ? com.wwttr.card.Api.TrainColor.UNRECOGNIZED : result;
     }
@@ -7052,11 +7626,13 @@ public final class Api {
      * <code>.card.TrainCard.State state = 4;</code>
      */
     public com.wwttr.card.Api.TrainCard.State getState() {
+      @SuppressWarnings("deprecation")
       com.wwttr.card.Api.TrainCard.State result = com.wwttr.card.Api.TrainCard.State.valueOf(state_);
       return result == null ? com.wwttr.card.Api.TrainCard.State.UNRECOGNIZED : result;
     }
 
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -7066,6 +7642,7 @@ public final class Api {
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (!getIdBytes().isEmpty()) {
@@ -7080,8 +7657,10 @@ public final class Api {
       if (state_ != com.wwttr.card.Api.TrainCard.State.UNSPECIFIED.getNumber()) {
         output.writeEnum(4, state_);
       }
+      unknownFields.writeTo(output);
     }
 
+    @java.lang.Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
@@ -7101,11 +7680,11 @@ public final class Api {
         size += com.google.protobuf.CodedOutputStream
           .computeEnumSize(4, state_);
       }
+      size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
     }
 
-    private static final long serialVersionUID = 0L;
     @java.lang.Override
     public boolean equals(final java.lang.Object obj) {
       if (obj == this) {
@@ -7123,6 +7702,7 @@ public final class Api {
           .equals(other.getPlayerId());
       result = result && color_ == other.color_;
       result = result && state_ == other.state_;
+      result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
 
@@ -7146,6 +7726,17 @@ public final class Api {
       return hash;
     }
 
+    public static com.wwttr.card.Api.TrainCard parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.wwttr.card.Api.TrainCard parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static com.wwttr.card.Api.TrainCard parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -7205,6 +7796,7 @@ public final class Api {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
@@ -7212,6 +7804,7 @@ public final class Api {
     public static Builder newBuilder(com.wwttr.card.Api.TrainCard prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
+    @java.lang.Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
@@ -7239,6 +7832,7 @@ public final class Api {
         return com.wwttr.card.Api.internal_static_card_TrainCard_descriptor;
       }
 
+      @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.wwttr.card.Api.internal_static_card_TrainCard_fieldAccessorTable
@@ -7261,6 +7855,7 @@ public final class Api {
                 .alwaysUseFieldBuilders) {
         }
       }
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         id_ = "";
@@ -7274,15 +7869,18 @@ public final class Api {
         return this;
       }
 
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return com.wwttr.card.Api.internal_static_card_TrainCard_descriptor;
       }
 
+      @java.lang.Override
       public com.wwttr.card.Api.TrainCard getDefaultInstanceForType() {
         return com.wwttr.card.Api.TrainCard.getDefaultInstance();
       }
 
+      @java.lang.Override
       public com.wwttr.card.Api.TrainCard build() {
         com.wwttr.card.Api.TrainCard result = buildPartial();
         if (!result.isInitialized()) {
@@ -7291,6 +7889,7 @@ public final class Api {
         return result;
       }
 
+      @java.lang.Override
       public com.wwttr.card.Api.TrainCard buildPartial() {
         com.wwttr.card.Api.TrainCard result = new com.wwttr.card.Api.TrainCard(this);
         result.id_ = id_;
@@ -7301,32 +7900,39 @@ public final class Api {
         return result;
       }
 
+      @java.lang.Override
       public Builder clone() {
         return (Builder) super.clone();
       }
+      @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
+          java.lang.Object value) {
         return (Builder) super.setField(field, value);
       }
+      @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
+      @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
+      @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, Object value) {
+          int index, java.lang.Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
+      @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
+          java.lang.Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.wwttr.card.Api.TrainCard) {
           return mergeFrom((com.wwttr.card.Api.TrainCard)other);
@@ -7352,14 +7958,17 @@ public final class Api {
         if (other.state_ != 0) {
           setStateValue(other.getStateValue());
         }
+        this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -7535,6 +8144,7 @@ public final class Api {
        * <code>.card.TrainColor color = 3;</code>
        */
       public com.wwttr.card.Api.TrainColor getColor() {
+        @SuppressWarnings("deprecation")
         com.wwttr.card.Api.TrainColor result = com.wwttr.card.Api.TrainColor.valueOf(color_);
         return result == null ? com.wwttr.card.Api.TrainColor.UNRECOGNIZED : result;
       }
@@ -7579,6 +8189,7 @@ public final class Api {
        * <code>.card.TrainCard.State state = 4;</code>
        */
       public com.wwttr.card.Api.TrainCard.State getState() {
+        @SuppressWarnings("deprecation")
         com.wwttr.card.Api.TrainCard.State result = com.wwttr.card.Api.TrainCard.State.valueOf(state_);
         return result == null ? com.wwttr.card.Api.TrainCard.State.UNRECOGNIZED : result;
       }
@@ -7603,14 +8214,16 @@ public final class Api {
         onChanged();
         return this;
       }
+      @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
+        return super.setUnknownFieldsProto3(unknownFields);
       }
 
+      @java.lang.Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
+        return super.mergeUnknownFields(unknownFields);
       }
 
 
@@ -7629,11 +8242,12 @@ public final class Api {
 
     private static final com.google.protobuf.Parser<TrainCard>
         PARSER = new com.google.protobuf.AbstractParser<TrainCard>() {
+      @java.lang.Override
       public TrainCard parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-          return new TrainCard(input, extensionRegistry);
+        return new TrainCard(input, extensionRegistry);
       }
     };
 
@@ -7646,6 +8260,7 @@ public final class Api {
       return PARSER;
     }
 
+    @java.lang.Override
     public com.wwttr.card.Api.TrainCard getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
@@ -7679,6 +8294,7 @@ public final class Api {
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:card.DrawTrainCardFromDeckRequest)
       DrawTrainCardFromDeckRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use DrawTrainCardFromDeckRequest.newBuilder() to construct.
     private DrawTrainCardFromDeckRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
@@ -7690,14 +8306,19 @@ public final class Api {
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
-      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+      return this.unknownFields;
     }
     private DrawTrainCardFromDeckRequest(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -7706,16 +8327,17 @@ public final class Api {
             case 0:
               done = true;
               break;
-            default: {
-              if (!input.skipField(tag)) {
-                done = true;
-              }
-              break;
-            }
             case 10: {
               java.lang.String s = input.readStringRequireUtf8();
 
               id_ = s;
+              break;
+            }
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
               break;
             }
           }
@@ -7726,6 +8348,7 @@ public final class Api {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
+        this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
@@ -7734,6 +8357,7 @@ public final class Api {
       return com.wwttr.card.Api.internal_static_card_DrawTrainCardFromDeckRequest_descriptor;
     }
 
+    @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.wwttr.card.Api.internal_static_card_DrawTrainCardFromDeckRequest_fieldAccessorTable
@@ -7776,6 +8400,7 @@ public final class Api {
     }
 
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -7785,13 +8410,16 @@ public final class Api {
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (!getIdBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, id_);
       }
+      unknownFields.writeTo(output);
     }
 
+    @java.lang.Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
@@ -7800,11 +8428,11 @@ public final class Api {
       if (!getIdBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, id_);
       }
+      size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
     }
 
-    private static final long serialVersionUID = 0L;
     @java.lang.Override
     public boolean equals(final java.lang.Object obj) {
       if (obj == this) {
@@ -7818,6 +8446,7 @@ public final class Api {
       boolean result = true;
       result = result && getId()
           .equals(other.getId());
+      result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
 
@@ -7835,6 +8464,17 @@ public final class Api {
       return hash;
     }
 
+    public static com.wwttr.card.Api.DrawTrainCardFromDeckRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.wwttr.card.Api.DrawTrainCardFromDeckRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static com.wwttr.card.Api.DrawTrainCardFromDeckRequest parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -7894,6 +8534,7 @@ public final class Api {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
@@ -7901,6 +8542,7 @@ public final class Api {
     public static Builder newBuilder(com.wwttr.card.Api.DrawTrainCardFromDeckRequest prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
+    @java.lang.Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
@@ -7930,6 +8572,7 @@ public final class Api {
         return com.wwttr.card.Api.internal_static_card_DrawTrainCardFromDeckRequest_descriptor;
       }
 
+      @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.wwttr.card.Api.internal_static_card_DrawTrainCardFromDeckRequest_fieldAccessorTable
@@ -7952,6 +8595,7 @@ public final class Api {
                 .alwaysUseFieldBuilders) {
         }
       }
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         id_ = "";
@@ -7959,15 +8603,18 @@ public final class Api {
         return this;
       }
 
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return com.wwttr.card.Api.internal_static_card_DrawTrainCardFromDeckRequest_descriptor;
       }
 
+      @java.lang.Override
       public com.wwttr.card.Api.DrawTrainCardFromDeckRequest getDefaultInstanceForType() {
         return com.wwttr.card.Api.DrawTrainCardFromDeckRequest.getDefaultInstance();
       }
 
+      @java.lang.Override
       public com.wwttr.card.Api.DrawTrainCardFromDeckRequest build() {
         com.wwttr.card.Api.DrawTrainCardFromDeckRequest result = buildPartial();
         if (!result.isInitialized()) {
@@ -7976,6 +8623,7 @@ public final class Api {
         return result;
       }
 
+      @java.lang.Override
       public com.wwttr.card.Api.DrawTrainCardFromDeckRequest buildPartial() {
         com.wwttr.card.Api.DrawTrainCardFromDeckRequest result = new com.wwttr.card.Api.DrawTrainCardFromDeckRequest(this);
         result.id_ = id_;
@@ -7983,32 +8631,39 @@ public final class Api {
         return result;
       }
 
+      @java.lang.Override
       public Builder clone() {
         return (Builder) super.clone();
       }
+      @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
+          java.lang.Object value) {
         return (Builder) super.setField(field, value);
       }
+      @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
+      @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
+      @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, Object value) {
+          int index, java.lang.Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
+      @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
+          java.lang.Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.wwttr.card.Api.DrawTrainCardFromDeckRequest) {
           return mergeFrom((com.wwttr.card.Api.DrawTrainCardFromDeckRequest)other);
@@ -8024,14 +8679,17 @@ public final class Api {
           id_ = other.id_;
           onChanged();
         }
+        this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -8118,14 +8776,16 @@ public final class Api {
         onChanged();
         return this;
       }
+      @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
+        return super.setUnknownFieldsProto3(unknownFields);
       }
 
+      @java.lang.Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
+        return super.mergeUnknownFields(unknownFields);
       }
 
 
@@ -8144,11 +8804,12 @@ public final class Api {
 
     private static final com.google.protobuf.Parser<DrawTrainCardFromDeckRequest>
         PARSER = new com.google.protobuf.AbstractParser<DrawTrainCardFromDeckRequest>() {
+      @java.lang.Override
       public DrawTrainCardFromDeckRequest parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-          return new DrawTrainCardFromDeckRequest(input, extensionRegistry);
+        return new DrawTrainCardFromDeckRequest(input, extensionRegistry);
       }
     };
 
@@ -8161,6 +8822,7 @@ public final class Api {
       return PARSER;
     }
 
+    @java.lang.Override
     public com.wwttr.card.Api.DrawTrainCardFromDeckRequest getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
@@ -8198,6 +8860,7 @@ public final class Api {
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:card.DrawFaceUpTrainCardRequest)
       DrawFaceUpTrainCardRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use DrawFaceUpTrainCardRequest.newBuilder() to construct.
     private DrawFaceUpTrainCardRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
@@ -8210,14 +8873,19 @@ public final class Api {
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
-      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+      return this.unknownFields;
     }
     private DrawFaceUpTrainCardRequest(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -8226,12 +8894,6 @@ public final class Api {
             case 0:
               done = true;
               break;
-            default: {
-              if (!input.skipField(tag)) {
-                done = true;
-              }
-              break;
-            }
             case 10: {
               java.lang.String s = input.readStringRequireUtf8();
 
@@ -8244,6 +8906,13 @@ public final class Api {
               cardDrawnId_ = s;
               break;
             }
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -8252,6 +8921,7 @@ public final class Api {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
+        this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
@@ -8260,6 +8930,7 @@ public final class Api {
       return com.wwttr.card.Api.internal_static_card_DrawFaceUpTrainCardRequest_descriptor;
     }
 
+    @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.wwttr.card.Api.internal_static_card_DrawFaceUpTrainCardRequest_fieldAccessorTable
@@ -8336,6 +9007,7 @@ public final class Api {
     }
 
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -8345,6 +9017,7 @@ public final class Api {
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (!getIdBytes().isEmpty()) {
@@ -8353,8 +9026,10 @@ public final class Api {
       if (!getCardDrawnIdBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 2, cardDrawnId_);
       }
+      unknownFields.writeTo(output);
     }
 
+    @java.lang.Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
@@ -8366,11 +9041,11 @@ public final class Api {
       if (!getCardDrawnIdBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, cardDrawnId_);
       }
+      size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
     }
 
-    private static final long serialVersionUID = 0L;
     @java.lang.Override
     public boolean equals(final java.lang.Object obj) {
       if (obj == this) {
@@ -8386,6 +9061,7 @@ public final class Api {
           .equals(other.getId());
       result = result && getCardDrawnId()
           .equals(other.getCardDrawnId());
+      result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
 
@@ -8405,6 +9081,17 @@ public final class Api {
       return hash;
     }
 
+    public static com.wwttr.card.Api.DrawFaceUpTrainCardRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.wwttr.card.Api.DrawFaceUpTrainCardRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static com.wwttr.card.Api.DrawFaceUpTrainCardRequest parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -8464,6 +9151,7 @@ public final class Api {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
@@ -8471,6 +9159,7 @@ public final class Api {
     public static Builder newBuilder(com.wwttr.card.Api.DrawFaceUpTrainCardRequest prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
+    @java.lang.Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
@@ -8494,6 +9183,7 @@ public final class Api {
         return com.wwttr.card.Api.internal_static_card_DrawFaceUpTrainCardRequest_descriptor;
       }
 
+      @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.wwttr.card.Api.internal_static_card_DrawFaceUpTrainCardRequest_fieldAccessorTable
@@ -8516,6 +9206,7 @@ public final class Api {
                 .alwaysUseFieldBuilders) {
         }
       }
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         id_ = "";
@@ -8525,15 +9216,18 @@ public final class Api {
         return this;
       }
 
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return com.wwttr.card.Api.internal_static_card_DrawFaceUpTrainCardRequest_descriptor;
       }
 
+      @java.lang.Override
       public com.wwttr.card.Api.DrawFaceUpTrainCardRequest getDefaultInstanceForType() {
         return com.wwttr.card.Api.DrawFaceUpTrainCardRequest.getDefaultInstance();
       }
 
+      @java.lang.Override
       public com.wwttr.card.Api.DrawFaceUpTrainCardRequest build() {
         com.wwttr.card.Api.DrawFaceUpTrainCardRequest result = buildPartial();
         if (!result.isInitialized()) {
@@ -8542,6 +9236,7 @@ public final class Api {
         return result;
       }
 
+      @java.lang.Override
       public com.wwttr.card.Api.DrawFaceUpTrainCardRequest buildPartial() {
         com.wwttr.card.Api.DrawFaceUpTrainCardRequest result = new com.wwttr.card.Api.DrawFaceUpTrainCardRequest(this);
         result.id_ = id_;
@@ -8550,32 +9245,39 @@ public final class Api {
         return result;
       }
 
+      @java.lang.Override
       public Builder clone() {
         return (Builder) super.clone();
       }
+      @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
+          java.lang.Object value) {
         return (Builder) super.setField(field, value);
       }
+      @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
+      @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
+      @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, Object value) {
+          int index, java.lang.Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
+      @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
+          java.lang.Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.wwttr.card.Api.DrawFaceUpTrainCardRequest) {
           return mergeFrom((com.wwttr.card.Api.DrawFaceUpTrainCardRequest)other);
@@ -8595,14 +9297,17 @@ public final class Api {
           cardDrawnId_ = other.cardDrawnId_;
           onChanged();
         }
+        this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -8758,14 +9463,16 @@ public final class Api {
         onChanged();
         return this;
       }
+      @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
+        return super.setUnknownFieldsProto3(unknownFields);
       }
 
+      @java.lang.Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
+        return super.mergeUnknownFields(unknownFields);
       }
 
 
@@ -8784,11 +9491,12 @@ public final class Api {
 
     private static final com.google.protobuf.Parser<DrawFaceUpTrainCardRequest>
         PARSER = new com.google.protobuf.AbstractParser<DrawFaceUpTrainCardRequest>() {
+      @java.lang.Override
       public DrawFaceUpTrainCardRequest parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-          return new DrawFaceUpTrainCardRequest(input, extensionRegistry);
+        return new DrawFaceUpTrainCardRequest(input, extensionRegistry);
       }
     };
 
@@ -8801,6 +9509,7 @@ public final class Api {
       return PARSER;
     }
 
+    @java.lang.Override
     public com.wwttr.card.Api.DrawFaceUpTrainCardRequest getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
@@ -8828,6 +9537,7 @@ public final class Api {
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:card.GetTrainCardsInHandRequest)
       GetTrainCardsInHandRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use GetTrainCardsInHandRequest.newBuilder() to construct.
     private GetTrainCardsInHandRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
@@ -8839,14 +9549,19 @@ public final class Api {
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
-      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+      return this.unknownFields;
     }
     private GetTrainCardsInHandRequest(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -8855,16 +9570,17 @@ public final class Api {
             case 0:
               done = true;
               break;
-            default: {
-              if (!input.skipField(tag)) {
-                done = true;
-              }
-              break;
-            }
             case 10: {
               java.lang.String s = input.readStringRequireUtf8();
 
               id_ = s;
+              break;
+            }
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
               break;
             }
           }
@@ -8875,6 +9591,7 @@ public final class Api {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
+        this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
@@ -8883,6 +9600,7 @@ public final class Api {
       return com.wwttr.card.Api.internal_static_card_GetTrainCardsInHandRequest_descriptor;
     }
 
+    @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.wwttr.card.Api.internal_static_card_GetTrainCardsInHandRequest_fieldAccessorTable
@@ -8925,6 +9643,7 @@ public final class Api {
     }
 
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -8934,13 +9653,16 @@ public final class Api {
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (!getIdBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, id_);
       }
+      unknownFields.writeTo(output);
     }
 
+    @java.lang.Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
@@ -8949,11 +9671,11 @@ public final class Api {
       if (!getIdBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, id_);
       }
+      size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
     }
 
-    private static final long serialVersionUID = 0L;
     @java.lang.Override
     public boolean equals(final java.lang.Object obj) {
       if (obj == this) {
@@ -8967,6 +9689,7 @@ public final class Api {
       boolean result = true;
       result = result && getId()
           .equals(other.getId());
+      result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
 
@@ -8984,6 +9707,17 @@ public final class Api {
       return hash;
     }
 
+    public static com.wwttr.card.Api.GetTrainCardsInHandRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.wwttr.card.Api.GetTrainCardsInHandRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static com.wwttr.card.Api.GetTrainCardsInHandRequest parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -9043,6 +9777,7 @@ public final class Api {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
@@ -9050,6 +9785,7 @@ public final class Api {
     public static Builder newBuilder(com.wwttr.card.Api.GetTrainCardsInHandRequest prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
+    @java.lang.Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
@@ -9073,6 +9809,7 @@ public final class Api {
         return com.wwttr.card.Api.internal_static_card_GetTrainCardsInHandRequest_descriptor;
       }
 
+      @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.wwttr.card.Api.internal_static_card_GetTrainCardsInHandRequest_fieldAccessorTable
@@ -9095,6 +9832,7 @@ public final class Api {
                 .alwaysUseFieldBuilders) {
         }
       }
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         id_ = "";
@@ -9102,15 +9840,18 @@ public final class Api {
         return this;
       }
 
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return com.wwttr.card.Api.internal_static_card_GetTrainCardsInHandRequest_descriptor;
       }
 
+      @java.lang.Override
       public com.wwttr.card.Api.GetTrainCardsInHandRequest getDefaultInstanceForType() {
         return com.wwttr.card.Api.GetTrainCardsInHandRequest.getDefaultInstance();
       }
 
+      @java.lang.Override
       public com.wwttr.card.Api.GetTrainCardsInHandRequest build() {
         com.wwttr.card.Api.GetTrainCardsInHandRequest result = buildPartial();
         if (!result.isInitialized()) {
@@ -9119,6 +9860,7 @@ public final class Api {
         return result;
       }
 
+      @java.lang.Override
       public com.wwttr.card.Api.GetTrainCardsInHandRequest buildPartial() {
         com.wwttr.card.Api.GetTrainCardsInHandRequest result = new com.wwttr.card.Api.GetTrainCardsInHandRequest(this);
         result.id_ = id_;
@@ -9126,32 +9868,39 @@ public final class Api {
         return result;
       }
 
+      @java.lang.Override
       public Builder clone() {
         return (Builder) super.clone();
       }
+      @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
+          java.lang.Object value) {
         return (Builder) super.setField(field, value);
       }
+      @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
+      @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
+      @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, Object value) {
+          int index, java.lang.Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
+      @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
+          java.lang.Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.wwttr.card.Api.GetTrainCardsInHandRequest) {
           return mergeFrom((com.wwttr.card.Api.GetTrainCardsInHandRequest)other);
@@ -9167,14 +9916,17 @@ public final class Api {
           id_ = other.id_;
           onChanged();
         }
+        this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -9261,14 +10013,16 @@ public final class Api {
         onChanged();
         return this;
       }
+      @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
+        return super.setUnknownFieldsProto3(unknownFields);
       }
 
+      @java.lang.Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
+        return super.mergeUnknownFields(unknownFields);
       }
 
 
@@ -9287,11 +10041,12 @@ public final class Api {
 
     private static final com.google.protobuf.Parser<GetTrainCardsInHandRequest>
         PARSER = new com.google.protobuf.AbstractParser<GetTrainCardsInHandRequest>() {
+      @java.lang.Override
       public GetTrainCardsInHandRequest parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-          return new GetTrainCardsInHandRequest(input, extensionRegistry);
+        return new GetTrainCardsInHandRequest(input, extensionRegistry);
       }
     };
 
@@ -9304,6 +10059,7 @@ public final class Api {
       return PARSER;
     }
 
+    @java.lang.Override
     public com.wwttr.card.Api.GetTrainCardsInHandRequest getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
@@ -9345,6 +10101,7 @@ public final class Api {
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:card.GetTrainCardsInHandResponse)
       GetTrainCardsInHandResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
     // Use GetTrainCardsInHandResponse.newBuilder() to construct.
     private GetTrainCardsInHandResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
@@ -9356,14 +10113,19 @@ public final class Api {
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
-      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+      return this.unknownFields;
     }
     private GetTrainCardsInHandResponse(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -9372,12 +10134,6 @@ public final class Api {
             case 0:
               done = true;
               break;
-            default: {
-              if (!input.skipField(tag)) {
-                done = true;
-              }
-              break;
-            }
             case 10: {
               if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
                 cards_ = new java.util.ArrayList<com.wwttr.card.Api.TrainCard>();
@@ -9385,6 +10141,13 @@ public final class Api {
               }
               cards_.add(
                   input.readMessage(com.wwttr.card.Api.TrainCard.parser(), extensionRegistry));
+              break;
+            }
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
               break;
             }
           }
@@ -9398,6 +10161,7 @@ public final class Api {
         if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
           cards_ = java.util.Collections.unmodifiableList(cards_);
         }
+        this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
@@ -9406,6 +10170,7 @@ public final class Api {
       return com.wwttr.card.Api.internal_static_card_GetTrainCardsInHandResponse_descriptor;
     }
 
+    @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.wwttr.card.Api.internal_static_card_GetTrainCardsInHandResponse_fieldAccessorTable
@@ -9449,6 +10214,7 @@ public final class Api {
     }
 
     private byte memoizedIsInitialized = -1;
+    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -9458,13 +10224,16 @@ public final class Api {
       return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       for (int i = 0; i < cards_.size(); i++) {
         output.writeMessage(1, cards_.get(i));
       }
+      unknownFields.writeTo(output);
     }
 
+    @java.lang.Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
@@ -9474,11 +10243,11 @@ public final class Api {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(1, cards_.get(i));
       }
+      size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
     }
 
-    private static final long serialVersionUID = 0L;
     @java.lang.Override
     public boolean equals(final java.lang.Object obj) {
       if (obj == this) {
@@ -9492,6 +10261,7 @@ public final class Api {
       boolean result = true;
       result = result && getCardsList()
           .equals(other.getCardsList());
+      result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
 
@@ -9511,6 +10281,17 @@ public final class Api {
       return hash;
     }
 
+    public static com.wwttr.card.Api.GetTrainCardsInHandResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.wwttr.card.Api.GetTrainCardsInHandResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
     public static com.wwttr.card.Api.GetTrainCardsInHandResponse parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -9570,6 +10351,7 @@ public final class Api {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
+    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
@@ -9577,6 +10359,7 @@ public final class Api {
     public static Builder newBuilder(com.wwttr.card.Api.GetTrainCardsInHandResponse prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
+    @java.lang.Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
@@ -9600,6 +10383,7 @@ public final class Api {
         return com.wwttr.card.Api.internal_static_card_GetTrainCardsInHandResponse_descriptor;
       }
 
+      @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.wwttr.card.Api.internal_static_card_GetTrainCardsInHandResponse_fieldAccessorTable
@@ -9623,6 +10407,7 @@ public final class Api {
           getCardsFieldBuilder();
         }
       }
+      @java.lang.Override
       public Builder clear() {
         super.clear();
         if (cardsBuilder_ == null) {
@@ -9634,15 +10419,18 @@ public final class Api {
         return this;
       }
 
+      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return com.wwttr.card.Api.internal_static_card_GetTrainCardsInHandResponse_descriptor;
       }
 
+      @java.lang.Override
       public com.wwttr.card.Api.GetTrainCardsInHandResponse getDefaultInstanceForType() {
         return com.wwttr.card.Api.GetTrainCardsInHandResponse.getDefaultInstance();
       }
 
+      @java.lang.Override
       public com.wwttr.card.Api.GetTrainCardsInHandResponse build() {
         com.wwttr.card.Api.GetTrainCardsInHandResponse result = buildPartial();
         if (!result.isInitialized()) {
@@ -9651,6 +10439,7 @@ public final class Api {
         return result;
       }
 
+      @java.lang.Override
       public com.wwttr.card.Api.GetTrainCardsInHandResponse buildPartial() {
         com.wwttr.card.Api.GetTrainCardsInHandResponse result = new com.wwttr.card.Api.GetTrainCardsInHandResponse(this);
         int from_bitField0_ = bitField0_;
@@ -9667,32 +10456,39 @@ public final class Api {
         return result;
       }
 
+      @java.lang.Override
       public Builder clone() {
         return (Builder) super.clone();
       }
+      @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
+          java.lang.Object value) {
         return (Builder) super.setField(field, value);
       }
+      @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
+      @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
+      @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, Object value) {
+          int index, java.lang.Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
+      @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
+          java.lang.Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
+      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.wwttr.card.Api.GetTrainCardsInHandResponse) {
           return mergeFrom((com.wwttr.card.Api.GetTrainCardsInHandResponse)other);
@@ -9730,14 +10526,17 @@ public final class Api {
             }
           }
         }
+        this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
       }
 
+      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
+      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -9996,14 +10795,16 @@ public final class Api {
         }
         return cardsBuilder_;
       }
+      @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
+        return super.setUnknownFieldsProto3(unknownFields);
       }
 
+      @java.lang.Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
+        return super.mergeUnknownFields(unknownFields);
       }
 
 
@@ -10022,11 +10823,12 @@ public final class Api {
 
     private static final com.google.protobuf.Parser<GetTrainCardsInHandResponse>
         PARSER = new com.google.protobuf.AbstractParser<GetTrainCardsInHandResponse>() {
+      @java.lang.Override
       public GetTrainCardsInHandResponse parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-          return new GetTrainCardsInHandResponse(input, extensionRegistry);
+        return new GetTrainCardsInHandResponse(input, extensionRegistry);
       }
     };
 
@@ -10039,6 +10841,7 @@ public final class Api {
       return PARSER;
     }
 
+    @java.lang.Override
     public com.wwttr.card.Api.GetTrainCardsInHandResponse getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
@@ -10958,7 +11761,7 @@ public final class Api {
       "\007game_id\030\001 \001(\t\"P\n\034PeekDestinationCardsRe" +
       "sponse\0220\n\021destination_cards\030\001 \003(\0132\025.card" +
       ".DestinationCard\"O\n\034ClaimDestinationCard" +
-      "sRequest\022\034\n\024destination_card_ids\030\001 \003(\t\022\021",
+      "sRequest\022\034\n\024destination_card_ids\030\001 \003(\t\022\021" +
       "\n\tplayer_id\030\002 \001(\t\"\037\n\035ClaimDestinationCar" +
       "dsResponse\"2\n\035StreamDestinationCardsRequ" +
       "est\022\021\n\tplayer_id\030\001 \001(\t\"S\n\tDeckStats\022\037\n\027h" +
@@ -10968,7 +11771,7 @@ public final class Api {
       "rainCardRequest\"\030\n\026ClaimTrainCardRespons" +
       "e\",\n\027StreamTrainCardsRequest\022\021\n\tplayer_i" +
       "d\030\001 \001(\t\"\257\001\n\tTrainCard\022\n\n\002id\030\001 \001(\t\022\021\n\tpla" +
-      "yer_id\030\002 \001(\t\022\037\n\005color\030\003 \001(\0162\020.card.Train",
+      "yer_id\030\002 \001(\t\022\037\n\005color\030\003 \001(\0162\020.card.Train" +
       "Color\022$\n\005state\030\004 \001(\0162\025.card.TrainCard.St" +
       "ate\"<\n\005State\022\017\n\013UNSPECIFIED\020\000\022\n\n\006HIDDEN\020" +
       "\001\022\013\n\007VISIBLE\020\002\022\t\n\005OWNED\020\003\"*\n\034DrawTrainCa" +
@@ -10978,7 +11781,7 @@ public final class Api {
       "uest\022\n\n\002id\030\001 \001(\t\"=\n\033GetTrainCardsInHandR" +
       "esponse\022\036\n\005cards\030\001 \003(\0132\017.card.TrainCard*" +
       "\212\001\n\nTrainColor\022\017\n\013UNSPECIFIED\020\000\022\n\n\006ORANG" +
-      "E\020\001\022\010\n\004PINK\020\002\022\t\n\005GREEN\020\003\022\010\n\004BLUE\020\004\022\t\n\005BL",
+      "E\020\001\022\010\n\004PINK\020\002\022\t\n\005GREEN\020\003\022\010\n\004BLUE\020\004\022\t\n\005BL" +
       "ACK\020\005\022\010\n\004GREY\020\006\022\n\n\006YELLOW\020\007\022\007\n\003RED\020\010\022\t\n\005" +
       "WHITE\020\t\022\013\n\007RAINBOW\020\n2\352\005\n\013CardService\022L\n\022" +
       "GetDestinationCard\022\037.card.GetDestination" +
@@ -10988,7 +11791,7 @@ public final class Api {
       "sResponse\022`\n\025ClaimDestinationCards\022\".car" +
       "d.ClaimDestinationCardsRequest\032#.card.Cl" +
       "aimDestinationCardsResponse\022V\n\026StreamDes" +
-      "tinationCards\022#.card.StreamDestinationCa",
+      "tinationCards\022#.card.StreamDestinationCa" +
       "rdsRequest\032\025.card.DestinationCard0\001\022D\n\020S" +
       "treamTrainCards\022\035.card.StreamTrainCardsR" +
       "equest\032\017.card.TrainCard0\001\022B\n\017StreamDeckS" +
@@ -10998,7 +11801,7 @@ public final class Api {
       "e.Empty\022D\n\023DrawFaceUpTrainCard\022 .card.Dr" +
       "awFaceUpTrainCardRequest\032\013.game.Empty\022Z\n" +
       "\023getTrainCardsInHand\022 .card.GetTrainCard" +
-      "sInHandRequest\032!.card.GetTrainCardsInHan",
+      "sInHandRequest\032!.card.GetTrainCardsInHan" +
       "dResponseB\030\n\016com.wwttr.cardB\003Api\210\001\001b\006pro" +
       "to3"
     };
