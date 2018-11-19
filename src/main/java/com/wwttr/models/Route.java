@@ -9,6 +9,7 @@ public class Route {
   private TrainCard.Color trainColor;
   private String playerId = "";
   private String gameId = "";
+  //number of traincars and cards used;
   private int length;
 
   public Route(String routeId, String firstCityId, String secondCityId, TrainCard.Color trainColor, int length, String gameId, String playerId) {
@@ -73,34 +74,34 @@ public class Route {
     case UNSPECIFIED:
       builder.setColor(com.wwttr.card.Api.TrainColor.UNSPECIFIED);
       break;
-    case ORANGE: 
+    case ORANGE:
         builder.setColor(com.wwttr.card.Api.TrainColor.ORANGE);
         break;
-    case PINK: 
+    case PINK:
         builder.setColor(com.wwttr.card.Api.TrainColor.PINK);
         break;
-    case GREEN: 
+    case GREEN:
         builder.setColor(com.wwttr.card.Api.TrainColor.GREEN);
         break;
-    case BLUE: 
+    case BLUE:
         builder.setColor(com.wwttr.card.Api.TrainColor.BLUE);
         break;
-    case BLACK: 
+    case BLACK:
         builder.setColor(com.wwttr.card.Api.TrainColor.BLACK);
         break;
-    case GREY: 
+    case GREY:
         builder.setColor(com.wwttr.card.Api.TrainColor.GREY);
         break;
-    case YELLOW: 
+    case YELLOW:
         builder.setColor(com.wwttr.card.Api.TrainColor.YELLOW);
         break;
-    case RED: 
+    case RED:
         builder.setColor(com.wwttr.card.Api.TrainColor.RED);
         break;
-    case WHITE: 
+    case WHITE:
         builder.setColor(com.wwttr.card.Api.TrainColor.WHITE);
         break;
-    case RAINBOW: 
+    case RAINBOW:
         builder.setColor(com.wwttr.card.Api.TrainColor.RAINBOW);
         break;
  }

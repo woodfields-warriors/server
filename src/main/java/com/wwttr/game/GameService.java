@@ -183,8 +183,6 @@ public class GameService {
 
 //CLAIM ROUTE what's going on there?
 //Stream Player Stats.  I need help with that.
-//Longest route?  Not doing that probably?
-//What did we decide on for circular dependencies?
 
 //--------------------Player methods ------------------------------------------//
 
@@ -289,12 +287,21 @@ class StartState implements IPlayerTurnState{
   public void claimRoute(String playerId, String routeId) throws NotFoundException {
     Player player = database.getPlayer(playerId);
     player.setState(new PendingState());
+    database.updatePlayer(player);
+    Player nextPlayer = database.getNextPlayer(playerId);
+    nextPlayer.setState(new StartState());
+    database.updatePlayer(nextPlayer);
+
   }
   public void drawDestinationCards(String playerId, List<String> destinationCardIds)
                                    throws NotFoundException{
     cardService.claimDestinationCards(destinationCardIds,playerId);
     Player player = database.getPlayer(playerId);
     player.setState(new PendingState());
+    database.updatePlayer(player);
+    Player nextPlayer = database.getNextPlayer(playerId);
+    nextPlayer.setState(new StartState());
+    database.updatePlayer(nextPlayer);
   }
   public void drawFaceUpTrainCard(String playerId, String cardId)throws NotFoundException{
     cardService.claimFaceUpTrainCard(playerId,cardId);
@@ -302,6 +309,10 @@ class StartState implements IPlayerTurnState{
     Player player = database.getPlayer(playerId);
     if(isLocomotiveCard){
       player.setState(new PendingState());
+      database.updatePlayer(player);
+      Player nextPlayer = database.getNextPlayer(playerId);
+      nextPlayer.setState(new StartState());
+      database.updatePlayer(nextPlayer);
     }
     else{
       player.setState(new MidState());
@@ -319,6 +330,10 @@ class MidState implements IPlayerTurnState{
     cardService.claimTrainCardFromDeck(playerId);
     Player player = database.getPlayer(playerId);
     player.setState(new PendingState());
+    database.updatePlayer(player);
+    Player nextPlayer = database.getNextPlayer(playerId);
+    nextPlayer.setState(new StartState());
+    database.updatePlayer(nextPlayer);
   }
   public void claimRoute(String playerId, String routeId) throws NotFoundException {
     throw new ApiError(Code.FAILED_PRECONDITION,"Mid state.  You can only draw a card");
@@ -331,6 +346,10 @@ class MidState implements IPlayerTurnState{
       cardService.claimFaceUpTrainCard(playerId, cardId);
       Player player = database.getPlayer(playerId);
       player.setState(new PendingState());
+      database.updatePlayer(player);
+      Player nextPlayer = database.getNextPlayer(playerId);
+      nextPlayer.setState(new StartState());
+      database.updatePlayer(nextPlayer);
     }
     else{
       throw new ApiError(Code.FAILED_PRECONDITION,"Mid state.  You can only draw a non locomotive card");

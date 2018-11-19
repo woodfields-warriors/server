@@ -3,7 +3,7 @@ package com.wwttr.models;
 
 public class PlayerStats{
   String playerId;
-  int trainCardPoints;
+  int routePoints;
   int longestRoutePoints;
   int destinationCardPoints;
   int trainCount;
@@ -22,8 +22,8 @@ public class PlayerStats{
   public String getPlayerId(){
     return playerId;
   }
-  public int getTrainCardPoints(){
-    return trainCardPoints;
+  public int getroutePoints(){
+    return routePoints;
   }
   public int getLongestRoutePoints(){
     return longestRoutePoints;
@@ -47,8 +47,8 @@ public class PlayerStats{
   public void setPlayerId(String playerId){
     this.playerId = playerId;
   }
-  public void setTrainCardPoints(int trainCardPoints){
-      this.trainCardPoints = trainCardPoints;
+  public void setroutePoints(int routePoints){
+      this.routePoints = routePoints;
   }
   public void setLongestRoutePoints(int longestRoutePoints){
     this.longestRoutePoints = longestRoutePoints;
