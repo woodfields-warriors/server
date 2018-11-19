@@ -191,6 +191,7 @@ public class DatabaseFacade {
       for (DestinationCard card: cardsOwned){
         List<String> citiesVisited = new ArrayList<>();
         String currentCity = card.getFirstCityId();
+        citiesVisited.add(currentCity);
         if(searchRoute_r(currentCity,citiesVisited, card)){
             toReturn.add(card);
         }
