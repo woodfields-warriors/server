@@ -169,6 +169,7 @@ public class DatabaseFacade {
     // connecting city one and two of the card
     //returns a list of destination cards that have been completed
     List<DestinationCard> findCompletedRoutesForPlayer(String playerId){
+      List<DestinationCard> toReturn = new ArrayList<>();
       List<DestinationCard> cardsOwned = getDestinationCardsByPlayerId();
       List<Route> playerRoutes = getRoutesOwnedByPlayer(playerId);
       for (DestinationCard card: cardsOwned){
@@ -180,10 +181,17 @@ public class DatabaseFacade {
           if(route.getFirstCityId().equals(currentCity) && !routesTraveled.conatins(route.getSecondCityId())){
             currentCity = route.getSecondCityId();
             citiesVisited.add(currentCity);
+
           }
           else if(route.getSecondCityId().equals(currentCity) && !routesTraveled.contains(route.getFirstCityId())){
             currentCity = route.getFirstCityId();
             citiesVisited.add(currentCity);
+
+          }
+          //did we complete the route?
+          if(currentCity.equals(card.getSecondCityId())){
+            toReturn.add(card);
+            break;
           }
         }
       }
