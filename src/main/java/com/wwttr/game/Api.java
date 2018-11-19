@@ -280,7 +280,6 @@ public final class Api {
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:game.Game)
       GameOrBuilder {
-  private static final long serialVersionUID = 0L;
     // Use Game.newBuilder() to construct.
     private Game(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
@@ -297,19 +296,14 @@ public final class Api {
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
-      return this.unknownFields;
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
     private Game(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
-      if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
-      }
       int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -318,6 +312,12 @@ public final class Api {
             case 0:
               done = true;
               break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
             case 10: {
               java.lang.String s = input.readStringRequireUtf8();
 
@@ -356,13 +356,6 @@ public final class Api {
               status_ = rawValue;
               break;
             }
-            default: {
-              if (!parseUnknownFieldProto3(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -374,7 +367,6 @@ public final class Api {
         if (((mutable_bitField0_ & 0x00000010) == 0x00000010)) {
           playerIds_ = playerIds_.getUnmodifiableView();
         }
-        this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
@@ -383,7 +375,6 @@ public final class Api {
       return com.wwttr.game.Api.internal_static_game_Game_descriptor;
     }
 
-    @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.wwttr.game.Api.internal_static_game_Game_fieldAccessorTable
@@ -736,13 +727,11 @@ public final class Api {
      * <code>.game.Game.Status status = 6;</code>
      */
     public com.wwttr.game.Api.Game.Status getStatus() {
-      @SuppressWarnings("deprecation")
       com.wwttr.game.Api.Game.Status result = com.wwttr.game.Api.Game.Status.valueOf(status_);
       return result == null ? com.wwttr.game.Api.Game.Status.UNRECOGNIZED : result;
     }
 
     private byte memoizedIsInitialized = -1;
-    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -752,7 +741,6 @@ public final class Api {
       return true;
     }
 
-    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (!getGameIdBytes().isEmpty()) {
@@ -773,10 +761,8 @@ public final class Api {
       if (status_ != com.wwttr.game.Api.Game.Status.UNKNOWN.getNumber()) {
         output.writeEnum(6, status_);
       }
-      unknownFields.writeTo(output);
     }
 
-    @java.lang.Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
@@ -807,11 +793,11 @@ public final class Api {
         size += com.google.protobuf.CodedOutputStream
           .computeEnumSize(6, status_);
       }
-      size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
     }
 
+    private static final long serialVersionUID = 0L;
     @java.lang.Override
     public boolean equals(final java.lang.Object obj) {
       if (obj == this) {
@@ -834,7 +820,6 @@ public final class Api {
       result = result && getPlayerIdsList()
           .equals(other.getPlayerIdsList());
       result = result && status_ == other.status_;
-      result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
 
@@ -864,17 +849,6 @@ public final class Api {
       return hash;
     }
 
-    public static com.wwttr.game.Api.Game parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.wwttr.game.Api.Game parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
     public static com.wwttr.game.Api.Game parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -934,7 +908,6 @@ public final class Api {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
@@ -942,7 +915,6 @@ public final class Api {
     public static Builder newBuilder(com.wwttr.game.Api.Game prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
-    @java.lang.Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
@@ -966,7 +938,6 @@ public final class Api {
         return com.wwttr.game.Api.internal_static_game_Game_descriptor;
       }
 
-      @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.wwttr.game.Api.internal_static_game_Game_fieldAccessorTable
@@ -989,7 +960,6 @@ public final class Api {
                 .alwaysUseFieldBuilders) {
         }
       }
-      @java.lang.Override
       public Builder clear() {
         super.clear();
         gameId_ = "";
@@ -1007,18 +977,15 @@ public final class Api {
         return this;
       }
 
-      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return com.wwttr.game.Api.internal_static_game_Game_descriptor;
       }
 
-      @java.lang.Override
       public com.wwttr.game.Api.Game getDefaultInstanceForType() {
         return com.wwttr.game.Api.Game.getDefaultInstance();
       }
 
-      @java.lang.Override
       public com.wwttr.game.Api.Game build() {
         com.wwttr.game.Api.Game result = buildPartial();
         if (!result.isInitialized()) {
@@ -1027,7 +994,6 @@ public final class Api {
         return result;
       }
 
-      @java.lang.Override
       public com.wwttr.game.Api.Game buildPartial() {
         com.wwttr.game.Api.Game result = new com.wwttr.game.Api.Game(this);
         int from_bitField0_ = bitField0_;
@@ -1047,39 +1013,32 @@ public final class Api {
         return result;
       }
 
-      @java.lang.Override
       public Builder clone() {
         return (Builder) super.clone();
       }
-      @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return (Builder) super.setField(field, value);
       }
-      @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
-      @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
-      @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
+          int index, Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
-      @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
-      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.wwttr.game.Api.Game) {
           return mergeFrom((com.wwttr.game.Api.Game)other);
@@ -1119,17 +1078,14 @@ public final class Api {
         if (other.status_ != 0) {
           setStatusValue(other.getStatusValue());
         }
-        this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
       }
 
-      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
-      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -1648,7 +1604,6 @@ public final class Api {
        * <code>.game.Game.Status status = 6;</code>
        */
       public com.wwttr.game.Api.Game.Status getStatus() {
-        @SuppressWarnings("deprecation")
         com.wwttr.game.Api.Game.Status result = com.wwttr.game.Api.Game.Status.valueOf(status_);
         return result == null ? com.wwttr.game.Api.Game.Status.UNRECOGNIZED : result;
       }
@@ -1685,16 +1640,14 @@ public final class Api {
         onChanged();
         return this;
       }
-      @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return this;
       }
 
-      @java.lang.Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
+        return this;
       }
 
 
@@ -1713,12 +1666,11 @@ public final class Api {
 
     private static final com.google.protobuf.Parser<Game>
         PARSER = new com.google.protobuf.AbstractParser<Game>() {
-      @java.lang.Override
       public Game parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new Game(input, extensionRegistry);
+          return new Game(input, extensionRegistry);
       }
     };
 
@@ -1731,7 +1683,6 @@ public final class Api {
       return PARSER;
     }
 
-    @java.lang.Override
     public com.wwttr.game.Api.Game getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
@@ -1814,7 +1765,6 @@ public final class Api {
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:game.GameAction)
       GameActionOrBuilder {
-  private static final long serialVersionUID = 0L;
     // Use GameAction.newBuilder() to construct.
     private GameAction(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
@@ -1829,19 +1779,14 @@ public final class Api {
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
-      return this.unknownFields;
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
     private GameAction(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
-      if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
-      }
       int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -1850,6 +1795,12 @@ public final class Api {
             case 0:
               done = true;
               break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
             case 10: {
               java.lang.String s = input.readStringRequireUtf8();
 
@@ -1873,13 +1824,6 @@ public final class Api {
               playerId_ = s;
               break;
             }
-            default: {
-              if (!parseUnknownFieldProto3(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -1888,7 +1832,6 @@ public final class Api {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
@@ -1897,7 +1840,6 @@ public final class Api {
       return com.wwttr.game.Api.internal_static_game_GameAction_descriptor;
     }
 
-    @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.wwttr.game.Api.internal_static_game_GameAction_fieldAccessorTable
@@ -2047,7 +1989,6 @@ public final class Api {
     }
 
     private byte memoizedIsInitialized = -1;
-    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -2057,7 +1998,6 @@ public final class Api {
       return true;
     }
 
-    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (!getActionIdBytes().isEmpty()) {
@@ -2072,10 +2012,8 @@ public final class Api {
       if (!getPlayerIdBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 4, playerId_);
       }
-      unknownFields.writeTo(output);
     }
 
-    @java.lang.Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
@@ -2094,11 +2032,11 @@ public final class Api {
       if (!getPlayerIdBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, playerId_);
       }
-      size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
     }
 
+    private static final long serialVersionUID = 0L;
     @java.lang.Override
     public boolean equals(final java.lang.Object obj) {
       if (obj == this) {
@@ -2118,7 +2056,6 @@ public final class Api {
           == other.getTimestamp());
       result = result && getPlayerId()
           .equals(other.getPlayerId());
-      result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
 
@@ -2142,17 +2079,6 @@ public final class Api {
       return hash;
     }
 
-    public static com.wwttr.game.Api.GameAction parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.wwttr.game.Api.GameAction parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
     public static com.wwttr.game.Api.GameAction parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -2212,7 +2138,6 @@ public final class Api {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
@@ -2220,7 +2145,6 @@ public final class Api {
     public static Builder newBuilder(com.wwttr.game.Api.GameAction prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
-    @java.lang.Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
@@ -2244,7 +2168,6 @@ public final class Api {
         return com.wwttr.game.Api.internal_static_game_GameAction_descriptor;
       }
 
-      @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.wwttr.game.Api.internal_static_game_GameAction_fieldAccessorTable
@@ -2267,7 +2190,6 @@ public final class Api {
                 .alwaysUseFieldBuilders) {
         }
       }
-      @java.lang.Override
       public Builder clear() {
         super.clear();
         actionId_ = "";
@@ -2281,18 +2203,15 @@ public final class Api {
         return this;
       }
 
-      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return com.wwttr.game.Api.internal_static_game_GameAction_descriptor;
       }
 
-      @java.lang.Override
       public com.wwttr.game.Api.GameAction getDefaultInstanceForType() {
         return com.wwttr.game.Api.GameAction.getDefaultInstance();
       }
 
-      @java.lang.Override
       public com.wwttr.game.Api.GameAction build() {
         com.wwttr.game.Api.GameAction result = buildPartial();
         if (!result.isInitialized()) {
@@ -2301,7 +2220,6 @@ public final class Api {
         return result;
       }
 
-      @java.lang.Override
       public com.wwttr.game.Api.GameAction buildPartial() {
         com.wwttr.game.Api.GameAction result = new com.wwttr.game.Api.GameAction(this);
         result.actionId_ = actionId_;
@@ -2312,39 +2230,32 @@ public final class Api {
         return result;
       }
 
-      @java.lang.Override
       public Builder clone() {
         return (Builder) super.clone();
       }
-      @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return (Builder) super.setField(field, value);
       }
-      @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
-      @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
-      @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
+          int index, Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
-      @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
-      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.wwttr.game.Api.GameAction) {
           return mergeFrom((com.wwttr.game.Api.GameAction)other);
@@ -2371,17 +2282,14 @@ public final class Api {
           playerId_ = other.playerId_;
           onChanged();
         }
-        this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
       }
 
-      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
-      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -2709,16 +2617,14 @@ public final class Api {
         onChanged();
         return this;
       }
-      @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return this;
       }
 
-      @java.lang.Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
+        return this;
       }
 
 
@@ -2737,12 +2643,11 @@ public final class Api {
 
     private static final com.google.protobuf.Parser<GameAction>
         PARSER = new com.google.protobuf.AbstractParser<GameAction>() {
-      @java.lang.Override
       public GameAction parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new GameAction(input, extensionRegistry);
+          return new GameAction(input, extensionRegistry);
       }
     };
 
@@ -2755,7 +2660,6 @@ public final class Api {
       return PARSER;
     }
 
-    @java.lang.Override
     public com.wwttr.game.Api.GameAction getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
@@ -2824,7 +2728,6 @@ public final class Api {
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:game.CreateGameRequest)
       CreateGameRequestOrBuilder {
-  private static final long serialVersionUID = 0L;
     // Use CreateGameRequest.newBuilder() to construct.
     private CreateGameRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
@@ -2838,19 +2741,14 @@ public final class Api {
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
-      return this.unknownFields;
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
     private CreateGameRequest(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
-      if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
-      }
       int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -2859,6 +2757,12 @@ public final class Api {
             case 0:
               done = true;
               break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
             case 10: {
               java.lang.String s = input.readStringRequireUtf8();
 
@@ -2876,13 +2780,6 @@ public final class Api {
               maxPlayers_ = input.readInt32();
               break;
             }
-            default: {
-              if (!parseUnknownFieldProto3(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -2891,7 +2788,6 @@ public final class Api {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
@@ -2900,7 +2796,6 @@ public final class Api {
       return com.wwttr.game.Api.internal_static_game_CreateGameRequest_descriptor;
     }
 
-    @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.wwttr.game.Api.internal_static_game_CreateGameRequest_fieldAccessorTable
@@ -3008,7 +2903,6 @@ public final class Api {
     }
 
     private byte memoizedIsInitialized = -1;
-    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -3018,7 +2912,6 @@ public final class Api {
       return true;
     }
 
-    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (!getUserIdBytes().isEmpty()) {
@@ -3030,10 +2923,8 @@ public final class Api {
       if (maxPlayers_ != 0) {
         output.writeInt32(3, maxPlayers_);
       }
-      unknownFields.writeTo(output);
     }
 
-    @java.lang.Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
@@ -3049,11 +2940,11 @@ public final class Api {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(3, maxPlayers_);
       }
-      size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
     }
 
+    private static final long serialVersionUID = 0L;
     @java.lang.Override
     public boolean equals(final java.lang.Object obj) {
       if (obj == this) {
@@ -3071,7 +2962,6 @@ public final class Api {
           .equals(other.getDisplayName());
       result = result && (getMaxPlayers()
           == other.getMaxPlayers());
-      result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
 
@@ -3093,17 +2983,6 @@ public final class Api {
       return hash;
     }
 
-    public static com.wwttr.game.Api.CreateGameRequest parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.wwttr.game.Api.CreateGameRequest parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
     public static com.wwttr.game.Api.CreateGameRequest parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -3163,7 +3042,6 @@ public final class Api {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
@@ -3171,7 +3049,6 @@ public final class Api {
     public static Builder newBuilder(com.wwttr.game.Api.CreateGameRequest prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
-    @java.lang.Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
@@ -3199,7 +3076,6 @@ public final class Api {
         return com.wwttr.game.Api.internal_static_game_CreateGameRequest_descriptor;
       }
 
-      @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.wwttr.game.Api.internal_static_game_CreateGameRequest_fieldAccessorTable
@@ -3222,7 +3098,6 @@ public final class Api {
                 .alwaysUseFieldBuilders) {
         }
       }
-      @java.lang.Override
       public Builder clear() {
         super.clear();
         userId_ = "";
@@ -3234,18 +3109,15 @@ public final class Api {
         return this;
       }
 
-      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return com.wwttr.game.Api.internal_static_game_CreateGameRequest_descriptor;
       }
 
-      @java.lang.Override
       public com.wwttr.game.Api.CreateGameRequest getDefaultInstanceForType() {
         return com.wwttr.game.Api.CreateGameRequest.getDefaultInstance();
       }
 
-      @java.lang.Override
       public com.wwttr.game.Api.CreateGameRequest build() {
         com.wwttr.game.Api.CreateGameRequest result = buildPartial();
         if (!result.isInitialized()) {
@@ -3254,7 +3126,6 @@ public final class Api {
         return result;
       }
 
-      @java.lang.Override
       public com.wwttr.game.Api.CreateGameRequest buildPartial() {
         com.wwttr.game.Api.CreateGameRequest result = new com.wwttr.game.Api.CreateGameRequest(this);
         result.userId_ = userId_;
@@ -3264,39 +3135,32 @@ public final class Api {
         return result;
       }
 
-      @java.lang.Override
       public Builder clone() {
         return (Builder) super.clone();
       }
-      @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return (Builder) super.setField(field, value);
       }
-      @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
-      @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
-      @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
+          int index, Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
-      @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
-      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.wwttr.game.Api.CreateGameRequest) {
           return mergeFrom((com.wwttr.game.Api.CreateGameRequest)other);
@@ -3319,17 +3183,14 @@ public final class Api {
         if (other.getMaxPlayers() != 0) {
           setMaxPlayers(other.getMaxPlayers());
         }
-        this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
       }
 
-      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
-      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -3568,16 +3429,14 @@ public final class Api {
         onChanged();
         return this;
       }
-      @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return this;
       }
 
-      @java.lang.Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
+        return this;
       }
 
 
@@ -3596,12 +3455,11 @@ public final class Api {
 
     private static final com.google.protobuf.Parser<CreateGameRequest>
         PARSER = new com.google.protobuf.AbstractParser<CreateGameRequest>() {
-      @java.lang.Override
       public CreateGameRequest parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new CreateGameRequest(input, extensionRegistry);
+          return new CreateGameRequest(input, extensionRegistry);
       }
     };
 
@@ -3614,7 +3472,6 @@ public final class Api {
       return PARSER;
     }
 
-    @java.lang.Override
     public com.wwttr.game.Api.CreateGameRequest getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
@@ -3668,7 +3525,6 @@ public final class Api {
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:game.LeaveGameRequest)
       LeaveGameRequestOrBuilder {
-  private static final long serialVersionUID = 0L;
     // Use LeaveGameRequest.newBuilder() to construct.
     private LeaveGameRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
@@ -3681,19 +3537,14 @@ public final class Api {
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
-      return this.unknownFields;
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
     private LeaveGameRequest(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
-      if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
-      }
       int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -3702,6 +3553,12 @@ public final class Api {
             case 0:
               done = true;
               break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
             case 10: {
               java.lang.String s = input.readStringRequireUtf8();
 
@@ -3714,13 +3571,6 @@ public final class Api {
               gameId_ = s;
               break;
             }
-            default: {
-              if (!parseUnknownFieldProto3(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -3729,7 +3579,6 @@ public final class Api {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
@@ -3738,7 +3587,6 @@ public final class Api {
       return com.wwttr.game.Api.internal_static_game_LeaveGameRequest_descriptor;
     }
 
-    @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.wwttr.game.Api.internal_static_game_LeaveGameRequest_fieldAccessorTable
@@ -3831,7 +3679,6 @@ public final class Api {
     }
 
     private byte memoizedIsInitialized = -1;
-    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -3841,7 +3688,6 @@ public final class Api {
       return true;
     }
 
-    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (!getPlayerIdBytes().isEmpty()) {
@@ -3850,10 +3696,8 @@ public final class Api {
       if (!getGameIdBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 2, gameId_);
       }
-      unknownFields.writeTo(output);
     }
 
-    @java.lang.Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
@@ -3865,11 +3709,11 @@ public final class Api {
       if (!getGameIdBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, gameId_);
       }
-      size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
     }
 
+    private static final long serialVersionUID = 0L;
     @java.lang.Override
     public boolean equals(final java.lang.Object obj) {
       if (obj == this) {
@@ -3885,7 +3729,6 @@ public final class Api {
           .equals(other.getPlayerId());
       result = result && getGameId()
           .equals(other.getGameId());
-      result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
 
@@ -3905,17 +3748,6 @@ public final class Api {
       return hash;
     }
 
-    public static com.wwttr.game.Api.LeaveGameRequest parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.wwttr.game.Api.LeaveGameRequest parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
     public static com.wwttr.game.Api.LeaveGameRequest parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -3975,7 +3807,6 @@ public final class Api {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
@@ -3983,7 +3814,6 @@ public final class Api {
     public static Builder newBuilder(com.wwttr.game.Api.LeaveGameRequest prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
-    @java.lang.Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
@@ -4007,7 +3837,6 @@ public final class Api {
         return com.wwttr.game.Api.internal_static_game_LeaveGameRequest_descriptor;
       }
 
-      @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.wwttr.game.Api.internal_static_game_LeaveGameRequest_fieldAccessorTable
@@ -4030,7 +3859,6 @@ public final class Api {
                 .alwaysUseFieldBuilders) {
         }
       }
-      @java.lang.Override
       public Builder clear() {
         super.clear();
         playerId_ = "";
@@ -4040,18 +3868,15 @@ public final class Api {
         return this;
       }
 
-      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return com.wwttr.game.Api.internal_static_game_LeaveGameRequest_descriptor;
       }
 
-      @java.lang.Override
       public com.wwttr.game.Api.LeaveGameRequest getDefaultInstanceForType() {
         return com.wwttr.game.Api.LeaveGameRequest.getDefaultInstance();
       }
 
-      @java.lang.Override
       public com.wwttr.game.Api.LeaveGameRequest build() {
         com.wwttr.game.Api.LeaveGameRequest result = buildPartial();
         if (!result.isInitialized()) {
@@ -4060,7 +3885,6 @@ public final class Api {
         return result;
       }
 
-      @java.lang.Override
       public com.wwttr.game.Api.LeaveGameRequest buildPartial() {
         com.wwttr.game.Api.LeaveGameRequest result = new com.wwttr.game.Api.LeaveGameRequest(this);
         result.playerId_ = playerId_;
@@ -4069,39 +3893,32 @@ public final class Api {
         return result;
       }
 
-      @java.lang.Override
       public Builder clone() {
         return (Builder) super.clone();
       }
-      @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return (Builder) super.setField(field, value);
       }
-      @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
-      @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
-      @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
+          int index, Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
-      @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
-      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.wwttr.game.Api.LeaveGameRequest) {
           return mergeFrom((com.wwttr.game.Api.LeaveGameRequest)other);
@@ -4121,17 +3938,14 @@ public final class Api {
           gameId_ = other.gameId_;
           onChanged();
         }
-        this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
       }
 
-      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
-      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -4327,16 +4141,14 @@ public final class Api {
         onChanged();
         return this;
       }
-      @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return this;
       }
 
-      @java.lang.Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
+        return this;
       }
 
 
@@ -4355,12 +4167,11 @@ public final class Api {
 
     private static final com.google.protobuf.Parser<LeaveGameRequest>
         PARSER = new com.google.protobuf.AbstractParser<LeaveGameRequest>() {
-      @java.lang.Override
       public LeaveGameRequest parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new LeaveGameRequest(input, extensionRegistry);
+          return new LeaveGameRequest(input, extensionRegistry);
       }
     };
 
@@ -4373,7 +4184,6 @@ public final class Api {
       return PARSER;
     }
 
-    @java.lang.Override
     public com.wwttr.game.Api.LeaveGameRequest getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
@@ -4391,7 +4201,6 @@ public final class Api {
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:game.ListGamesRequest)
       ListGamesRequestOrBuilder {
-  private static final long serialVersionUID = 0L;
     // Use ListGamesRequest.newBuilder() to construct.
     private ListGamesRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
@@ -4402,18 +4211,13 @@ public final class Api {
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
-      return this.unknownFields;
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
     private ListGamesRequest(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
-      if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
-      }
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -4423,8 +4227,7 @@ public final class Api {
               done = true;
               break;
             default: {
-              if (!parseUnknownFieldProto3(
-                  input, unknownFields, extensionRegistry, tag)) {
+              if (!input.skipField(tag)) {
                 done = true;
               }
               break;
@@ -4437,7 +4240,6 @@ public final class Api {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
@@ -4446,7 +4248,6 @@ public final class Api {
       return com.wwttr.game.Api.internal_static_game_ListGamesRequest_descriptor;
     }
 
-    @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.wwttr.game.Api.internal_static_game_ListGamesRequest_fieldAccessorTable
@@ -4455,7 +4256,6 @@ public final class Api {
     }
 
     private byte memoizedIsInitialized = -1;
-    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -4465,23 +4265,20 @@ public final class Api {
       return true;
     }
 
-    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      unknownFields.writeTo(output);
     }
 
-    @java.lang.Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
     }
 
+    private static final long serialVersionUID = 0L;
     @java.lang.Override
     public boolean equals(final java.lang.Object obj) {
       if (obj == this) {
@@ -4493,7 +4290,6 @@ public final class Api {
       com.wwttr.game.Api.ListGamesRequest other = (com.wwttr.game.Api.ListGamesRequest) obj;
 
       boolean result = true;
-      result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
 
@@ -4509,17 +4305,6 @@ public final class Api {
       return hash;
     }
 
-    public static com.wwttr.game.Api.ListGamesRequest parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.wwttr.game.Api.ListGamesRequest parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
     public static com.wwttr.game.Api.ListGamesRequest parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -4579,7 +4364,6 @@ public final class Api {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
@@ -4587,7 +4371,6 @@ public final class Api {
     public static Builder newBuilder(com.wwttr.game.Api.ListGamesRequest prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
-    @java.lang.Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
@@ -4611,7 +4394,6 @@ public final class Api {
         return com.wwttr.game.Api.internal_static_game_ListGamesRequest_descriptor;
       }
 
-      @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.wwttr.game.Api.internal_static_game_ListGamesRequest_fieldAccessorTable
@@ -4634,24 +4416,20 @@ public final class Api {
                 .alwaysUseFieldBuilders) {
         }
       }
-      @java.lang.Override
       public Builder clear() {
         super.clear();
         return this;
       }
 
-      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return com.wwttr.game.Api.internal_static_game_ListGamesRequest_descriptor;
       }
 
-      @java.lang.Override
       public com.wwttr.game.Api.ListGamesRequest getDefaultInstanceForType() {
         return com.wwttr.game.Api.ListGamesRequest.getDefaultInstance();
       }
 
-      @java.lang.Override
       public com.wwttr.game.Api.ListGamesRequest build() {
         com.wwttr.game.Api.ListGamesRequest result = buildPartial();
         if (!result.isInitialized()) {
@@ -4660,46 +4438,38 @@ public final class Api {
         return result;
       }
 
-      @java.lang.Override
       public com.wwttr.game.Api.ListGamesRequest buildPartial() {
         com.wwttr.game.Api.ListGamesRequest result = new com.wwttr.game.Api.ListGamesRequest(this);
         onBuilt();
         return result;
       }
 
-      @java.lang.Override
       public Builder clone() {
         return (Builder) super.clone();
       }
-      @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return (Builder) super.setField(field, value);
       }
-      @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
-      @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
-      @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
+          int index, Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
-      @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
-      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.wwttr.game.Api.ListGamesRequest) {
           return mergeFrom((com.wwttr.game.Api.ListGamesRequest)other);
@@ -4711,17 +4481,14 @@ public final class Api {
 
       public Builder mergeFrom(com.wwttr.game.Api.ListGamesRequest other) {
         if (other == com.wwttr.game.Api.ListGamesRequest.getDefaultInstance()) return this;
-        this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
       }
 
-      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
-      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -4739,16 +4506,14 @@ public final class Api {
         }
         return this;
       }
-      @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return this;
       }
 
-      @java.lang.Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
+        return this;
       }
 
 
@@ -4767,12 +4532,11 @@ public final class Api {
 
     private static final com.google.protobuf.Parser<ListGamesRequest>
         PARSER = new com.google.protobuf.AbstractParser<ListGamesRequest>() {
-      @java.lang.Override
       public ListGamesRequest parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new ListGamesRequest(input, extensionRegistry);
+          return new ListGamesRequest(input, extensionRegistry);
       }
     };
 
@@ -4785,7 +4549,6 @@ public final class Api {
       return PARSER;
     }
 
-    @java.lang.Override
     public com.wwttr.game.Api.ListGamesRequest getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
@@ -4803,7 +4566,6 @@ public final class Api {
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:game.StreamGamesRequest)
       StreamGamesRequestOrBuilder {
-  private static final long serialVersionUID = 0L;
     // Use StreamGamesRequest.newBuilder() to construct.
     private StreamGamesRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
@@ -4814,18 +4576,13 @@ public final class Api {
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
-      return this.unknownFields;
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
     private StreamGamesRequest(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
-      if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
-      }
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -4835,8 +4592,7 @@ public final class Api {
               done = true;
               break;
             default: {
-              if (!parseUnknownFieldProto3(
-                  input, unknownFields, extensionRegistry, tag)) {
+              if (!input.skipField(tag)) {
                 done = true;
               }
               break;
@@ -4849,7 +4605,6 @@ public final class Api {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
@@ -4858,7 +4613,6 @@ public final class Api {
       return com.wwttr.game.Api.internal_static_game_StreamGamesRequest_descriptor;
     }
 
-    @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.wwttr.game.Api.internal_static_game_StreamGamesRequest_fieldAccessorTable
@@ -4867,7 +4621,6 @@ public final class Api {
     }
 
     private byte memoizedIsInitialized = -1;
-    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -4877,23 +4630,20 @@ public final class Api {
       return true;
     }
 
-    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      unknownFields.writeTo(output);
     }
 
-    @java.lang.Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
     }
 
+    private static final long serialVersionUID = 0L;
     @java.lang.Override
     public boolean equals(final java.lang.Object obj) {
       if (obj == this) {
@@ -4905,7 +4655,6 @@ public final class Api {
       com.wwttr.game.Api.StreamGamesRequest other = (com.wwttr.game.Api.StreamGamesRequest) obj;
 
       boolean result = true;
-      result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
 
@@ -4921,17 +4670,6 @@ public final class Api {
       return hash;
     }
 
-    public static com.wwttr.game.Api.StreamGamesRequest parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.wwttr.game.Api.StreamGamesRequest parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
     public static com.wwttr.game.Api.StreamGamesRequest parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -4991,7 +4729,6 @@ public final class Api {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
@@ -4999,7 +4736,6 @@ public final class Api {
     public static Builder newBuilder(com.wwttr.game.Api.StreamGamesRequest prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
-    @java.lang.Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
@@ -5023,7 +4759,6 @@ public final class Api {
         return com.wwttr.game.Api.internal_static_game_StreamGamesRequest_descriptor;
       }
 
-      @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.wwttr.game.Api.internal_static_game_StreamGamesRequest_fieldAccessorTable
@@ -5046,24 +4781,20 @@ public final class Api {
                 .alwaysUseFieldBuilders) {
         }
       }
-      @java.lang.Override
       public Builder clear() {
         super.clear();
         return this;
       }
 
-      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return com.wwttr.game.Api.internal_static_game_StreamGamesRequest_descriptor;
       }
 
-      @java.lang.Override
       public com.wwttr.game.Api.StreamGamesRequest getDefaultInstanceForType() {
         return com.wwttr.game.Api.StreamGamesRequest.getDefaultInstance();
       }
 
-      @java.lang.Override
       public com.wwttr.game.Api.StreamGamesRequest build() {
         com.wwttr.game.Api.StreamGamesRequest result = buildPartial();
         if (!result.isInitialized()) {
@@ -5072,46 +4803,38 @@ public final class Api {
         return result;
       }
 
-      @java.lang.Override
       public com.wwttr.game.Api.StreamGamesRequest buildPartial() {
         com.wwttr.game.Api.StreamGamesRequest result = new com.wwttr.game.Api.StreamGamesRequest(this);
         onBuilt();
         return result;
       }
 
-      @java.lang.Override
       public Builder clone() {
         return (Builder) super.clone();
       }
-      @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return (Builder) super.setField(field, value);
       }
-      @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
-      @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
-      @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
+          int index, Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
-      @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
-      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.wwttr.game.Api.StreamGamesRequest) {
           return mergeFrom((com.wwttr.game.Api.StreamGamesRequest)other);
@@ -5123,17 +4846,14 @@ public final class Api {
 
       public Builder mergeFrom(com.wwttr.game.Api.StreamGamesRequest other) {
         if (other == com.wwttr.game.Api.StreamGamesRequest.getDefaultInstance()) return this;
-        this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
       }
 
-      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
-      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -5151,16 +4871,14 @@ public final class Api {
         }
         return this;
       }
-      @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return this;
       }
 
-      @java.lang.Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
+        return this;
       }
 
 
@@ -5179,12 +4897,11 @@ public final class Api {
 
     private static final com.google.protobuf.Parser<StreamGamesRequest>
         PARSER = new com.google.protobuf.AbstractParser<StreamGamesRequest>() {
-      @java.lang.Override
       public StreamGamesRequest parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new StreamGamesRequest(input, extensionRegistry);
+          return new StreamGamesRequest(input, extensionRegistry);
       }
     };
 
@@ -5197,7 +4914,6 @@ public final class Api {
       return PARSER;
     }
 
-    @java.lang.Override
     public com.wwttr.game.Api.StreamGamesRequest getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
@@ -5235,7 +4951,6 @@ public final class Api {
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:game.GetGameRequest)
       GetGameRequestOrBuilder {
-  private static final long serialVersionUID = 0L;
     // Use GetGameRequest.newBuilder() to construct.
     private GetGameRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
@@ -5247,19 +4962,14 @@ public final class Api {
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
-      return this.unknownFields;
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
     private GetGameRequest(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
-      if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
-      }
       int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -5268,17 +4978,16 @@ public final class Api {
             case 0:
               done = true;
               break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
             case 10: {
               java.lang.String s = input.readStringRequireUtf8();
 
               gameId_ = s;
-              break;
-            }
-            default: {
-              if (!parseUnknownFieldProto3(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
               break;
             }
           }
@@ -5289,7 +4998,6 @@ public final class Api {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
@@ -5298,7 +5006,6 @@ public final class Api {
       return com.wwttr.game.Api.internal_static_game_GetGameRequest_descriptor;
     }
 
-    @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.wwttr.game.Api.internal_static_game_GetGameRequest_fieldAccessorTable
@@ -5351,7 +5058,6 @@ public final class Api {
     }
 
     private byte memoizedIsInitialized = -1;
-    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -5361,16 +5067,13 @@ public final class Api {
       return true;
     }
 
-    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (!getGameIdBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, gameId_);
       }
-      unknownFields.writeTo(output);
     }
 
-    @java.lang.Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
@@ -5379,11 +5082,11 @@ public final class Api {
       if (!getGameIdBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, gameId_);
       }
-      size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
     }
 
+    private static final long serialVersionUID = 0L;
     @java.lang.Override
     public boolean equals(final java.lang.Object obj) {
       if (obj == this) {
@@ -5397,7 +5100,6 @@ public final class Api {
       boolean result = true;
       result = result && getGameId()
           .equals(other.getGameId());
-      result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
 
@@ -5415,17 +5117,6 @@ public final class Api {
       return hash;
     }
 
-    public static com.wwttr.game.Api.GetGameRequest parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.wwttr.game.Api.GetGameRequest parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
     public static com.wwttr.game.Api.GetGameRequest parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -5485,7 +5176,6 @@ public final class Api {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
@@ -5493,7 +5183,6 @@ public final class Api {
     public static Builder newBuilder(com.wwttr.game.Api.GetGameRequest prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
-    @java.lang.Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
@@ -5517,7 +5206,6 @@ public final class Api {
         return com.wwttr.game.Api.internal_static_game_GetGameRequest_descriptor;
       }
 
-      @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.wwttr.game.Api.internal_static_game_GetGameRequest_fieldAccessorTable
@@ -5540,7 +5228,6 @@ public final class Api {
                 .alwaysUseFieldBuilders) {
         }
       }
-      @java.lang.Override
       public Builder clear() {
         super.clear();
         gameId_ = "";
@@ -5548,18 +5235,15 @@ public final class Api {
         return this;
       }
 
-      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return com.wwttr.game.Api.internal_static_game_GetGameRequest_descriptor;
       }
 
-      @java.lang.Override
       public com.wwttr.game.Api.GetGameRequest getDefaultInstanceForType() {
         return com.wwttr.game.Api.GetGameRequest.getDefaultInstance();
       }
 
-      @java.lang.Override
       public com.wwttr.game.Api.GetGameRequest build() {
         com.wwttr.game.Api.GetGameRequest result = buildPartial();
         if (!result.isInitialized()) {
@@ -5568,7 +5252,6 @@ public final class Api {
         return result;
       }
 
-      @java.lang.Override
       public com.wwttr.game.Api.GetGameRequest buildPartial() {
         com.wwttr.game.Api.GetGameRequest result = new com.wwttr.game.Api.GetGameRequest(this);
         result.gameId_ = gameId_;
@@ -5576,39 +5259,32 @@ public final class Api {
         return result;
       }
 
-      @java.lang.Override
       public Builder clone() {
         return (Builder) super.clone();
       }
-      @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return (Builder) super.setField(field, value);
       }
-      @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
-      @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
-      @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
+          int index, Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
-      @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
-      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.wwttr.game.Api.GetGameRequest) {
           return mergeFrom((com.wwttr.game.Api.GetGameRequest)other);
@@ -5624,17 +5300,14 @@ public final class Api {
           gameId_ = other.gameId_;
           onChanged();
         }
-        this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
       }
 
-      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
-      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -5746,16 +5419,14 @@ public final class Api {
         onChanged();
         return this;
       }
-      @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return this;
       }
 
-      @java.lang.Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
+        return this;
       }
 
 
@@ -5774,12 +5445,11 @@ public final class Api {
 
     private static final com.google.protobuf.Parser<GetGameRequest>
         PARSER = new com.google.protobuf.AbstractParser<GetGameRequest>() {
-      @java.lang.Override
       public GetGameRequest parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new GetGameRequest(input, extensionRegistry);
+          return new GetGameRequest(input, extensionRegistry);
       }
     };
 
@@ -5792,7 +5462,6 @@ public final class Api {
       return PARSER;
     }
 
-    @java.lang.Override
     public com.wwttr.game.Api.GetGameRequest getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
@@ -5828,7 +5497,6 @@ public final class Api {
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:game.StartGameRequest)
       StartGameRequestOrBuilder {
-  private static final long serialVersionUID = 0L;
     // Use StartGameRequest.newBuilder() to construct.
     private StartGameRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
@@ -5840,19 +5508,14 @@ public final class Api {
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
-      return this.unknownFields;
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
     private StartGameRequest(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
-      if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
-      }
       int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -5861,17 +5524,16 @@ public final class Api {
             case 0:
               done = true;
               break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
             case 10: {
               java.lang.String s = input.readStringRequireUtf8();
 
               gameId_ = s;
-              break;
-            }
-            default: {
-              if (!parseUnknownFieldProto3(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
               break;
             }
           }
@@ -5882,7 +5544,6 @@ public final class Api {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
@@ -5891,7 +5552,6 @@ public final class Api {
       return com.wwttr.game.Api.internal_static_game_StartGameRequest_descriptor;
     }
 
-    @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.wwttr.game.Api.internal_static_game_StartGameRequest_fieldAccessorTable
@@ -5942,7 +5602,6 @@ public final class Api {
     }
 
     private byte memoizedIsInitialized = -1;
-    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -5952,16 +5611,13 @@ public final class Api {
       return true;
     }
 
-    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (!getGameIdBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, gameId_);
       }
-      unknownFields.writeTo(output);
     }
 
-    @java.lang.Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
@@ -5970,11 +5626,11 @@ public final class Api {
       if (!getGameIdBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, gameId_);
       }
-      size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
     }
 
+    private static final long serialVersionUID = 0L;
     @java.lang.Override
     public boolean equals(final java.lang.Object obj) {
       if (obj == this) {
@@ -5988,7 +5644,6 @@ public final class Api {
       boolean result = true;
       result = result && getGameId()
           .equals(other.getGameId());
-      result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
 
@@ -6006,17 +5661,6 @@ public final class Api {
       return hash;
     }
 
-    public static com.wwttr.game.Api.StartGameRequest parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.wwttr.game.Api.StartGameRequest parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
     public static com.wwttr.game.Api.StartGameRequest parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -6076,7 +5720,6 @@ public final class Api {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
@@ -6084,7 +5727,6 @@ public final class Api {
     public static Builder newBuilder(com.wwttr.game.Api.StartGameRequest prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
-    @java.lang.Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
@@ -6108,7 +5750,6 @@ public final class Api {
         return com.wwttr.game.Api.internal_static_game_StartGameRequest_descriptor;
       }
 
-      @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.wwttr.game.Api.internal_static_game_StartGameRequest_fieldAccessorTable
@@ -6131,7 +5772,6 @@ public final class Api {
                 .alwaysUseFieldBuilders) {
         }
       }
-      @java.lang.Override
       public Builder clear() {
         super.clear();
         gameId_ = "";
@@ -6139,18 +5779,15 @@ public final class Api {
         return this;
       }
 
-      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return com.wwttr.game.Api.internal_static_game_StartGameRequest_descriptor;
       }
 
-      @java.lang.Override
       public com.wwttr.game.Api.StartGameRequest getDefaultInstanceForType() {
         return com.wwttr.game.Api.StartGameRequest.getDefaultInstance();
       }
 
-      @java.lang.Override
       public com.wwttr.game.Api.StartGameRequest build() {
         com.wwttr.game.Api.StartGameRequest result = buildPartial();
         if (!result.isInitialized()) {
@@ -6159,7 +5796,6 @@ public final class Api {
         return result;
       }
 
-      @java.lang.Override
       public com.wwttr.game.Api.StartGameRequest buildPartial() {
         com.wwttr.game.Api.StartGameRequest result = new com.wwttr.game.Api.StartGameRequest(this);
         result.gameId_ = gameId_;
@@ -6167,39 +5803,32 @@ public final class Api {
         return result;
       }
 
-      @java.lang.Override
       public Builder clone() {
         return (Builder) super.clone();
       }
-      @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return (Builder) super.setField(field, value);
       }
-      @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
-      @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
-      @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
+          int index, Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
-      @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
-      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.wwttr.game.Api.StartGameRequest) {
           return mergeFrom((com.wwttr.game.Api.StartGameRequest)other);
@@ -6215,17 +5844,14 @@ public final class Api {
           gameId_ = other.gameId_;
           onChanged();
         }
-        this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
       }
 
-      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
-      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -6332,16 +5958,14 @@ public final class Api {
         onChanged();
         return this;
       }
-      @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return this;
       }
 
-      @java.lang.Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
+        return this;
       }
 
 
@@ -6360,12 +5984,11 @@ public final class Api {
 
     private static final com.google.protobuf.Parser<StartGameRequest>
         PARSER = new com.google.protobuf.AbstractParser<StartGameRequest>() {
-      @java.lang.Override
       public StartGameRequest parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new StartGameRequest(input, extensionRegistry);
+          return new StartGameRequest(input, extensionRegistry);
       }
     };
 
@@ -6378,7 +6001,6 @@ public final class Api {
       return PARSER;
     }
 
-    @java.lang.Override
     public com.wwttr.game.Api.StartGameRequest getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
@@ -6416,7 +6038,6 @@ public final class Api {
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:game.DeleteGameRequest)
       DeleteGameRequestOrBuilder {
-  private static final long serialVersionUID = 0L;
     // Use DeleteGameRequest.newBuilder() to construct.
     private DeleteGameRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
@@ -6428,19 +6049,14 @@ public final class Api {
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
-      return this.unknownFields;
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
     private DeleteGameRequest(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
-      if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
-      }
       int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -6449,17 +6065,16 @@ public final class Api {
             case 0:
               done = true;
               break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
             case 10: {
               java.lang.String s = input.readStringRequireUtf8();
 
               gameId_ = s;
-              break;
-            }
-            default: {
-              if (!parseUnknownFieldProto3(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
               break;
             }
           }
@@ -6470,7 +6085,6 @@ public final class Api {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
@@ -6479,7 +6093,6 @@ public final class Api {
       return com.wwttr.game.Api.internal_static_game_DeleteGameRequest_descriptor;
     }
 
-    @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.wwttr.game.Api.internal_static_game_DeleteGameRequest_fieldAccessorTable
@@ -6532,7 +6145,6 @@ public final class Api {
     }
 
     private byte memoizedIsInitialized = -1;
-    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -6542,16 +6154,13 @@ public final class Api {
       return true;
     }
 
-    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (!getGameIdBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, gameId_);
       }
-      unknownFields.writeTo(output);
     }
 
-    @java.lang.Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
@@ -6560,11 +6169,11 @@ public final class Api {
       if (!getGameIdBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, gameId_);
       }
-      size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
     }
 
+    private static final long serialVersionUID = 0L;
     @java.lang.Override
     public boolean equals(final java.lang.Object obj) {
       if (obj == this) {
@@ -6578,7 +6187,6 @@ public final class Api {
       boolean result = true;
       result = result && getGameId()
           .equals(other.getGameId());
-      result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
 
@@ -6596,17 +6204,6 @@ public final class Api {
       return hash;
     }
 
-    public static com.wwttr.game.Api.DeleteGameRequest parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.wwttr.game.Api.DeleteGameRequest parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
     public static com.wwttr.game.Api.DeleteGameRequest parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -6666,7 +6263,6 @@ public final class Api {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
@@ -6674,7 +6270,6 @@ public final class Api {
     public static Builder newBuilder(com.wwttr.game.Api.DeleteGameRequest prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
-    @java.lang.Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
@@ -6698,7 +6293,6 @@ public final class Api {
         return com.wwttr.game.Api.internal_static_game_DeleteGameRequest_descriptor;
       }
 
-      @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.wwttr.game.Api.internal_static_game_DeleteGameRequest_fieldAccessorTable
@@ -6721,7 +6315,6 @@ public final class Api {
                 .alwaysUseFieldBuilders) {
         }
       }
-      @java.lang.Override
       public Builder clear() {
         super.clear();
         gameId_ = "";
@@ -6729,18 +6322,15 @@ public final class Api {
         return this;
       }
 
-      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return com.wwttr.game.Api.internal_static_game_DeleteGameRequest_descriptor;
       }
 
-      @java.lang.Override
       public com.wwttr.game.Api.DeleteGameRequest getDefaultInstanceForType() {
         return com.wwttr.game.Api.DeleteGameRequest.getDefaultInstance();
       }
 
-      @java.lang.Override
       public com.wwttr.game.Api.DeleteGameRequest build() {
         com.wwttr.game.Api.DeleteGameRequest result = buildPartial();
         if (!result.isInitialized()) {
@@ -6749,7 +6339,6 @@ public final class Api {
         return result;
       }
 
-      @java.lang.Override
       public com.wwttr.game.Api.DeleteGameRequest buildPartial() {
         com.wwttr.game.Api.DeleteGameRequest result = new com.wwttr.game.Api.DeleteGameRequest(this);
         result.gameId_ = gameId_;
@@ -6757,39 +6346,32 @@ public final class Api {
         return result;
       }
 
-      @java.lang.Override
       public Builder clone() {
         return (Builder) super.clone();
       }
-      @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return (Builder) super.setField(field, value);
       }
-      @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
-      @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
-      @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
+          int index, Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
-      @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
-      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.wwttr.game.Api.DeleteGameRequest) {
           return mergeFrom((com.wwttr.game.Api.DeleteGameRequest)other);
@@ -6805,17 +6387,14 @@ public final class Api {
           gameId_ = other.gameId_;
           onChanged();
         }
-        this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
       }
 
-      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
-      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -6927,16 +6506,14 @@ public final class Api {
         onChanged();
         return this;
       }
-      @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return this;
       }
 
-      @java.lang.Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
+        return this;
       }
 
 
@@ -6955,12 +6532,11 @@ public final class Api {
 
     private static final com.google.protobuf.Parser<DeleteGameRequest>
         PARSER = new com.google.protobuf.AbstractParser<DeleteGameRequest>() {
-      @java.lang.Override
       public DeleteGameRequest parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new DeleteGameRequest(input, extensionRegistry);
+          return new DeleteGameRequest(input, extensionRegistry);
       }
     };
 
@@ -6973,7 +6549,6 @@ public final class Api {
       return PARSER;
     }
 
-    @java.lang.Override
     public com.wwttr.game.Api.DeleteGameRequest getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
@@ -7001,7 +6576,6 @@ public final class Api {
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:game.StreamHistoryRequest)
       StreamHistoryRequestOrBuilder {
-  private static final long serialVersionUID = 0L;
     // Use StreamHistoryRequest.newBuilder() to construct.
     private StreamHistoryRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
@@ -7013,19 +6587,14 @@ public final class Api {
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
-      return this.unknownFields;
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
     private StreamHistoryRequest(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
-      if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
-      }
       int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -7034,17 +6603,16 @@ public final class Api {
             case 0:
               done = true;
               break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
             case 10: {
               java.lang.String s = input.readStringRequireUtf8();
 
               gameId_ = s;
-              break;
-            }
-            default: {
-              if (!parseUnknownFieldProto3(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
               break;
             }
           }
@@ -7055,7 +6623,6 @@ public final class Api {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
@@ -7064,7 +6631,6 @@ public final class Api {
       return com.wwttr.game.Api.internal_static_game_StreamHistoryRequest_descriptor;
     }
 
-    @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.wwttr.game.Api.internal_static_game_StreamHistoryRequest_fieldAccessorTable
@@ -7107,7 +6673,6 @@ public final class Api {
     }
 
     private byte memoizedIsInitialized = -1;
-    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -7117,16 +6682,13 @@ public final class Api {
       return true;
     }
 
-    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (!getGameIdBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, gameId_);
       }
-      unknownFields.writeTo(output);
     }
 
-    @java.lang.Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
@@ -7135,11 +6697,11 @@ public final class Api {
       if (!getGameIdBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, gameId_);
       }
-      size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
     }
 
+    private static final long serialVersionUID = 0L;
     @java.lang.Override
     public boolean equals(final java.lang.Object obj) {
       if (obj == this) {
@@ -7153,7 +6715,6 @@ public final class Api {
       boolean result = true;
       result = result && getGameId()
           .equals(other.getGameId());
-      result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
 
@@ -7171,17 +6732,6 @@ public final class Api {
       return hash;
     }
 
-    public static com.wwttr.game.Api.StreamHistoryRequest parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.wwttr.game.Api.StreamHistoryRequest parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
     public static com.wwttr.game.Api.StreamHistoryRequest parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -7241,7 +6791,6 @@ public final class Api {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
@@ -7249,7 +6798,6 @@ public final class Api {
     public static Builder newBuilder(com.wwttr.game.Api.StreamHistoryRequest prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
-    @java.lang.Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
@@ -7273,7 +6821,6 @@ public final class Api {
         return com.wwttr.game.Api.internal_static_game_StreamHistoryRequest_descriptor;
       }
 
-      @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.wwttr.game.Api.internal_static_game_StreamHistoryRequest_fieldAccessorTable
@@ -7296,7 +6843,6 @@ public final class Api {
                 .alwaysUseFieldBuilders) {
         }
       }
-      @java.lang.Override
       public Builder clear() {
         super.clear();
         gameId_ = "";
@@ -7304,18 +6850,15 @@ public final class Api {
         return this;
       }
 
-      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return com.wwttr.game.Api.internal_static_game_StreamHistoryRequest_descriptor;
       }
 
-      @java.lang.Override
       public com.wwttr.game.Api.StreamHistoryRequest getDefaultInstanceForType() {
         return com.wwttr.game.Api.StreamHistoryRequest.getDefaultInstance();
       }
 
-      @java.lang.Override
       public com.wwttr.game.Api.StreamHistoryRequest build() {
         com.wwttr.game.Api.StreamHistoryRequest result = buildPartial();
         if (!result.isInitialized()) {
@@ -7324,7 +6867,6 @@ public final class Api {
         return result;
       }
 
-      @java.lang.Override
       public com.wwttr.game.Api.StreamHistoryRequest buildPartial() {
         com.wwttr.game.Api.StreamHistoryRequest result = new com.wwttr.game.Api.StreamHistoryRequest(this);
         result.gameId_ = gameId_;
@@ -7332,39 +6874,32 @@ public final class Api {
         return result;
       }
 
-      @java.lang.Override
       public Builder clone() {
         return (Builder) super.clone();
       }
-      @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return (Builder) super.setField(field, value);
       }
-      @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
-      @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
-      @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
+          int index, Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
-      @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
-      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.wwttr.game.Api.StreamHistoryRequest) {
           return mergeFrom((com.wwttr.game.Api.StreamHistoryRequest)other);
@@ -7380,17 +6915,14 @@ public final class Api {
           gameId_ = other.gameId_;
           onChanged();
         }
-        this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
       }
 
-      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
-      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -7477,16 +7009,14 @@ public final class Api {
         onChanged();
         return this;
       }
-      @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return this;
       }
 
-      @java.lang.Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
+        return this;
       }
 
 
@@ -7505,12 +7035,11 @@ public final class Api {
 
     private static final com.google.protobuf.Parser<StreamHistoryRequest>
         PARSER = new com.google.protobuf.AbstractParser<StreamHistoryRequest>() {
-      @java.lang.Override
       public StreamHistoryRequest parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new StreamHistoryRequest(input, extensionRegistry);
+          return new StreamHistoryRequest(input, extensionRegistry);
       }
     };
 
@@ -7523,7 +7052,6 @@ public final class Api {
       return PARSER;
     }
 
-    @java.lang.Override
     public com.wwttr.game.Api.StreamHistoryRequest getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
@@ -7577,7 +7105,6 @@ public final class Api {
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:game.CreatePlayerRequest)
       CreatePlayerRequestOrBuilder {
-  private static final long serialVersionUID = 0L;
     // Use CreatePlayerRequest.newBuilder() to construct.
     private CreatePlayerRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
@@ -7590,19 +7117,14 @@ public final class Api {
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
-      return this.unknownFields;
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
     private CreatePlayerRequest(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
-      if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
-      }
       int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -7611,6 +7133,12 @@ public final class Api {
             case 0:
               done = true;
               break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
             case 10: {
               java.lang.String s = input.readStringRequireUtf8();
 
@@ -7623,13 +7151,6 @@ public final class Api {
               gameId_ = s;
               break;
             }
-            default: {
-              if (!parseUnknownFieldProto3(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -7638,7 +7159,6 @@ public final class Api {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
@@ -7647,7 +7167,6 @@ public final class Api {
       return com.wwttr.game.Api.internal_static_game_CreatePlayerRequest_descriptor;
     }
 
-    @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.wwttr.game.Api.internal_static_game_CreatePlayerRequest_fieldAccessorTable
@@ -7740,7 +7259,6 @@ public final class Api {
     }
 
     private byte memoizedIsInitialized = -1;
-    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -7750,7 +7268,6 @@ public final class Api {
       return true;
     }
 
-    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (!getUserIdBytes().isEmpty()) {
@@ -7759,10 +7276,8 @@ public final class Api {
       if (!getGameIdBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 2, gameId_);
       }
-      unknownFields.writeTo(output);
     }
 
-    @java.lang.Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
@@ -7774,11 +7289,11 @@ public final class Api {
       if (!getGameIdBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, gameId_);
       }
-      size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
     }
 
+    private static final long serialVersionUID = 0L;
     @java.lang.Override
     public boolean equals(final java.lang.Object obj) {
       if (obj == this) {
@@ -7794,7 +7309,6 @@ public final class Api {
           .equals(other.getUserId());
       result = result && getGameId()
           .equals(other.getGameId());
-      result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
 
@@ -7814,17 +7328,6 @@ public final class Api {
       return hash;
     }
 
-    public static com.wwttr.game.Api.CreatePlayerRequest parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.wwttr.game.Api.CreatePlayerRequest parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
     public static com.wwttr.game.Api.CreatePlayerRequest parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -7884,7 +7387,6 @@ public final class Api {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
@@ -7892,7 +7394,6 @@ public final class Api {
     public static Builder newBuilder(com.wwttr.game.Api.CreatePlayerRequest prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
-    @java.lang.Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
@@ -7916,7 +7417,6 @@ public final class Api {
         return com.wwttr.game.Api.internal_static_game_CreatePlayerRequest_descriptor;
       }
 
-      @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.wwttr.game.Api.internal_static_game_CreatePlayerRequest_fieldAccessorTable
@@ -7939,7 +7439,6 @@ public final class Api {
                 .alwaysUseFieldBuilders) {
         }
       }
-      @java.lang.Override
       public Builder clear() {
         super.clear();
         userId_ = "";
@@ -7949,18 +7448,15 @@ public final class Api {
         return this;
       }
 
-      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return com.wwttr.game.Api.internal_static_game_CreatePlayerRequest_descriptor;
       }
 
-      @java.lang.Override
       public com.wwttr.game.Api.CreatePlayerRequest getDefaultInstanceForType() {
         return com.wwttr.game.Api.CreatePlayerRequest.getDefaultInstance();
       }
 
-      @java.lang.Override
       public com.wwttr.game.Api.CreatePlayerRequest build() {
         com.wwttr.game.Api.CreatePlayerRequest result = buildPartial();
         if (!result.isInitialized()) {
@@ -7969,7 +7465,6 @@ public final class Api {
         return result;
       }
 
-      @java.lang.Override
       public com.wwttr.game.Api.CreatePlayerRequest buildPartial() {
         com.wwttr.game.Api.CreatePlayerRequest result = new com.wwttr.game.Api.CreatePlayerRequest(this);
         result.userId_ = userId_;
@@ -7978,39 +7473,32 @@ public final class Api {
         return result;
       }
 
-      @java.lang.Override
       public Builder clone() {
         return (Builder) super.clone();
       }
-      @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return (Builder) super.setField(field, value);
       }
-      @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
-      @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
-      @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
+          int index, Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
-      @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
-      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.wwttr.game.Api.CreatePlayerRequest) {
           return mergeFrom((com.wwttr.game.Api.CreatePlayerRequest)other);
@@ -8030,17 +7518,14 @@ public final class Api {
           gameId_ = other.gameId_;
           onChanged();
         }
-        this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
       }
 
-      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
-      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -8236,16 +7721,14 @@ public final class Api {
         onChanged();
         return this;
       }
-      @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return this;
       }
 
-      @java.lang.Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
+        return this;
       }
 
 
@@ -8264,12 +7747,11 @@ public final class Api {
 
     private static final com.google.protobuf.Parser<CreatePlayerRequest>
         PARSER = new com.google.protobuf.AbstractParser<CreatePlayerRequest>() {
-      @java.lang.Override
       public CreatePlayerRequest parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new CreatePlayerRequest(input, extensionRegistry);
+          return new CreatePlayerRequest(input, extensionRegistry);
       }
     };
 
@@ -8282,7 +7764,6 @@ public final class Api {
       return PARSER;
     }
 
-    @java.lang.Override
     public com.wwttr.game.Api.CreatePlayerRequest getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
@@ -8391,7 +7872,6 @@ public final class Api {
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:game.Player)
       PlayerOrBuilder {
-  private static final long serialVersionUID = 0L;
     // Use Player.newBuilder() to construct.
     private Player(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
@@ -8407,19 +7887,14 @@ public final class Api {
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
-      return this.unknownFields;
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
     private Player(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
-      if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
-      }
       int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -8428,6 +7903,12 @@ public final class Api {
             case 0:
               done = true;
               break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
             case 10: {
               java.lang.String s = input.readStringRequireUtf8();
 
@@ -8458,13 +7939,6 @@ public final class Api {
               username_ = s;
               break;
             }
-            default: {
-              if (!parseUnknownFieldProto3(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -8473,7 +7947,6 @@ public final class Api {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
@@ -8482,7 +7955,6 @@ public final class Api {
       return com.wwttr.game.Api.internal_static_game_Player_descriptor;
     }
 
-    @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.wwttr.game.Api.internal_static_game_Player_fieldAccessorTable
@@ -8781,7 +8253,6 @@ public final class Api {
      * <code>.game.Player.Color color = 4;</code>
      */
     public com.wwttr.game.Api.Player.Color getColor() {
-      @SuppressWarnings("deprecation")
       com.wwttr.game.Api.Player.Color result = com.wwttr.game.Api.Player.Color.valueOf(color_);
       return result == null ? com.wwttr.game.Api.Player.Color.UNRECOGNIZED : result;
     }
@@ -8829,7 +8300,6 @@ public final class Api {
     }
 
     private byte memoizedIsInitialized = -1;
-    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -8839,7 +8309,6 @@ public final class Api {
       return true;
     }
 
-    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (!getIdBytes().isEmpty()) {
@@ -8857,10 +8326,8 @@ public final class Api {
       if (!getUsernameBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 5, username_);
       }
-      unknownFields.writeTo(output);
     }
 
-    @java.lang.Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
@@ -8882,11 +8349,11 @@ public final class Api {
       if (!getUsernameBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, username_);
       }
-      size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
     }
 
+    private static final long serialVersionUID = 0L;
     @java.lang.Override
     public boolean equals(final java.lang.Object obj) {
       if (obj == this) {
@@ -8907,7 +8374,6 @@ public final class Api {
       result = result && color_ == other.color_;
       result = result && getUsername()
           .equals(other.getUsername());
-      result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
 
@@ -8933,17 +8399,6 @@ public final class Api {
       return hash;
     }
 
-    public static com.wwttr.game.Api.Player parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.wwttr.game.Api.Player parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
     public static com.wwttr.game.Api.Player parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -9003,7 +8458,6 @@ public final class Api {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
@@ -9011,7 +8465,6 @@ public final class Api {
     public static Builder newBuilder(com.wwttr.game.Api.Player prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
-    @java.lang.Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
@@ -9035,7 +8488,6 @@ public final class Api {
         return com.wwttr.game.Api.internal_static_game_Player_descriptor;
       }
 
-      @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.wwttr.game.Api.internal_static_game_Player_fieldAccessorTable
@@ -9058,7 +8510,6 @@ public final class Api {
                 .alwaysUseFieldBuilders) {
         }
       }
-      @java.lang.Override
       public Builder clear() {
         super.clear();
         id_ = "";
@@ -9074,18 +8525,15 @@ public final class Api {
         return this;
       }
 
-      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return com.wwttr.game.Api.internal_static_game_Player_descriptor;
       }
 
-      @java.lang.Override
       public com.wwttr.game.Api.Player getDefaultInstanceForType() {
         return com.wwttr.game.Api.Player.getDefaultInstance();
       }
 
-      @java.lang.Override
       public com.wwttr.game.Api.Player build() {
         com.wwttr.game.Api.Player result = buildPartial();
         if (!result.isInitialized()) {
@@ -9094,7 +8542,6 @@ public final class Api {
         return result;
       }
 
-      @java.lang.Override
       public com.wwttr.game.Api.Player buildPartial() {
         com.wwttr.game.Api.Player result = new com.wwttr.game.Api.Player(this);
         result.id_ = id_;
@@ -9106,39 +8553,32 @@ public final class Api {
         return result;
       }
 
-      @java.lang.Override
       public Builder clone() {
         return (Builder) super.clone();
       }
-      @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return (Builder) super.setField(field, value);
       }
-      @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
-      @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
-      @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
+          int index, Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
-      @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
-      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.wwttr.game.Api.Player) {
           return mergeFrom((com.wwttr.game.Api.Player)other);
@@ -9169,17 +8609,14 @@ public final class Api {
           username_ = other.username_;
           onChanged();
         }
-        this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
       }
 
-      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
-      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -9501,7 +8938,6 @@ public final class Api {
        * <code>.game.Player.Color color = 4;</code>
        */
       public com.wwttr.game.Api.Player.Color getColor() {
-        @SuppressWarnings("deprecation")
         com.wwttr.game.Api.Player.Color result = com.wwttr.game.Api.Player.Color.valueOf(color_);
         return result == null ? com.wwttr.game.Api.Player.Color.UNRECOGNIZED : result;
       }
@@ -9623,16 +9059,14 @@ public final class Api {
         onChanged();
         return this;
       }
-      @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return this;
       }
 
-      @java.lang.Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
+        return this;
       }
 
 
@@ -9651,12 +9085,11 @@ public final class Api {
 
     private static final com.google.protobuf.Parser<Player>
         PARSER = new com.google.protobuf.AbstractParser<Player>() {
-      @java.lang.Override
       public Player parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new Player(input, extensionRegistry);
+          return new Player(input, extensionRegistry);
       }
     };
 
@@ -9669,7 +9102,6 @@ public final class Api {
       return PARSER;
     }
 
-    @java.lang.Override
     public com.wwttr.game.Api.Player getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
@@ -9697,7 +9129,6 @@ public final class Api {
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:game.GetPlayerRequest)
       GetPlayerRequestOrBuilder {
-  private static final long serialVersionUID = 0L;
     // Use GetPlayerRequest.newBuilder() to construct.
     private GetPlayerRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
@@ -9709,19 +9140,14 @@ public final class Api {
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
-      return this.unknownFields;
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
     private GetPlayerRequest(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
-      if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
-      }
       int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -9730,17 +9156,16 @@ public final class Api {
             case 0:
               done = true;
               break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
             case 10: {
               java.lang.String s = input.readStringRequireUtf8();
 
               playerId_ = s;
-              break;
-            }
-            default: {
-              if (!parseUnknownFieldProto3(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
               break;
             }
           }
@@ -9751,7 +9176,6 @@ public final class Api {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
@@ -9760,7 +9184,6 @@ public final class Api {
       return com.wwttr.game.Api.internal_static_game_GetPlayerRequest_descriptor;
     }
 
-    @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.wwttr.game.Api.internal_static_game_GetPlayerRequest_fieldAccessorTable
@@ -9803,7 +9226,6 @@ public final class Api {
     }
 
     private byte memoizedIsInitialized = -1;
-    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -9813,16 +9235,13 @@ public final class Api {
       return true;
     }
 
-    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (!getPlayerIdBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, playerId_);
       }
-      unknownFields.writeTo(output);
     }
 
-    @java.lang.Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
@@ -9831,11 +9250,11 @@ public final class Api {
       if (!getPlayerIdBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, playerId_);
       }
-      size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
     }
 
+    private static final long serialVersionUID = 0L;
     @java.lang.Override
     public boolean equals(final java.lang.Object obj) {
       if (obj == this) {
@@ -9849,7 +9268,6 @@ public final class Api {
       boolean result = true;
       result = result && getPlayerId()
           .equals(other.getPlayerId());
-      result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
 
@@ -9867,17 +9285,6 @@ public final class Api {
       return hash;
     }
 
-    public static com.wwttr.game.Api.GetPlayerRequest parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.wwttr.game.Api.GetPlayerRequest parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
     public static com.wwttr.game.Api.GetPlayerRequest parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -9937,7 +9344,6 @@ public final class Api {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
@@ -9945,7 +9351,6 @@ public final class Api {
     public static Builder newBuilder(com.wwttr.game.Api.GetPlayerRequest prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
-    @java.lang.Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
@@ -9969,7 +9374,6 @@ public final class Api {
         return com.wwttr.game.Api.internal_static_game_GetPlayerRequest_descriptor;
       }
 
-      @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.wwttr.game.Api.internal_static_game_GetPlayerRequest_fieldAccessorTable
@@ -9992,7 +9396,6 @@ public final class Api {
                 .alwaysUseFieldBuilders) {
         }
       }
-      @java.lang.Override
       public Builder clear() {
         super.clear();
         playerId_ = "";
@@ -10000,18 +9403,15 @@ public final class Api {
         return this;
       }
 
-      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return com.wwttr.game.Api.internal_static_game_GetPlayerRequest_descriptor;
       }
 
-      @java.lang.Override
       public com.wwttr.game.Api.GetPlayerRequest getDefaultInstanceForType() {
         return com.wwttr.game.Api.GetPlayerRequest.getDefaultInstance();
       }
 
-      @java.lang.Override
       public com.wwttr.game.Api.GetPlayerRequest build() {
         com.wwttr.game.Api.GetPlayerRequest result = buildPartial();
         if (!result.isInitialized()) {
@@ -10020,7 +9420,6 @@ public final class Api {
         return result;
       }
 
-      @java.lang.Override
       public com.wwttr.game.Api.GetPlayerRequest buildPartial() {
         com.wwttr.game.Api.GetPlayerRequest result = new com.wwttr.game.Api.GetPlayerRequest(this);
         result.playerId_ = playerId_;
@@ -10028,39 +9427,32 @@ public final class Api {
         return result;
       }
 
-      @java.lang.Override
       public Builder clone() {
         return (Builder) super.clone();
       }
-      @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return (Builder) super.setField(field, value);
       }
-      @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
-      @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
-      @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
+          int index, Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
-      @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
-      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.wwttr.game.Api.GetPlayerRequest) {
           return mergeFrom((com.wwttr.game.Api.GetPlayerRequest)other);
@@ -10076,17 +9468,14 @@ public final class Api {
           playerId_ = other.playerId_;
           onChanged();
         }
-        this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
       }
 
-      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
-      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -10173,16 +9562,14 @@ public final class Api {
         onChanged();
         return this;
       }
-      @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return this;
       }
 
-      @java.lang.Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
+        return this;
       }
 
 
@@ -10201,12 +9588,11 @@ public final class Api {
 
     private static final com.google.protobuf.Parser<GetPlayerRequest>
         PARSER = new com.google.protobuf.AbstractParser<GetPlayerRequest>() {
-      @java.lang.Override
       public GetPlayerRequest parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new GetPlayerRequest(input, extensionRegistry);
+          return new GetPlayerRequest(input, extensionRegistry);
       }
     };
 
@@ -10219,7 +9605,6 @@ public final class Api {
       return PARSER;
     }
 
-    @java.lang.Override
     public com.wwttr.game.Api.GetPlayerRequest getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
@@ -10237,7 +9622,6 @@ public final class Api {
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:game.Empty)
       EmptyOrBuilder {
-  private static final long serialVersionUID = 0L;
     // Use Empty.newBuilder() to construct.
     private Empty(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
@@ -10248,18 +9632,13 @@ public final class Api {
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
-      return this.unknownFields;
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
     private Empty(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
-      if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
-      }
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -10269,8 +9648,7 @@ public final class Api {
               done = true;
               break;
             default: {
-              if (!parseUnknownFieldProto3(
-                  input, unknownFields, extensionRegistry, tag)) {
+              if (!input.skipField(tag)) {
                 done = true;
               }
               break;
@@ -10283,7 +9661,6 @@ public final class Api {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
@@ -10292,7 +9669,6 @@ public final class Api {
       return com.wwttr.game.Api.internal_static_game_Empty_descriptor;
     }
 
-    @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.wwttr.game.Api.internal_static_game_Empty_fieldAccessorTable
@@ -10301,7 +9677,6 @@ public final class Api {
     }
 
     private byte memoizedIsInitialized = -1;
-    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -10311,23 +9686,20 @@ public final class Api {
       return true;
     }
 
-    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      unknownFields.writeTo(output);
     }
 
-    @java.lang.Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
     }
 
+    private static final long serialVersionUID = 0L;
     @java.lang.Override
     public boolean equals(final java.lang.Object obj) {
       if (obj == this) {
@@ -10339,7 +9711,6 @@ public final class Api {
       com.wwttr.game.Api.Empty other = (com.wwttr.game.Api.Empty) obj;
 
       boolean result = true;
-      result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
 
@@ -10355,17 +9726,6 @@ public final class Api {
       return hash;
     }
 
-    public static com.wwttr.game.Api.Empty parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.wwttr.game.Api.Empty parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
     public static com.wwttr.game.Api.Empty parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -10425,7 +9785,6 @@ public final class Api {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
@@ -10433,7 +9792,6 @@ public final class Api {
     public static Builder newBuilder(com.wwttr.game.Api.Empty prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
-    @java.lang.Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
@@ -10457,7 +9815,6 @@ public final class Api {
         return com.wwttr.game.Api.internal_static_game_Empty_descriptor;
       }
 
-      @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.wwttr.game.Api.internal_static_game_Empty_fieldAccessorTable
@@ -10480,24 +9837,20 @@ public final class Api {
                 .alwaysUseFieldBuilders) {
         }
       }
-      @java.lang.Override
       public Builder clear() {
         super.clear();
         return this;
       }
 
-      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return com.wwttr.game.Api.internal_static_game_Empty_descriptor;
       }
 
-      @java.lang.Override
       public com.wwttr.game.Api.Empty getDefaultInstanceForType() {
         return com.wwttr.game.Api.Empty.getDefaultInstance();
       }
 
-      @java.lang.Override
       public com.wwttr.game.Api.Empty build() {
         com.wwttr.game.Api.Empty result = buildPartial();
         if (!result.isInitialized()) {
@@ -10506,46 +9859,38 @@ public final class Api {
         return result;
       }
 
-      @java.lang.Override
       public com.wwttr.game.Api.Empty buildPartial() {
         com.wwttr.game.Api.Empty result = new com.wwttr.game.Api.Empty(this);
         onBuilt();
         return result;
       }
 
-      @java.lang.Override
       public Builder clone() {
         return (Builder) super.clone();
       }
-      @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return (Builder) super.setField(field, value);
       }
-      @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
-      @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
-      @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
+          int index, Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
-      @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
-      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.wwttr.game.Api.Empty) {
           return mergeFrom((com.wwttr.game.Api.Empty)other);
@@ -10557,17 +9902,14 @@ public final class Api {
 
       public Builder mergeFrom(com.wwttr.game.Api.Empty other) {
         if (other == com.wwttr.game.Api.Empty.getDefaultInstance()) return this;
-        this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
       }
 
-      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
-      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -10585,16 +9927,14 @@ public final class Api {
         }
         return this;
       }
-      @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return this;
       }
 
-      @java.lang.Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
+        return this;
       }
 
 
@@ -10613,12 +9953,11 @@ public final class Api {
 
     private static final com.google.protobuf.Parser<Empty>
         PARSER = new com.google.protobuf.AbstractParser<Empty>() {
-      @java.lang.Override
       public Empty parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new Empty(input, extensionRegistry);
+          return new Empty(input, extensionRegistry);
       }
     };
 
@@ -10631,7 +9970,6 @@ public final class Api {
       return PARSER;
     }
 
-    @java.lang.Override
     public com.wwttr.game.Api.Empty getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
@@ -10693,7 +10031,6 @@ public final class Api {
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:game.ListGamesResponse)
       ListGamesResponseOrBuilder {
-  private static final long serialVersionUID = 0L;
     // Use ListGamesResponse.newBuilder() to construct.
     private ListGamesResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
@@ -10705,19 +10042,14 @@ public final class Api {
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
-      return this.unknownFields;
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
     private ListGamesResponse(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
-      if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
-      }
       int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -10726,6 +10058,12 @@ public final class Api {
             case 0:
               done = true;
               break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
             case 10: {
               if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
                 games_ = new java.util.ArrayList<com.wwttr.game.Api.Game>();
@@ -10733,13 +10071,6 @@ public final class Api {
               }
               games_.add(
                   input.readMessage(com.wwttr.game.Api.Game.parser(), extensionRegistry));
-              break;
-            }
-            default: {
-              if (!parseUnknownFieldProto3(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
               break;
             }
           }
@@ -10753,7 +10084,6 @@ public final class Api {
         if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
           games_ = java.util.Collections.unmodifiableList(games_);
         }
-        this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
@@ -10762,7 +10092,6 @@ public final class Api {
       return com.wwttr.game.Api.internal_static_game_ListGamesResponse_descriptor;
     }
 
-    @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.wwttr.game.Api.internal_static_game_ListGamesResponse_fieldAccessorTable
@@ -10826,7 +10155,6 @@ public final class Api {
     }
 
     private byte memoizedIsInitialized = -1;
-    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -10836,16 +10164,13 @@ public final class Api {
       return true;
     }
 
-    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       for (int i = 0; i < games_.size(); i++) {
         output.writeMessage(1, games_.get(i));
       }
-      unknownFields.writeTo(output);
     }
 
-    @java.lang.Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
@@ -10855,11 +10180,11 @@ public final class Api {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(1, games_.get(i));
       }
-      size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
     }
 
+    private static final long serialVersionUID = 0L;
     @java.lang.Override
     public boolean equals(final java.lang.Object obj) {
       if (obj == this) {
@@ -10873,7 +10198,6 @@ public final class Api {
       boolean result = true;
       result = result && getGamesList()
           .equals(other.getGamesList());
-      result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
 
@@ -10893,17 +10217,6 @@ public final class Api {
       return hash;
     }
 
-    public static com.wwttr.game.Api.ListGamesResponse parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.wwttr.game.Api.ListGamesResponse parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
     public static com.wwttr.game.Api.ListGamesResponse parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -10963,7 +10276,6 @@ public final class Api {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
@@ -10971,7 +10283,6 @@ public final class Api {
     public static Builder newBuilder(com.wwttr.game.Api.ListGamesResponse prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
-    @java.lang.Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
@@ -10995,7 +10306,6 @@ public final class Api {
         return com.wwttr.game.Api.internal_static_game_ListGamesResponse_descriptor;
       }
 
-      @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.wwttr.game.Api.internal_static_game_ListGamesResponse_fieldAccessorTable
@@ -11019,7 +10329,6 @@ public final class Api {
           getGamesFieldBuilder();
         }
       }
-      @java.lang.Override
       public Builder clear() {
         super.clear();
         if (gamesBuilder_ == null) {
@@ -11031,18 +10340,15 @@ public final class Api {
         return this;
       }
 
-      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return com.wwttr.game.Api.internal_static_game_ListGamesResponse_descriptor;
       }
 
-      @java.lang.Override
       public com.wwttr.game.Api.ListGamesResponse getDefaultInstanceForType() {
         return com.wwttr.game.Api.ListGamesResponse.getDefaultInstance();
       }
 
-      @java.lang.Override
       public com.wwttr.game.Api.ListGamesResponse build() {
         com.wwttr.game.Api.ListGamesResponse result = buildPartial();
         if (!result.isInitialized()) {
@@ -11051,7 +10357,6 @@ public final class Api {
         return result;
       }
 
-      @java.lang.Override
       public com.wwttr.game.Api.ListGamesResponse buildPartial() {
         com.wwttr.game.Api.ListGamesResponse result = new com.wwttr.game.Api.ListGamesResponse(this);
         int from_bitField0_ = bitField0_;
@@ -11068,39 +10373,32 @@ public final class Api {
         return result;
       }
 
-      @java.lang.Override
       public Builder clone() {
         return (Builder) super.clone();
       }
-      @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return (Builder) super.setField(field, value);
       }
-      @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
-      @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
-      @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
+          int index, Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
-      @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
-      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.wwttr.game.Api.ListGamesResponse) {
           return mergeFrom((com.wwttr.game.Api.ListGamesResponse)other);
@@ -11138,17 +10436,14 @@ public final class Api {
             }
           }
         }
-        this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
       }
 
-      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
-      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -11479,16 +10774,14 @@ public final class Api {
         }
         return gamesBuilder_;
       }
-      @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return this;
       }
 
-      @java.lang.Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
+        return this;
       }
 
 
@@ -11507,12 +10800,11 @@ public final class Api {
 
     private static final com.google.protobuf.Parser<ListGamesResponse>
         PARSER = new com.google.protobuf.AbstractParser<ListGamesResponse>() {
-      @java.lang.Override
       public ListGamesResponse parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new ListGamesResponse(input, extensionRegistry);
+          return new ListGamesResponse(input, extensionRegistry);
       }
     };
 
@@ -11525,7 +10817,6 @@ public final class Api {
       return PARSER;
     }
 
-    @java.lang.Override
     public com.wwttr.game.Api.ListGamesResponse getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
@@ -11579,7 +10870,6 @@ public final class Api {
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:game.CreateResponse)
       CreateResponseOrBuilder {
-  private static final long serialVersionUID = 0L;
     // Use CreateResponse.newBuilder() to construct.
     private CreateResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
@@ -11592,19 +10882,14 @@ public final class Api {
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
-      return this.unknownFields;
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
     private CreateResponse(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
-      if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
-      }
       int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -11613,6 +10898,12 @@ public final class Api {
             case 0:
               done = true;
               break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
             case 10: {
               java.lang.String s = input.readStringRequireUtf8();
 
@@ -11625,13 +10916,6 @@ public final class Api {
               playerId_ = s;
               break;
             }
-            default: {
-              if (!parseUnknownFieldProto3(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -11640,7 +10924,6 @@ public final class Api {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
@@ -11649,7 +10932,6 @@ public final class Api {
       return com.wwttr.game.Api.internal_static_game_CreateResponse_descriptor;
     }
 
-    @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.wwttr.game.Api.internal_static_game_CreateResponse_fieldAccessorTable
@@ -11742,7 +11024,6 @@ public final class Api {
     }
 
     private byte memoizedIsInitialized = -1;
-    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -11752,7 +11033,6 @@ public final class Api {
       return true;
     }
 
-    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (!getGameIdBytes().isEmpty()) {
@@ -11761,10 +11041,8 @@ public final class Api {
       if (!getPlayerIdBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 2, playerId_);
       }
-      unknownFields.writeTo(output);
     }
 
-    @java.lang.Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
@@ -11776,11 +11054,11 @@ public final class Api {
       if (!getPlayerIdBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, playerId_);
       }
-      size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
     }
 
+    private static final long serialVersionUID = 0L;
     @java.lang.Override
     public boolean equals(final java.lang.Object obj) {
       if (obj == this) {
@@ -11796,7 +11074,6 @@ public final class Api {
           .equals(other.getGameId());
       result = result && getPlayerId()
           .equals(other.getPlayerId());
-      result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
 
@@ -11816,17 +11093,6 @@ public final class Api {
       return hash;
     }
 
-    public static com.wwttr.game.Api.CreateResponse parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.wwttr.game.Api.CreateResponse parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
     public static com.wwttr.game.Api.CreateResponse parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -11886,7 +11152,6 @@ public final class Api {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
@@ -11894,7 +11159,6 @@ public final class Api {
     public static Builder newBuilder(com.wwttr.game.Api.CreateResponse prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
-    @java.lang.Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
@@ -11918,7 +11182,6 @@ public final class Api {
         return com.wwttr.game.Api.internal_static_game_CreateResponse_descriptor;
       }
 
-      @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.wwttr.game.Api.internal_static_game_CreateResponse_fieldAccessorTable
@@ -11941,7 +11204,6 @@ public final class Api {
                 .alwaysUseFieldBuilders) {
         }
       }
-      @java.lang.Override
       public Builder clear() {
         super.clear();
         gameId_ = "";
@@ -11951,18 +11213,15 @@ public final class Api {
         return this;
       }
 
-      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return com.wwttr.game.Api.internal_static_game_CreateResponse_descriptor;
       }
 
-      @java.lang.Override
       public com.wwttr.game.Api.CreateResponse getDefaultInstanceForType() {
         return com.wwttr.game.Api.CreateResponse.getDefaultInstance();
       }
 
-      @java.lang.Override
       public com.wwttr.game.Api.CreateResponse build() {
         com.wwttr.game.Api.CreateResponse result = buildPartial();
         if (!result.isInitialized()) {
@@ -11971,7 +11230,6 @@ public final class Api {
         return result;
       }
 
-      @java.lang.Override
       public com.wwttr.game.Api.CreateResponse buildPartial() {
         com.wwttr.game.Api.CreateResponse result = new com.wwttr.game.Api.CreateResponse(this);
         result.gameId_ = gameId_;
@@ -11980,39 +11238,32 @@ public final class Api {
         return result;
       }
 
-      @java.lang.Override
       public Builder clone() {
         return (Builder) super.clone();
       }
-      @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return (Builder) super.setField(field, value);
       }
-      @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
-      @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
-      @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
+          int index, Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
-      @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
-      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.wwttr.game.Api.CreateResponse) {
           return mergeFrom((com.wwttr.game.Api.CreateResponse)other);
@@ -12032,17 +11283,14 @@ public final class Api {
           playerId_ = other.playerId_;
           onChanged();
         }
-        this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
       }
 
-      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
-      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -12238,16 +11486,14 @@ public final class Api {
         onChanged();
         return this;
       }
-      @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return this;
       }
 
-      @java.lang.Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
+        return this;
       }
 
 
@@ -12266,12 +11512,11 @@ public final class Api {
 
     private static final com.google.protobuf.Parser<CreateResponse>
         PARSER = new com.google.protobuf.AbstractParser<CreateResponse>() {
-      @java.lang.Override
       public CreateResponse parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new CreateResponse(input, extensionRegistry);
+          return new CreateResponse(input, extensionRegistry);
       }
     };
 
@@ -12284,7 +11529,6 @@ public final class Api {
       return PARSER;
     }
 
-    @java.lang.Override
     public com.wwttr.game.Api.CreateResponse getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
@@ -12345,7 +11589,6 @@ public final class Api {
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:game.DeleteResponse)
       DeleteResponseOrBuilder {
-  private static final long serialVersionUID = 0L;
     // Use DeleteResponse.newBuilder() to construct.
     private DeleteResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
@@ -12358,19 +11601,14 @@ public final class Api {
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
-      return this.unknownFields;
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
     private DeleteResponse(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
-      if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
-      }
       int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -12379,6 +11617,12 @@ public final class Api {
             case 0:
               done = true;
               break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
             case 10: {
               java.lang.String s = input.readStringRequireUtf8();
 
@@ -12406,13 +11650,6 @@ public final class Api {
               input.popLimit(limit);
               break;
             }
-            default: {
-              if (!parseUnknownFieldProto3(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -12424,7 +11661,6 @@ public final class Api {
         if (((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
           orphanedUsers_ = java.util.Collections.unmodifiableList(orphanedUsers_);
         }
-        this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
@@ -12433,7 +11669,6 @@ public final class Api {
       return com.wwttr.game.Api.internal_static_game_DeleteResponse_descriptor;
     }
 
-    @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.wwttr.game.Api.internal_static_game_DeleteResponse_fieldAccessorTable
@@ -12520,7 +11755,6 @@ public final class Api {
     private int orphanedUsersMemoizedSerializedSize = -1;
 
     private byte memoizedIsInitialized = -1;
-    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -12530,7 +11764,6 @@ public final class Api {
       return true;
     }
 
-    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       getSerializedSize();
@@ -12544,10 +11777,8 @@ public final class Api {
       for (int i = 0; i < orphanedUsers_.size(); i++) {
         output.writeInt32NoTag(orphanedUsers_.get(i));
       }
-      unknownFields.writeTo(output);
     }
 
-    @java.lang.Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
@@ -12570,11 +11801,11 @@ public final class Api {
         }
         orphanedUsersMemoizedSerializedSize = dataSize;
       }
-      size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
     }
 
+    private static final long serialVersionUID = 0L;
     @java.lang.Override
     public boolean equals(final java.lang.Object obj) {
       if (obj == this) {
@@ -12590,7 +11821,6 @@ public final class Api {
           .equals(other.getGameName());
       result = result && getOrphanedUsersList()
           .equals(other.getOrphanedUsersList());
-      result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
 
@@ -12612,17 +11842,6 @@ public final class Api {
       return hash;
     }
 
-    public static com.wwttr.game.Api.DeleteResponse parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.wwttr.game.Api.DeleteResponse parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
     public static com.wwttr.game.Api.DeleteResponse parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -12682,7 +11901,6 @@ public final class Api {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
@@ -12690,7 +11908,6 @@ public final class Api {
     public static Builder newBuilder(com.wwttr.game.Api.DeleteResponse prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
-    @java.lang.Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
@@ -12714,7 +11931,6 @@ public final class Api {
         return com.wwttr.game.Api.internal_static_game_DeleteResponse_descriptor;
       }
 
-      @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.wwttr.game.Api.internal_static_game_DeleteResponse_fieldAccessorTable
@@ -12737,7 +11953,6 @@ public final class Api {
                 .alwaysUseFieldBuilders) {
         }
       }
-      @java.lang.Override
       public Builder clear() {
         super.clear();
         gameName_ = "";
@@ -12747,18 +11962,15 @@ public final class Api {
         return this;
       }
 
-      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return com.wwttr.game.Api.internal_static_game_DeleteResponse_descriptor;
       }
 
-      @java.lang.Override
       public com.wwttr.game.Api.DeleteResponse getDefaultInstanceForType() {
         return com.wwttr.game.Api.DeleteResponse.getDefaultInstance();
       }
 
-      @java.lang.Override
       public com.wwttr.game.Api.DeleteResponse build() {
         com.wwttr.game.Api.DeleteResponse result = buildPartial();
         if (!result.isInitialized()) {
@@ -12767,7 +11979,6 @@ public final class Api {
         return result;
       }
 
-      @java.lang.Override
       public com.wwttr.game.Api.DeleteResponse buildPartial() {
         com.wwttr.game.Api.DeleteResponse result = new com.wwttr.game.Api.DeleteResponse(this);
         int from_bitField0_ = bitField0_;
@@ -12783,39 +11994,32 @@ public final class Api {
         return result;
       }
 
-      @java.lang.Override
       public Builder clone() {
         return (Builder) super.clone();
       }
-      @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return (Builder) super.setField(field, value);
       }
-      @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
-      @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
-      @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
+          int index, Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
-      @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
-      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.wwttr.game.Api.DeleteResponse) {
           return mergeFrom((com.wwttr.game.Api.DeleteResponse)other);
@@ -12841,17 +12045,14 @@ public final class Api {
           }
           onChanged();
         }
-        this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
       }
 
-      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
-      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -13053,16 +12254,14 @@ public final class Api {
         onChanged();
         return this;
       }
-      @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return this;
       }
 
-      @java.lang.Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
+        return this;
       }
 
 
@@ -13081,12 +12280,11 @@ public final class Api {
 
     private static final com.google.protobuf.Parser<DeleteResponse>
         PARSER = new com.google.protobuf.AbstractParser<DeleteResponse>() {
-      @java.lang.Override
       public DeleteResponse parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new DeleteResponse(input, extensionRegistry);
+          return new DeleteResponse(input, extensionRegistry);
       }
     };
 
@@ -13099,7 +12297,6 @@ public final class Api {
       return PARSER;
     }
 
-    @java.lang.Override
     public com.wwttr.game.Api.DeleteResponse getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
@@ -13127,7 +12324,6 @@ public final class Api {
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:game.CreatePlayerResponse)
       CreatePlayerResponseOrBuilder {
-  private static final long serialVersionUID = 0L;
     // Use CreatePlayerResponse.newBuilder() to construct.
     private CreatePlayerResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
@@ -13139,19 +12335,14 @@ public final class Api {
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
-      return this.unknownFields;
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
     private CreatePlayerResponse(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
-      if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
-      }
       int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -13160,17 +12351,16 @@ public final class Api {
             case 0:
               done = true;
               break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
             case 10: {
               java.lang.String s = input.readStringRequireUtf8();
 
               playerId_ = s;
-              break;
-            }
-            default: {
-              if (!parseUnknownFieldProto3(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
               break;
             }
           }
@@ -13181,7 +12371,6 @@ public final class Api {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
@@ -13190,7 +12379,6 @@ public final class Api {
       return com.wwttr.game.Api.internal_static_game_CreatePlayerResponse_descriptor;
     }
 
-    @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.wwttr.game.Api.internal_static_game_CreatePlayerResponse_fieldAccessorTable
@@ -13233,7 +12421,6 @@ public final class Api {
     }
 
     private byte memoizedIsInitialized = -1;
-    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -13243,16 +12430,13 @@ public final class Api {
       return true;
     }
 
-    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (!getPlayerIdBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, playerId_);
       }
-      unknownFields.writeTo(output);
     }
 
-    @java.lang.Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
@@ -13261,11 +12445,11 @@ public final class Api {
       if (!getPlayerIdBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, playerId_);
       }
-      size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
     }
 
+    private static final long serialVersionUID = 0L;
     @java.lang.Override
     public boolean equals(final java.lang.Object obj) {
       if (obj == this) {
@@ -13279,7 +12463,6 @@ public final class Api {
       boolean result = true;
       result = result && getPlayerId()
           .equals(other.getPlayerId());
-      result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
 
@@ -13297,17 +12480,6 @@ public final class Api {
       return hash;
     }
 
-    public static com.wwttr.game.Api.CreatePlayerResponse parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.wwttr.game.Api.CreatePlayerResponse parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
     public static com.wwttr.game.Api.CreatePlayerResponse parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -13367,7 +12539,6 @@ public final class Api {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
@@ -13375,7 +12546,6 @@ public final class Api {
     public static Builder newBuilder(com.wwttr.game.Api.CreatePlayerResponse prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
-    @java.lang.Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
@@ -13399,7 +12569,6 @@ public final class Api {
         return com.wwttr.game.Api.internal_static_game_CreatePlayerResponse_descriptor;
       }
 
-      @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.wwttr.game.Api.internal_static_game_CreatePlayerResponse_fieldAccessorTable
@@ -13422,7 +12591,6 @@ public final class Api {
                 .alwaysUseFieldBuilders) {
         }
       }
-      @java.lang.Override
       public Builder clear() {
         super.clear();
         playerId_ = "";
@@ -13430,18 +12598,15 @@ public final class Api {
         return this;
       }
 
-      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return com.wwttr.game.Api.internal_static_game_CreatePlayerResponse_descriptor;
       }
 
-      @java.lang.Override
       public com.wwttr.game.Api.CreatePlayerResponse getDefaultInstanceForType() {
         return com.wwttr.game.Api.CreatePlayerResponse.getDefaultInstance();
       }
 
-      @java.lang.Override
       public com.wwttr.game.Api.CreatePlayerResponse build() {
         com.wwttr.game.Api.CreatePlayerResponse result = buildPartial();
         if (!result.isInitialized()) {
@@ -13450,7 +12615,6 @@ public final class Api {
         return result;
       }
 
-      @java.lang.Override
       public com.wwttr.game.Api.CreatePlayerResponse buildPartial() {
         com.wwttr.game.Api.CreatePlayerResponse result = new com.wwttr.game.Api.CreatePlayerResponse(this);
         result.playerId_ = playerId_;
@@ -13458,39 +12622,32 @@ public final class Api {
         return result;
       }
 
-      @java.lang.Override
       public Builder clone() {
         return (Builder) super.clone();
       }
-      @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return (Builder) super.setField(field, value);
       }
-      @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
-      @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
-      @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
+          int index, Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
-      @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
-      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.wwttr.game.Api.CreatePlayerResponse) {
           return mergeFrom((com.wwttr.game.Api.CreatePlayerResponse)other);
@@ -13506,17 +12663,14 @@ public final class Api {
           playerId_ = other.playerId_;
           onChanged();
         }
-        this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
       }
 
-      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
-      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -13603,16 +12757,14 @@ public final class Api {
         onChanged();
         return this;
       }
-      @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return this;
       }
 
-      @java.lang.Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
+        return this;
       }
 
 
@@ -13631,12 +12783,11 @@ public final class Api {
 
     private static final com.google.protobuf.Parser<CreatePlayerResponse>
         PARSER = new com.google.protobuf.AbstractParser<CreatePlayerResponse>() {
-      @java.lang.Override
       public CreatePlayerResponse parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new CreatePlayerResponse(input, extensionRegistry);
+          return new CreatePlayerResponse(input, extensionRegistry);
       }
     };
 
@@ -13649,7 +12800,6 @@ public final class Api {
       return PARSER;
     }
 
-    @java.lang.Override
     public com.wwttr.game.Api.CreatePlayerResponse getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
@@ -13667,7 +12817,6 @@ public final class Api {
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:game.StreamPlayerStatsRequest)
       StreamPlayerStatsRequestOrBuilder {
-  private static final long serialVersionUID = 0L;
     // Use StreamPlayerStatsRequest.newBuilder() to construct.
     private StreamPlayerStatsRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
@@ -13678,18 +12827,13 @@ public final class Api {
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
-      return this.unknownFields;
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
     private StreamPlayerStatsRequest(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
-      if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
-      }
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -13699,8 +12843,7 @@ public final class Api {
               done = true;
               break;
             default: {
-              if (!parseUnknownFieldProto3(
-                  input, unknownFields, extensionRegistry, tag)) {
+              if (!input.skipField(tag)) {
                 done = true;
               }
               break;
@@ -13713,7 +12856,6 @@ public final class Api {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
@@ -13722,7 +12864,6 @@ public final class Api {
       return com.wwttr.game.Api.internal_static_game_StreamPlayerStatsRequest_descriptor;
     }
 
-    @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.wwttr.game.Api.internal_static_game_StreamPlayerStatsRequest_fieldAccessorTable
@@ -13731,7 +12872,6 @@ public final class Api {
     }
 
     private byte memoizedIsInitialized = -1;
-    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -13741,23 +12881,20 @@ public final class Api {
       return true;
     }
 
-    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      unknownFields.writeTo(output);
     }
 
-    @java.lang.Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
     }
 
+    private static final long serialVersionUID = 0L;
     @java.lang.Override
     public boolean equals(final java.lang.Object obj) {
       if (obj == this) {
@@ -13769,7 +12906,6 @@ public final class Api {
       com.wwttr.game.Api.StreamPlayerStatsRequest other = (com.wwttr.game.Api.StreamPlayerStatsRequest) obj;
 
       boolean result = true;
-      result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
 
@@ -13785,17 +12921,6 @@ public final class Api {
       return hash;
     }
 
-    public static com.wwttr.game.Api.StreamPlayerStatsRequest parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.wwttr.game.Api.StreamPlayerStatsRequest parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
     public static com.wwttr.game.Api.StreamPlayerStatsRequest parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -13855,7 +12980,6 @@ public final class Api {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
@@ -13863,7 +12987,6 @@ public final class Api {
     public static Builder newBuilder(com.wwttr.game.Api.StreamPlayerStatsRequest prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
-    @java.lang.Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
@@ -13887,7 +13010,6 @@ public final class Api {
         return com.wwttr.game.Api.internal_static_game_StreamPlayerStatsRequest_descriptor;
       }
 
-      @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.wwttr.game.Api.internal_static_game_StreamPlayerStatsRequest_fieldAccessorTable
@@ -13910,24 +13032,20 @@ public final class Api {
                 .alwaysUseFieldBuilders) {
         }
       }
-      @java.lang.Override
       public Builder clear() {
         super.clear();
         return this;
       }
 
-      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return com.wwttr.game.Api.internal_static_game_StreamPlayerStatsRequest_descriptor;
       }
 
-      @java.lang.Override
       public com.wwttr.game.Api.StreamPlayerStatsRequest getDefaultInstanceForType() {
         return com.wwttr.game.Api.StreamPlayerStatsRequest.getDefaultInstance();
       }
 
-      @java.lang.Override
       public com.wwttr.game.Api.StreamPlayerStatsRequest build() {
         com.wwttr.game.Api.StreamPlayerStatsRequest result = buildPartial();
         if (!result.isInitialized()) {
@@ -13936,46 +13054,38 @@ public final class Api {
         return result;
       }
 
-      @java.lang.Override
       public com.wwttr.game.Api.StreamPlayerStatsRequest buildPartial() {
         com.wwttr.game.Api.StreamPlayerStatsRequest result = new com.wwttr.game.Api.StreamPlayerStatsRequest(this);
         onBuilt();
         return result;
       }
 
-      @java.lang.Override
       public Builder clone() {
         return (Builder) super.clone();
       }
-      @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return (Builder) super.setField(field, value);
       }
-      @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
-      @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
-      @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
+          int index, Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
-      @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
-      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.wwttr.game.Api.StreamPlayerStatsRequest) {
           return mergeFrom((com.wwttr.game.Api.StreamPlayerStatsRequest)other);
@@ -13987,17 +13097,14 @@ public final class Api {
 
       public Builder mergeFrom(com.wwttr.game.Api.StreamPlayerStatsRequest other) {
         if (other == com.wwttr.game.Api.StreamPlayerStatsRequest.getDefaultInstance()) return this;
-        this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
       }
 
-      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
-      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -14015,16 +13122,14 @@ public final class Api {
         }
         return this;
       }
-      @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return this;
       }
 
-      @java.lang.Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
+        return this;
       }
 
 
@@ -14043,12 +13148,11 @@ public final class Api {
 
     private static final com.google.protobuf.Parser<StreamPlayerStatsRequest>
         PARSER = new com.google.protobuf.AbstractParser<StreamPlayerStatsRequest>() {
-      @java.lang.Override
       public StreamPlayerStatsRequest parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new StreamPlayerStatsRequest(input, extensionRegistry);
+          return new StreamPlayerStatsRequest(input, extensionRegistry);
       }
     };
 
@@ -14061,7 +13165,6 @@ public final class Api {
       return PARSER;
     }
 
-    @java.lang.Override
     public com.wwttr.game.Api.StreamPlayerStatsRequest getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
@@ -14128,7 +13231,6 @@ public final class Api {
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:game.PlayerStats)
       PlayerStatsOrBuilder {
-  private static final long serialVersionUID = 0L;
     // Use PlayerStats.newBuilder() to construct.
     private PlayerStats(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
@@ -14147,19 +13249,14 @@ public final class Api {
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
-      return this.unknownFields;
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
     private PlayerStats(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
-      if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
-      }
       int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -14168,6 +13265,12 @@ public final class Api {
             case 0:
               done = true;
               break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
             case 10: {
               java.lang.String s = input.readStringRequireUtf8();
 
@@ -14210,13 +13313,6 @@ public final class Api {
               turnState_ = rawValue;
               break;
             }
-            default: {
-              if (!parseUnknownFieldProto3(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -14225,7 +13321,6 @@ public final class Api {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
@@ -14234,7 +13329,6 @@ public final class Api {
       return com.wwttr.game.Api.internal_static_game_PlayerStats_descriptor;
     }
 
-    @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.wwttr.game.Api.internal_static_game_PlayerStats_fieldAccessorTable
@@ -14342,13 +13436,11 @@ public final class Api {
      * <code>.game.PlayerTurnState turn_state = 8;</code>
      */
     public com.wwttr.game.Api.PlayerTurnState getTurnState() {
-      @SuppressWarnings("deprecation")
       com.wwttr.game.Api.PlayerTurnState result = com.wwttr.game.Api.PlayerTurnState.valueOf(turnState_);
       return result == null ? com.wwttr.game.Api.PlayerTurnState.UNRECOGNIZED : result;
     }
 
     private byte memoizedIsInitialized = -1;
-    @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -14358,7 +13450,6 @@ public final class Api {
       return true;
     }
 
-    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (!getPlayerIdBytes().isEmpty()) {
@@ -14385,10 +13476,8 @@ public final class Api {
       if (turnState_ != com.wwttr.game.Api.PlayerTurnState.UNSPECIFIED_PLAYER_TURN_STATE.getNumber()) {
         output.writeEnum(8, turnState_);
       }
-      unknownFields.writeTo(output);
     }
 
-    @java.lang.Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
@@ -14425,11 +13514,11 @@ public final class Api {
         size += com.google.protobuf.CodedOutputStream
           .computeEnumSize(8, turnState_);
       }
-      size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
     }
 
+    private static final long serialVersionUID = 0L;
     @java.lang.Override
     public boolean equals(final java.lang.Object obj) {
       if (obj == this) {
@@ -14456,7 +13545,6 @@ public final class Api {
       result = result && (getDestinationCardCount()
           == other.getDestinationCardCount());
       result = result && turnState_ == other.turnState_;
-      result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
 
@@ -14488,17 +13576,6 @@ public final class Api {
       return hash;
     }
 
-    public static com.wwttr.game.Api.PlayerStats parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.wwttr.game.Api.PlayerStats parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
     public static com.wwttr.game.Api.PlayerStats parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -14558,7 +13635,6 @@ public final class Api {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    @java.lang.Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
@@ -14566,7 +13642,6 @@ public final class Api {
     public static Builder newBuilder(com.wwttr.game.Api.PlayerStats prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
-    @java.lang.Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
@@ -14590,7 +13665,6 @@ public final class Api {
         return com.wwttr.game.Api.internal_static_game_PlayerStats_descriptor;
       }
 
-      @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.wwttr.game.Api.internal_static_game_PlayerStats_fieldAccessorTable
@@ -14613,7 +13687,6 @@ public final class Api {
                 .alwaysUseFieldBuilders) {
         }
       }
-      @java.lang.Override
       public Builder clear() {
         super.clear();
         playerId_ = "";
@@ -14635,18 +13708,15 @@ public final class Api {
         return this;
       }
 
-      @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return com.wwttr.game.Api.internal_static_game_PlayerStats_descriptor;
       }
 
-      @java.lang.Override
       public com.wwttr.game.Api.PlayerStats getDefaultInstanceForType() {
         return com.wwttr.game.Api.PlayerStats.getDefaultInstance();
       }
 
-      @java.lang.Override
       public com.wwttr.game.Api.PlayerStats build() {
         com.wwttr.game.Api.PlayerStats result = buildPartial();
         if (!result.isInitialized()) {
@@ -14655,7 +13725,6 @@ public final class Api {
         return result;
       }
 
-      @java.lang.Override
       public com.wwttr.game.Api.PlayerStats buildPartial() {
         com.wwttr.game.Api.PlayerStats result = new com.wwttr.game.Api.PlayerStats(this);
         result.playerId_ = playerId_;
@@ -14670,39 +13739,32 @@ public final class Api {
         return result;
       }
 
-      @java.lang.Override
       public Builder clone() {
         return (Builder) super.clone();
       }
-      @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return (Builder) super.setField(field, value);
       }
-      @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
-      @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
-      @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
+          int index, Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
-      @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
-      @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.wwttr.game.Api.PlayerStats) {
           return mergeFrom((com.wwttr.game.Api.PlayerStats)other);
@@ -14739,17 +13801,14 @@ public final class Api {
         if (other.turnState_ != 0) {
           setTurnStateValue(other.getTurnStateValue());
         }
-        this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
       }
 
-      @java.lang.Override
       public final boolean isInitialized() {
         return true;
       }
 
-      @java.lang.Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -15012,7 +14071,6 @@ public final class Api {
        * <code>.game.PlayerTurnState turn_state = 8;</code>
        */
       public com.wwttr.game.Api.PlayerTurnState getTurnState() {
-        @SuppressWarnings("deprecation")
         com.wwttr.game.Api.PlayerTurnState result = com.wwttr.game.Api.PlayerTurnState.valueOf(turnState_);
         return result == null ? com.wwttr.game.Api.PlayerTurnState.UNRECOGNIZED : result;
       }
@@ -15037,16 +14095,14 @@ public final class Api {
         onChanged();
         return this;
       }
-      @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return this;
       }
 
-      @java.lang.Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
+        return this;
       }
 
 
@@ -15065,12 +14121,11 @@ public final class Api {
 
     private static final com.google.protobuf.Parser<PlayerStats>
         PARSER = new com.google.protobuf.AbstractParser<PlayerStats>() {
-      @java.lang.Override
       public PlayerStats parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new PlayerStats(input, extensionRegistry);
+          return new PlayerStats(input, extensionRegistry);
       }
     };
 
@@ -15083,7 +14138,6 @@ public final class Api {
       return PARSER;
     }
 
-    @java.lang.Override
     public com.wwttr.game.Api.PlayerStats getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
@@ -16221,7 +15275,7 @@ public final class Api {
       "\004\"U\n\nGameAction\022\021\n\taction_id\030\001 \001(\t\022\016\n\006ac" +
       "tion\030\002 \001(\t\022\021\n\ttimestamp\030\003 \001(\005\022\021\n\tplayer_" +
       "id\030\004 \001(\t\"N\n\021CreateGameRequest\022\017\n\007user_id" +
-      "\030\001 \001(\t\022\024\n\014display_name\030\002 \001(\t\022\022\n\nmaxPlaye" +
+      "\030\001 \001(\t\022\024\n\014display_name\030\002 \001(\t\022\022\n\nmaxPlaye",
       "rs\030\003 \001(\005\"6\n\020LeaveGameRequest\022\021\n\tplayer_i" +
       "d\030\001 \001(\t\022\017\n\007game_id\030\002 \001(\t\"\022\n\020ListGamesReq" +
       "uest\"\024\n\022StreamGamesRequest\"!\n\016GetGameReq" +
@@ -16231,7 +15285,7 @@ public final class Api {
       "\022\017\n\007game_id\030\001 \001(\t\"7\n\023CreatePlayerRequest" +
       "\022\017\n\007user_id\030\001 \001(\t\022\017\n\007game_id\030\002 \001(\t\"\306\001\n\006P" +
       "layer\022\n\n\002id\030\001 \001(\t\022\022\n\naccount_id\030\002 \001(\t\022\017\n" +
-      "\007game_id\030\003 \001(\t\022!\n\005color\030\004 \001(\0162\022.game.Pla" +
+      "\007game_id\030\003 \001(\t\022!\n\005color\030\004 \001(\0162\022.game.Pla",
       "yer.Color\022\020\n\010username\030\005 \001(\t\"V\n\005Color\022\013\n\007" +
       "UNKNOWN\020\000\022\007\n\003RED\020\001\022\010\n\004BLUE\020\002\022\t\n\005GREEN\020\003\022" +
       "\n\n\006YELLOW\020\004\022\n\n\006PURPLE\020\005\022\n\n\006ORANGE\020\006\"%\n\020G" +
@@ -16241,7 +15295,7 @@ public final class Api {
       "\030\001 \001(\t\022\021\n\tplayer_id\030\002 \001(\t\";\n\016DeleteRespo" +
       "nse\022\021\n\tgame_name\030\001 \001(\t\022\026\n\016orphaned_users" +
       "\030\002 \003(\005\")\n\024CreatePlayerResponse\022\021\n\tplayer" +
-      "_id\030\001 \001(\t\"\032\n\030StreamPlayerStatsRequest\"\364\001" +
+      "_id\030\001 \001(\t\"\032\n\030StreamPlayerStatsRequest\"\364\001",
       "\n\013PlayerStats\022\021\n\tplayer_id\030\001 \001(\t\022\031\n\021trai" +
       "n_card_points\030\002 \001(\005\022\034\n\024longest_route_poi" +
       "nts\030\006 \001(\005\022\037\n\027destination_card_points\030\007 \001" +
@@ -16251,7 +15305,7 @@ public final class Api {
       "tate*e\n\017PlayerTurnState\022!\n\035UNSPECIFIED_P" +
       "LAYER_TURN_STATE\020\000\022\013\n\007PENDING\020\001\022\t\n\005START" +
       "\020\002\022\007\n\003MID\020\003\022\016\n\nGAME_ENDED\020\0042\267\005\n\013GameServ" +
-      "ice\022;\n\nCreateGame\022\027.game.CreateGameReque" +
+      "ice\022;\n\nCreateGame\022\027.game.CreateGameReque",
       "st\032\024.game.CreateResponse\0220\n\tLeaveGame\022\026." +
       "game.LeaveGameRequest\032\013.game.Empty\0222\n\nDe" +
       "leteGame\022\027.game.DeleteGameRequest\032\013.game" +
@@ -16261,7 +15315,7 @@ public final class Api {
       ".ListGamesRequest\032\027.game.ListGamesRespon" +
       "se\0225\n\013StreamGames\022\030.game.StreamGamesRequ" +
       "est\032\n.game.Game0\001\022E\n\014CreatePlayer\022\031.game" +
-      ".CreatePlayerRequest\032\032.game.CreatePlayer" +
+      ".CreatePlayerRequest\032\032.game.CreatePlayer",
       "Response\0221\n\tGetPlayer\022\026.game.GetPlayerRe" +
       "quest\032\014.game.Player\022H\n\021StreamPlayerStats" +
       "\022\036.game.StreamPlayerStatsRequest\032\021.game." +
