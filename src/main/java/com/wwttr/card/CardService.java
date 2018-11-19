@@ -141,8 +141,7 @@ public class CardService {
     else{
       actionString = "claimed " + destinationCardIds.size() + " destination cards";
     }
-    //unused   --- wait what?  What is unused?
-    GameAction action = gameService.createGameAction(actionString, playerId);
+    gameService.createGameAction(actionString, playerId);
   }
 
   public Stream<DestinationCard> streamDestinationCards(String playerId) throws NotFoundException {
