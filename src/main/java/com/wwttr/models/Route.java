@@ -107,4 +107,12 @@ public class Route {
     builder.setGameId(gameId);
     return builder.build();
   }
+
+  public void update(Route newRoute){
+    this.firstCityId = newRoute.firstCityId;
+    this.secondCityId = newRoute.secondCityId;
+    this.trainColor = newRoute.trainColor;
+    this.length = newRoute.length;
+    this.gameId = newRoute.gameId;
+  }
 }

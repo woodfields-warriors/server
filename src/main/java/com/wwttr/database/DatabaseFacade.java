@@ -500,6 +500,18 @@ public class DatabaseFacade {
     }
   }
 
+  public void updateRoute(Route newRoute){
+    synchronized (this){
+      for(Route route : routes) {
+        if(route.getRouteId().equals(newRoute.getRouteId())){
+          route.update(newRoute);
+          routeQueue.publish(route);
+          //updatePlayerStats(route.getPlayerId());
+        }
+      }
+    }
+  }
+
   public Stream<Route> streamRoutes() {
     return routeQueue.subscribe();
   }
