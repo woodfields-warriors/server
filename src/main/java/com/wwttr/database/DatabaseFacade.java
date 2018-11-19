@@ -175,6 +175,9 @@ public class DatabaseFacade {
     }
     }
 
+
+
+
     //takes a player id
     //grabs all destination cards owned by player id
     //for each card
@@ -188,26 +191,42 @@ public class DatabaseFacade {
       for (DestinationCard card: cardsOwned){
         List<String> citiesVisited = new ArrayList<>();
         String currentCity = card.getFirstCityId();
-        //find if we have a route from the starting city
-        for(Route route: playerRoutes){
-          //find route that has where we currently are and check if we've been to where it goes
-          if(route.getFirstCityId().equals(currentCity) && !citiesVisited.contains(route.getSecondCityId())){
-            currentCity = route.getSecondCityId();
-            citiesVisited.add(currentCity);
-
-          }
-          else if(route.getSecondCityId().equals(currentCity) && !citiesVisited.contains(route.getFirstCityId())){
-            currentCity = route.getFirstCityId();
-            citiesVisited.add(currentCity);
-
-          }
-          //did we complete the route?
-          if(currentCity.equals(card.getSecondCityId())){
+        if(searchRoute_r(currentCity,citiesVisited, card)){
             toReturn.add(card);
-            break;
-          }
         }
       }
+      return toReturn;
+    }
+    //recursive depth first search.
+    //cities visited are all the nodes that have been previously depth first searched
+    //current city is the node to depth first search
+    // returns true if it finds a route from current city to destination card's second city id
+    boolean searchRoute_r(String currentCity, List<String> citiesVisited, DestinationCard destinationCard){
+      List<Route> playerRoutes = getRoutesOwnedByPlayer(playerId);
+      for(Route route: playerRoutes){
+        if(route.getFirstCityId().equals(currentCity)){
+          //reached the destination
+          if(route.getSecondCityId().equals(destinationCard.getSecondCityId())){
+            return true;
+          }
+          currentCity = route.getSecondCityId();
+        }
+
+        else if(route.getSecondCityId().equals(currentCity)){
+          //reached the destination
+          if(route.getFirstCityId().equals(destinationCard.getSecondCityId())){
+            return true;
+          }
+          currentCity = route.getFirstCityId();
+        }
+        //if we haven't already visited that city, depth first search it
+        if(!citiesVisited.contains(currentCity)){
+          citiesVisited.add(currentCity);
+          searchRoute_r(currentCity,citiesVisited,destinationCard);
+        }
+      }
+      //no sub routes found to complete destination.  return false
+      return false;
     }
 
     List<Route> getRoutesOwnedByPlayer(String playerId){
