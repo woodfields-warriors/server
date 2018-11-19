@@ -8,7 +8,7 @@ import com.wwttr.api.NotFoundException;
 import com.wwttr.models.DeckStats;
 import com.wwttr.models.DestinationCard;
 import com.wwttr.game.Api.Empty;
-
+import com.wwttr.game.GameService;
 
 import com.wwttr.models.TrainCard;
 
@@ -18,9 +18,11 @@ import java.util.stream.Stream;
 public class CardHandlers extends Api.CardService {
 
   private CardService service;
+  private GameService gameService;
 
   public CardHandlers() {
     service = CardService.getInstance();
+    gameService = GameService.getInstance();
 
   }
   //--------------Destination Card Functions-----------------//
@@ -67,7 +69,7 @@ public class CardHandlers extends Api.CardService {
         throw new ApiError(Code.INVALID_ARGUMENT, "argument 'destination_card_ids' is required");
       if(request.getPlayerId().equals(""))
         throw new ApiError(Code.INVALID_ARGUMENT, "argument 'player_id' is required");
-      service.claimDestinationCards(request.getDestinationCardIdsList(),request.getPlayerId());
+      gameService.drawDestinationCards(request.getPlayerId(),request.getDestinationCardIdsList());
     }
     catch (NotFoundException e) {
       throw new ApiError(Code.NOT_FOUND, "");
@@ -102,10 +104,11 @@ public class CardHandlers extends Api.CardService {
   //--------------Train Card Functions----------------//
   public void drawTrainCardFromDeck(RpcController controller, Api.DrawTrainCardFromDeckRequest request, RpcCallback<Empty> callback){
     try{
+      //id here is player Id
       if(request.getId().equals("")){
         throw new ApiError(Code.INVALID_ARGUMENT, "argument 'id' is required");
       }
-      service.claimTrainCardFromDeck(request.getId());
+      gameService.drawTrainCard(request.getId());
     }
     catch (NotFoundException e){
       throw new ApiError(Code.NOT_FOUND,"");
@@ -123,7 +126,7 @@ public class CardHandlers extends Api.CardService {
       if(request.getCardDrawnId().equals("")){
         throw new ApiError(Code.INVALID_ARGUMENT, "argument 'card_drawn_id' is required");
       }
-      service.claimFaceUpTrainCard(request.getId(),request.getCardDrawnId());
+      gameService.drawFaceUpTrainCard(request.getId(),request.getCardDrawnId());
     }
     catch (NotFoundException e){
       throw new ApiError(Code.NOT_FOUND,"");

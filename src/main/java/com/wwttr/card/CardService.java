@@ -205,7 +205,7 @@ public class CardService {
         cardReturned.setPlayerId(playerId);
         cardReturned.setState(TrainCard.State.OWNED);
         GameAction action = gameService.createGameAction("drew a train card from the deck", playerId);
-        df.updateTrainCard(returned);
+        df.updateTrainCard(cardReturned);
     }
     else{
       throw new ApiError(Code.INVALID_ARGUMENT,"card has already been claimed");
@@ -226,7 +226,7 @@ public class CardService {
         returned.setState(TrainCard.State.OWNED);
         df.updateTrainCard(returned);
         df.newFaceUpCard(df.getPlayer(playerId).getGameId());
-        GameAction action = gameSevice.createGameAction("drew a " + returned.getColor() +
+        GameAction action = gameService.createGameAction("drew a " + returned.getColor() +
                                                         " face-up train card", playerId);
       }
     }

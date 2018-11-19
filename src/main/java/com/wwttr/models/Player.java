@@ -45,6 +45,9 @@ public class Player{
   public String getUsername(){
     return username;
   }
+  public IPlayerTurnState getPlayerState(){
+    return state;
+  }
   public void setGameId(String gameID){
     this.gameID = gameID;
   }
