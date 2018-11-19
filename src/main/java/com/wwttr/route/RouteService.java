@@ -10,7 +10,7 @@ import com.wwttr.models.TrainCard;
 import com.wwttr.models.Route;
 
 
-// Game Service is of the Singleton Pattern
+// route Service is of the Singleton Pattern
 public class RouteService {
 
   //singleton object

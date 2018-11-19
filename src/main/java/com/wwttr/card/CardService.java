@@ -141,7 +141,7 @@ public class CardService {
     else{
       actionString = "claimed " + destinationCardIds.size() + " destination cards";
     }
-    //unused
+    //unused   --- wait what?  What is unused?
     GameAction action = gameService.createGameAction(actionString, playerId);
   }
 
@@ -200,10 +200,11 @@ public class CardService {
       throw new NotFoundException("player with id" + playerId + " not found");
     }
     //TODO implement checking for Locomotive based off of PlayerState
-    TrainCard returned = df.getRandomTrainCardFromDeck(df.getPlayer(playerId).getGameId());
-    if(returned.getPlayerId().equals("")){
-        returned.setPlayerId(playerId);
-        returned.setState(TrainCard.State.OWNED);
+    TrainCard cardReturned = df.getRandomTrainCardFromDeck(df.getPlayer(playerId).getGameId());
+    if(cardReturned.getPlayerId().equals("")){
+        cardReturned.setPlayerId(playerId);
+        cardReturned.setState(TrainCard.State.OWNED);
+        GameAction action = gameService.createGameAction("drew a train card from the deck", playerId);
         df.updateTrainCard(returned);
     }
     else{
@@ -225,6 +226,8 @@ public class CardService {
         returned.setState(TrainCard.State.OWNED);
         df.updateTrainCard(returned);
         df.newFaceUpCard(df.getPlayer(playerId).getGameId());
+        GameAction action = gameSevice.createGameAction("drew a " + returned.getColor() +
+                                                        " face-up train card", playerId);
       }
     }
     else{

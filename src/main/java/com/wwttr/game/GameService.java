@@ -151,9 +151,42 @@ public class GameService {
     return action;
   }
 
+  public void drawTrainCard(String playerId) throws NotFoundException {
+    Player player = database.GetPlayerR(playerId);
+    if (player == null){
+      throw new NotFoundException("player with id " + playerId + " not found");
+    }
+    player.state.drawTrainCard(playerId);
+  }
+  public void claimRoute(String playerId) throws NotFoundException {
+    Player player = database.GetPlayerR(playerId);
+    if (player == null){
+      throw new NotFoundException("player with id " + playerId + " not found");
+    }
+    player.state.claimRoute(playerId);
+  }
+  public void drawDestinationCards(String playerId, List<String> destinationCardIds) throws NotFoundException {
+    Player player = database.GetPlayerR(playerId);
+    if (player == null){
+      throw new NotFoundException("player with id " + playerId + " not found");
+    }
+    player.state.drawTrainCard(playerId, destinationCardIds);
+  }
+  public void drawFaceUpTrainCard(String playerId, String cardId) throws NotFoundException {
+    Player player = database.GetPlayerR(playerId);
+    if (player == null){
+      throw new NotFoundException("player with id " + playerId + " not found");
+    }
+    player.state.drawFaceUpTrainCard(playerId, cardId);
+  }
 
 
-  //--------------------Player methods ------------------------------------------//
+//CLAIM ROUTE what's going on there?
+//Stream Player Stats.  I need help with that.
+//Longest route?  Not doing that probably?
+//What did we decide on for circular dependencies?
+
+//--------------------Player methods ------------------------------------------//
 
   public String createPlayer(String userId, String gameId)throws NotFoundException, GameFullException{
     Game game = database.getGame(gameId);
@@ -224,15 +257,19 @@ public class GameService {
 class PendingState implements IPlayerTurnState{
   public void drawTrainCard(String playerId) throws NotFoundException {
     //Tell the client it isn't his/her turn
+    throw new ApiError(Code.FAILED_PRECONDITION,"It's not your turn");
   }
   public void claimRoute(String playerId) throws NotFoundException {
     //tell client it isn't his/her turn
+    throw new ApiError(Code.FAILED_PRECONDITION,"It's not your turn");
   }
   public void drawDestinationCards(String playerId, List<String> destinationCardIds) throws NotFoundException {
     //tell client it isn't his/her turn
+    throw new ApiError(Code.FAILED_PRECONDITION,"It's not your turn");
   }
   public void drawFaceUpTrainCard(String playerId, String cardId) throws NotFoundException {
     //tell client it isn't his/her turn
+    throw new ApiError(Code.FAILED_PRECONDITION,"It's not your turn");
   }
 }
 
@@ -285,10 +322,10 @@ class MidState implements IPlayerTurnState{
     player.setState(new PendingState());
   }
   public void claimRoute(String playerId) throws NotFoundException {
-    //tell client action isn't possible
+    throw new ApiError(Code.FAILED_PRECONDITION,"Mid state.  You can only draw a card");
   }
   public void drawDestinationCards(String playerId, List<String> destinationCardIds) throws NotFoundException {
-    //tell client action isn't possible
+    throw new ApiError(Code.FAILED_PRECONDITION,"Mid state.  You can only draw a card");
   }
   public void drawFaceUpTrainCard(String playerId, String cardId)throws NotFoundException{
     if(!cardService.isLocomotive(cardId)) {
@@ -297,7 +334,7 @@ class MidState implements IPlayerTurnState{
       player.setState(new PendingState());
     }
     else{
-      //tell client action isn't possible
+      throw new ApiError(Code.FAILED_PRECONDITION,"Mid state.  You can only draw a non locomotive card");
     }
   }
 }
