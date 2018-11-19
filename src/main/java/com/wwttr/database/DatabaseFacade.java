@@ -186,13 +186,13 @@ public class DatabaseFacade {
     //returns a list of destination cards that have been completed
     List<DestinationCard> findCompletedRoutesForPlayer(String playerId){
       List<DestinationCard> toReturn = new ArrayList<>();
-      List<DestinationCard> cardsOwned = getDestinationCardsByPlayerId();
+      List<DestinationCard> cardsOwned = getDestinationCardsByPlayerId(playerId);
       List<Route> playerRoutes = getRoutesOwnedByPlayer(playerId);
       for (DestinationCard card: cardsOwned){
         List<String> citiesVisited = new ArrayList<>();
         String currentCity = card.getFirstCityId();
         citiesVisited.add(currentCity);
-        if(searchRoute_r(currentCity,citiesVisited, card)){
+        if(searchRoute_r(currentCity,citiesVisited, card, playerId)){
             toReturn.add(card);
         }
       }
@@ -202,7 +202,7 @@ public class DatabaseFacade {
     //cities visited are all the nodes that have been previously depth first searched
     //current city is the node to depth first search
     // returns true if it finds a route from current city to destination card's second city id
-    boolean searchRoute_r(String currentCity, List<String> citiesVisited, DestinationCard destinationCard){
+    boolean searchRoute_r(String currentCity, List<String> citiesVisited, DestinationCard destinationCard, String playerId){
       List<Route> playerRoutes = getRoutesOwnedByPlayer(playerId);
       for(Route route: playerRoutes){
         if(route.getFirstCityId().equals(currentCity)){
@@ -223,7 +223,7 @@ public class DatabaseFacade {
         //if we haven't already visited that city, depth first search it
         if(!citiesVisited.contains(currentCity)){
           citiesVisited.add(currentCity);
-          searchRoute_r(currentCity,citiesVisited,destinationCard);
+          searchRoute_r(currentCity,citiesVisited,destinationCard, playerId);
         }
       }
       //no sub routes found to complete destination.  return false
@@ -237,6 +237,7 @@ public class DatabaseFacade {
           toReturn.add(route);
         }
       }
+      return toReturn;
     }
 
     //Given a player Id, this method returns the next player in the players list
