@@ -78,6 +78,17 @@ public class GameServiceTest {
         }
     }
 
+    // @Test
+    // public void streamGames() throws Exception {
+    //     GameService service = new GameService(new DatabaseFacade());
+    //     service.
+
+    //     CreateResponse response = service.createGame("stream-game", userID, 2);
+    //     service.streamGames().limit(1).forEach((Game g) -> {
+    //         assertEquals(response.getGameID(), g.getGameID());
+    //     });
+    // }
+
     @Test
     public void getGame() {
         try{

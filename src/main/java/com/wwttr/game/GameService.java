@@ -36,15 +36,15 @@ public class GameService {
 
   public static GameService getInstance(){
     if(gameServiceInstance == null){
-      gameServiceInstance = new GameService();
+      gameServiceInstance = new GameService(DatabaseFacade.getInstance());
       gameServiceInstance.cardService = CardService.getInstance();
       gameServiceInstance.routeService = RouteService.getInstance();
     }
     return gameServiceInstance;
   }
 
-  private GameService(){
-    database = DatabaseFacade.getInstance();
+  GameService(DatabaseFacade db){
+    database = db;
     rn = new Random();
   }
 
@@ -70,6 +70,10 @@ public class GameService {
 
   public List<Game> listGames(){
     return database.listGames();
+  }
+
+  public Stream<Game> streamGames() {
+    return database.streamGames();
   }
 
   public Game getGame(String gameID){

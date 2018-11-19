@@ -13,6 +13,7 @@ import java.util.Random;
 public class DatabaseFacade {
     private ArrayList<User> Users = new ArrayList<>();
     private ArrayList<Game> Games = new ArrayList<>();
+    private CommandQueue<Game> gameStream = new CommandQueue<>();
     private ArrayList<Player> players = new ArrayList<Player>();
     private ArrayList<Message> messages = new ArrayList<>();
     private CommandQueue<Message> messageQueue = new CommandQueue<Message>();
@@ -28,7 +29,7 @@ public class DatabaseFacade {
   private ArrayList<Route> routes = new ArrayList<>();
   private CommandQueue<Route> routeQueue = new CommandQueue<>();
 
-    private DatabaseFacade(){
+    public DatabaseFacade(){
 
     }
 
@@ -128,10 +129,15 @@ public class DatabaseFacade {
       }
     }
 
+    public Stream<Game> streamGames() {
+      return gameStream.subscribe();
+    }
+
 
     public void addGame(Game game){
       synchronized (this) {
         Games.add(game);
+        gameStream.publish(game);
       }
     }
 
@@ -146,6 +152,7 @@ public class DatabaseFacade {
         for(int i = 0; i < Games.size(); i++){
           if(Games.get(i).getGameID().equals(game.getGameID())){
             Games.add(i,game);
+            gameStream.publish(game);
           }
         }
       }

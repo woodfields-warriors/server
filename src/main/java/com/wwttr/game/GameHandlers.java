@@ -121,6 +121,39 @@ public class GameHandlers extends Api.GameService {
     // });
   }
 
+  public void streamGames(RpcController controller, Api.StreamGamesRequest request, RpcCallback<Api.Game> callback) {
+    service.streamGames().forEach((Game game) -> {
+      Api.Game.Builder builder = Api.Game.newBuilder();
+
+      Api.Game.Status status;
+      switch (game.getGameStatus()) {
+      case PRE:
+        status = Api.Game.Status.PRE;
+        break;
+      case STARTED:
+        status = Api.Game.Status.STARTED;
+        break;
+      case ENDED:
+        status = Api.Game.Status.FINISHED;
+        break;
+      default:
+        status = Api.Game.Status.UNKNOWN;
+        break;
+      }
+
+      builder.setGameId(game.getGameID());
+      builder.setDisplayName(game.getDisplayName());
+      builder.setMaxPlayers(game.getMaxPlayers());
+      builder.setHostPlayerId(game.getHostPlayerID());
+      builder.setStatus(status);
+      for (String i : game.getPlayerIDs()) {
+        builder.addPlayerIds(i);
+      }
+
+      callback.run(builder.build());
+    });
+  }
+
   public void getGame(RpcController controller, Api.GetGameRequest request, RpcCallback<Api.Game> callback) {
     //  System.out.println("The game ID coming in from the request is: " + request.getGameId());
     Game game = service.getGame(request.getGameId());
