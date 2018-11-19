@@ -155,9 +155,40 @@ public class GameService {
     return action;
   }
 
+  public void drawTrainCard(String playerId) throws NotFoundException {
+    Player player = database.getPlayer(playerId);
+    if (player == null){
+      throw new NotFoundException("player with id " + playerId + " not found");
+    }
+    player.getPlayerState().drawTrainCard(playerId);
+  }
+  public void claimRoute(String playerId, String routeId, List<String> cardIds) throws NotFoundException {
+    Player player = database.getPlayer(playerId);
+    if (player == null){
+      throw new NotFoundException("player with id " + playerId + " not found");
+    }
+    player.getPlayerState().claimRoute(playerId, routeId,cardIds);
+  }
+  public void drawDestinationCards(String playerId, List<String> destinationCardIds) throws NotFoundException {
+    Player player = database.getPlayer(playerId);
+    if (player == null){
+      throw new NotFoundException("player with id " + playerId + " not found");
+    }
+    player.getPlayerState().drawTrainCard(playerId);
+  }
+  public void drawFaceUpTrainCard(String playerId, String cardId) throws NotFoundException {
+    Player player = database.getPlayer(playerId);
+    if (player == null){
+      throw new NotFoundException("player with id " + playerId + " not found");
+    }
+    player.getPlayerState().drawFaceUpTrainCard(playerId, cardId);
+  }
 
 
-  //--------------------Player methods ------------------------------------------//
+//CLAIM ROUTE what's going on there?
+//Stream Player Stats.  I need help with that.
+
+//--------------------Player methods ------------------------------------------//
 
   public String createPlayer(String userId, String gameId)throws NotFoundException, GameFullException{
     Game game = database.getGame(gameId);
@@ -228,15 +259,19 @@ public class GameService {
 class PendingState implements IPlayerTurnState{
   public void drawTrainCard(String playerId) throws NotFoundException {
     //Tell the client it isn't his/her turn
+    throw new ApiError(Code.FAILED_PRECONDITION,"It's not your turn");
   }
-  public void claimRoute(String playerId) throws NotFoundException {
+  public void claimRoute(String playerId, String routeId,List<String> cardIds) throws NotFoundException, IllegalArgumentException{
     //tell client it isn't his/her turn
+    throw new ApiError(Code.FAILED_PRECONDITION,"It's not your turn");
   }
   public void drawDestinationCards(String playerId, List<String> destinationCardIds) throws NotFoundException {
     //tell client it isn't his/her turn
+    throw new ApiError(Code.FAILED_PRECONDITION,"It's not your turn");
   }
   public void drawFaceUpTrainCard(String playerId, String cardId) throws NotFoundException {
     //tell client it isn't his/her turn
+    throw new ApiError(Code.FAILED_PRECONDITION,"It's not your turn");
   }
 }
 
@@ -246,6 +281,7 @@ class StartState implements IPlayerTurnState{
 
   DatabaseFacade database = DatabaseFacade.getInstance();
   CardService cardService = CardService.getInstance();
+  RouteService routeService = RouteService.getInstance();
 
   public void drawTrainCard(String playerId) throws NotFoundException {
     cardService.claimTrainCardFromDeck(playerId);
@@ -253,23 +289,68 @@ class StartState implements IPlayerTurnState{
     player.setState(new MidState());
     //TODO handle returning...
   }
-  public void claimRoute(String playerId) throws NotFoundException {
-
+  public void claimRoute(String playerId, String routeId,List<String> cardIds) throws NotFoundException, IllegalArgumentException{
+    routeService.claimRoute(playerId,routeId,cardIds);
     Player player = database.getPlayer(playerId);
-    player.setState(new PendingState());
+    if(database.getGame(player.getGameId()).getGameStatus().equals(Game.Status.LASTROUND)){
+      player.setState(new GameEnded());
+    }
+    else {
+      player.setState(new PendingState());
+    }
+    database.updatePlayer(player);
+    Player nextPlayer = database.getNextPlayer(playerId);
+    if(nextPlayer.getPlayerState().getClass().equals(GameEnded.class)){
+      Game game = database.getGame(player.getGameId());
+      game.changeGameStatus(Game.Status.ENDED);
+    }
+    else {
+      nextPlayer.setState(new StartState());
+      database.updatePlayer(nextPlayer);
+    }
   }
   public void drawDestinationCards(String playerId, List<String> destinationCardIds)
                                    throws NotFoundException{
     cardService.claimDestinationCards(destinationCardIds,playerId);
     Player player = database.getPlayer(playerId);
-    player.setState(new PendingState());
+    if(database.getGame(player.getGameId()).getGameStatus().equals(Game.Status.LASTROUND)){
+      player.setState(new GameEnded());
+    }
+    else {
+      player.setState(new PendingState());
+    }
+    database.updatePlayer(player);
+    Player nextPlayer = database.getNextPlayer(playerId);
+    if(nextPlayer.getPlayerState().getClass().equals(GameEnded.class)){
+      Game game = database.getGame(player.getGameId());
+      game.changeGameStatus(Game.Status.ENDED);
+    }
+    else {
+      nextPlayer.setState(new StartState());
+      database.updatePlayer(nextPlayer);
+    }
   }
   public void drawFaceUpTrainCard(String playerId, String cardId)throws NotFoundException{
     cardService.claimFaceUpTrainCard(playerId,cardId);
     boolean isLocomotiveCard  = cardService.isLocomotive(cardId);
     Player player = database.getPlayer(playerId);
     if(isLocomotiveCard){
-      player.setState(new PendingState());
+      if(database.getGame(player.getGameId()).getGameStatus().equals(Game.Status.LASTROUND)){
+        player.setState(new GameEnded());
+      }
+      else {
+        player.setState(new PendingState());
+      }
+      database.updatePlayer(player);
+      Player nextPlayer = database.getNextPlayer(playerId);
+      if(nextPlayer.getPlayerState().getClass().equals(GameEnded.class)){
+        Game game = database.getGame(player.getGameId());
+        game.changeGameStatus(Game.Status.ENDED);
+      }
+      else {
+        nextPlayer.setState(new StartState());
+        database.updatePlayer(nextPlayer);
+      }
     }
     else{
       player.setState(new MidState());
@@ -286,17 +367,72 @@ class MidState implements IPlayerTurnState{
   public void drawTrainCard(String playerId)throws NotFoundException{
     cardService.claimTrainCardFromDeck(playerId);
     Player player = database.getPlayer(playerId);
-    player.setState(new PendingState());
+    if(database.getGame(player.getGameId()).getGameStatus().equals(Game.Status.LASTROUND)){
+      player.setState(new GameEnded());
+    }
+    else {
+      player.setState(new PendingState());
+    }
+    database.updatePlayer(player);
+    Player nextPlayer = database.getNextPlayer(playerId);
+    if(nextPlayer.getPlayerState().getClass().equals(GameEnded.class)){
+      Game game = database.getGame(player.getGameId());
+      game.changeGameStatus(Game.Status.ENDED);
+    }
+    else {
+      nextPlayer.setState(new StartState());
+      database.updatePlayer(nextPlayer);
+    }
   }
-  public void claimRoute(String playerId) throws NotFoundException {
-    //tell client action isn't possible
+  public void claimRoute(String playerId, String routeId,List<String> cardIds) throws NotFoundException, IllegalArgumentException{
+    throw new ApiError(Code.FAILED_PRECONDITION,"Mid state.  You can only draw a card");
   }
   public void drawDestinationCards(String playerId, List<String> destinationCardIds) throws NotFoundException {
-    //tell client action isn't possible
+    throw new ApiError(Code.FAILED_PRECONDITION,"Mid state.  You can only draw a card");
   }
   public void drawFaceUpTrainCard(String playerId, String cardId)throws NotFoundException{
-    cardService.claimTrainCardFromDeck(playerId);
-    Player player = database.getPlayer(playerId);
-    player.setState(new PendingState());
+    if(!cardService.isLocomotive(cardId)) {
+      cardService.claimFaceUpTrainCard(playerId, cardId);
+      Player player = database.getPlayer(playerId);
+      if(database.getGame(player.getGameId()).getGameStatus().equals(Game.Status.LASTROUND)){
+        player.setState(new GameEnded());
+      }
+      else {
+        player.setState(new PendingState());
+      }
+      database.updatePlayer(player);
+      Player nextPlayer = database.getNextPlayer(playerId);
+      if(nextPlayer.getPlayerState().getClass().equals(GameEnded.class)){
+        Game game = database.getGame(player.getGameId());
+        game.changeGameStatus(Game.Status.ENDED);
+      }
+      else {
+        nextPlayer.setState(new StartState());
+        database.updatePlayer(nextPlayer);
+      }
+    }
+    else{
+      throw new ApiError(Code.FAILED_PRECONDITION,"Mid state.  You can only draw a non locomotive card");
+    }
+  }
+
+}
+
+class GameEnded implements IPlayerTurnState{
+  public void drawTrainCard(String playerId) throws NotFoundException {
+    //Tell the client it isn't his/her turn
+    throw new ApiError(Code.FAILED_PRECONDITION,"game has ended");
+  }
+  public void claimRoute(String playerId, String routeId,List<String> cardIds) throws NotFoundException, IllegalArgumentException{
+    //tell client it isn't his/her turn
+    throw new ApiError(Code.FAILED_PRECONDITION,"game has ended");
+  }
+  public void drawDestinationCards(String playerId, List<String> destinationCardIds) throws NotFoundException {
+    //tell client it isn't his/her turn
+    throw new ApiError(Code.FAILED_PRECONDITION,"game has ended");
+  }
+  public void drawFaceUpTrainCard(String playerId, String cardId) throws NotFoundException {
+    //tell client it isn't his/her turn
+    throw new ApiError(Code.FAILED_PRECONDITION,"game has ended");
   }
 }

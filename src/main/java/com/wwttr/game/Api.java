@@ -35,6 +35,10 @@ public final class Api {
      * <code>MID = 3;</code>
      */
     MID(3),
+    /**
+     * <code>GAME_ENDED = 4;</code>
+     */
+    GAME_ENDED(4),
     UNRECOGNIZED(-1),
     ;
 
@@ -54,6 +58,10 @@ public final class Api {
      * <code>MID = 3;</code>
      */
     public static final int MID_VALUE = 3;
+    /**
+     * <code>GAME_ENDED = 4;</code>
+     */
+    public static final int GAME_ENDED_VALUE = 4;
 
 
     public final int getNumber() {
@@ -78,6 +86,7 @@ public final class Api {
         case 1: return PENDING;
         case 2: return START;
         case 3: return MID;
+        case 4: return GAME_ENDED;
         default: return null;
       }
     }
@@ -403,6 +412,10 @@ public final class Api {
        * <code>FINISHED = 3;</code>
        */
       FINISHED(3),
+      /**
+       * <code>LAST_ROUND = 4;</code>
+       */
+      LAST_ROUND(4),
       UNRECOGNIZED(-1),
       ;
 
@@ -422,6 +435,10 @@ public final class Api {
        * <code>FINISHED = 3;</code>
        */
       public static final int FINISHED_VALUE = 3;
+      /**
+       * <code>LAST_ROUND = 4;</code>
+       */
+      public static final int LAST_ROUND_VALUE = 4;
 
 
       public final int getNumber() {
@@ -446,6 +463,7 @@ public final class Api {
           case 1: return PRE;
           case 2: return STARTED;
           case 3: return FINISHED;
+          case 4: return LAST_ROUND;
           default: return null;
         }
       }
@@ -16194,63 +16212,63 @@ public final class Api {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\ngame.proto\022\004game\"\314\001\n\004Game\022\017\n\007game_id\030\001" +
+      "\n\ngame.proto\022\004game\"\334\001\n\004Game\022\017\n\007game_id\030\001" +
       " \001(\t\022\024\n\014display_name\030\002 \001(\t\022\023\n\013max_player" +
       "s\030\003 \001(\005\022\026\n\016host_player_id\030\004 \001(\t\022\022\n\nplaye" +
       "r_ids\030\005 \003(\t\022!\n\006status\030\006 \001(\0162\021.game.Game." +
-      "Status\"9\n\006Status\022\013\n\007UNKNOWN\020\000\022\007\n\003PRE\020\001\022\013" +
-      "\n\007STARTED\020\002\022\014\n\010FINISHED\020\003\"U\n\nGameAction\022" +
-      "\021\n\taction_id\030\001 \001(\t\022\016\n\006action\030\002 \001(\t\022\021\n\tti" +
-      "mestamp\030\003 \001(\005\022\021\n\tplayer_id\030\004 \001(\t\"N\n\021Crea" +
-      "teGameRequest\022\017\n\007user_id\030\001 \001(\t\022\024\n\014displa" +
-      "y_name\030\002 \001(\t\022\022\n\nmaxPlayers\030\003 \001(\005\"6\n\020Leav" +
-      "eGameRequest\022\021\n\tplayer_id\030\001 \001(\t\022\017\n\007game_" +
-      "id\030\002 \001(\t\"\022\n\020ListGamesRequest\"\024\n\022StreamGa" +
-      "mesRequest\"!\n\016GetGameRequest\022\017\n\007game_id\030" +
-      "\001 \001(\t\"#\n\020StartGameRequest\022\017\n\007game_id\030\001 \001" +
-      "(\t\"$\n\021DeleteGameRequest\022\017\n\007game_id\030\001 \001(\t" +
-      "\"\'\n\024StreamHistoryRequest\022\017\n\007game_id\030\001 \001(" +
-      "\t\"7\n\023CreatePlayerRequest\022\017\n\007user_id\030\001 \001(" +
-      "\t\022\017\n\007game_id\030\002 \001(\t\"\306\001\n\006Player\022\n\n\002id\030\001 \001(" +
-      "\t\022\022\n\naccount_id\030\002 \001(\t\022\017\n\007game_id\030\003 \001(\t\022!" +
-      "\n\005color\030\004 \001(\0162\022.game.Player.Color\022\020\n\010use" +
-      "rname\030\005 \001(\t\"V\n\005Color\022\013\n\007UNKNOWN\020\000\022\007\n\003RED" +
-      "\020\001\022\010\n\004BLUE\020\002\022\t\n\005GREEN\020\003\022\n\n\006YELLOW\020\004\022\n\n\006P" +
-      "URPLE\020\005\022\n\n\006ORANGE\020\006\"%\n\020GetPlayerRequest\022" +
-      "\021\n\tplayer_id\030\001 \001(\t\"\007\n\005Empty\".\n\021ListGames" +
-      "Response\022\031\n\005games\030\001 \003(\0132\n.game.Game\"4\n\016C" +
-      "reateResponse\022\017\n\007game_id\030\001 \001(\t\022\021\n\tplayer" +
-      "_id\030\002 \001(\t\";\n\016DeleteResponse\022\021\n\tgame_name" +
-      "\030\001 \001(\t\022\026\n\016orphaned_users\030\002 \003(\005\")\n\024Create" +
-      "PlayerResponse\022\021\n\tplayer_id\030\001 \001(\t\"\032\n\030Str" +
-      "eamPlayerStatsRequest\"\364\001\n\013PlayerStats\022\021\n" +
-      "\tplayer_id\030\001 \001(\t\022\031\n\021train_card_points\030\002 " +
-      "\001(\005\022\034\n\024longest_route_points\030\006 \001(\005\022\037\n\027des" +
-      "tination_card_points\030\007 \001(\005\022\023\n\013train_coun" +
-      "t\030\003 \001(\005\022\030\n\020train_card_count\030\004 \001(\005\022\036\n\026des" +
-      "tination_card_count\030\005 \001(\005\022)\n\nturn_state\030" +
-      "\010 \001(\0162\025.game.PlayerTurnState*U\n\017PlayerTu" +
-      "rnState\022!\n\035UNSPECIFIED_PLAYER_TURN_STATE" +
-      "\020\000\022\013\n\007PENDING\020\001\022\t\n\005START\020\002\022\007\n\003MID\020\0032\267\005\n\013" +
-      "GameService\022;\n\nCreateGame\022\027.game.CreateG" +
-      "ameRequest\032\024.game.CreateResponse\0220\n\tLeav" +
-      "eGame\022\026.game.LeaveGameRequest\032\013.game.Emp" +
-      "ty\0222\n\nDeleteGame\022\027.game.DeleteGameReques" +
-      "t\032\013.game.Empty\022+\n\007GetGame\022\024.game.GetGame" +
-      "Request\032\n.game.Game\022/\n\tStartGame\022\026.game." +
-      "StartGameRequest\032\n.game.Game\022<\n\tListGame" +
-      "s\022\026.game.ListGamesRequest\032\027.game.ListGam" +
-      "esResponse\0225\n\013StreamGames\022\030.game.StreamG" +
-      "amesRequest\032\n.game.Game0\001\022E\n\014CreatePlaye" +
-      "r\022\031.game.CreatePlayerRequest\032\032.game.Crea" +
-      "tePlayerResponse\0221\n\tGetPlayer\022\026.game.Get" +
-      "PlayerRequest\032\014.game.Player\022H\n\021StreamPla" +
-      "yerStats\022\036.game.StreamPlayerStatsRequest" +
-      "\032\021.game.PlayerStats0\001\022-\n\021TogglePlayerSta" +
-      "ts\022\013.game.Empty\032\013.game.Empty\022?\n\rStreamHi" +
-      "story\022\032.game.StreamHistoryRequest\032\020.game" +
-      ".GameAction0\001B\030\n\016com.wwttr.gameB\003Api\210\001\001b" +
-      "\006proto3"
+      "Status\"I\n\006Status\022\013\n\007UNKNOWN\020\000\022\007\n\003PRE\020\001\022\013" +
+      "\n\007STARTED\020\002\022\014\n\010FINISHED\020\003\022\016\n\nLAST_ROUND\020" +
+      "\004\"U\n\nGameAction\022\021\n\taction_id\030\001 \001(\t\022\016\n\006ac" +
+      "tion\030\002 \001(\t\022\021\n\ttimestamp\030\003 \001(\005\022\021\n\tplayer_" +
+      "id\030\004 \001(\t\"N\n\021CreateGameRequest\022\017\n\007user_id" +
+      "\030\001 \001(\t\022\024\n\014display_name\030\002 \001(\t\022\022\n\nmaxPlaye" +
+      "rs\030\003 \001(\005\"6\n\020LeaveGameRequest\022\021\n\tplayer_i" +
+      "d\030\001 \001(\t\022\017\n\007game_id\030\002 \001(\t\"\022\n\020ListGamesReq" +
+      "uest\"\024\n\022StreamGamesRequest\"!\n\016GetGameReq" +
+      "uest\022\017\n\007game_id\030\001 \001(\t\"#\n\020StartGameReques" +
+      "t\022\017\n\007game_id\030\001 \001(\t\"$\n\021DeleteGameRequest\022" +
+      "\017\n\007game_id\030\001 \001(\t\"\'\n\024StreamHistoryRequest" +
+      "\022\017\n\007game_id\030\001 \001(\t\"7\n\023CreatePlayerRequest" +
+      "\022\017\n\007user_id\030\001 \001(\t\022\017\n\007game_id\030\002 \001(\t\"\306\001\n\006P" +
+      "layer\022\n\n\002id\030\001 \001(\t\022\022\n\naccount_id\030\002 \001(\t\022\017\n" +
+      "\007game_id\030\003 \001(\t\022!\n\005color\030\004 \001(\0162\022.game.Pla" +
+      "yer.Color\022\020\n\010username\030\005 \001(\t\"V\n\005Color\022\013\n\007" +
+      "UNKNOWN\020\000\022\007\n\003RED\020\001\022\010\n\004BLUE\020\002\022\t\n\005GREEN\020\003\022" +
+      "\n\n\006YELLOW\020\004\022\n\n\006PURPLE\020\005\022\n\n\006ORANGE\020\006\"%\n\020G" +
+      "etPlayerRequest\022\021\n\tplayer_id\030\001 \001(\t\"\007\n\005Em" +
+      "pty\".\n\021ListGamesResponse\022\031\n\005games\030\001 \003(\0132" +
+      "\n.game.Game\"4\n\016CreateResponse\022\017\n\007game_id" +
+      "\030\001 \001(\t\022\021\n\tplayer_id\030\002 \001(\t\";\n\016DeleteRespo" +
+      "nse\022\021\n\tgame_name\030\001 \001(\t\022\026\n\016orphaned_users" +
+      "\030\002 \003(\005\")\n\024CreatePlayerResponse\022\021\n\tplayer" +
+      "_id\030\001 \001(\t\"\032\n\030StreamPlayerStatsRequest\"\364\001" +
+      "\n\013PlayerStats\022\021\n\tplayer_id\030\001 \001(\t\022\031\n\021trai" +
+      "n_card_points\030\002 \001(\005\022\034\n\024longest_route_poi" +
+      "nts\030\006 \001(\005\022\037\n\027destination_card_points\030\007 \001" +
+      "(\005\022\023\n\013train_count\030\003 \001(\005\022\030\n\020train_card_co" +
+      "unt\030\004 \001(\005\022\036\n\026destination_card_count\030\005 \001(" +
+      "\005\022)\n\nturn_state\030\010 \001(\0162\025.game.PlayerTurnS" +
+      "tate*e\n\017PlayerTurnState\022!\n\035UNSPECIFIED_P" +
+      "LAYER_TURN_STATE\020\000\022\013\n\007PENDING\020\001\022\t\n\005START" +
+      "\020\002\022\007\n\003MID\020\003\022\016\n\nGAME_ENDED\020\0042\267\005\n\013GameServ" +
+      "ice\022;\n\nCreateGame\022\027.game.CreateGameReque" +
+      "st\032\024.game.CreateResponse\0220\n\tLeaveGame\022\026." +
+      "game.LeaveGameRequest\032\013.game.Empty\0222\n\nDe" +
+      "leteGame\022\027.game.DeleteGameRequest\032\013.game" +
+      ".Empty\022+\n\007GetGame\022\024.game.GetGameRequest\032" +
+      "\n.game.Game\022/\n\tStartGame\022\026.game.StartGam" +
+      "eRequest\032\n.game.Game\022<\n\tListGames\022\026.game" +
+      ".ListGamesRequest\032\027.game.ListGamesRespon" +
+      "se\0225\n\013StreamGames\022\030.game.StreamGamesRequ" +
+      "est\032\n.game.Game0\001\022E\n\014CreatePlayer\022\031.game" +
+      ".CreatePlayerRequest\032\032.game.CreatePlayer" +
+      "Response\0221\n\tGetPlayer\022\026.game.GetPlayerRe" +
+      "quest\032\014.game.Player\022H\n\021StreamPlayerStats" +
+      "\022\036.game.StreamPlayerStatsRequest\032\021.game." +
+      "PlayerStats0\001\022-\n\021TogglePlayerStats\022\013.gam" +
+      "e.Empty\032\013.game.Empty\022?\n\rStreamHistory\022\032." +
+      "game.StreamHistoryRequest\032\020.game.GameAct" +
+      "ion0\001B\030\n\016com.wwttr.gameB\003Api\210\001\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {

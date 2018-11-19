@@ -26,8 +26,9 @@ public class DatabaseFacade {
     private ArrayList<TrainCard> trainCards = new ArrayList<>();
     private CommandQueue<TrainCard> trainCardQueue = new CommandQueue<TrainCard>();
     private CommandQueue<DeckStats> deckStatsCommandQueue = new CommandQueue<>();
-  private ArrayList<Route> routes = new ArrayList<>();
-  private CommandQueue<Route> routeQueue = new CommandQueue<>();
+    private ArrayList<Route> routes = new ArrayList<>();
+    private CommandQueue<Route> routeQueue = new CommandQueue<>();
+    private CommandQueue<PlayerStats> playerStatsQueue = new CommandQueue<>();
 
     public DatabaseFacade(){
 
@@ -105,6 +106,135 @@ public class DatabaseFacade {
         return null;
       }
     }
+
+    public void updatePlayer(Player player) {
+      for (int i = 0; i < players.size(); i++) {
+        Player databasePlayer = players.get(i);
+        if (databasePlayer.getPlayerId().equals(player.getPlayerId())) {
+          players.add(i, player);
+        }
+      }
+    }
+    //manually aggregates all current stats for the given player id.
+    public void updatePlayerStats(String playerId) {
+      for (Player player : players) {
+        if (player.getPlayerId().equals(playerId)) {
+          PlayerStats newstats = new PlayerStats();
+          newstats.setPlayerId(playerId);
+          int trainsUsed = 0;
+          int routePoints = 0;
+          for (Route route : routes) {
+            if (route.getPlayerId().equals(playerId)) {
+              int length = route.getLength();
+              trainsUsed += length;
+              switch (length) {
+                case 1:
+                  routePoints += 1;
+                  break;
+                case 2: {
+                  routePoints += 2;
+                  break;
+                }
+                case 3: {
+                  routePoints += 4;
+                  break;
+                }
+                case 4: {
+                  routePoints += 7;
+                  break;
+                }
+                case 5: {
+                  routePoints += 10;
+                  break;
+                }
+                case 6: {
+                  routePoints += 15;
+                  break;
+                }
+            }
+          }
+          newstats.setroutePoints(routePoints);
+          newstats.setLongestRoutePoints(0);
+          List<DestinationCard> routesCompleted = findCompletedRoutesForPlayer(playerId);
+          int pointsFromRoutes = 0;
+          for(DestinationCard card: routesCompleted){
+            pointsFromRoutes+= card.getPointValue();
+          }
+          newstats.setDestinationCardPoints(pointsFromRoutes);
+          int trainsLeft = 45 - trainsUsed;
+          if(trainsLeft <= 3){
+            Game game = getGame(player.getGameId());
+            game.changeGameStatus(Game.Status.LASTROUND);
+            updateGame(game,game.getGameID());
+          }
+          newstats.setTrainCount(trainsLeft);
+          newstats.setTrainCardCount(getTrainCardsForPlayer(playerId).size());
+          newstats.setDestinationCardCount(getDestinationCardsByPlayerId(playerId).size());
+        }
+      }
+    }
+    }
+
+    //takes a player id
+    //grabs all destination cards owned by player id
+    //for each card
+    //does a depth first search to see if player owns a route
+    // connecting city one and two of the card
+    //returns a list of destination cards that have been completed
+    List<DestinationCard> findCompletedRoutesForPlayer(String playerId){
+      List<DestinationCard> toReturn = new ArrayList<>();
+      List<DestinationCard> cardsOwned = getDestinationCardsByPlayerId();
+      List<Route> playerRoutes = getRoutesOwnedByPlayer(playerId);
+      for (DestinationCard card: cardsOwned){
+        List<String> citiesVisited = new ArrayList<>();
+        String currentCity = card.getFirstCityId();
+        //find if we have a route from the starting city
+        for(Route route: playerRoutes){
+          //find route that has where we currently are and check if we've been to where it goes
+          if(route.getFirstCityId().equals(currentCity) && !citiesVisited.contains(route.getSecondCityId())){
+            currentCity = route.getSecondCityId();
+            citiesVisited.add(currentCity);
+
+          }
+          else if(route.getSecondCityId().equals(currentCity) && !citiesVisited.contains(route.getFirstCityId())){
+            currentCity = route.getFirstCityId();
+            citiesVisited.add(currentCity);
+
+          }
+          //did we complete the route?
+          if(currentCity.equals(card.getSecondCityId())){
+            toReturn.add(card);
+            break;
+          }
+        }
+      }
+    }
+
+    List<Route> getRoutesOwnedByPlayer(String playerId){
+      List<Route> toReturn = new ArrayList<>();
+      for (Route route: routes){
+        if(route.getPlayerId().equals(playerId)){
+          toReturn.add(route);
+        }
+      }
+    }
+
+    //Given a player Id, this method returns the next player in the players list
+    //The players list is ordered in the order that people joined the game.
+    //This order is also the order of the turn.  So, this method can be used
+    // to get the player who is next up in turn order;
+    public Player getNextPlayer(String playerId){
+      synchronized(this) {
+        for (int i = 0; i<players.size();i++){
+          if(players.get(i).getPlayerId().equals(playerId)){
+            return players.get(i+1);
+          }
+        }
+        return null;
+      }
+    }
+
+
 
     //***********************************************************************************//
     //-------------------------------Game Service Methods------------------------------------
@@ -208,20 +338,7 @@ public class DatabaseFacade {
       return ret;
     }
 
-    //Given a player Id, this method returns the next player in the players list
-    //The players list is ordered in the order that people joined the game.
-    //This order is also the order of the turn.  So, this method can be used
-    // to get the player who is next up in turn order;
-    public Player getNextPlayer(String playerId){
-      synchronized(this) {
-        for (int i = 0; i<players.size();i++){
-          if(players.get(i).getPlayerId().equals(playerId)){
-            return players.get(i+1);
-          }
-        }
-        return null;
-      }
-    }
+
     public Stream<GameAction> streamHistory(String gameId) {
       return historyQueue
         .subscribe()
@@ -287,6 +404,7 @@ public class DatabaseFacade {
       else{
         retrievedCard.update(card);
         destinationCardQueue.publish(card);
+        updateDeckStats(card.getGameId());
       }
     }
   }
@@ -296,6 +414,17 @@ public class DatabaseFacade {
       ArrayList<DestinationCard> toReturn = new ArrayList<>();
       for(DestinationCard card : destinationCards){
         if(card.getGameId().equals(gameId))
+          toReturn.add(card);
+      }
+      return toReturn;
+    }
+  }
+
+  private ArrayList<DestinationCard> getDestinationCardsByPlayerId(String playerId){
+    synchronized (this) {
+      ArrayList<DestinationCard> toReturn = new ArrayList<>();
+      for(DestinationCard card : destinationCards){
+        if(card.getPlayerId().equals(playerId))
           toReturn.add(card);
       }
       return toReturn;
@@ -361,7 +490,7 @@ public class DatabaseFacade {
       ArrayList<DestinationCard> dcards = getDestinationCardsByGameId(gameId);
       ArrayList<DestinationCard> filteredDCards = new ArrayList<>();
       for(DestinationCard card : dcards){
-        if(!card.getPlayerId().equals("") || card.getPlayerId().equals("sent")){
+        if(card.getPlayerId().equals("") || card.getPlayerId().equals("sent")){
           filteredDCards.add(card);
         }
       }
@@ -503,6 +632,18 @@ public class DatabaseFacade {
         }
       }
       return null;
+    }
+  }
+
+  public void updateRoute(Route newRoute){
+    synchronized (this){
+      for(Route route : routes) {
+        if(route.getRouteId().equals(newRoute.getRouteId())){
+          route.update(newRoute);
+          routeQueue.publish(route);
+          updatePlayerStats(route.getPlayerId());
+        }
+      }
     }
   }
 

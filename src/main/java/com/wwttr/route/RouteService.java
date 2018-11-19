@@ -1,5 +1,6 @@
 package com.wwttr.route;
 
+import java.security.InvalidParameterException;
 import java.util.*;
 import java.util.stream.Stream;
 
@@ -10,7 +11,7 @@ import com.wwttr.models.TrainCard;
 import com.wwttr.models.Route;
 
 
-// Game Service is of the Singleton Pattern
+// route Service is of the Singleton Pattern
 public class RouteService {
 
   //singleton object
@@ -132,6 +133,52 @@ public class RouteService {
 
   public Stream<Route> streamRoutes(String gameId) {
     return database.streamRoutes().filter((Route r) -> r.getGameId().equals(gameId));
+  }
+
+  public void claimRoute(String playerId, String routeId, List<String> cardIds) throws NotFoundException, IllegalArgumentException{
+    if(database.getPlayer(playerId) == null){
+      throw new NotFoundException("player not found");
+    }
+    Route route = database.getRoutebyId(routeId);
+    if(cardIds.size() != route.getLength()){
+      throw new IllegalArgumentException("cards given != route length");
+    }
+    ArrayList<TrainCard> cards = new ArrayList<>();
+    for(String cardId : cardIds){
+      cards.add(database.getTrainCard(cardId));
+    }
+    TrainCard.Color color = TrainCard.Color.UNSPECIFIED;
+    //Checks if all colors match or are Locomotives
+    //Checks if cards are owned by the player
+    for(TrainCard card : cards){
+      if(!card.getPlayerId().equals(playerId)){
+        throw new IllegalArgumentException("card not owned by player");
+      }
+      if(!card.getState().equals(TrainCard.State.OWNED)){
+        throw new IllegalArgumentException("card now owned");
+      }
+      if(color.equals(TrainCard.Color.UNSPECIFIED)){
+        color = card.getColor();
+      }
+      else if(color.equals(TrainCard.Color.RAINBOW) && !card.getColor().equals(TrainCard.Color.RAINBOW)){
+        color = card.getColor();
+      }
+      else if(!color.equals(card.getColor()) && !card.getColor().equals(TrainCard.Color.RAINBOW)){
+          throw new IllegalArgumentException("incompatible card color");
+        }
+    }
+    //checks if colors match the color of the route
+    if(!route.getTrainColor().equals(TrainCard.Color.GREY) && !color.equals(route.getTrainColor()) && !color.equals(TrainCard.Color.RAINBOW)){
+      throw new IllegalArgumentException("card colors don't match route color");
+    }
+    route.setPlayerId(playerId);
+    database.updateRoute(route);
+    //return cards to the deck
+    for(TrainCard card: cards){
+      card.setState(TrainCard.State.HIDDEN);
+      card.setPlayerId("");
+      database.updateTrainCard(card);
+    }
   }
 
 

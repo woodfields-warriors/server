@@ -32,6 +32,7 @@ message StreamRoutesRequest {
 message ClaimRouteRequest {
   string route_id = 1;
   string player_id = 2;
+  repeated string card_ids = 3;
 }
 
 message ClaimRouteResponse {

@@ -47,6 +47,7 @@ message Game {
     PRE = 1;
     STARTED = 2;
     FINISHED = 3;
+    LAST_ROUND = 4;
   }
 
 
@@ -208,4 +209,5 @@ enum PlayerTurnState {
   PENDING = 1;
   START = 2;
   MID = 3;
+  GAME_ENDED = 4;
 }

@@ -1842,6 +1842,25 @@ public final class Api {
      */
     com.google.protobuf.ByteString
         getPlayerIdBytes();
+
+    /**
+     * <code>repeated string card_ids = 3;</code>
+     */
+    java.util.List<java.lang.String>
+        getCardIdsList();
+    /**
+     * <code>repeated string card_ids = 3;</code>
+     */
+    int getCardIdsCount();
+    /**
+     * <code>repeated string card_ids = 3;</code>
+     */
+    java.lang.String getCardIds(int index);
+    /**
+     * <code>repeated string card_ids = 3;</code>
+     */
+    com.google.protobuf.ByteString
+        getCardIdsBytes(int index);
   }
   /**
    * Protobuf type {@code route.ClaimRouteRequest}
@@ -1858,6 +1877,7 @@ public final class Api {
     private ClaimRouteRequest() {
       routeId_ = "";
       playerId_ = "";
+      cardIds_ = com.google.protobuf.LazyStringArrayList.EMPTY;
     }
 
     @java.lang.Override
@@ -1896,6 +1916,15 @@ public final class Api {
               playerId_ = s;
               break;
             }
+            case 26: {
+              java.lang.String s = input.readStringRequireUtf8();
+              if (!((mutable_bitField0_ & 0x00000004) == 0x00000004)) {
+                cardIds_ = new com.google.protobuf.LazyStringArrayList();
+                mutable_bitField0_ |= 0x00000004;
+              }
+              cardIds_.add(s);
+              break;
+            }
             default: {
               if (!parseUnknownFieldProto3(
                   input, unknownFields, extensionRegistry, tag)) {
@@ -1911,6 +1940,9 @@ public final class Api {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
+        if (((mutable_bitField0_ & 0x00000004) == 0x00000004)) {
+          cardIds_ = cardIds_.getUnmodifiableView();
+        }
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
@@ -1928,6 +1960,7 @@ public final class Api {
               com.wwttr.route.Api.ClaimRouteRequest.class, com.wwttr.route.Api.ClaimRouteRequest.Builder.class);
     }
 
+    private int bitField0_;
     public static final int ROUTE_ID_FIELD_NUMBER = 1;
     private volatile java.lang.Object routeId_;
     /**
@@ -1996,6 +2029,35 @@ public final class Api {
       }
     }
 
+    public static final int CARD_IDS_FIELD_NUMBER = 3;
+    private com.google.protobuf.LazyStringList cardIds_;
+    /**
+     * <code>repeated string card_ids = 3;</code>
+     */
+    public com.google.protobuf.ProtocolStringList
+        getCardIdsList() {
+      return cardIds_;
+    }
+    /**
+     * <code>repeated string card_ids = 3;</code>
+     */
+    public int getCardIdsCount() {
+      return cardIds_.size();
+    }
+    /**
+     * <code>repeated string card_ids = 3;</code>
+     */
+    public java.lang.String getCardIds(int index) {
+      return cardIds_.get(index);
+    }
+    /**
+     * <code>repeated string card_ids = 3;</code>
+     */
+    public com.google.protobuf.ByteString
+        getCardIdsBytes(int index) {
+      return cardIds_.getByteString(index);
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -2016,6 +2078,9 @@ public final class Api {
       if (!getPlayerIdBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 2, playerId_);
       }
+      for (int i = 0; i < cardIds_.size(); i++) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, cardIds_.getRaw(i));
+      }
       unknownFields.writeTo(output);
     }
 
@@ -2030,6 +2095,14 @@ public final class Api {
       }
       if (!getPlayerIdBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, playerId_);
+      }
+      {
+        int dataSize = 0;
+        for (int i = 0; i < cardIds_.size(); i++) {
+          dataSize += computeStringSizeNoTag(cardIds_.getRaw(i));
+        }
+        size += dataSize;
+        size += 1 * getCardIdsList().size();
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -2051,6 +2124,8 @@ public final class Api {
           .equals(other.getRouteId());
       result = result && getPlayerId()
           .equals(other.getPlayerId());
+      result = result && getCardIdsList()
+          .equals(other.getCardIdsList());
       result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
@@ -2066,6 +2141,10 @@ public final class Api {
       hash = (53 * hash) + getRouteId().hashCode();
       hash = (37 * hash) + PLAYER_ID_FIELD_NUMBER;
       hash = (53 * hash) + getPlayerId().hashCode();
+      if (getCardIdsCount() > 0) {
+        hash = (37 * hash) + CARD_IDS_FIELD_NUMBER;
+        hash = (53 * hash) + getCardIdsList().hashCode();
+      }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -2203,6 +2282,8 @@ public final class Api {
 
         playerId_ = "";
 
+        cardIds_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000004);
         return this;
       }
 
@@ -2229,8 +2310,16 @@ public final class Api {
       @java.lang.Override
       public com.wwttr.route.Api.ClaimRouteRequest buildPartial() {
         com.wwttr.route.Api.ClaimRouteRequest result = new com.wwttr.route.Api.ClaimRouteRequest(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
         result.routeId_ = routeId_;
         result.playerId_ = playerId_;
+        if (((bitField0_ & 0x00000004) == 0x00000004)) {
+          cardIds_ = cardIds_.getUnmodifiableView();
+          bitField0_ = (bitField0_ & ~0x00000004);
+        }
+        result.cardIds_ = cardIds_;
+        result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
@@ -2287,6 +2376,16 @@ public final class Api {
           playerId_ = other.playerId_;
           onChanged();
         }
+        if (!other.cardIds_.isEmpty()) {
+          if (cardIds_.isEmpty()) {
+            cardIds_ = other.cardIds_;
+            bitField0_ = (bitField0_ & ~0x00000004);
+          } else {
+            ensureCardIdsIsMutable();
+            cardIds_.addAll(other.cardIds_);
+          }
+          onChanged();
+        }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
@@ -2315,6 +2414,7 @@ public final class Api {
         }
         return this;
       }
+      private int bitField0_;
 
       private java.lang.Object routeId_ = "";
       /**
@@ -2450,6 +2550,100 @@ public final class Api {
   checkByteStringIsUtf8(value);
         
         playerId_ = value;
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.LazyStringList cardIds_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+      private void ensureCardIdsIsMutable() {
+        if (!((bitField0_ & 0x00000004) == 0x00000004)) {
+          cardIds_ = new com.google.protobuf.LazyStringArrayList(cardIds_);
+          bitField0_ |= 0x00000004;
+         }
+      }
+      /**
+       * <code>repeated string card_ids = 3;</code>
+       */
+      public com.google.protobuf.ProtocolStringList
+          getCardIdsList() {
+        return cardIds_.getUnmodifiableView();
+      }
+      /**
+       * <code>repeated string card_ids = 3;</code>
+       */
+      public int getCardIdsCount() {
+        return cardIds_.size();
+      }
+      /**
+       * <code>repeated string card_ids = 3;</code>
+       */
+      public java.lang.String getCardIds(int index) {
+        return cardIds_.get(index);
+      }
+      /**
+       * <code>repeated string card_ids = 3;</code>
+       */
+      public com.google.protobuf.ByteString
+          getCardIdsBytes(int index) {
+        return cardIds_.getByteString(index);
+      }
+      /**
+       * <code>repeated string card_ids = 3;</code>
+       */
+      public Builder setCardIds(
+          int index, java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureCardIdsIsMutable();
+        cardIds_.set(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string card_ids = 3;</code>
+       */
+      public Builder addCardIds(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureCardIdsIsMutable();
+        cardIds_.add(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string card_ids = 3;</code>
+       */
+      public Builder addAllCardIds(
+          java.lang.Iterable<java.lang.String> values) {
+        ensureCardIdsIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, cardIds_);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string card_ids = 3;</code>
+       */
+      public Builder clearCardIds() {
+        cardIds_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000004);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string card_ids = 3;</code>
+       */
+      public Builder addCardIdsBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        ensureCardIdsIsMutable();
+        cardIds_.add(value);
         onChanged();
         return this;
       }
@@ -3263,14 +3457,14 @@ public final class Api {
       "\016second_city_id\030\003 \001(\t\022\037\n\005color\030\004 \001(\0162\020.c" +
       "ard.TrainColor\022\021\n\tplayer_id\030\005 \001(\t\022\016\n\006len" +
       "gth\030\006 \001(\005\022\017\n\007game_id\030\007 \001(\t\"&\n\023StreamRout" +
-      "esRequest\022\017\n\007game_id\030\001 \001(\t\"8\n\021ClaimRoute" +
+      "esRequest\022\017\n\007game_id\030\001 \001(\t\"J\n\021ClaimRoute" +
       "Request\022\020\n\010route_id\030\001 \001(\t\022\021\n\tplayer_id\030\002" +
-      " \001(\t\"\024\n\022ClaimRouteResponse2\215\001\n\014RouteServ" +
-      "ice\022A\n\nClaimRoute\022\030.route.ClaimRouteRequ" +
-      "est\032\031.route.ClaimRouteResponse\022:\n\014Stream" +
-      "Routes\022\032.route.StreamRoutesRequest\032\014.rou" +
-      "te.Route0\001B\031\n\017com.wwttr.routeB\003Api\210\001\001b\006p" +
-      "roto3"
+      " \001(\t\022\020\n\010card_ids\030\003 \003(\t\"\024\n\022ClaimRouteResp" +
+      "onse2\215\001\n\014RouteService\022A\n\nClaimRoute\022\030.ro" +
+      "ute.ClaimRouteRequest\032\031.route.ClaimRoute" +
+      "Response\022:\n\014StreamRoutes\022\032.route.StreamR" +
+      "outesRequest\032\014.route.Route0\001B\031\n\017com.wwtt" +
+      "r.routeB\003Api\210\001\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -3302,7 +3496,7 @@ public final class Api {
     internal_static_route_ClaimRouteRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_route_ClaimRouteRequest_descriptor,
-        new java.lang.String[] { "RouteId", "PlayerId", });
+        new java.lang.String[] { "RouteId", "PlayerId", "CardIds", });
     internal_static_route_ClaimRouteResponse_descriptor =
       getDescriptor().getMessageTypes().get(3);
     internal_static_route_ClaimRouteResponse_fieldAccessorTable = new

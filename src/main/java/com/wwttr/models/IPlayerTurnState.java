@@ -6,7 +6,7 @@ import java.util.List;
 public interface IPlayerTurnState {
   public void drawTrainCard(String playerId) throws NotFoundException;
 
-  public void claimRoute(String playerId) throws NotFoundException;
+  public void claimRoute(String playerId, String routeId,List<String> cardIds) throws NotFoundException, IllegalArgumentException;
 
   public void drawDestinationCards(String playerId, List<String> destinationCardIds) throws NotFoundException;
 

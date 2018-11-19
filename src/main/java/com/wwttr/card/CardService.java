@@ -7,7 +7,7 @@ import com.wwttr.game.GameService;
 import com.wwttr.models.*;
 import com.wwttr.api.Code;
 
-import org.omg.CosNaming.NamingContextPackage.NotFound;
+//import org.omg.CosNaming.NamingContextPackage.NotFound;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -141,8 +141,7 @@ public class CardService {
     else{
       actionString = "claimed " + destinationCardIds.size() + " destination cards";
     }
-    //unused
-    GameAction action = gameService.createGameAction(actionString, playerId);
+    gameService.createGameAction(actionString, playerId);
   }
 
   public Stream<DestinationCard> streamDestinationCards(String playerId) throws NotFoundException {
@@ -200,11 +199,12 @@ public class CardService {
       throw new NotFoundException("player with id" + playerId + " not found");
     }
     //TODO implement checking for Locomotive based off of PlayerState
-    TrainCard returned = df.getRandomTrainCardFromDeck(df.getPlayer(playerId).getGameId());
-    if(returned.getPlayerId().equals("")){
-        returned.setPlayerId(playerId);
-        returned.setState(TrainCard.State.OWNED);
-        df.updateTrainCard(returned);
+    TrainCard cardReturned = df.getRandomTrainCardFromDeck(df.getPlayer(playerId).getGameId());
+    if(cardReturned.getPlayerId().equals("")){
+        cardReturned.setPlayerId(playerId);
+        cardReturned.setState(TrainCard.State.OWNED);
+        GameAction action = gameService.createGameAction("drew a train card from the deck", playerId);
+        df.updateTrainCard(cardReturned);
     }
     else{
       throw new ApiError(Code.INVALID_ARGUMENT,"card has already been claimed");
@@ -225,6 +225,8 @@ public class CardService {
         returned.setState(TrainCard.State.OWNED);
         df.updateTrainCard(returned);
         df.newFaceUpCard(df.getPlayer(playerId).getGameId());
+        GameAction action = gameService.createGameAction("drew a " + returned.getColor() +
+                                                        " face-up train card", playerId);
       }
     }
     else{
@@ -250,6 +252,15 @@ public class CardService {
   public boolean isLocomotive(String cardId) throws NotFoundException{
     TrainCard card = df.getTrainCard(cardId);
     return card.getColor().equals(TrainCard.Color.RAINBOW);
+  }
+
+  public void returnTrainCardsToDeck(ArrayList<String> cardIds) throws NotFoundException{
+    for(String Id : cardIds){
+      TrainCard temp = df.getTrainCard(Id);
+      temp.setState(TrainCard.State.HIDDEN);
+      temp.setPlayerId("");
+      df.updateTrainCard(temp);
+    }
   }
 
   //Testing Functions-------------------------------------------------------------------
