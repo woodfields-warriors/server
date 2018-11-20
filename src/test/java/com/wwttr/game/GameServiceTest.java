@@ -233,7 +233,7 @@ public class GameServiceTest {
     }
 
     @Test
-    public void testEndGame() {
+    public void testEndGameState() {
       try{
 
         CreateResponse response = service.createGame("valid", userID, 2);
@@ -267,6 +267,55 @@ public class GameServiceTest {
         fail();
       }
 
+    }
+
+    @Test
+    public void endGameGeneralState(){
+      try{
+
+      CreateResponse response = service.createGame("valid", userID, 2);
+      String player2 = service.createPlayer(userID,response.getGameID());
+      df.clearDestinationCards();
+      df.clearRoutes();
+      df.clearTrainCards();
+
+      List<String> playerIDs = df.getGame(response.getGameID()).getPlayerIDs();
+      for(String id : playerIDs) {
+        if(!id.equals(response.getPlayerID())) {
+          Player player = df.getPlayer(id);
+          player.setState(new GameEnded());
+        }
+      }
+        df.clearDestinationCards();
+        df.clearRoutes();
+        df.clearTrainCards();
+        df.addRoute(new Route("2","1","2", TrainCard.Color.GREY,8,response.getGameID(),response.getPlayerID()));
+        df.updatePlayerStats(response.getPlayerID());
+        Player player = service.getPlayer(response.getPlayerID());
+
+        ArrayList<TrainCard> cards = new ArrayList<>();
+        ArrayList<String> cardIds = new ArrayList<>();
+        for(int i = 0; i < 8; i++){
+          cards.add(new TrainCard(Integer.toString(i),response.getGameID(),response.getPlayerID(), TrainCard.Color.RAINBOW, TrainCard.State.OWNED));
+          cardIds.add(Integer.toString(i));
+        }
+        df.addTrainCardDeck(cards);
+
+        player.getPlayerState().claimRoute(player.getPlayerId(),"2",cardIds);
+        player = service.getPlayer(player.getPlayerId());
+        Game game = service.getGame(response.getGameID());
+        assertEquals(GameEnded.class,player.getPlayerState().getClass());
+        assertEquals(Game.Status.ENDED,game.getGameStatus());
+
+
+
+    }
+    catch (Exception e){
+      e.printStackTrace();
+      fail();
+    }
+
+    }
     }
 
 }
