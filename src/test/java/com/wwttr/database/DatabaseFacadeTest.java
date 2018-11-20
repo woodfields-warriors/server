@@ -19,6 +19,9 @@ import static org.junit.Assert.*;
 
 public class DatabaseFacadeTest {
 
+    GameService gameService = GameService.getInstance();
+    CardService cs = CardService.getInstance();
+
     @Test
     public void pubSub() throws Exception {
         CommandQueue<String> q = new CommandQueue<String>();
@@ -60,6 +63,14 @@ public class DatabaseFacadeTest {
       cards.add(tempCard);
     }
     df.addDestinationCardDeck(cards);
+
+    AuthService.getInstance().register("user","password");
+    user = df.getUser("user").getUserID();
+    CreateResponse cr = gameService.createGame("gameName", user, 4);
+    GameId = cr.getGameID();
+    gameService.createPlayer(user,GameId);
+    playerId = cr.getPlayerID();
+    cs.createFullDecksForGame(GameId);
   }
 
   @After
@@ -159,7 +170,7 @@ public class DatabaseFacadeTest {
     }
   }
 
-  @Test
+/*  @Test
   public void updateDestinationCard() {
     try {
       DestinationCard tempCard = new DestinationCard("temp1", null,null, null, null, null);
@@ -170,7 +181,7 @@ public class DatabaseFacadeTest {
     catch (NotFoundException e){
       fail();
     }
-  }
+  }*/
 
   @Test
   public void addDestinationCardDeck() {
@@ -221,6 +232,67 @@ public class DatabaseFacadeTest {
 
   @Test
   public void newFaceUpCard() {
+
+  }
+
+  @Test
+  public void newFaceUpCardWith3Locomotives(){
+    // List<String> players = new ArrayList<>();
+    // players.add("hostPlayerId");
+    // players.add("player2");
+    // Game game = new Game("hostPlayerId",players,"game42",5,"game42");
+    // df.addGame(game);
+    // TrainCard card1 = new TrainCard("card1", "game42","", TrainCard.Color.GREEN, TrainCard.State.HIDDEN);
+    // TrainCard card2 = new TrainCard("card2", "game42","", TrainCard.Color.GREEN, TrainCard.State.VISIBLE);
+    // TrainCard card3 = new TrainCard("card3", "game42","", TrainCard.Color.GREEN, TrainCard.State.VISIBLE);
+    // TrainCard card4 = new TrainCard("card4", "game42","", TrainCard.Color.RAINBOW, TrainCard.State.VISIBLE);
+    // TrainCard card5 = new TrainCard("card5", "game42","", TrainCard.Color.RAINBOW, TrainCard.State.VISIBLE);
+    // TrainCard card6 = new TrainCard("card6", "game42","", TrainCard.Color.RAINBOW, TrainCard.State.VISIBLE);
+    // TrainCard card7 = new TrainCard("card7", "game42","", TrainCard.Color.GREEN, TrainCard.State.HIDDEN);
+    // TrainCard card8 = new TrainCard("card8", "game42","", TrainCard.Color.GREEN, TrainCard.State.HIDDEN);
+    // TrainCard card9 = new TrainCard("card9", "game42","", TrainCard.Color.GREEN, TrainCard.State.HIDDEN);
+    // TrainCard card10= new TrainCard("card10","game42","", TrainCard.Color.GREEN, TrainCard.State.HIDDEN);
+    // TrainCard card11= new TrainCard("card11","game42","", TrainCard.Color.GREEN, TrainCard.State.HIDDEN);
+    // TrainCard card12= new TrainCard("card12","game42","", TrainCard.Color.GREEN, TrainCard.State.HIDDEN);
+    // TrainCard card13= new TrainCard("card13","game42","", TrainCard.Color.GREEN, TrainCard.State.HIDDEN);
+    // List<TrainCard> trainCards = new ArrayList<>();
+
+
+    ArrayList<TrainCard> trainCards = df.getTrainCards();
+    //Route route = df.getRoutebyId("Los Angeles - El Paso");
+    int visible = 0;
+    for(TrainCard tc: trainCards){
+      //Make five rainbow cards face up.  The rest in the deck
+      if(tc.getColor().equals(TrainCard.COLOR.RAINBOW) && visible <5){
+        visible++;
+        tc.setState(TrainCard.State.VISIBLE);
+      }
+      else{
+        tc.setState(TrainCard.State.HIDDEN);
+      }
+      try {
+        df.updateTrainCard(tc);
+      }
+      catch (Exception e){
+        fail();
+        }
+    }
+    df.newFaceUpCard("game42");
+    int visibleRainbows = 0;
+    int visible = 0;
+    for(TrainCard tc: trainCards){
+      if(tc.getColor().equals(TrainCard.COLOR.RAINBOW) && tc.getState().equals(TrainCard.State.VISIBLE)){
+        visible ++;
+        visibleRainbows ++;
+      }
+      else if(tc.getState().equals(TrainCard.State.VISIBLE)) {
+        visible ++ ;
+      }
+    }
+    System.out.println("Number of visible cards after newFaceUpCard = " + visible);
+    System.out.println("Number of visible RAINBOW cards after newFaceUpCard = "+ visibleRainbows);
+    assertTrue(visible <6);
+    assertTrue(visibleRainbows < 3);
   }
 
   @Test
