@@ -58,6 +58,7 @@ public class GameService {
         throw new NotFoundException("user " + userID + " was not found");
       }
       Player player = new Player("p" + Integer.toString(rn.nextInt()) ,userID, Player.Color.RED, user.getUsername());
+      player.setState(new StartState());
       Game game = new Game(player.getPlayerId(), new ArrayList<String>(), gameName, numberOfPlayers, "game" + Integer.toString(rn.nextInt() & Integer.MAX_VALUE));
       player.setGameId(game.getGameID());
       game.getPlayerIDs().add(player.getPlayerId());
@@ -227,6 +228,7 @@ public class GameService {
     Player player = new Player("p" + Integer.toString(rn.nextInt() & Integer.MAX_VALUE),
                                 userId, game.getGameID(), playerColor, user.getUsername());
     game.getPlayerIDs().add(player.getPlayerId());
+    player.setState(new PendingState());
     database.addPlayer(player);
     return player.getPlayerId();
   }
