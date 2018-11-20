@@ -247,61 +247,40 @@ public class DatabaseFacadeTest {
 
   @Test
   public void newFaceCardwith3orMoreLocomotives(){
-    ArrayList<TrainCard> trainCards = df.getTrainCardsForGame(GameId);
-    ArrayList<TrainCard> VisibleTrainCards = new ArrayList<>();
-    for(TrainCard c : trainCards){
-      if(c.getState().equals(TrainCard.State.VISIBLE))
-        VisibleTrainCards.add(c);
+    df.clearCards();
+    ArrayList<TrainCard> cards = new ArrayList<>();
+    for(int i = 0; i < 3; i++){
+      cards.add(new TrainCard("1",GameId,"", TrainCard.Color.RAINBOW, TrainCard.State.VISIBLE));
     }
-    assertEquals(5,VisibleTrainCards.size());
-    ArrayList<TrainCard> VisibleRainbows = new ArrayList<>();
-    for(TrainCard c : VisibleTrainCards){
-      if(c.getColor().equals(TrainCard.Color.RAINBOW)){
-        VisibleRainbows.add(c);
-      }
-      else{
-        c.setState(TrainCard.State.HIDDEN);
-        try {
-          df.updateTrainCard(c);
-        }
-        catch (NotFoundException e){
-          fail();
-        }
-      }
+    for(int i = 0; i < 2; i++){
+      cards.add(new TrainCard("1",GameId,"", TrainCard.Color.BLACK, TrainCard.State.VISIBLE));
     }
-    while(VisibleRainbows.size() < 3){
-      for(TrainCard c : trainCards){
-        if(c.getColor().equals(TrainCard.Color.RAINBOW) && c.getState().equals(TrainCard.State.HIDDEN)){
-          c.setState(TrainCard.State.VISIBLE);
-          VisibleRainbows.add(c);
-          try {
-            df.updateTrainCard(c);
-          }
-          catch (NotFoundException e){
-            fail();
-          }
-          break;
-        }
-      }
+
+    for(int i = 0; i < 10; i++){
+      cards.add(new TrainCard("1",GameId,"", TrainCard.Color.BLUE, TrainCard.State.HIDDEN));
     }
-    try {
+
+    df.addTrainCardDeck(cards);
+
+    try{
       df.newFaceUpCard(GameId);
     }
     catch (NotFoundException e){
       fail();
     }
-    trainCards = df.getTrainCardsForGame(GameId);
-    VisibleRainbows.clear();
-    for(TrainCard c : trainCards){
-      if(c.getState().equals(TrainCard.State.VISIBLE)) {
-        VisibleTrainCards.add(c);
-        if(c.getColor().equals(TrainCard.Color.RAINBOW)){
-          VisibleRainbows.add(c);
+    cards = df.getTrainCardsForGame(GameId);
+    int visible = 0;
+    int visibleRainbow = 0;
+    for(TrainCard card : cards){
+      if(card.getState().equals(TrainCard.State.VISIBLE)){
+        visible++;
+        if(card.getColor().equals(TrainCard.Color.RAINBOW)){
+          visibleRainbow++;
         }
       }
     }
-    assertEquals(5,VisibleTrainCards.size());
-    assert(VisibleRainbows.size() < 3);
+    assertEquals(5,visible);
+    assert(visibleRainbow < 6);
   }
 
   @Test
