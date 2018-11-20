@@ -173,7 +173,7 @@ public class GameService {
     if (player == null){
       throw new NotFoundException("player with id " + playerId + " not found");
     }
-    player.getPlayerState().drawTrainCard(playerId);
+    player.getPlayerState().drawDestinationCards(playerId,destinationCardIds);
   }
   public void drawFaceUpTrainCard(String playerId, String cardId) throws NotFoundException {
     Player player = database.getPlayer(playerId);
