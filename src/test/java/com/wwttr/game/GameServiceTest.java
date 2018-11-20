@@ -2,7 +2,6 @@ package com.wwttr.game;
 
 import com.wwttr.auth.AuthService;
 import com.wwttr.database.DatabaseFacade;
-import com.wwttr.database.DatabaseFacadeTest;
 import com.wwttr.models.CreateResponse;
 import com.wwttr.models.Game;
 import com.wwttr.models.Player;
@@ -249,7 +248,8 @@ public class GameServiceTest {
         df.addRoute(new Route("1","1","2", TrainCard.Color.GREY,8,response.getGameID(),response.getPlayerID()));
         df.updatePlayerStats(response.getPlayerID());
         Player player = service.getPlayer(response.getPlayerID());
-
+        player.setState(new StartState());
+        df.updatePlayer(player);
         ArrayList<TrainCard> cards = new ArrayList<>();
         ArrayList<String> cardIds = new ArrayList<>();
         for(int i = 0; i < 8; i++){
@@ -257,6 +257,7 @@ public class GameServiceTest {
           cardIds.add(Integer.toString(i));
         }
         df.addTrainCardDeck(cards);
+        df.addRoute(new Route("2","1","2", TrainCard.Color.GREY,8,response.getGameID(),""));
 
         player.getPlayerState().claimRoute(player.getPlayerId(),"2",cardIds);
         player = service.getPlayer(player.getPlayerId());
