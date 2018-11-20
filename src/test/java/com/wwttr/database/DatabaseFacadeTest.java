@@ -284,56 +284,6 @@ public class DatabaseFacadeTest {
   }
 
   @Test
-  public void newFaceUpCardWith3Locomotives(){
-    ArrayList<TrainCard> trainCards = df.getTrainCards();
-    ArrayList<TrainCard> cardsInGame = new ArrayList<>();
-    for(TrainCard card : trainCards){
-      if(card.getGameId().equals(GameId)){
-        cardsInGame.add(card);
-      }
-    }
-    //Route route = df.getRoutebyId("Los Angeles - El Paso");
-    int visible = 0;
-    for(TrainCard tc: cardsInGame){
-      //Make four rainbow cards face up.  The rest in the deck
-      if(tc.getColor().equals(TrainCard.Color.RAINBOW) && visible <4){
-        visible++;
-        tc.setState(TrainCard.State.VISIBLE);
-      }
-      else{
-        tc.setState(TrainCard.State.HIDDEN);
-      }
-      try {
-        df.updateTrainCard(tc);
-      }
-      catch (Exception e){
-        fail();
-        }
-    }
-    try{
-      df.newFaceUpCard(GameId);
-      int visibleRainbows = 0;
-      visible = 0;
-      for(TrainCard tc: trainCards){
-        if(tc.getColor().equals(TrainCard.Color.RAINBOW) && tc.getState().equals(TrainCard.State.VISIBLE)){
-          visible ++;
-          visibleRainbows ++;
-        }
-        else if(tc.getState().equals(TrainCard.State.VISIBLE)) {
-          visible ++ ;
-        }
-      }
-      System.out.println("Number of visible cards after newFaceUpCard = " + visible);
-      System.out.println("Number of visible RAINBOW cards after newFaceUpCard = "+ visibleRainbows);
-      assertTrue(visible <6);
-      assertTrue(visibleRainbows < 3);
-    }
-    catch(Exception e){
-      fail();
-    }
-  }
-
-  @Test
   public void sendNewHiddenCard() {
   }
 
