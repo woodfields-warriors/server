@@ -694,15 +694,19 @@ public class DatabaseFacade {
     }
   }
 
-  public void updateRoute(Route newRoute){
+  public Route updateRoute(Route newRoute){
     synchronized (this){
       for(Route route : routes) {
         if(route.getRouteId().equals(newRoute.getRouteId())){
           route.update(newRoute);
           routeQueue.publish(route);
           updatePlayerStats(route.getPlayerId());
+          System.out.println("UPDATING ROUTE " + route.getRouteId());
+          return route;
         }
       }
+
+      return null;
     }
   }
 

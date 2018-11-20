@@ -115,5 +115,6 @@ public class Route {
     this.trainColor = newRoute.trainColor;
     this.length = newRoute.length;
     this.gameId = newRoute.gameId;
+    this.playerId = newRoute.playerId;
   }
 }

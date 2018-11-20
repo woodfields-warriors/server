@@ -155,7 +155,7 @@ public class RouteService {
         throw new IllegalArgumentException("card not owned by player");
       }
       if(!card.getState().equals(TrainCard.State.OWNED)){
-        throw new IllegalArgumentException("card now owned");
+        throw new IllegalArgumentException("card not owned");
       }
       if(color.equals(TrainCard.Color.UNSPECIFIED)){
         color = card.getColor();
@@ -172,7 +172,9 @@ public class RouteService {
       throw new IllegalArgumentException("card colors don't match route color");
     }
     route.setPlayerId(playerId);
-    database.updateRoute(route);
+    if (database.updateRoute(route) == null) {
+      throw new NotFoundException("route " + route.getRouteId() + " not found");
+    }
     //return cards to the deck
     for(TrainCard card: cards){
       card.setState(TrainCard.State.HIDDEN);
