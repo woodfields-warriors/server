@@ -556,6 +556,7 @@ public class DatabaseFacade {
     }
   }
 
+  //recursive if 3 locomotives found
   public void newFaceUpCard(String gameId) throws NotFoundException{
     synchronized (this) {
       TrainCard tempCard = getRandomTrainCardFromDeck(gameId);
@@ -572,10 +573,12 @@ public class DatabaseFacade {
           }
         }
         if(locomotivesFound >= 3){
+          //set every card to hidden / in-the-deck
           for(TrainCard tc : faceUpCards){
             tc.setState(TrainCard.State.HIDDEN);
             updateTrainCard(tc);
           }
+          //get five new cards
           for(int i = 0; i < 5; i++){
             newFaceUpCard(gameId);
           }
