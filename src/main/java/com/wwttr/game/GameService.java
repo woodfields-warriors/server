@@ -337,7 +337,6 @@ class StartState implements IPlayerTurnState{
     cardService.claimTrainCardFromDeck(playerId);
     Player player = database.getPlayer(playerId);
     player.setState(new MidState());
-    //TODO handle returning...
   }
   public void claimRoute(String playerId, String routeId,List<String> cardIds) throws NotFoundException, IllegalArgumentException{
     routeService.claimRoute(playerId,routeId,cardIds);
@@ -360,6 +359,7 @@ class StartState implements IPlayerTurnState{
       database.updatePlayer(nextPlayer);
     }
   }
+
   public void drawDestinationCards(String playerId, List<String> destinationCardIds)
                                    throws NotFoundException{
     cardService.claimDestinationCards(destinationCardIds,playerId);
@@ -407,6 +407,7 @@ class StartState implements IPlayerTurnState{
     }
     else{
       player.setState(new MidState());
+      database.updatePlayer(player);
     }
   }
 }
