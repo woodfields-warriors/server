@@ -5,6 +5,7 @@ import com.wwttr.models.CreateResponse;
 import com.wwttr.models.Game;
 import com.wwttr.models.Player;
 import com.wwttr.models.GameAction;
+import com.wwttr.models.PlayerStats;
 import java.util.*;
 import com.wwttr.api.ApiError;
 import com.wwttr.auth.AuthService;
@@ -295,9 +296,9 @@ public class GameHandlers extends Api.GameService {
   boolean playerStatsState;
 
   public void streamPlayerStats(RpcController controller, Api.StreamPlayerStatsRequest request, RpcCallback<Api.PlayerStats> callback) {
-    playerStatsQueue.subscribe()
-      .forEach((Api.PlayerStats stats) -> {
-        callback.run(stats);
+    service.streamPlayerStats(request.getGameId())
+      .forEach((PlayerStats stats) -> {
+        callback.run(stats.toProto());
       });
   }
 

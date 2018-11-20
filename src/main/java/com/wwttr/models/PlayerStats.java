@@ -1,5 +1,6 @@
 package com.wwttr.models;
 
+import com.wwttr.game.Api;
 
 public class PlayerStats{
   String playerId;
@@ -64,5 +65,20 @@ public class PlayerStats{
   }
   public void setDestinationCardCount(int destinationCardCount){
     this.destinationCardCount = destinationCardCount;
+  }
+
+
+  public Api.PlayerStats toProto() {
+    Api.PlayerStats.Builder builder = Api.PlayerStats.newBuilder();
+
+    builder.setPlayerId(playerId);
+    builder.setTrainCardPoints(routePoints);
+    builder.setLongestRoutePoints(longestRoutePoints);
+    builder.setDestinationCardPoints(destinationCardPoints);
+    builder.setTrainCount(trainCount);
+    builder.setTrainCardCount(trainCardCount);
+    builder.setDestinationCardCount(destinationCardCount);
+
+    return builder.build();
   }
 }

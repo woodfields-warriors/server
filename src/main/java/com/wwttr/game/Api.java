@@ -13659,6 +13659,16 @@ public final class Api {
   public interface StreamPlayerStatsRequestOrBuilder extends
       // @@protoc_insertion_point(interface_extends:game.StreamPlayerStatsRequest)
       com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string game_id = 1;</code>
+     */
+    java.lang.String getGameId();
+    /**
+     * <code>string game_id = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getGameIdBytes();
   }
   /**
    * Protobuf type {@code game.StreamPlayerStatsRequest}
@@ -13673,6 +13683,7 @@ public final class Api {
       super(builder);
     }
     private StreamPlayerStatsRequest() {
+      gameId_ = "";
     }
 
     @java.lang.Override
@@ -13688,6 +13699,7 @@ public final class Api {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
+      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -13698,6 +13710,12 @@ public final class Api {
             case 0:
               done = true;
               break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              gameId_ = s;
+              break;
+            }
             default: {
               if (!parseUnknownFieldProto3(
                   input, unknownFields, extensionRegistry, tag)) {
@@ -13730,6 +13748,40 @@ public final class Api {
               com.wwttr.game.Api.StreamPlayerStatsRequest.class, com.wwttr.game.Api.StreamPlayerStatsRequest.Builder.class);
     }
 
+    public static final int GAME_ID_FIELD_NUMBER = 1;
+    private volatile java.lang.Object gameId_;
+    /**
+     * <code>string game_id = 1;</code>
+     */
+    public java.lang.String getGameId() {
+      java.lang.Object ref = gameId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        gameId_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string game_id = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getGameIdBytes() {
+      java.lang.Object ref = gameId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        gameId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -13744,6 +13796,9 @@ public final class Api {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
+      if (!getGameIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, gameId_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -13753,6 +13808,9 @@ public final class Api {
       if (size != -1) return size;
 
       size = 0;
+      if (!getGameIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, gameId_);
+      }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
@@ -13769,6 +13827,8 @@ public final class Api {
       com.wwttr.game.Api.StreamPlayerStatsRequest other = (com.wwttr.game.Api.StreamPlayerStatsRequest) obj;
 
       boolean result = true;
+      result = result && getGameId()
+          .equals(other.getGameId());
       result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
@@ -13780,6 +13840,8 @@ public final class Api {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + GAME_ID_FIELD_NUMBER;
+      hash = (53 * hash) + getGameId().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -13913,6 +13975,8 @@ public final class Api {
       @java.lang.Override
       public Builder clear() {
         super.clear();
+        gameId_ = "";
+
         return this;
       }
 
@@ -13939,6 +14003,7 @@ public final class Api {
       @java.lang.Override
       public com.wwttr.game.Api.StreamPlayerStatsRequest buildPartial() {
         com.wwttr.game.Api.StreamPlayerStatsRequest result = new com.wwttr.game.Api.StreamPlayerStatsRequest(this);
+        result.gameId_ = gameId_;
         onBuilt();
         return result;
       }
@@ -13987,6 +14052,10 @@ public final class Api {
 
       public Builder mergeFrom(com.wwttr.game.Api.StreamPlayerStatsRequest other) {
         if (other == com.wwttr.game.Api.StreamPlayerStatsRequest.getDefaultInstance()) return this;
+        if (!other.getGameId().isEmpty()) {
+          gameId_ = other.gameId_;
+          onChanged();
+        }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
@@ -14013,6 +14082,75 @@ public final class Api {
             mergeFrom(parsedMessage);
           }
         }
+        return this;
+      }
+
+      private java.lang.Object gameId_ = "";
+      /**
+       * <code>string game_id = 1;</code>
+       */
+      public java.lang.String getGameId() {
+        java.lang.Object ref = gameId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          gameId_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string game_id = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getGameIdBytes() {
+        java.lang.Object ref = gameId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          gameId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string game_id = 1;</code>
+       */
+      public Builder setGameId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        gameId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string game_id = 1;</code>
+       */
+      public Builder clearGameId() {
+        
+        gameId_ = getDefaultInstance().getGameId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string game_id = 1;</code>
+       */
+      public Builder setGameIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        gameId_ = value;
+        onChanged();
         return this;
       }
       @java.lang.Override
@@ -16241,34 +16379,35 @@ public final class Api {
       "\030\001 \001(\t\022\021\n\tplayer_id\030\002 \001(\t\";\n\016DeleteRespo" +
       "nse\022\021\n\tgame_name\030\001 \001(\t\022\026\n\016orphaned_users" +
       "\030\002 \003(\005\")\n\024CreatePlayerResponse\022\021\n\tplayer" +
-      "_id\030\001 \001(\t\"\032\n\030StreamPlayerStatsRequest\"\364\001" +
-      "\n\013PlayerStats\022\021\n\tplayer_id\030\001 \001(\t\022\031\n\021trai" +
-      "n_card_points\030\002 \001(\005\022\034\n\024longest_route_poi" +
-      "nts\030\006 \001(\005\022\037\n\027destination_card_points\030\007 \001" +
-      "(\005\022\023\n\013train_count\030\003 \001(\005\022\030\n\020train_card_co" +
-      "unt\030\004 \001(\005\022\036\n\026destination_card_count\030\005 \001(" +
-      "\005\022)\n\nturn_state\030\010 \001(\0162\025.game.PlayerTurnS" +
-      "tate*e\n\017PlayerTurnState\022!\n\035UNSPECIFIED_P" +
-      "LAYER_TURN_STATE\020\000\022\013\n\007PENDING\020\001\022\t\n\005START" +
-      "\020\002\022\007\n\003MID\020\003\022\016\n\nGAME_ENDED\020\0042\267\005\n\013GameServ" +
-      "ice\022;\n\nCreateGame\022\027.game.CreateGameReque" +
-      "st\032\024.game.CreateResponse\0220\n\tLeaveGame\022\026." +
-      "game.LeaveGameRequest\032\013.game.Empty\0222\n\nDe" +
-      "leteGame\022\027.game.DeleteGameRequest\032\013.game" +
-      ".Empty\022+\n\007GetGame\022\024.game.GetGameRequest\032" +
-      "\n.game.Game\022/\n\tStartGame\022\026.game.StartGam" +
-      "eRequest\032\n.game.Game\022<\n\tListGames\022\026.game" +
-      ".ListGamesRequest\032\027.game.ListGamesRespon" +
-      "se\0225\n\013StreamGames\022\030.game.StreamGamesRequ" +
-      "est\032\n.game.Game0\001\022E\n\014CreatePlayer\022\031.game" +
-      ".CreatePlayerRequest\032\032.game.CreatePlayer" +
-      "Response\0221\n\tGetPlayer\022\026.game.GetPlayerRe" +
-      "quest\032\014.game.Player\022H\n\021StreamPlayerStats" +
-      "\022\036.game.StreamPlayerStatsRequest\032\021.game." +
-      "PlayerStats0\001\022-\n\021TogglePlayerStats\022\013.gam" +
-      "e.Empty\032\013.game.Empty\022?\n\rStreamHistory\022\032." +
-      "game.StreamHistoryRequest\032\020.game.GameAct" +
-      "ion0\001B\030\n\016com.wwttr.gameB\003Api\210\001\001b\006proto3"
+      "_id\030\001 \001(\t\"+\n\030StreamPlayerStatsRequest\022\017\n" +
+      "\007game_id\030\001 \001(\t\"\364\001\n\013PlayerStats\022\021\n\tplayer" +
+      "_id\030\001 \001(\t\022\031\n\021train_card_points\030\002 \001(\005\022\034\n\024" +
+      "longest_route_points\030\006 \001(\005\022\037\n\027destinatio" +
+      "n_card_points\030\007 \001(\005\022\023\n\013train_count\030\003 \001(\005" +
+      "\022\030\n\020train_card_count\030\004 \001(\005\022\036\n\026destinatio" +
+      "n_card_count\030\005 \001(\005\022)\n\nturn_state\030\010 \001(\0162\025" +
+      ".game.PlayerTurnState*e\n\017PlayerTurnState" +
+      "\022!\n\035UNSPECIFIED_PLAYER_TURN_STATE\020\000\022\013\n\007P" +
+      "ENDING\020\001\022\t\n\005START\020\002\022\007\n\003MID\020\003\022\016\n\nGAME_END" +
+      "ED\020\0042\267\005\n\013GameService\022;\n\nCreateGame\022\027.gam" +
+      "e.CreateGameRequest\032\024.game.CreateRespons" +
+      "e\0220\n\tLeaveGame\022\026.game.LeaveGameRequest\032\013" +
+      ".game.Empty\0222\n\nDeleteGame\022\027.game.DeleteG" +
+      "ameRequest\032\013.game.Empty\022+\n\007GetGame\022\024.gam" +
+      "e.GetGameRequest\032\n.game.Game\022/\n\tStartGam" +
+      "e\022\026.game.StartGameRequest\032\n.game.Game\022<\n" +
+      "\tListGames\022\026.game.ListGamesRequest\032\027.gam" +
+      "e.ListGamesResponse\0225\n\013StreamGames\022\030.gam" +
+      "e.StreamGamesRequest\032\n.game.Game0\001\022E\n\014Cr" +
+      "eatePlayer\022\031.game.CreatePlayerRequest\032\032." +
+      "game.CreatePlayerResponse\0221\n\tGetPlayer\022\026" +
+      ".game.GetPlayerRequest\032\014.game.Player\022H\n\021" +
+      "StreamPlayerStats\022\036.game.StreamPlayerSta" +
+      "tsRequest\032\021.game.PlayerStats0\001\022-\n\021Toggle" +
+      "PlayerStats\022\013.game.Empty\032\013.game.Empty\022?\n" +
+      "\rStreamHistory\022\032.game.StreamHistoryReque" +
+      "st\032\020.game.GameAction0\001B\030\n\016com.wwttr.game" +
+      "B\003Api\210\001\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -16395,7 +16534,7 @@ public final class Api {
     internal_static_game_StreamPlayerStatsRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_game_StreamPlayerStatsRequest_descriptor,
-        new java.lang.String[] { });
+        new java.lang.String[] { "GameId", });
     internal_static_game_PlayerStats_descriptor =
       getDescriptor().getMessageTypes().get(19);
     internal_static_game_PlayerStats_fieldAccessorTable = new

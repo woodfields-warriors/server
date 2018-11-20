@@ -9,6 +9,7 @@ import com.wwttr.database.DatabaseFacade;
 import com.wwttr.models.CreateResponse;
 import com.wwttr.models.Game;
 import com.wwttr.models.Player;
+import com.wwttr.models.PlayerStats;
 import com.wwttr.models.IPlayerTurnState;
 import com.wwttr.models.User;
 import com.wwttr.models.GameAction;
@@ -101,16 +102,10 @@ public class GameService {
     }
   }
 
-  public void StreamPlayerStats(String gameId){
-    // Stream<PlayerStats> playerStats = service.streamPlayerStats(gameId);
-    // playerStats.forEach((PlayerStats stats) -> {
-    //     //TODO
-    // });
-    // Stream<GameAction> gameActions = service.streamHistory(request.getGameId());
-    // gameActions.forEach((GameAction action) -> {
-    //   Api.GameAction.Builder builder = action.createBuilder();
-    //   callback.run(builder.build());
-    // });
+  public Stream<PlayerStats> streamPlayerStats(String gameId){
+    List<String> playerIds = database.getGame(gameId).getPlayerIDs();
+
+    return database.streamPlayerStats().filter((PlayerStats stats) -> playerIds.contains(stats.getPlayerId()));
   }
 
   public Game startGame(String gameID) throws NotFoundException {

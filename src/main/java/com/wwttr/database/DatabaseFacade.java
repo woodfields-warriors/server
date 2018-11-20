@@ -115,6 +115,11 @@ public class DatabaseFacade {
         }
       }
     }
+
+    public Stream<PlayerStats> streamPlayerStats() {
+      return playerStatsQueue.subscribe();
+    }
+
     //manually aggregates all current stats for the given player id.
     public void updatePlayerStats(String playerId) {
       for (Player player : players) {
@@ -170,6 +175,7 @@ public class DatabaseFacade {
           newstats.setTrainCount(trainsLeft);
           newstats.setTrainCardCount(getTrainCardsForPlayer(playerId).size());
           newstats.setDestinationCardCount(getDestinationCardsByPlayerId(playerId).size());
+          playerStatsQueue.publish(newstats);
         }
       }
     }

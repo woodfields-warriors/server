@@ -190,7 +190,7 @@ message CreatePlayerResponse{
 }
 
 message StreamPlayerStatsRequest {
-
+  string game_id = 1;
 }
 
 message PlayerStats {
