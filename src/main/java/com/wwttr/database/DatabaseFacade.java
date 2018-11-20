@@ -570,7 +570,6 @@ public class DatabaseFacade {
             locomotivesFound++;
           }
         }
-        System.out.println("locomotives found = "+ locomotivesFound);
         if(locomotivesFound >= 3){
           //set every card except those that are owned to a state hidden / in-the-deck
           for(TrainCard tc : cards){
