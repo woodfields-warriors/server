@@ -171,6 +171,9 @@ public class RouteService {
     if(!route.getTrainColor().equals(TrainCard.Color.GREY) && !color.equals(route.getTrainColor()) && !color.equals(TrainCard.Color.RAINBOW)){
       throw new IllegalArgumentException("card colors don't match route color");
     }
+    if(!route.getPlayerId().equals("")){
+      throw new IllegalArgumentException("Route already claimed");
+    }
     route.setPlayerId(playerId);
     if (database.updateRoute(route) == null) {
       throw new NotFoundException("route " + route.getRouteId() + " not found");
