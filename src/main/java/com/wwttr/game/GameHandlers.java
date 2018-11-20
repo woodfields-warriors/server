@@ -140,6 +140,9 @@ public class GameHandlers extends Api.GameService {
       case ENDED:
         status = Api.Game.Status.FINISHED;
         break;
+      case LASTROUND:
+        status = Api.Game.Status.LAST_ROUND;
+        break;
       default:
         status = Api.Game.Status.UNKNOWN;
         break;
@@ -175,6 +178,9 @@ public class GameHandlers extends Api.GameService {
       break;
     case ENDED:
       status = Api.Game.Status.FINISHED;
+      break;
+    case LASTROUND:
+      status = Api.Game.Status.LAST_ROUND;
       break;
     default:
       status = Api.Game.Status.UNKNOWN;

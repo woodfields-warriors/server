@@ -353,6 +353,7 @@ class StartState implements IPlayerTurnState{
     if(nextPlayer.getPlayerState().getClass().equals(GameEnded.class)){
       Game game = database.getGame(player.getGameId());
       game.changeGameStatus(Game.Status.ENDED);
+      database.updateGame(game,game.getGameID());
     }
     else {
       nextPlayer.setState(new StartState());
@@ -374,6 +375,7 @@ class StartState implements IPlayerTurnState{
     if(nextPlayer.getPlayerState().getClass().equals(GameEnded.class)){
       Game game = database.getGame(player.getGameId());
       game.changeGameStatus(Game.Status.ENDED);
+      database.updateGame(game,game.getGameID());
     }
     else {
       nextPlayer.setState(new StartState());
@@ -396,6 +398,7 @@ class StartState implements IPlayerTurnState{
       if(nextPlayer.getPlayerState().getClass().equals(GameEnded.class)){
         Game game = database.getGame(player.getGameId());
         game.changeGameStatus(Game.Status.ENDED);
+        database.updateGame(game,game.getGameID());
       }
       else {
         nextPlayer.setState(new StartState());
@@ -432,6 +435,7 @@ class MidState implements IPlayerTurnState{
     if(nextPlayer.getPlayerState().getClass().equals(GameEnded.class)){
       Game game = database.getGame(player.getGameId());
       game.changeGameStatus(Game.Status.ENDED);
+      database.updateGame(game,game.getGameID());
     }
     else {
       nextPlayer.setState(new StartState());
@@ -459,6 +463,7 @@ class MidState implements IPlayerTurnState{
       if(nextPlayer.getPlayerState().getClass().equals(GameEnded.class)){
         Game game = database.getGame(player.getGameId());
         game.changeGameStatus(Game.Status.ENDED);
+        database.updateGame(game,game.getGameID());
       }
       else {
         nextPlayer.setState(new StartState());
