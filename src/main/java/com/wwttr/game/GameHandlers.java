@@ -34,10 +34,10 @@ public class GameHandlers extends Api.GameService {
   public void createGame(RpcController controller, Api.CreateGameRequest request, RpcCallback<Api.CreateResponse> callback) {
 
     // Validate input
-    if (request.getDisplayName() == "") {
+    if (request.getDisplayName().equals("")) {
       throw new ApiError(Code.INVALID_ARGUMENT, "argument 'display_name' is required");
     }
-    if (request.getUserId() == "") {
+    if (request.getUserId().equals("")) {
       throw new ApiError(Code.INVALID_ARGUMENT, "argument 'host_user_id' is required");
     }
     int maxPlayers = request.getMaxPlayers();
@@ -246,7 +246,7 @@ public class GameHandlers extends Api.GameService {
   }
 
   public void getPlayer(RpcController controller, Api.GetPlayerRequest request, RpcCallback<Api.Player> callback) {
-    if (request.getPlayerId() == "") {
+    if (request.getPlayerId().equals("")) {
       throw new ApiError(Code.INVALID_ARGUMENT, "argument player_id is required");
     }
 
@@ -296,6 +296,11 @@ public class GameHandlers extends Api.GameService {
   boolean playerStatsState;
 
   public void streamPlayerStats(RpcController controller, Api.StreamPlayerStatsRequest request, RpcCallback<Api.PlayerStats> callback) {
+
+    if (request.getGameId().equals("")) {
+      throw new ApiError(Code.INVALID_ARGUMENT, "missing argument game_id");
+    }
+    
     service.streamPlayerStats(request.getGameId())
       .forEach((PlayerStats stats) -> {
         callback.run(stats.toProto());

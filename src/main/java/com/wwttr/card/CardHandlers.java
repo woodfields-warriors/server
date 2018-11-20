@@ -28,7 +28,7 @@ public class CardHandlers extends Api.CardService {
   //--------------Destination Card Functions-----------------//
   public void getDestinationCard(RpcController controller, Api.GetDestinationCardRequest request, RpcCallback<Api.DestinationCard> callback) {
     try{
-      if(request.getDestinationCardId() == "")
+      if(request.getDestinationCardId().equals(""))
         throw new ApiError(Code.INVALID_ARGUMENT, "argument 'destination_card_id' is required");
       DestinationCard result = service.getDestinationCard(request.getDestinationCardId());
       Api.DestinationCard.Builder builder = result.createBuilder();
@@ -45,7 +45,7 @@ public class CardHandlers extends Api.CardService {
 
   public void peekDestinationCards(RpcController controller, Api.PeekDestinationCardsRequest request, RpcCallback<Api.PeekDestinationCardsResponse> callback){
     try{
-      if(request.getGameId() == "")
+      if(request.getGameId().equals(""))
         throw new ApiError(Code.INVALID_ARGUMENT, "argument 'game_id' is required");
       List<DestinationCard> allCards = service.peekDestinationCards(request.getGameId());
       Api.PeekDestinationCardsResponse.Builder builder = Api.PeekDestinationCardsResponse.newBuilder();

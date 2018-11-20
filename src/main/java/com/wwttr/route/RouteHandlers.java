@@ -21,7 +21,7 @@ public class RouteHandlers extends Api.RouteService {
   }
 
   public void streamRoutes(RpcController controller, Api.StreamRoutesRequest request, RpcCallback<Api.Route> callback) {
-    if (request.getGameId() == "") {
+    if (request.getGameId().equals("")) {
       throw new ApiError(Code.INVALID_ARGUMENT, "missing argument game_id");
     }
     service.streamRoutes(request.getGameId())
