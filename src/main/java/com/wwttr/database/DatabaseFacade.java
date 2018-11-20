@@ -161,6 +161,8 @@ public class DatabaseFacade {
                     routePoints += 15;
                     break;
                   }
+                  default:
+                    break;
                 }
               }
               newstats.setroutePoints(routePoints);
@@ -251,6 +253,10 @@ public class DatabaseFacade {
         }
       }
       return toReturn;
+    }
+
+    void clearRoutes(){
+      routes = new ArrayList<>();
     }
 
     //Given a player Id, this method returns the next player in the players list
@@ -481,7 +487,7 @@ public class DatabaseFacade {
     }
   }
 
-  public void clearCards(){
+  public void clearDestinationCards(){
       destinationCards = new ArrayList<>();
   }
 

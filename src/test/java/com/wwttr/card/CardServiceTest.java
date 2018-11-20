@@ -47,7 +47,7 @@ public class CardServiceTest {
 
   @After
   public void tearDown() throws Exception {
-    df.clearCards();
+    df.clearDestinationCards();
     df.clearUsers();
     df.clearGames();
     df.clearPlayers();

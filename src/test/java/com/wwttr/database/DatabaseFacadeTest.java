@@ -4,6 +4,7 @@ import com.wwttr.api.NotFoundException;
 import com.wwttr.models.DestinationCard;
 import com.wwttr.models.Game;
 import com.wwttr.models.Player;
+import com.wwttr.models.Route;
 import com.wwttr.models.User;
 import com.wwttr.models.TrainCard;
 import com.wwttr.card.CardService;
@@ -88,7 +89,7 @@ public class DatabaseFacadeTest {
     df.clearPlayers();
     df.clearUsers();
     df.clearGames();
-    df.clearCards();
+    df.clearDestinationCards();
   }
 
     @Test
@@ -167,7 +168,7 @@ public class DatabaseFacadeTest {
   @Test
   public void failListDestinationCards() {
     try {
-      df.clearCards();
+      df.clearDestinationCards();
       List<DestinationCard> returnedList = df.listDestinationCards(3, "game");
       fail();
     }
@@ -195,7 +196,7 @@ public class DatabaseFacadeTest {
 
   @Test
   public void addDestinationCardDeck() {
-    df.clearCards();
+    df.clearDestinationCards();
     List<DestinationCard> cards = new ArrayList<>();
     for(int i = 0; i < FIRST_CITIES.length; i++){
       DestinationCard tempCard = new DestinationCard("temp" + i,FIRST_CITIES[i],SECOND_CITIES[i],POINTS[i],"player","game");
@@ -208,7 +209,7 @@ public class DatabaseFacadeTest {
   @Test
   public void requestMoreCardsThanAvailable() {
     System.out.println("running request more cards than available");
-    df.clearCards();
+    df.clearDestinationCards();
     List<DestinationCard> cards = new ArrayList<>();
     for(int i = 0; i < FIRST_CITIES.length; i++){
       DestinationCard tempCard = new DestinationCard("temp" + i,FIRST_CITIES[i],SECOND_CITIES[i],POINTS[i],"player","game");
@@ -247,7 +248,7 @@ public class DatabaseFacadeTest {
 
   @Test
   public void newFaceCardwith3orMoreLocomotives(){
-    df.clearCards();
+    df.clearDestinationCards();
     ArrayList<TrainCard> cards = new ArrayList<>();
     for(int i = 0; i < 3; i++){
       cards.add(new TrainCard("1",GameId,"", TrainCard.Color.RAINBOW, TrainCard.State.VISIBLE));
@@ -331,5 +332,21 @@ public class DatabaseFacadeTest {
     assert(player.getPlayerId().equals("playerid"));
 
 
+  }
+
+  @Test
+  public void LastRoundGame(){
+    df.clearDestinationCards();
+    df.clearRoutes();
+    df.clearTrainCards();/*
+    ArrayList<TrainCard> cards = new ArrayList<>();
+    for(int i = 0; i < 8; i++){
+      cards.add(new TrainCard(Integer.toString(i),GameId,playerId, TrainCard.Color.RAINBOW, TrainCard.State.OWNED));
+    }
+    df.addTrainCardDeck(cards);*/
+    df.addRoute(new Route("1","1","2", TrainCard.Color.GREY,8,GameId,playerId));
+    df.updatePlayerStats(playerId);
+    Game game = df.getGame(GameId);
+    assertEquals(Game.Status.LASTROUND,game.getGameStatus());
   }
 }

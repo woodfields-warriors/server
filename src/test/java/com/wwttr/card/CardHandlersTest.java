@@ -10,8 +10,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
 public class CardHandlersTest {
 
   CardHandlers ch = new CardHandlers();
@@ -40,7 +38,7 @@ public class CardHandlersTest {
 
   @After
   public void tearDown() throws Exception {
-    df.clearCards();
+    df.clearDestinationCards();
     df.clearUsers();
     df.clearGames();
     df.clearPlayers();

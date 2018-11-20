@@ -5,21 +5,15 @@ import com.wwttr.card.CardService;
 import com.wwttr.database.DatabaseFacade;
 import com.wwttr.game.GameService;
 import com.wwttr.models.CreateResponse;
-import com.wwttr.models.Game;
 import com.wwttr.models.Route;
-import com.wwttr.api.NotFoundException;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.PriorityQueue;
 
 import com.wwttr.models.TrainCard;
-import com.wwttr.models.User;
-import com.wwttr.route.RouteService;
 
 import static org.junit.Assert.*;
 
@@ -46,7 +40,7 @@ public class RouteServiceTest {
 
   @After
   public void tearDown() throws Exception {
-    df.clearCards();
+    df.clearDestinationCards();
     df.clearUsers();
     df.clearGames();
     df.clearPlayers();
