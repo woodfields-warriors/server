@@ -286,11 +286,15 @@ public class GameServiceTest {
           Player player = df.getPlayer(id);
           player.setState(new GameEnded());
         }
+        else{
+          Player player = df.getPlayer(id);
+          player.setState(new StartState());
+        }
       }
         df.clearDestinationCards();
         df.clearRoutes();
         df.clearTrainCards();
-        df.addRoute(new Route("2","1","2", TrainCard.Color.GREY,8,response.getGameID(),response.getPlayerID()));
+        df.addRoute(new Route("2","1","2", TrainCard.Color.GREY,8,response.getGameID(),""));
         df.updatePlayerStats(response.getPlayerID());
         Player player = service.getPlayer(response.getPlayerID());
 
