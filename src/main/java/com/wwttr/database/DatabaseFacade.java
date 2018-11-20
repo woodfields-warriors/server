@@ -114,6 +114,7 @@ public class DatabaseFacade {
           players.add(i, player);
         }
       }
+      updatePlayerStats(player.getPlayerId());
     }
 
     public Stream<PlayerStats> streamPlayerStats() {
@@ -432,6 +433,7 @@ public class DatabaseFacade {
         retrievedCard.update(card);
         destinationCardQueue.publish(card);
         updateDeckStats(card.getGameId());
+        updatePlayerStats(card.getGameId());
       }
     }
   }
