@@ -3,6 +3,7 @@ package com.wwttr.database;
 import com.wwttr.api.NotFoundException;
 import com.wwttr.models.DestinationCard;
 import com.wwttr.models.Game;
+import com.wwttr.models.Player;
 import com.wwttr.models.User;
 
 import org.junit.After;
@@ -256,5 +257,19 @@ public class DatabaseFacadeTest {
 
   @Test
   public void getNextPlayer() {
+    df.makeUser(new User("1","2","1"));
+    df.addPlayer(new Player("playerid","1","gameid",Player.Color.BLUE,"1"));
+    ArrayList<String> playerIdList = new ArrayList<>();
+    playerIdList.add("playerid");
+    playerIdList.add("playerid2");
+    df.addGame(new Game("playerid",playerIdList,"1",2,"gameid" ));
+    df.addPlayer(new Player("playerid2","1","gameid",Player.Color.GREEN,"1"));
+    Player player = df.getNextPlayer("playerid","gameid");
+    assert(player.getPlayerId().equals("playerid2"));
+
+    player = df.getNextPlayer("playerid2","gameid");
+    assert(player.getPlayerId().equals("playerid"));
+
+
   }
 }

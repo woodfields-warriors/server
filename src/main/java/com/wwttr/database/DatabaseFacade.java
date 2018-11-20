@@ -260,9 +260,10 @@ public class DatabaseFacade {
     public Player getNextPlayer(String playerId, String gameId){
       synchronized(this) {
         List<Player> playersList = listPlayers(gameId);
+        System.out.println(playersList.size());
         for (int i = 0; i<playersList.size();i++){
           if(playersList.get(i).getPlayerId().equals(playerId)){
-            if(i != playerId.length()-1) {
+            if(i != (playersList.size()-1)) {
               return playersList.get(i + 1);
             }
             else{
