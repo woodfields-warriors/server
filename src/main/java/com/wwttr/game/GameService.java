@@ -276,6 +276,11 @@ class PendingState implements IPlayerTurnState{
 }
 
 class FirstTurnState implements IPlayerTurnState{
+
+  DatabaseFacade database = DatabaseFacade.getInstance();
+  CardService cardService = CardService.getInstance();
+  RouteService routeService = RouteService.getInstance();
+
   public void drawTrainCard(String playerId) throws NotFoundException {
     //Tell the client it isn't his/her turn
     throw new ApiError(Code.FAILED_PRECONDITION,"You can only draw destination cards");
@@ -296,6 +301,7 @@ class FirstTurnState implements IPlayerTurnState{
       player.setState(new PendingState());
     }
     database.updatePlayer(player);
+    database.updatePlayerStats(playerId);
   }
   public void drawFaceUpTrainCard(String playerId, String cardId) throws NotFoundException {
     //tell client it isn't his/her turn
