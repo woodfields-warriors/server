@@ -161,7 +161,7 @@ public class DatabaseFacade {
           }
           newstats.setroutePoints(routePoints);
           newstats.setLongestRoutePoints(0);
-          List<DestinationCard> routesCompleted = findCompletedRoutesForPlayer(playerId);
+          List<DestinationCard> routesCompleted = new ArrayList<DestinationCard>(); //findCompletedRoutesForPlayer(playerId);
           int pointsFromRoutes = 0;
           for(DestinationCard card: routesCompleted){
             pointsFromRoutes+= card.getPointValue();
