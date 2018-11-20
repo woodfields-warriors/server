@@ -261,7 +261,12 @@ public class DatabaseFacade {
       synchronized(this) {
         for (int i = 0; i<players.size();i++){
           if(players.get(i).getPlayerId().equals(playerId)){
-            return players.get(i+1);
+            if(i != playerId.length()-1) {
+              return players.get(i + 1);
+            }
+            else{
+              return  players.get(0);
+            }
           }
         }
         return null;
