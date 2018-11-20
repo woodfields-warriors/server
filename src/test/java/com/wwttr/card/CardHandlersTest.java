@@ -50,8 +50,6 @@ public class CardHandlersTest {
   public void streamTrainCards() {
     Api.StreamTrainCardsRequest.Builder builder =  Api.StreamTrainCardsRequest.newBuilder();
     builder.setPlayerId(playerId);
-    Rpc
-    ch.streamTrainCards(new RpcController(),builder.build(),);
   }
 
   @Test
