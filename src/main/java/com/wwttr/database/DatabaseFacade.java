@@ -558,11 +558,28 @@ public class DatabaseFacade {
 
   public void newFaceUpCard(String gameId) throws NotFoundException{
     synchronized (this) {
-      ArrayList<TrainCard> cards = getTrainCardsForGame(gameId);
       TrainCard tempCard = getRandomTrainCardFromDeck(gameId);
       tempCard.setState(TrainCard.State.VISIBLE);
       try {
         updateTrainCard(tempCard);
+        ArrayList<TrainCard> cards = getTrainCardsForGame(gameId);
+        int locomotivesFound = 0;
+        ArrayList<TrainCard> faceUpCards = new ArrayList<>();
+        for(TrainCard tc : cards){
+          if(tc.getColor().equals(TrainCard.Color.RAINBOW) && tc.getState().equals(TrainCard.State.VISIBLE)){
+            locomotivesFound++;
+            faceUpCards.add(tc);
+          }
+        }
+        if(locomotivesFound >= 3){
+          for(TrainCard tc : faceUpCards){
+            tc.setState(TrainCard.State.HIDDEN);
+            updateTrainCard(tc);
+          }
+          for(int i = 0; i < 5; i++){
+            newFaceUpCard(gameId);
+          }
+        }
       }
       catch (NotFoundException e){
         e.printStackTrace();

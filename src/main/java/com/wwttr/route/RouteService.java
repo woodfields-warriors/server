@@ -141,7 +141,7 @@ public class RouteService {
     }
     Route route = database.getRoutebyId(routeId);
     if(cardIds.size() != route.getLength()){
-      throw new IllegalArgumentException("cards given != route length");
+      throw new IllegalArgumentException("cards given != route length. cards = " + cardIds.size() + " routeLength = " + route.getLength());
     }
     ArrayList<TrainCard> cards = new ArrayList<>();
     for(String cardId : cardIds){
