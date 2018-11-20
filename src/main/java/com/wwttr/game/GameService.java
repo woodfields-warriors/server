@@ -110,6 +110,9 @@ public class GameService {
 
   public Game startGame(String gameID) throws NotFoundException {
     Game game = database.getGame(gameID);
+    if(game.getGameStatus().equals(Game.Status.STARTED)){
+      throw new ApiError(Code.INVALID_ARGUMENT,"Game already started");
+    }
     if(game.getPlayerIDs().size() > 1) {
       game.changeGameStatus(Game.Status.STARTED);
       cardService.createFullDecksForGame(game.getGameID());
