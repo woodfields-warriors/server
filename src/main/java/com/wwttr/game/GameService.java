@@ -12,6 +12,7 @@ import com.wwttr.models.Player;
 import com.wwttr.models.PlayerStats;
 import com.wwttr.models.IPlayerTurnState;
 import com.wwttr.models.User;
+import com.wwttr.models.PlayerStats.PlayerTurnState;
 import com.wwttr.models.GameAction;
 import com.wwttr.models.DeleteResponse;
 import com.wwttr.api.NotFoundException;
@@ -261,6 +262,11 @@ public class GameService {
 
 
 class PendingState implements IPlayerTurnState{
+
+  public PlayerTurnState getTurnState() {
+    return PlayerTurnState.PENDING;
+  }
+
   public void drawTrainCard(String playerId) throws NotFoundException {
     //Tell the client it isn't his/her turn
     throw new ApiError(Code.FAILED_PRECONDITION,"It's not your turn");
@@ -284,6 +290,10 @@ class FirstTurnState implements IPlayerTurnState{
   DatabaseFacade database = DatabaseFacade.getInstance();
   CardService cardService = CardService.getInstance();
   RouteService routeService = RouteService.getInstance();
+
+  public PlayerTurnState getTurnState() {
+    return PlayerTurnState.FIRST;
+  }
 
   public void drawTrainCard(String playerId) throws NotFoundException {
     //Tell the client it isn't his/her turn
@@ -318,6 +328,10 @@ class StartState implements IPlayerTurnState{
   DatabaseFacade database = DatabaseFacade.getInstance();
   CardService cardService = CardService.getInstance();
   RouteService routeService = RouteService.getInstance();
+
+  public PlayerTurnState getTurnState() {
+    return PlayerTurnState.START;
+  }
 
   public void drawTrainCard(String playerId) throws NotFoundException {
     cardService.claimTrainCardFromDeck(playerId);
@@ -400,6 +414,10 @@ class MidState implements IPlayerTurnState{
   DatabaseFacade database = DatabaseFacade.getInstance();
   CardService cardService = CardService.getInstance();
 
+  public PlayerTurnState getTurnState() {
+    return PlayerTurnState.MID;
+  }
+
   public void drawTrainCard(String playerId)throws NotFoundException{
     cardService.claimTrainCardFromDeck(playerId);
     Player player = database.getPlayer(playerId);
@@ -455,6 +473,11 @@ class MidState implements IPlayerTurnState{
 }
 
 class GameEnded implements IPlayerTurnState{
+
+  public PlayerTurnState getTurnState() {
+    return PlayerTurnState.GAME_ENDED;
+  }
+
   public void drawTrainCard(String playerId) throws NotFoundException {
     //Tell the client it isn't his/her turn
     throw new ApiError(Code.FAILED_PRECONDITION,"game has ended");

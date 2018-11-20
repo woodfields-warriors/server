@@ -211,4 +211,5 @@ enum PlayerTurnState {
   MID = 3;
   GAME_ENDED = 4;
   FIRST = 5;
+  LAST = 6;
 }

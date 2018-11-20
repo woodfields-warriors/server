@@ -39,6 +39,14 @@ public final class Api {
      * <code>GAME_ENDED = 4;</code>
      */
     GAME_ENDED(4),
+    /**
+     * <code>FIRST = 5;</code>
+     */
+    FIRST(5),
+    /**
+     * <code>LAST = 6;</code>
+     */
+    LAST(6),
     UNRECOGNIZED(-1),
     ;
 
@@ -62,6 +70,14 @@ public final class Api {
      * <code>GAME_ENDED = 4;</code>
      */
     public static final int GAME_ENDED_VALUE = 4;
+    /**
+     * <code>FIRST = 5;</code>
+     */
+    public static final int FIRST_VALUE = 5;
+    /**
+     * <code>LAST = 6;</code>
+     */
+    public static final int LAST_VALUE = 6;
 
 
     public final int getNumber() {
@@ -87,6 +103,8 @@ public final class Api {
         case 2: return START;
         case 3: return MID;
         case 4: return GAME_ENDED;
+        case 5: return FIRST;
+        case 6: return LAST;
         default: return null;
       }
     }
@@ -16386,28 +16404,28 @@ public final class Api {
       "n_card_points\030\007 \001(\005\022\023\n\013train_count\030\003 \001(\005" +
       "\022\030\n\020train_card_count\030\004 \001(\005\022\036\n\026destinatio" +
       "n_card_count\030\005 \001(\005\022)\n\nturn_state\030\010 \001(\0162\025" +
-      ".game.PlayerTurnState*e\n\017PlayerTurnState" +
+      ".game.PlayerTurnState*z\n\017PlayerTurnState" +
       "\022!\n\035UNSPECIFIED_PLAYER_TURN_STATE\020\000\022\013\n\007P" +
       "ENDING\020\001\022\t\n\005START\020\002\022\007\n\003MID\020\003\022\016\n\nGAME_END" +
-      "ED\020\0042\267\005\n\013GameService\022;\n\nCreateGame\022\027.gam" +
-      "e.CreateGameRequest\032\024.game.CreateRespons" +
-      "e\0220\n\tLeaveGame\022\026.game.LeaveGameRequest\032\013" +
-      ".game.Empty\0222\n\nDeleteGame\022\027.game.DeleteG" +
-      "ameRequest\032\013.game.Empty\022+\n\007GetGame\022\024.gam" +
-      "e.GetGameRequest\032\n.game.Game\022/\n\tStartGam" +
-      "e\022\026.game.StartGameRequest\032\n.game.Game\022<\n" +
-      "\tListGames\022\026.game.ListGamesRequest\032\027.gam" +
-      "e.ListGamesResponse\0225\n\013StreamGames\022\030.gam" +
-      "e.StreamGamesRequest\032\n.game.Game0\001\022E\n\014Cr" +
-      "eatePlayer\022\031.game.CreatePlayerRequest\032\032." +
-      "game.CreatePlayerResponse\0221\n\tGetPlayer\022\026" +
-      ".game.GetPlayerRequest\032\014.game.Player\022H\n\021" +
-      "StreamPlayerStats\022\036.game.StreamPlayerSta" +
-      "tsRequest\032\021.game.PlayerStats0\001\022-\n\021Toggle" +
-      "PlayerStats\022\013.game.Empty\032\013.game.Empty\022?\n" +
-      "\rStreamHistory\022\032.game.StreamHistoryReque" +
-      "st\032\020.game.GameAction0\001B\030\n\016com.wwttr.game" +
-      "B\003Api\210\001\001b\006proto3"
+      "ED\020\004\022\t\n\005FIRST\020\005\022\010\n\004LAST\020\0062\267\005\n\013GameServic" +
+      "e\022;\n\nCreateGame\022\027.game.CreateGameRequest" +
+      "\032\024.game.CreateResponse\0220\n\tLeaveGame\022\026.ga" +
+      "me.LeaveGameRequest\032\013.game.Empty\0222\n\nDele" +
+      "teGame\022\027.game.DeleteGameRequest\032\013.game.E" +
+      "mpty\022+\n\007GetGame\022\024.game.GetGameRequest\032\n." +
+      "game.Game\022/\n\tStartGame\022\026.game.StartGameR" +
+      "equest\032\n.game.Game\022<\n\tListGames\022\026.game.L" +
+      "istGamesRequest\032\027.game.ListGamesResponse" +
+      "\0225\n\013StreamGames\022\030.game.StreamGamesReques" +
+      "t\032\n.game.Game0\001\022E\n\014CreatePlayer\022\031.game.C" +
+      "reatePlayerRequest\032\032.game.CreatePlayerRe" +
+      "sponse\0221\n\tGetPlayer\022\026.game.GetPlayerRequ" +
+      "est\032\014.game.Player\022H\n\021StreamPlayerStats\022\036" +
+      ".game.StreamPlayerStatsRequest\032\021.game.Pl" +
+      "ayerStats0\001\022-\n\021TogglePlayerStats\022\013.game." +
+      "Empty\032\013.game.Empty\022?\n\rStreamHistory\022\032.ga" +
+      "me.StreamHistoryRequest\032\020.game.GameActio" +
+      "n0\001B\030\n\016com.wwttr.gameB\003Api\210\001\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {

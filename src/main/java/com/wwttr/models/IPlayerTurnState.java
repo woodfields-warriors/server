@@ -11,4 +11,6 @@ public interface IPlayerTurnState {
   public void drawDestinationCards(String playerId, List<String> destinationCardIds) throws NotFoundException;
 
   public void drawFaceUpTrainCard(String playerId, String cardId) throws NotFoundException;
+
+  public PlayerStats.PlayerTurnState getTurnState();
 }

@@ -180,6 +180,7 @@ public class DatabaseFacade {
               newstats.setTrainCount(trainsLeft);
               newstats.setTrainCardCount(getTrainCardsForPlayer(playerId).size());
               newstats.setDestinationCardCount(getDestinationCardsByPlayerId(playerId).size());
+              newstats.setTurnState(player.getTurnState());
               playerStatsQueue.publish(newstats);
             }
           }

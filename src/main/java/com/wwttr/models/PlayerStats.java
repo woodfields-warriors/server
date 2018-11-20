@@ -10,11 +10,16 @@ public class PlayerStats{
   int trainCount;
   int trainCardCount;
   int destinationCardCount;
+  PlayerTurnState turnState;
+
   public enum PlayerTurnState{
     UNSPECIFIED_PLAYER_TURN_STATE,
     PENDING,
     START,
     MID,
+    FIRST,
+    LAST,
+    GAME_ENDED,
   }
 
   public PlayerStats(){
@@ -41,6 +46,9 @@ public class PlayerStats{
   public int getDestinationCardCount(){
     return destinationCardCount;
   }
+  public PlayerTurnState getTurnState() {
+    return turnState;
+  }
 
 
   //----setters----//
@@ -66,6 +74,9 @@ public class PlayerStats{
   public void setDestinationCardCount(int destinationCardCount){
     this.destinationCardCount = destinationCardCount;
   }
+  public void setTurnState(PlayerTurnState turnState) {
+    this.turnState = turnState;
+  }
 
 
   public Api.PlayerStats toProto() {
@@ -78,6 +89,29 @@ public class PlayerStats{
     builder.setTrainCount(trainCount);
     builder.setTrainCardCount(trainCardCount);
     builder.setDestinationCardCount(destinationCardCount);
+    switch (turnState) {
+      case PENDING:
+        builder.setTurnState(Api.PlayerTurnState.PENDING);
+        break;
+      case START:
+        builder.setTurnState(Api.PlayerTurnState.START);
+        break;
+      case MID:
+        builder.setTurnState(Api.PlayerTurnState.MID);
+        break;
+      case FIRST:
+        builder.setTurnState(Api.PlayerTurnState.FIRST);
+        break;
+      case LAST:
+        builder.setTurnState(Api.PlayerTurnState.LAST);
+        break;
+      case GAME_ENDED:
+        builder.setTurnState(Api.PlayerTurnState.GAME_ENDED);
+      case UNSPECIFIED_PLAYER_TURN_STATE:
+      default:
+        builder.setTurnState(Api.PlayerTurnState.UNSPECIFIED_PLAYER_TURN_STATE);
+        break;
+    }
 
     return builder.build();
   }

@@ -30,6 +30,9 @@ public class Player{
     this.username = username;
   }
 
+  public PlayerStats.PlayerTurnState getTurnState() {
+    return state.getTurnState();
+  }
   public String getPlayerId(){
     return playerID;
   }
