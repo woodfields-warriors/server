@@ -66,9 +66,6 @@ public class GameService {
       database.addPlayer(player);
       database.addGame(game);
       routeService.initRoutes(game.getGameID());
-      for (String playerId : game.getPlayerIDs()) {
-        database.updatePlayerStats(playerId);
-      }
       CreateResponse toReturn = new CreateResponse(game.getGameID(), player.getPlayerId());
       return toReturn;
   }
@@ -116,6 +113,9 @@ public class GameService {
     if(game.getPlayerIDs().size() > 1) {
       game.changeGameStatus(Game.Status.STARTED);
       cardService.createFullDecksForGame(game.getGameID());
+      for (String playerId : game.getPlayerIDs()) {
+        database.updatePlayerStats(playerId);
+      }
       return game;
     }
     else{
@@ -283,11 +283,11 @@ class FirstTurnState implements IPlayerTurnState{
 
   public void drawTrainCard(String playerId) throws NotFoundException {
     //Tell the client it isn't his/her turn
-    throw new ApiError(Code.FAILED_PRECONDITION,"You can only draw destination cards on your first turn");
+    throw new ApiError(Code.FAILED_PRECONDITION,"You can only draw destination cards, not train cards from deck");
   }
   public void claimRoute(String playerId, String routeId,List<String> cardIds) throws NotFoundException, IllegalArgumentException{
     //tell client it isn't his/her turn
-    throw new ApiError(Code.FAILED_PRECONDITION,"You can only draw destination");
+    throw new ApiError(Code.FAILED_PRECONDITION,"You can only draw destination cards, not Routes");
   }
   public void drawDestinationCards(String playerId, List<String> destinationCardIds) throws NotFoundException {
     cardService.claimDestinationCards(destinationCardIds,playerId);
@@ -305,7 +305,7 @@ class FirstTurnState implements IPlayerTurnState{
   }
   public void drawFaceUpTrainCard(String playerId, String cardId) throws NotFoundException {
     //tell client it isn't his/her turn
-    throw new ApiError(Code.FAILED_PRECONDITION,"You can only draw destination cards");
+    throw new ApiError(Code.FAILED_PRECONDITION,"You can only draw destination cards, not FaceUp Train Cards");
   }
 }
 
