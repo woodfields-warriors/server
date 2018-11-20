@@ -565,11 +565,9 @@ public class DatabaseFacade {
         updateTrainCard(tempCard);
         ArrayList<TrainCard> cards = getTrainCardsForGame(gameId);
         int locomotivesFound = 0;
-        ArrayList<TrainCard> faceUpCards = new ArrayList<>();
         for(TrainCard tc : cards){
           if(tc.getColor().equals(TrainCard.Color.RAINBOW) && tc.getState().equals(TrainCard.State.VISIBLE)){
             locomotivesFound++;
-            faceUpCards.add(tc);
           }
         }
         System.out.println("locomotives found = "+ locomotivesFound);

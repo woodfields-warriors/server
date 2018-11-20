@@ -246,6 +246,65 @@ public class DatabaseFacadeTest {
   }
 
   @Test
+  public void newFaceCardwith3orMoreLocomotives(){
+    ArrayList<TrainCard> trainCards = df.getTrainCardsForGame(GameId);
+    ArrayList<TrainCard> VisibleTrainCards = new ArrayList<>();
+    for(TrainCard c : trainCards){
+      if(c.getState().equals(TrainCard.State.VISIBLE))
+        VisibleTrainCards.add(c);
+    }
+    assertEquals(5,VisibleTrainCards.size());
+    ArrayList<TrainCard> VisibleRainbows = new ArrayList<>();
+    for(TrainCard c : VisibleTrainCards){
+      if(c.getColor().equals(TrainCard.Color.RAINBOW)){
+        VisibleRainbows.add(c);
+      }
+      else{
+        c.setState(TrainCard.State.HIDDEN);
+        try {
+          df.updateTrainCard(c);
+        }
+        catch (NotFoundException e){
+          fail();
+        }
+      }
+    }
+    while(VisibleRainbows.size() < 3){
+      for(TrainCard c : trainCards){
+        if(c.getColor().equals(TrainCard.Color.RAINBOW) && c.getState().equals(TrainCard.State.HIDDEN)){
+          c.setState(TrainCard.State.VISIBLE);
+          VisibleRainbows.add(c);
+          try {
+            df.updateTrainCard(c);
+          }
+          catch (NotFoundException e){
+            fail();
+          }
+          break;
+        }
+      }
+    }
+    try {
+      df.newFaceUpCard(GameId);
+    }
+    catch (NotFoundException e){
+      fail();
+    }
+    trainCards = df.getTrainCardsForGame(GameId);
+    VisibleRainbows.clear();
+    for(TrainCard c : trainCards){
+      if(c.getState().equals(TrainCard.State.VISIBLE)) {
+        VisibleTrainCards.add(c);
+        if(c.getColor().equals(TrainCard.Color.RAINBOW)){
+          VisibleRainbows.add(c);
+        }
+      }
+    }
+    assertEquals(5,VisibleTrainCards.size());
+    assert(VisibleRainbows.size() < 3);
+  }
+
+  @Test
   public void newFaceUpCardWith3Locomotives(){
     ArrayList<TrainCard> trainCards = df.getTrainCards();
     ArrayList<TrainCard> cardsInGame = new ArrayList<>();
