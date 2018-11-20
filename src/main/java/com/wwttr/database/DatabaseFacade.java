@@ -171,7 +171,7 @@ public class DatabaseFacade {
                 pointsFromRoutes+= card.getPointValue();
               }
               newstats.setDestinationCardPoints(pointsFromRoutes);
-              int trainsLeft = 45 - trainsUsed;
+              int trainsLeft = 10 - trainsUsed;
               if(trainsLeft <= 3){
                 Game game = getGame(player.getGameId());
                 game.changeGameStatus(Game.Status.LASTROUND);
