@@ -66,9 +66,6 @@ public class GameService {
       database.addPlayer(player);
       database.addGame(game);
       routeService.initRoutes(game.getGameID());
-      for (String playerId : game.getPlayerIDs()) {
-        database.updatePlayerStats(playerId);
-      }
       CreateResponse toReturn = new CreateResponse(game.getGameID(), player.getPlayerId());
       return toReturn;
   }
@@ -116,6 +113,9 @@ public class GameService {
     if(game.getPlayerIDs().size() > 1) {
       game.changeGameStatus(Game.Status.STARTED);
       cardService.createFullDecksForGame(game.getGameID());
+      for (String playerId : game.getPlayerIDs()) {
+        database.updatePlayerStats(playerId);
+      }
       return game;
     }
     else{
