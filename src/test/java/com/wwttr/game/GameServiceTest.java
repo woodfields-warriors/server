@@ -1,18 +1,22 @@
 package com.wwttr.game;
 
 import com.wwttr.auth.AuthService;
+import com.wwttr.card.CardServiceTest;
 import com.wwttr.database.DatabaseFacade;
+import com.wwttr.database.DatabaseFacadeTest;
 import com.wwttr.models.CreateResponse;
 import com.wwttr.models.Game;
 import com.wwttr.models.Player;
 import com.wwttr.models.GameAction;
 import com.wwttr.models.LoginResponse;
 import com.wwttr.api.NotFoundException;
+import com.wwttr.models.TrainCard;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -226,6 +230,34 @@ public class GameServiceTest {
       catch(GameFullException e){
         fail();
       }
+    }
+
+    @Test
+    public void testEndGame() {
+      try{
+        CreateResponse response = service.createGame("valid", userID, 2);
+        service.createPlayer(userID,response.getGameID());
+        DatabaseFacadeTest dft = new DatabaseFacadeTest();
+        dft.endGame();
+        Player player = service.getPlayer(response.getPlayerID());
+
+        ArrayList<TrainCard> cards = new ArrayList<>();
+        ArrayList<String> cardIds = new ArrayList<>();
+        for(int i = 0; i < 8; i++){
+          cards.add(new TrainCard(Integer.toString(i),response.getGameID(),response.getPlayerID(), TrainCard.Color.RAINBOW, TrainCard.State.OWNED));
+          cardIds.add(Integer.toString(i));
+        }
+        df.addTrainCardDeck(cards);
+
+        player.getPlayerState().claimRoute(player.getPlayerId(),"2",cardIds);
+        player = service.getPlayer(player.getPlayerId());
+        assertEquals(GameEnded.class,player.getPlayerState().getClass());
+      }
+      catch (Exception e){
+        e.printStackTrace();
+        fail();
+      }
+
     }
 
 }

@@ -64,6 +64,8 @@ public class DatabaseFacadeTest {
       "Miami", "New Orleans", "Atlanta", "New York", "El Paso", "Los Angeles", "Houston", "New Orleans", "Oklahoma City", "Los Angeles"};
   private final Integer[] POINTS = {21,8,8,6,17,20,10,10,11,11,7,13,20,11,17,5,16,11,9,13,12,7,9,22,4,8,12,13,9,9};
 
+  String playerId2;
+
   @Before
   public void setUp() throws Exception {
     User testUser = new User("username", "password", "id");
@@ -79,7 +81,7 @@ public class DatabaseFacadeTest {
     user = df.getUser("user").getUserID();
     CreateResponse cr = gameService.createGame("gameName", user, 4);
     GameId = cr.getGameID();
-    gameService.createPlayer(user,GameId);
+    playerId2 = gameService.createPlayer(user,GameId);
     playerId = cr.getPlayerID();
     cs.createFullDecksForGame(GameId);
   }
@@ -348,5 +350,12 @@ public class DatabaseFacadeTest {
     df.updatePlayerStats(playerId);
     Game game = df.getGame(GameId);
     assertEquals(Game.Status.LASTROUND,game.getGameStatus());
+  }
+
+  @Test
+  public void endGame(){
+    LastRoundGame();
+    Route route = new Route("2","1","2", TrainCard.Color.GREY,8,GameId,"");
+    df.addRoute(route);
   }
 }
