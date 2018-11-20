@@ -82,7 +82,9 @@ java_test(
   deps = [
     ":database_lib",
     ":models",
-    ":api_lib"
+    ":api_lib",
+    ":services",
+
   ]
 )
 
@@ -90,7 +92,7 @@ java_library(
   name = "models",
   srcs = glob([
     "src/main/java/com/wwttr/models/*.java",
-    "src/main/java/com/wwttr/*/Api.java",  
+    "src/main/java/com/wwttr/*/Api.java",
   ]),
   deps = [
     ":api_lib",

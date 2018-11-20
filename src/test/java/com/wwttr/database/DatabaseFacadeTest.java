@@ -5,6 +5,12 @@ import com.wwttr.models.DestinationCard;
 import com.wwttr.models.Game;
 import com.wwttr.models.Player;
 import com.wwttr.models.User;
+import com.wwttr.models.TrainCard;
+import com.wwttr.card.CardService;
+import com.wwttr.models.CreateResponse;
+import com.wwttr.auth.AuthService;
+import com.wwttr.game.GameService;
+
 
 import org.junit.After;
 import org.junit.Before;
@@ -21,6 +27,10 @@ public class DatabaseFacadeTest {
 
     GameService gameService = GameService.getInstance();
     CardService cs = CardService.getInstance();
+    AuthService authService = AuthService.getInstance();
+    String user;
+    String GameId;
+    String playerId;
 
     @Test
     public void pubSub() throws Exception {
@@ -64,7 +74,7 @@ public class DatabaseFacadeTest {
     }
     df.addDestinationCardDeck(cards);
 
-    AuthService.getInstance().register("user","password");
+    authService.register("user","password");
     user = df.getUser("user").getUserID();
     CreateResponse cr = gameService.createGame("gameName", user, 4);
     GameId = cr.getGameID();
@@ -237,33 +247,18 @@ public class DatabaseFacadeTest {
 
   @Test
   public void newFaceUpCardWith3Locomotives(){
-    // List<String> players = new ArrayList<>();
-    // players.add("hostPlayerId");
-    // players.add("player2");
-    // Game game = new Game("hostPlayerId",players,"game42",5,"game42");
-    // df.addGame(game);
-    // TrainCard card1 = new TrainCard("card1", "game42","", TrainCard.Color.GREEN, TrainCard.State.HIDDEN);
-    // TrainCard card2 = new TrainCard("card2", "game42","", TrainCard.Color.GREEN, TrainCard.State.VISIBLE);
-    // TrainCard card3 = new TrainCard("card3", "game42","", TrainCard.Color.GREEN, TrainCard.State.VISIBLE);
-    // TrainCard card4 = new TrainCard("card4", "game42","", TrainCard.Color.RAINBOW, TrainCard.State.VISIBLE);
-    // TrainCard card5 = new TrainCard("card5", "game42","", TrainCard.Color.RAINBOW, TrainCard.State.VISIBLE);
-    // TrainCard card6 = new TrainCard("card6", "game42","", TrainCard.Color.RAINBOW, TrainCard.State.VISIBLE);
-    // TrainCard card7 = new TrainCard("card7", "game42","", TrainCard.Color.GREEN, TrainCard.State.HIDDEN);
-    // TrainCard card8 = new TrainCard("card8", "game42","", TrainCard.Color.GREEN, TrainCard.State.HIDDEN);
-    // TrainCard card9 = new TrainCard("card9", "game42","", TrainCard.Color.GREEN, TrainCard.State.HIDDEN);
-    // TrainCard card10= new TrainCard("card10","game42","", TrainCard.Color.GREEN, TrainCard.State.HIDDEN);
-    // TrainCard card11= new TrainCard("card11","game42","", TrainCard.Color.GREEN, TrainCard.State.HIDDEN);
-    // TrainCard card12= new TrainCard("card12","game42","", TrainCard.Color.GREEN, TrainCard.State.HIDDEN);
-    // TrainCard card13= new TrainCard("card13","game42","", TrainCard.Color.GREEN, TrainCard.State.HIDDEN);
-    // List<TrainCard> trainCards = new ArrayList<>();
-
-
     ArrayList<TrainCard> trainCards = df.getTrainCards();
+    ArrayList<TrainCard> cardsInGame = new ArrayList<>();
+    for(TrainCard card : trainCards){
+      if(card.getGameId().equals(GameId)){
+        cardsInGame.add(card);
+      }
+    }
     //Route route = df.getRoutebyId("Los Angeles - El Paso");
     int visible = 0;
-    for(TrainCard tc: trainCards){
-      //Make five rainbow cards face up.  The rest in the deck
-      if(tc.getColor().equals(TrainCard.COLOR.RAINBOW) && visible <5){
+    for(TrainCard tc: cardsInGame){
+      //Make four rainbow cards face up.  The rest in the deck
+      if(tc.getColor().equals(TrainCard.Color.RAINBOW) && visible <4){
         visible++;
         tc.setState(TrainCard.State.VISIBLE);
       }
@@ -277,22 +272,27 @@ public class DatabaseFacadeTest {
         fail();
         }
     }
-    df.newFaceUpCard("game42");
-    int visibleRainbows = 0;
-    int visible = 0;
-    for(TrainCard tc: trainCards){
-      if(tc.getColor().equals(TrainCard.COLOR.RAINBOW) && tc.getState().equals(TrainCard.State.VISIBLE)){
-        visible ++;
-        visibleRainbows ++;
+    try{
+      df.newFaceUpCard(GameId);
+      int visibleRainbows = 0;
+      visible = 0;
+      for(TrainCard tc: trainCards){
+        if(tc.getColor().equals(TrainCard.Color.RAINBOW) && tc.getState().equals(TrainCard.State.VISIBLE)){
+          visible ++;
+          visibleRainbows ++;
+        }
+        else if(tc.getState().equals(TrainCard.State.VISIBLE)) {
+          visible ++ ;
+        }
       }
-      else if(tc.getState().equals(TrainCard.State.VISIBLE)) {
-        visible ++ ;
-      }
+      System.out.println("Number of visible cards after newFaceUpCard = " + visible);
+      System.out.println("Number of visible RAINBOW cards after newFaceUpCard = "+ visibleRainbows);
+      assertTrue(visible <6);
+      assertTrue(visibleRainbows < 3);
     }
-    System.out.println("Number of visible cards after newFaceUpCard = " + visible);
-    System.out.println("Number of visible RAINBOW cards after newFaceUpCard = "+ visibleRainbows);
-    assertTrue(visible <6);
-    assertTrue(visibleRainbows < 3);
+    catch(Exception e){
+      fail();
+    }
   }
 
   @Test

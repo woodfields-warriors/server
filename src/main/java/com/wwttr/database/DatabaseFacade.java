@@ -572,11 +572,14 @@ public class DatabaseFacade {
             faceUpCards.add(tc);
           }
         }
+        System.out.println("locomotives found = "+ locomotivesFound);
         if(locomotivesFound >= 3){
-          //set every card to hidden / in-the-deck
-          for(TrainCard tc : faceUpCards){
-            tc.setState(TrainCard.State.HIDDEN);
-            updateTrainCard(tc);
+          //set every card except those that are owned to a state hidden / in-the-deck
+          for(TrainCard tc : cards){
+            if(tc.getState().equals(TrainCard.State.VISIBLE)){
+              tc.setState(TrainCard.State.HIDDEN);
+              updateTrainCard(tc);
+            }
           }
           //get five new cards
           for(int i = 0; i < 5; i++){
