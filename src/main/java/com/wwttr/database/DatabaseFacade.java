@@ -257,15 +257,16 @@ public class DatabaseFacade {
     //The players list is ordered in the order that people joined the game.
     //This order is also the order of the turn.  So, this method can be used
     // to get the player who is next up in turn order;
-    public Player getNextPlayer(String playerId){
+    public Player getNextPlayer(String playerId, String gameId){
       synchronized(this) {
-        for (int i = 0; i<players.size();i++){
-          if(players.get(i).getPlayerId().equals(playerId)){
+        List<Player> playersList = listPlayers(gameId);
+        for (int i = 0; i<playersList.size();i++){
+          if(playersList.get(i).getPlayerId().equals(playerId)){
             if(i != playerId.length()-1) {
-              return players.get(i + 1);
+              return playersList.get(i + 1);
             }
             else{
-              return  players.get(0);
+              return  playersList.get(0);
             }
           }
         }

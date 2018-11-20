@@ -349,7 +349,7 @@ class StartState implements IPlayerTurnState{
       player.setState(new PendingState());
     }
     database.updatePlayer(player);
-    Player nextPlayer = database.getNextPlayer(playerId);
+    Player nextPlayer = database.getNextPlayer(playerId,player.getGameId());
     if(nextPlayer.getPlayerState().getClass().equals(GameEnded.class)){
       Game game = database.getGame(player.getGameId());
       game.changeGameStatus(Game.Status.ENDED);
@@ -371,7 +371,7 @@ class StartState implements IPlayerTurnState{
       player.setState(new PendingState());
     }
     database.updatePlayer(player);
-    Player nextPlayer = database.getNextPlayer(playerId);
+    Player nextPlayer = database.getNextPlayer(playerId,player.getGameId());
     if(nextPlayer.getPlayerState().getClass().equals(GameEnded.class)){
       Game game = database.getGame(player.getGameId());
       game.changeGameStatus(Game.Status.ENDED);
@@ -394,7 +394,7 @@ class StartState implements IPlayerTurnState{
         player.setState(new PendingState());
       }
       database.updatePlayer(player);
-      Player nextPlayer = database.getNextPlayer(playerId);
+      Player nextPlayer = database.getNextPlayer(playerId,player.getGameId());
       if(nextPlayer.getPlayerState().getClass().equals(GameEnded.class)){
         Game game = database.getGame(player.getGameId());
         game.changeGameStatus(Game.Status.ENDED);
@@ -431,7 +431,7 @@ class MidState implements IPlayerTurnState{
       player.setState(new PendingState());
     }
     database.updatePlayer(player);
-    Player nextPlayer = database.getNextPlayer(playerId);
+    Player nextPlayer = database.getNextPlayer(playerId,player.getGameId());
     if(nextPlayer.getPlayerState().getClass().equals(GameEnded.class)){
       Game game = database.getGame(player.getGameId());
       game.changeGameStatus(Game.Status.ENDED);
@@ -459,7 +459,7 @@ class MidState implements IPlayerTurnState{
         player.setState(new PendingState());
       }
       database.updatePlayer(player);
-      Player nextPlayer = database.getNextPlayer(playerId);
+      Player nextPlayer = database.getNextPlayer(playerId,player.getGameId());
       if(nextPlayer.getPlayerState().getClass().equals(GameEnded.class)){
         Game game = database.getGame(player.getGameId());
         game.changeGameStatus(Game.Status.ENDED);

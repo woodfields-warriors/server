@@ -2,6 +2,7 @@ package com.wwttr.database;
 
 import com.wwttr.api.NotFoundException;
 import com.wwttr.models.DestinationCard;
+import com.wwttr.models.Game;
 import com.wwttr.models.User;
 
 import org.junit.After;
@@ -251,5 +252,9 @@ public class DatabaseFacadeTest {
 
   @Test
   public void getTrainCards() {
+  }
+
+  @Test
+  public void getNextPlayer() {
   }
 }
