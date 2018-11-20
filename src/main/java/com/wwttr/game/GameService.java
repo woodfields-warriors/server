@@ -59,7 +59,7 @@ public class GameService {
         throw new NotFoundException("user " + userID + " was not found");
       }
       Player player = new Player("p" + Integer.toString(rn.nextInt()) ,userID, Player.Color.RED, user.getUsername());
-      player.setState(new StartState());
+      player.setState(new FirstTurnState());
       Game game = new Game(player.getPlayerId(), new ArrayList<String>(), gameName, numberOfPlayers, "game" + Integer.toString(rn.nextInt() & Integer.MAX_VALUE));
       player.setGameId(game.getGameID());
       game.getPlayerIDs().add(player.getPlayerId());
@@ -226,7 +226,7 @@ public class GameService {
     Player player = new Player("p" + Integer.toString(rn.nextInt() & Integer.MAX_VALUE),
                                 userId, game.getGameID(), playerColor, user.getUsername());
     game.getPlayerIDs().add(player.getPlayerId());
-    player.setState(new PendingState());
+    player.setState(new FirstTurnState());
     database.addPlayer(player);
     return player.getPlayerId();
   }
@@ -275,7 +275,39 @@ class PendingState implements IPlayerTurnState{
   }
 }
 
+class FirstTurnState implements IPlayerTurnState{
 
+  DatabaseFacade database = DatabaseFacade.getInstance();
+  CardService cardService = CardService.getInstance();
+  RouteService routeService = RouteService.getInstance();
+
+  public void drawTrainCard(String playerId) throws NotFoundException {
+    //Tell the client it isn't his/her turn
+    throw new ApiError(Code.FAILED_PRECONDITION,"You can only draw destination cards");
+  }
+  public void claimRoute(String playerId, String routeId,List<String> cardIds) throws NotFoundException, IllegalArgumentException{
+    //tell client it isn't his/her turn
+    throw new ApiError(Code.FAILED_PRECONDITION,"You can only draw destination cards");
+  }
+  public void drawDestinationCards(String playerId, List<String> destinationCardIds) throws NotFoundException {
+    cardService.claimDestinationCards(destinationCardIds,playerId);
+    Player player = database.getPlayer(playerId);
+    Game game = database.getGame(player.getGameId());
+    List<String> playerIdsInGame = game.getPlayerIDs();
+    if(playerId.equals(playerIdsInGame.get(0))){
+      player.setState(new StartState());
+    }
+    else{
+      player.setState(new PendingState());
+    }
+    database.updatePlayer(player);
+    database.updatePlayerStats(playerId);
+  }
+  public void drawFaceUpTrainCard(String playerId, String cardId) throws NotFoundException {
+    //tell client it isn't his/her turn
+    throw new ApiError(Code.FAILED_PRECONDITION,"You can only draw destination cards");
+  }
+}
 
 class StartState implements IPlayerTurnState{
 
