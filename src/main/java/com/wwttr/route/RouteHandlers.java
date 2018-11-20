@@ -36,7 +36,7 @@ public class RouteHandlers extends Api.RouteService {
       gameService.claimRoute(request.getRouteId(), request.getPlayerId(),request.getCardIdsList());
     }
     catch(NotFoundException e){
-      throw new ApiError(Code.INVALID_ARGUMENT,"not found exception caught.");
+      throw new ApiError(Code.NOT_FOUND, e.getMessage());
     }
     catch (IllegalArgumentException e){
       throw new ApiError(Code.INVALID_ARGUMENT,e.getMessage());
