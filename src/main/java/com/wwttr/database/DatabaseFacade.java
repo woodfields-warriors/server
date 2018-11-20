@@ -616,8 +616,7 @@ public class DatabaseFacade {
     String gameId = getPlayer(playerId).getGameId();
     return trainCardQueue
         .subscribe()
-        .filter((TrainCard tc) -> tc.getGameId().equals(gameId) && ( tc.getPlayerId().equals(playerId)
-                                  || tc.getState().equals(TrainCard.State.VISIBLE) ));
+        .filter((TrainCard tc) -> tc.getGameId().equals(gameId) && !tc.getState().equals(TrainCard.State.HIDDEN) );
   }
 
   public Stream<DeckStats> streamDeckStats(String gameId){
