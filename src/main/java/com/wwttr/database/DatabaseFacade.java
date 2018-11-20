@@ -255,7 +255,7 @@ public class DatabaseFacade {
       return toReturn;
     }
 
-    void clearRoutes(){
+    public void clearRoutes(){
       routes = new ArrayList<>();
     }
 

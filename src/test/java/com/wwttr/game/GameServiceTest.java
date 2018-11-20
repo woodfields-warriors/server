@@ -1,7 +1,6 @@
 package com.wwttr.game;
 
 import com.wwttr.auth.AuthService;
-import com.wwttr.card.CardServiceTest;
 import com.wwttr.database.DatabaseFacade;
 import com.wwttr.database.DatabaseFacadeTest;
 import com.wwttr.models.CreateResponse;
@@ -10,6 +9,7 @@ import com.wwttr.models.Player;
 import com.wwttr.models.GameAction;
 import com.wwttr.models.LoginResponse;
 import com.wwttr.api.NotFoundException;
+import com.wwttr.models.Route;
 import com.wwttr.models.TrainCard;
 
 import org.junit.After;
@@ -235,10 +235,19 @@ public class GameServiceTest {
     @Test
     public void testEndGame() {
       try{
+
         CreateResponse response = service.createGame("valid", userID, 2);
         service.createPlayer(userID,response.getGameID());
-        DatabaseFacadeTest dft = new DatabaseFacadeTest();
-        dft.endGame();
+        df.clearDestinationCards();
+        df.clearRoutes();
+        df.clearTrainCards();/*
+    ArrayList<TrainCard> cards = new ArrayList<>();
+    for(int i = 0; i < 8; i++){
+      cards.add(new TrainCard(Integer.toString(i),GameId,playerId, TrainCard.Color.RAINBOW, TrainCard.State.OWNED));
+    }
+    df.addTrainCardDeck(cards);*/
+        df.addRoute(new Route("1","1","2", TrainCard.Color.GREY,8,response.getGameID(),response.getPlayerID()));
+        df.updatePlayerStats(response.getPlayerID());
         Player player = service.getPlayer(response.getPlayerID());
 
         ArrayList<TrainCard> cards = new ArrayList<>();
