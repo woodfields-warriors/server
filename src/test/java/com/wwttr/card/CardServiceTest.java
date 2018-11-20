@@ -177,11 +177,27 @@ public class CardServiceTest {
   public void claimTrainCardFromDeck() {
     try{
       cs.createFullDecksForGame(GameId);
+      ArrayList<TrainCard> cards =  df.getTrainCardsForGame(GameId);
+      Integer cardsInDeck = 0;
+      for(TrainCard c : cards){
+        if(c.getState().equals(TrainCard.State.HIDDEN)){
+          cardsInDeck++;
+        }
+      }
       Integer startingCardsInHand = df.getTrainCardsForPlayer(playerId).size();
       cs.claimTrainCardFromDeck(playerId);
       Integer cardsInHand =  df.getTrainCardsForPlayer(playerId).size();
       Integer expectedCardsInHand = startingCardsInHand+1;
       assertEquals(expectedCardsInHand,cardsInHand);
+      cards =  df.getTrainCardsForGame(GameId);
+      Integer cardsInDeckAfter = 0;
+      for(TrainCard c : cards){
+        if(c.getState().equals(TrainCard.State.HIDDEN)){
+          cardsInDeckAfter++;
+        }
+      }
+      Integer expected = cardsInDeck - 1;
+      assertEquals(expected, cardsInDeckAfter);
     }
     catch (NotFoundException e){
       fail();

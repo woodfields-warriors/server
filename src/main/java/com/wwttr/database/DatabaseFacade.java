@@ -540,7 +540,7 @@ public class DatabaseFacade {
       ArrayList<TrainCard> tcards = getTrainCardsForGame(gameId);
       ArrayList<TrainCard> filteredtcards = new ArrayList<>();
       for(TrainCard card : tcards){
-        if(card.getState() == TrainCard.State.HIDDEN ){
+        if(card.getState().equals(TrainCard.State.HIDDEN) ){
           filteredtcards.add(card);
         }
       }
