@@ -113,6 +113,7 @@ public class DatabaseFacade {
           Player databasePlayer = players.get(i);
           if (databasePlayer.getPlayerId().equals(player.getPlayerId())) {
             players.set(i, player);
+            break;
           }
         }
         updatePlayerStats(player.getPlayerId());
@@ -315,6 +316,7 @@ public class DatabaseFacade {
           if(Games.get(i).getGameID().equals(game.getGameID())){
             Games.set(i,game);
             gameStream.publish(game);
+            break;
           }
         }
       }
