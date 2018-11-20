@@ -108,13 +108,15 @@ public class DatabaseFacade {
     }
 
     public void updatePlayer(Player player) {
-      for (int i = 0; i < players.size(); i++) {
-        Player databasePlayer = players.get(i);
-        if (databasePlayer.getPlayerId().equals(player.getPlayerId())) {
-          players.add(i, player);
+      synchronized (this) {
+        for (int i = 0; i < players.size(); i++) {
+          Player databasePlayer = players.get(i);
+          if (databasePlayer.getPlayerId().equals(player.getPlayerId())) {
+            players.set(i, player);
+          }
         }
+        updatePlayerStats(player.getPlayerId());
       }
-      updatePlayerStats(player.getPlayerId());
     }
 
     public Stream<PlayerStats> streamPlayerStats() {
@@ -123,60 +125,62 @@ public class DatabaseFacade {
 
     //manually aggregates all current stats for the given player id.
     public void updatePlayerStats(String playerId) {
-      for (Player player : players) {
-        if (player.getPlayerId().equals(playerId)) {
-          PlayerStats newstats = new PlayerStats();
-          newstats.setPlayerId(playerId);
-          int trainsUsed = 0;
-          int routePoints = 0;
-          for (Route route : routes) {
-            if (route.getPlayerId().equals(playerId)) {
-              int length = route.getLength();
-              trainsUsed += length;
-              switch (length) {
-                case 1:
-                  routePoints += 1;
-                  break;
-                case 2: {
-                  routePoints += 2;
-                  break;
-                }
-                case 3: {
-                  routePoints += 4;
-                  break;
-                }
-                case 4: {
-                  routePoints += 7;
-                  break;
-                }
-                case 5: {
-                  routePoints += 10;
-                  break;
-                }
-                case 6: {
-                  routePoints += 15;
-                  break;
-                }
+      synchronized (this) {
+        for (Player player : players) {
+          if (player.getPlayerId().equals(playerId)) {
+            PlayerStats newstats = new PlayerStats();
+            newstats.setPlayerId(playerId);
+            int trainsUsed = 0;
+            int routePoints = 0;
+            for (Route route : routes) {
+              if (route.getPlayerId().equals(playerId)) {
+                int length = route.getLength();
+                trainsUsed += length;
+                switch (length) {
+                  case 1:
+                    routePoints += 1;
+                    break;
+                  case 2: {
+                    routePoints += 2;
+                    break;
+                  }
+                  case 3: {
+                    routePoints += 4;
+                    break;
+                  }
+                  case 4: {
+                    routePoints += 7;
+                    break;
+                  }
+                  case 5: {
+                    routePoints += 10;
+                    break;
+                  }
+                  case 6: {
+                    routePoints += 15;
+                    break;
+                  }
+              }
             }
+            newstats.setroutePoints(routePoints);
+            newstats.setLongestRoutePoints(0);
+            List<DestinationCard> routesCompleted = new ArrayList<DestinationCard>(); //findCompletedRoutesForPlayer(playerId);
+            int pointsFromRoutes = 0;
+            for(DestinationCard card: routesCompleted){
+              pointsFromRoutes+= card.getPointValue();
+            }
+            newstats.setDestinationCardPoints(pointsFromRoutes);
+            int trainsLeft = 45 - trainsUsed;
+            if(trainsLeft <= 3){
+              Game game = getGame(player.getGameId());
+              game.changeGameStatus(Game.Status.LASTROUND);
+              updateGame(game,game.getGameID());
+            }
+            newstats.setTrainCount(trainsLeft);
+            newstats.setTrainCardCount(getTrainCardsForPlayer(playerId).size());
+            newstats.setDestinationCardCount(getDestinationCardsByPlayerId(playerId).size());
+            playerStatsQueue.publish(newstats);
           }
-          newstats.setroutePoints(routePoints);
-          newstats.setLongestRoutePoints(0);
-          List<DestinationCard> routesCompleted = new ArrayList<DestinationCard>(); //findCompletedRoutesForPlayer(playerId);
-          int pointsFromRoutes = 0;
-          for(DestinationCard card: routesCompleted){
-            pointsFromRoutes+= card.getPointValue();
-          }
-          newstats.setDestinationCardPoints(pointsFromRoutes);
-          int trainsLeft = 45 - trainsUsed;
-          if(trainsLeft <= 3){
-            Game game = getGame(player.getGameId());
-            game.changeGameStatus(Game.Status.LASTROUND);
-            updateGame(game,game.getGameID());
-          }
-          newstats.setTrainCount(trainsLeft);
-          newstats.setTrainCardCount(getTrainCardsForPlayer(playerId).size());
-          newstats.setDestinationCardCount(getDestinationCardsByPlayerId(playerId).size());
-          playerStatsQueue.publish(newstats);
         }
       }
     }
@@ -309,7 +313,7 @@ public class DatabaseFacade {
       synchronized (this) {
         for(int i = 0; i < Games.size(); i++){
           if(Games.get(i).getGameID().equals(game.getGameID())){
-            Games.add(i,game);
+            Games.set(i,game);
             gameStream.publish(game);
           }
         }

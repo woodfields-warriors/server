@@ -304,7 +304,7 @@ class FirstTurnState implements IPlayerTurnState{
       player.setState(new PendingState());
     }
     database.updatePlayer(player);
-    database.updatePlayerStats(playerId);
+    // database.updatePlayerStats(playerId);
   }
   public void drawFaceUpTrainCard(String playerId, String cardId) throws NotFoundException {
     //tell client it isn't his/her turn
