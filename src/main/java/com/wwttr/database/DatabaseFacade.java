@@ -160,30 +160,30 @@ public class DatabaseFacade {
                     routePoints += 15;
                     break;
                   }
+                }
               }
+              newstats.setroutePoints(routePoints);
+              newstats.setLongestRoutePoints(0);
+              List<DestinationCard> routesCompleted = new ArrayList<DestinationCard>(); //findCompletedRoutesForPlayer(playerId);
+              int pointsFromRoutes = 0;
+              for(DestinationCard card: routesCompleted){
+                pointsFromRoutes+= card.getPointValue();
+              }
+              newstats.setDestinationCardPoints(pointsFromRoutes);
+              int trainsLeft = 45 - trainsUsed;
+              if(trainsLeft <= 3){
+                Game game = getGame(player.getGameId());
+                game.changeGameStatus(Game.Status.LASTROUND);
+                updateGame(game,game.getGameID());
+              }
+              newstats.setTrainCount(trainsLeft);
+              newstats.setTrainCardCount(getTrainCardsForPlayer(playerId).size());
+              newstats.setDestinationCardCount(getDestinationCardsByPlayerId(playerId).size());
+              playerStatsQueue.publish(newstats);
             }
-            newstats.setroutePoints(routePoints);
-            newstats.setLongestRoutePoints(0);
-            List<DestinationCard> routesCompleted = new ArrayList<DestinationCard>(); //findCompletedRoutesForPlayer(playerId);
-            int pointsFromRoutes = 0;
-            for(DestinationCard card: routesCompleted){
-              pointsFromRoutes+= card.getPointValue();
-            }
-            newstats.setDestinationCardPoints(pointsFromRoutes);
-            int trainsLeft = 45 - trainsUsed;
-            if(trainsLeft <= 3){
-              Game game = getGame(player.getGameId());
-              game.changeGameStatus(Game.Status.LASTROUND);
-              updateGame(game,game.getGameID());
-            }
-            newstats.setTrainCount(trainsLeft);
-            newstats.setTrainCardCount(getTrainCardsForPlayer(playerId).size());
-            newstats.setDestinationCardCount(getDestinationCardsByPlayerId(playerId).size());
-            playerStatsQueue.publish(newstats);
           }
         }
       }
-    }
     }
 
 
