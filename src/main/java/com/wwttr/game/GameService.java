@@ -115,6 +115,7 @@ public class GameService {
     }
     if(game.getPlayerIDs().size() > 1) {
       game.changeGameStatus(Game.Status.STARTED);
+      database.updateGame(game,game.getGameID());
       cardService.createFullDecksForGame(game.getGameID());
       for (String playerId : game.getPlayerIDs()) {
         database.updatePlayerStats(playerId);
