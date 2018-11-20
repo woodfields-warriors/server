@@ -66,6 +66,9 @@ public class GameService {
       database.addPlayer(player);
       database.addGame(game);
       routeService.initRoutes(game.getGameID());
+      for (String playerId : game.getPlayerIDs()) {
+        database.updatePlayerStats(playerId);
+      }
       CreateResponse toReturn = new CreateResponse(game.getGameID(), player.getPlayerId());
       return toReturn;
   }
