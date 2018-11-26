@@ -30,6 +30,8 @@ public class DatabaseFacade {
     private CommandQueue<Route> routeQueue = new CommandQueue<>();
     private CommandQueue<PlayerStats> playerStatsQueue = new CommandQueue<>();
 
+    private final static int startingTrains = 10;
+
     public DatabaseFacade(){
 
     }
@@ -173,7 +175,7 @@ public class DatabaseFacade {
                 pointsFromRoutes+= card.getPointValue();
               }
               newstats.setDestinationCardPoints(pointsFromRoutes);
-              int trainsLeft = 45 - trainsUsed;
+              int trainsLeft = startingTrains - trainsUsed;
               if(trainsLeft <= 3){
                 Game game = getGame(player.getGameId());
                 game.changeGameStatus(Game.Status.LASTROUND);
