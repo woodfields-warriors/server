@@ -169,11 +169,19 @@ public class DatabaseFacade {
               }
             }
               newstats.setroutePoints(routePoints);
-              System.out.println(routePoints);
-              newstats.setLongestRoutePoints(0);
+              newstats.setLongestRoutePoints(10);
               List<DestinationCard> routesCompleted = new ArrayList<>();
-              if(getGame(player.getGameId()).getGameStatus().equals(Game.Status.ENDED)){
+            Game game = getGame(player.getGameId());
+              if(game.getGameStatus().equals(Game.Status.ENDED)){
                 routesCompleted = findCompletedRoutesForPlayer(playerId);
+                List<Route> playerRoutes = getRoutesOwnedByPlayer(playerId);
+                for(String otherPlayer : game.getPlayerIDs()){
+                  if(!otherPlayer.equals(playerId)){
+                    if(getRoutesOwnedByPlayer(otherPlayer).size() > playerRoutes.size()){
+                      newstats.setLongestRoutePoints(0);
+                    }
+                  }
+                }
               }
               int pointsFromRoutes = 0;
               for(DestinationCard card: routesCompleted){
@@ -181,7 +189,7 @@ public class DatabaseFacade {
               }
               newstats.setDestinationCardPoints(pointsFromRoutes);
               int trainsLeft = startingTrains - trainsUsed;
-              Game game = getGame(player.getGameId());
+              game = getGame(player.getGameId());
               if(trainsLeft <= 3 && !game.getGameStatus().equals(Game.Status.ENDED)){
                 game.changeGameStatus(Game.Status.LASTROUND);
                 updateGame(game,game.getGameID());
