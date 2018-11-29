@@ -199,6 +199,12 @@ public class GameService {
     if (game == null){
       throw new NotFoundException("Game with that ID not found");
     }
+    for(String playerId : game.getPlayerIDs()){
+      Player player = database.getPlayer(playerId);
+      if(player.getUserId().equals(userId)){
+        return playerId;
+      }
+    }
     int currentNumberofPlayers = game.getPlayerIDs().size();
     if(currentNumberofPlayers == game.getMaxPlayers()){
       throw new GameFullException("Game is Full");
