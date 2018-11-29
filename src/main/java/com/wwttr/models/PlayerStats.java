@@ -107,6 +107,7 @@ public class PlayerStats{
         break;
       case GAME_ENDED:
         builder.setTurnState(Api.PlayerTurnState.GAME_ENDED);
+        break;
       case UNSPECIFIED_PLAYER_TURN_STATE:
       default:
         builder.setTurnState(Api.PlayerTurnState.UNSPECIFIED_PLAYER_TURN_STATE);
