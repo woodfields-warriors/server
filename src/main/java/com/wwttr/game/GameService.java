@@ -159,7 +159,7 @@ public class GameService {
     return action;
   }
 
-  public void drawTrainCard(String playerId) throws NotFoundException {
+  public synchronized void drawTrainCard(String playerId) throws NotFoundException {
     Player player = database.getPlayer(playerId);
     if (player == null){
       throw new NotFoundException("player with id " + playerId + " not found");
@@ -180,7 +180,7 @@ public class GameService {
     }
     player.getPlayerState().drawDestinationCards(playerId,destinationCardIds);
   }
-  public void drawFaceUpTrainCard(String playerId, String cardId) throws NotFoundException {
+  public synchronized void drawFaceUpTrainCard(String playerId, String cardId) throws NotFoundException {
     Player player = database.getPlayer(playerId);
     if (player == null){
       throw new NotFoundException("player with id " + playerId + " not found");
