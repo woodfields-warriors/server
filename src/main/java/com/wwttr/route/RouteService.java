@@ -33,6 +33,8 @@ public class RouteService {
   public void initRoutes(String gameId) {
       database.addRoute(new Route("Vancouver - Seattle 1", "Vancouver", "Seattle",  TrainCard.Color.GREY, 1, gameId));
       database.addRoute(new Route("Vancouver - Seattle 2", "Vancouver", "Seattle",  TrainCard.Color.GREY, 1, gameId));
+      database.addRoute(new Route("Portland - Seattle 1", "Portland", "Seattle",  TrainCard.Color.GREY, 1, gameId));
+      database.addRoute(new Route("Portland - Seattle 2", "Portland", "Seattle",  TrainCard.Color.GREY, 1, gameId));
       database.addRoute(new Route("Vancouver - Calgary", "Vancouver", "Calgary",    TrainCard.Color.GREY, 3, gameId));
       database.addRoute(new Route("San Francisco-Los Angeles 1", "San Francisco", "Los Angeles",   TrainCard.Color.PINK, 3, gameId));
       database.addRoute(new Route("San Francisco-Los Angeles 2", "San Francisco", "Los Angeles",   TrainCard.Color.YELLOW, 3, gameId));
