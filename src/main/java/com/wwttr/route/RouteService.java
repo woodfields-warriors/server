@@ -7,6 +7,7 @@ import java.util.stream.Stream;
 import com.wwttr.api.ApiError;
 import com.wwttr.database.DatabaseFacade;
 import com.wwttr.api.NotFoundException;
+import com.wwttr.models.Game;
 import com.wwttr.models.TrainCard;
 import com.wwttr.models.Route;
 import com.wwttr.api.FailedPreconditionException;
@@ -143,6 +144,31 @@ public class RouteService {
       throw new NotFoundException("player not found");
     }
     Route route = database.getRoutebyId(routeId);
+    Game game = database.getGame(route.getGameId());
+    if(game.getPlayerIDs().size() <= 2){
+      String otherPlayer = "";
+      for(String id : game.getPlayerIDs()){
+        if(!id.equals(playerId)){
+          otherPlayer = id;
+        }
+      }
+      List<Route> myRoutes = database.getRoutesOwnedByPlayer(playerId);
+      List<Route> otherRoutes = database.getRoutesOwnedByPlayer(otherPlayer);
+      for(Route tempRoute : myRoutes){
+        if(tempRoute.getFirstCityId().equals(route.getFirstCityId())){
+          if(tempRoute.getSecondCityId().equals(route.getSecondCityId())){
+            throw new IllegalArgumentException("double routes not claimable with 2 players");
+          }
+        }
+      }
+      for(Route tempRoute : otherRoutes){
+        if(tempRoute.getFirstCityId().equals(route.getFirstCityId())){
+          if(tempRoute.getSecondCityId().equals(route.getSecondCityId())){
+            throw new IllegalArgumentException("double routes not claimable with 2 players");
+          }
+        }
+      }
+    }
     if(cardIds.size() != route.getLength()){
       throw new IllegalArgumentException("cards given != route length. cards = " + cardIds.size() + " routeLength = " + route.getLength());
     }

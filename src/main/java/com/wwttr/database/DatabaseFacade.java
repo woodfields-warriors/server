@@ -275,7 +275,7 @@ public class DatabaseFacade {
       return false;
     }
 
-    List<Route> getRoutesOwnedByPlayer(String playerId){
+    public List<Route> getRoutesOwnedByPlayer(String playerId){
       List<Route> toReturn = new ArrayList<>();
       for (Route route: routes){
         if(route.getPlayerId().equals(playerId)){
