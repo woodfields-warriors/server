@@ -35,6 +35,8 @@ public class RouteHandlers extends Api.RouteService {
   public void claimRoute(RpcController controller, Api.ClaimRouteRequest request, RpcCallback<Api.ClaimRouteResponse> callback) {
     try{
       gameService.claimRoute(request.getPlayerId(), request.getRouteId(), request.getCardIdsList());
+      Api.ClaimRouteResponse.Builder builder = Api.ClaimRouteResponse.newBuilder().build();
+      callback.run(builder.build());
     }
     catch(NotFoundException e){
       throw new ApiError(Code.NOT_FOUND, e.getMessage());
