@@ -187,6 +187,12 @@ public class DatabaseFacade {
               for(DestinationCard card: routesCompleted){
                 pointsFromRoutes+= card.getPointValue();
               }
+              List<DestinationCard> cardsOwnedByPlayer = getDestinationCardsByPlayerId(playerId);
+              for(DestinationCard card : cardsOwnedByPlayer){
+                if(!routesCompleted.contains(card)){
+                  pointsFromRoutes -= card.getPointValue();
+                }
+              }
               newstats.setDestinationCardPoints(pointsFromRoutes);
               int trainsLeft = startingTrains - trainsUsed;
               game = getGame(player.getGameId());
