@@ -239,7 +239,7 @@ public class DatabaseFacade {
     //recursive depth first search.
     //cities visited are all the nodes that have been previously searched
     //current city is the node to depth first search
-    // returns true if it finds a route from current city to destination card's SECOND city id
+    // returns true if it finds a route from current city to destination card's SECOND city id.
     boolean searchRoute_r(String currentCity, List<String> citiesVisited, DestinationCard destinationCard, String playerId){
       List<Route> playerRoutes = getRoutesOwnedByPlayer(playerId);
       for(Route route: playerRoutes){

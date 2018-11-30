@@ -190,8 +190,6 @@ public class GameService {
   }
 
 
-//CLAIM ROUTE what's going on there?
-//Stream Player Stats.  I need help with that.
 
 //--------------------Player methods ------------------------------------------//
 
