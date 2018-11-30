@@ -5,6 +5,7 @@ import java.util.*;
 import com.wwttr.api.ApiError;
 import com.wwttr.card.CardService;
 import com.wwttr.route.RouteService;
+import com.wwttr.api.FailedPreconditionException;
 import com.wwttr.database.DatabaseFacade;
 import com.wwttr.models.CreateResponse;
 import com.wwttr.models.Game;
@@ -166,7 +167,7 @@ public class GameService {
     }
     player.getPlayerState().drawTrainCard(playerId);
   }
-  public void claimRoute(String playerId, String routeId, List<String> cardIds) throws NotFoundException {
+  public void claimRoute(String playerId, String routeId, List<String> cardIds) throws NotFoundException, FailedPreconditionException {
     Player player = database.getPlayer(playerId);
     if (player == null){
       throw new NotFoundException("player with id " + playerId + " not found");
@@ -271,7 +272,7 @@ class PendingState implements IPlayerTurnState{
     //Tell the client it isn't his/her turn
     throw new ApiError(Code.FAILED_PRECONDITION,"It's not your turn");
   }
-  public void claimRoute(String playerId, String routeId,List<String> cardIds) throws NotFoundException, IllegalArgumentException{
+  public void claimRoute(String playerId, String routeId,List<String> cardIds) throws NotFoundException, IllegalArgumentException, FailedPreconditionException {
     //tell client it isn't his/her turn
     throw new ApiError(Code.FAILED_PRECONDITION,"It's not your turn");
   }
@@ -338,7 +339,7 @@ class StartState implements IPlayerTurnState{
     Player player = database.getPlayer(playerId);
     player.setState(new MidState());
   }
-  public void claimRoute(String playerId, String routeId,List<String> cardIds) throws NotFoundException, IllegalArgumentException{
+  public void claimRoute(String playerId, String routeId,List<String> cardIds) throws NotFoundException, IllegalArgumentException, FailedPreconditionException {
     routeService.claimRoute(playerId,routeId,cardIds);
     Player player = database.getPlayer(playerId);
     if(database.getGame(player.getGameId()).getGameStatus().equals(Game.Status.LASTROUND)){

@@ -9,6 +9,7 @@ import com.wwttr.api.NotFoundException;
 import com.wwttr.database.CommandQueue;
 import com.wwttr.models.Route;
 import com.wwttr.game.GameService;
+import com.wwttr.api.FailedPreconditionException;
 
 public class RouteHandlers extends Api.RouteService {
 
@@ -40,6 +41,9 @@ public class RouteHandlers extends Api.RouteService {
     }
     catch (IllegalArgumentException e){
       throw new ApiError(Code.INVALID_ARGUMENT,e.getMessage());
+    }
+    catch (FailedPreconditionException e) {
+      throw new ApiError(Code.FAILED_PRECONDITION, e.getMessage());
     }
   }
 }

@@ -9,7 +9,7 @@ import com.wwttr.database.DatabaseFacade;
 import com.wwttr.api.NotFoundException;
 import com.wwttr.models.TrainCard;
 import com.wwttr.models.Route;
-
+import com.wwttr.api.FailedPreconditionException;
 
 // route Service is of the Singleton Pattern
 public class RouteService {
@@ -135,7 +135,7 @@ public class RouteService {
     return database.streamRoutes().filter((Route r) -> r.getGameId().equals(gameId));
   }
 
-  public void claimRoute(String playerId, String routeId, List<String> cardIds) throws NotFoundException, IllegalArgumentException{
+  public void claimRoute(String playerId, String routeId, List<String> cardIds) throws NotFoundException, IllegalArgumentException, FailedPreconditionException{
     if(database.getPlayer(playerId) == null){
       throw new NotFoundException("player not found");
     }
@@ -164,15 +164,15 @@ public class RouteService {
         color = card.getColor();
       }
       else if(!color.equals(card.getColor()) && !card.getColor().equals(TrainCard.Color.RAINBOW)){
-          throw new IllegalArgumentException("incompatible card color");
+          throw new IllegalArgumentException("Incompatible card color");
         }
     }
     //checks if colors match the color of the route
     if(!route.getTrainColor().equals(TrainCard.Color.GREY) && !color.equals(route.getTrainColor()) && !color.equals(TrainCard.Color.RAINBOW)){
-      throw new IllegalArgumentException("card colors don't match route color");
+      throw new IllegalArgumentException("Card colors don't match route color");
     }
     if(!route.getPlayerId().equals("")){
-      throw new IllegalArgumentException("Route already claimed");
+      throw new FailedPreconditionException();
     }
     route.setPlayerId(playerId);
     if (database.updateRoute(route) == null) {
