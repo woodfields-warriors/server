@@ -274,6 +274,10 @@ class PendingState implements IPlayerTurnState{
     return PlayerTurnState.PENDING;
   }
 
+  public boolean canPeek() {
+    return false;
+  }
+
   public void drawTrainCard(String playerId) throws NotFoundException {
     //Tell the client it isn't his/her turn
     throw new ApiError(Code.FAILED_PRECONDITION,"It's not your turn");
@@ -300,6 +304,10 @@ class FirstTurnState implements IPlayerTurnState{
 
   public PlayerTurnState getTurnState() {
     return PlayerTurnState.FIRST;
+  }
+
+  public boolean canPeek() {
+    return true;
   }
 
   public void drawTrainCard(String playerId) throws NotFoundException {
@@ -354,6 +362,10 @@ class StartState implements IPlayerTurnState{
 
   public PlayerTurnState getTurnState() {
     return PlayerTurnState.START;
+  }
+
+  public boolean canPeek() {
+    return true;
   }
 
   public void drawTrainCard(String playerId) throws NotFoundException {
@@ -447,6 +459,10 @@ class MidState implements IPlayerTurnState{
     return PlayerTurnState.MID;
   }
 
+  public boolean canPeek() {
+    return false;
+  }
+
   public void drawTrainCard(String playerId)throws NotFoundException{
     cardService.claimTrainCardFromDeck(playerId);
     Player player = database.getPlayer(playerId);
@@ -507,6 +523,10 @@ class GameEnded implements IPlayerTurnState{
 
   public PlayerTurnState getTurnState() {
     return PlayerTurnState.GAME_ENDED;
+  }
+
+  public boolean canPeek() {
+    return false;
   }
 
   public void drawTrainCard(String playerId) throws NotFoundException {

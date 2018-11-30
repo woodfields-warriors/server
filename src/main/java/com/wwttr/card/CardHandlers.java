@@ -7,6 +7,7 @@ import com.wwttr.api.Code;
 import com.wwttr.api.NotFoundException;
 import com.wwttr.models.DeckStats;
 import com.wwttr.models.DestinationCard;
+import com.wwttr.models.Player;
 import com.wwttr.game.Api.Empty;
 import com.wwttr.game.GameService;
 
@@ -45,9 +46,18 @@ public class CardHandlers extends Api.CardService {
 
   public void peekDestinationCards(RpcController controller, Api.PeekDestinationCardsRequest request, RpcCallback<Api.PeekDestinationCardsResponse> callback){
     try{
-      if(request.getGameId().equals(""))
-        throw new ApiError(Code.INVALID_ARGUMENT, "argument 'game_id' is required");
-      List<DestinationCard> allCards = service.peekDestinationCards(request.getGameId());
+      if(request.getPlayerId().equals(""))
+        throw new ApiError(Code.INVALID_ARGUMENT, "argument 'player_id' is required");
+
+      Player p = gameService.getPlayer(request.getPlayerId());
+      if (p == null) {
+        throw new ApiError(Code.NOT_FOUND, "");
+      }
+      if (!p.getPlayerState().canPeek()) {
+        throw new ApiError(Code.FAILED_PRECONDITION, "It must be your turn to peek destination cards");
+      }
+      
+      List<DestinationCard> allCards = service.peekDestinationCards(p.getGameId());
       Api.PeekDestinationCardsResponse.Builder builder = Api.PeekDestinationCardsResponse.newBuilder();
       for(DestinationCard card : allCards){
         Api.DestinationCard.Builder cardBuilder = card.createBuilder();

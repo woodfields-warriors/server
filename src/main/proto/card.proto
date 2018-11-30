@@ -38,7 +38,7 @@ message DestinationCard {
 }
 
 message PeekDestinationCardsRequest{
-  string game_id = 1;
+  string player_id = 1;
 }
 
 message PeekDestinationCardsResponse{
