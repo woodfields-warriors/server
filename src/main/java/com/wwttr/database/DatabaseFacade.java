@@ -264,7 +264,7 @@ public class DatabaseFacade {
         //if we haven't already visited that city, depth first search it
         if(!citiesVisited.contains(currentCity)){
           citiesVisited.add(currentCity);
-          searchRoute_r(currentCity,citiesVisited,destinationCard, playerId);
+          return searchRoute_r(currentCity,citiesVisited,destinationCard, playerId);
         }
       }
       //no sub routes found to complete destination.  return false
