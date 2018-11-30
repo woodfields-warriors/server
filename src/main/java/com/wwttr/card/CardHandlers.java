@@ -119,6 +119,7 @@ public class CardHandlers extends Api.CardService {
         throw new ApiError(Code.INVALID_ARGUMENT, "argument 'id' is required");
       }
       gameService.drawTrainCard(request.getId());
+      callback.run(Empty.newBuilder().build());
     }
     catch (NotFoundException e){
       throw new ApiError(Code.NOT_FOUND,"");
@@ -137,6 +138,7 @@ public class CardHandlers extends Api.CardService {
         throw new ApiError(Code.INVALID_ARGUMENT, "argument 'card_drawn_id' is required");
       }
       gameService.drawFaceUpTrainCard(request.getId(),request.getCardDrawnId());
+      callback.run(Empty.newBuilder().build());
     }
     catch (NotFoundException e){
       throw new ApiError(Code.NOT_FOUND,"");
