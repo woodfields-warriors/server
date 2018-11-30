@@ -160,7 +160,7 @@ public class GameService {
     return action;
   }
 
-  public void drawTrainCard(String playerId) throws NotFoundException {
+  public synchronized void drawTrainCard(String playerId) throws NotFoundException {
     Player player = database.getPlayer(playerId);
     if (player == null){
       throw new NotFoundException("player with id " + playerId + " not found");
@@ -181,7 +181,7 @@ public class GameService {
     }
     player.getPlayerState().drawDestinationCards(playerId,destinationCardIds);
   }
-  public void drawFaceUpTrainCard(String playerId, String cardId) throws NotFoundException {
+  public synchronized void drawFaceUpTrainCard(String playerId, String cardId) throws NotFoundException {
     Player player = database.getPlayer(playerId);
     if (player == null){
       throw new NotFoundException("player with id " + playerId + " not found");
@@ -199,6 +199,12 @@ public class GameService {
     Game game = database.getGame(gameId);
     if (game == null){
       throw new NotFoundException("Game with that ID not found");
+    }
+    for(String playerId : game.getPlayerIDs()){
+      Player player = database.getPlayer(playerId);
+      if(player.getUserId().equals(userId)){
+        return playerId;
+      }
     }
     int currentNumberofPlayers = game.getPlayerIDs().size();
     if(currentNumberofPlayers == game.getMaxPlayers()){
@@ -307,15 +313,31 @@ class FirstTurnState implements IPlayerTurnState{
   public void drawDestinationCards(String playerId, List<String> destinationCardIds) throws NotFoundException {
     cardService.claimDestinationCards(destinationCardIds,playerId);
     Player player = database.getPlayer(playerId);
+    //every player after they're done picking destination cards
+    // goes to a pending state until everyone else is done
+    // picking their destination cards
+    player.setState(new PendingState());
+    database.updatePlayer(player);
+
+
     Game game = database.getGame(player.getGameId());
     List<String> playerIdsInGame = game.getPlayerIDs();
-    if(playerId.equals(playerIdsInGame.get(0))){
-      player.setState(new StartState());
+    // the last person to pick their destination cards will set
+    //  the host's player turn state to a start state
+    boolean allPicked = true;  //
+    for (String id : playerIdsInGame){
+      Player temp = database.getPlayer(id);
+      //if the player is in First Turn State
+      if(temp.getPlayerState().getClass().equals(FirstTurnState.class)){
+        allPicked = false;
+      }
     }
-    else{
-      player.setState(new PendingState());
+    if(allPicked == true){
+      //host gets first turn
+      Player host = database.getPlayer(game.getHostPlayerID());
+      host.setState(new StartState());
+      database.updatePlayer(host);
     }
-    database.updatePlayer(player);
     // database.updatePlayerStats(playerId);
   }
   public void drawFaceUpTrainCard(String playerId, String cardId) throws NotFoundException {
@@ -349,6 +371,7 @@ class StartState implements IPlayerTurnState{
       player.setState(new PendingState());
     }
     database.updatePlayer(player);
+    //end the game or tell the next player in order it is their turn
     Player nextPlayer = database.getNextPlayer(playerId,player.getGameId());
     if(nextPlayer.getPlayerState().getClass().equals(GameEnded.class)){
       Game game = database.getGame(player.getGameId());
@@ -372,6 +395,7 @@ class StartState implements IPlayerTurnState{
       player.setState(new PendingState());
     }
     database.updatePlayer(player);
+    //end the game or tell the next player in order it is their turn
     Player nextPlayer = database.getNextPlayer(playerId,player.getGameId());
     if(nextPlayer.getPlayerState().getClass().equals(GameEnded.class)){
       Game game = database.getGame(player.getGameId());

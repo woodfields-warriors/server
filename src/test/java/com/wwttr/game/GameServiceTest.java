@@ -10,6 +10,7 @@ import com.wwttr.models.LoginResponse;
 import com.wwttr.api.NotFoundException;
 import com.wwttr.models.Route;
 import com.wwttr.models.TrainCard;
+import com.wwttr.models.User;
 
 import org.junit.After;
 import org.junit.Before;
@@ -275,7 +276,8 @@ public class GameServiceTest {
       try{
 
       CreateResponse response = service.createGame("valid", userID, 2);
-      String player2 = service.createPlayer(userID,response.getGameID());
+      df.makeUser(new User("player2","","id2"));
+      String player2 = service.createPlayer("id2",response.getGameID());
       df.clearDestinationCards();
       df.clearRoutes();
       df.clearTrainCards();
@@ -297,6 +299,9 @@ public class GameServiceTest {
         df.addRoute(new Route("2","1","2", TrainCard.Color.GREY,8,response.getGameID(),""));
         df.updatePlayerStats(response.getPlayerID());
         Player player = service.getPlayer(response.getPlayerID());
+        assertEquals(StartState.class,player.getPlayerState().getClass());
+        Game game = service.getGame(response.getGameID());
+        assertEquals(Game.Status.PRE,game.getGameStatus());
 
         ArrayList<TrainCard> cards = new ArrayList<>();
         ArrayList<String> cardIds = new ArrayList<>();
@@ -305,10 +310,10 @@ public class GameServiceTest {
           cardIds.add(Integer.toString(i));
         }
         df.addTrainCardDeck(cards);
-
+        System.out.println(player.getPlayerState());
         player.getPlayerState().claimRoute(player.getPlayerId(),"2",cardIds);
         player = service.getPlayer(player.getPlayerId());
-        Game game = service.getGame(response.getGameID());
+        game = service.getGame(response.getGameID());
         assertEquals(GameEnded.class,player.getPlayerState().getClass());
         assertEquals(Game.Status.ENDED,game.getGameStatus());
 
@@ -322,4 +327,3 @@ public class GameServiceTest {
 
     }
 }
-

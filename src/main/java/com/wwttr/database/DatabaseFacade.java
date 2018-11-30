@@ -167,17 +167,30 @@ public class DatabaseFacade {
                     break;
                 }
               }
+            }
               newstats.setroutePoints(routePoints);
-              newstats.setLongestRoutePoints(0);
-              List<DestinationCard> routesCompleted = findCompletedRoutesForPlayer(playerId);
+              newstats.setLongestRoutePoints(10);
+              List<DestinationCard> routesCompleted = new ArrayList<>();
+            Game game = getGame(player.getGameId());
+              if(game.getGameStatus().equals(Game.Status.ENDED)){
+                routesCompleted = findCompletedRoutesForPlayer(playerId);
+                List<Route> playerRoutes = getRoutesOwnedByPlayer(playerId);
+                for(String otherPlayer : game.getPlayerIDs()){
+                  if(!otherPlayer.equals(playerId)){
+                    if(getRoutesOwnedByPlayer(otherPlayer).size() > playerRoutes.size()){
+                      newstats.setLongestRoutePoints(0);
+                    }
+                  }
+                }
+              }
               int pointsFromRoutes = 0;
               for(DestinationCard card: routesCompleted){
                 pointsFromRoutes+= card.getPointValue();
               }
               newstats.setDestinationCardPoints(pointsFromRoutes);
               int trainsLeft = startingTrains - trainsUsed;
-              if(trainsLeft <= 3){
-                Game game = getGame(player.getGameId());
+              game = getGame(player.getGameId());
+              if(trainsLeft <= 3 && !game.getGameStatus().equals(Game.Status.ENDED)){
                 game.changeGameStatus(Game.Status.LASTROUND);
                 updateGame(game,game.getGameID());
               }
@@ -190,7 +203,6 @@ public class DatabaseFacade {
           }
         }
       }
-    }
 
 
 
@@ -332,6 +344,11 @@ public class DatabaseFacade {
           if(Games.get(i).getGameID().equals(game.getGameID())){
             Games.set(i,game);
             gameStream.publish(game);
+            if(game.getGameStatus().equals(Game.Status.ENDED)){
+              for(String playerID: game.getPlayerIDs()){
+                updatePlayerStats(playerID);
+              }
+            }
             break;
           }
         }
@@ -455,7 +472,7 @@ public class DatabaseFacade {
         retrievedCard.update(card);
         destinationCardQueue.publish(card);
         updateDeckStats(card.getGameId());
-        updatePlayerStats(card.getGameId());
+        //updatePlayerStats(card.getGameId());
       }
     }
   }
@@ -587,8 +604,21 @@ public class DatabaseFacade {
             }
           }
           //get five new cards
-          for(int i = 0; i < 5; i++){
-            newFaceUpCard(gameId);
+          ArrayList<TrainCard> newVisibleCards = new ArrayList<>();
+          do {
+            locomotivesFound = 0;
+            newVisibleCards = new ArrayList<>();
+            for (int i = 0; i < 5; i++) {
+              TrainCard temp = getRandomTrainCardFromDeck(gameId);
+              if(temp.getColor().equals(TrainCard.Color.RAINBOW))
+                locomotivesFound++;
+              newVisibleCards.add(temp);
+            }
+          }
+          while(locomotivesFound >= 3);
+          for(TrainCard card : newVisibleCards){
+            card.setState(TrainCard.State.VISIBLE);
+            updateTrainCard(card);
           }
         }
       }
@@ -629,6 +659,14 @@ public class DatabaseFacade {
 
   public TrainCard getRandomTrainCardFromDeck(String gameId) throws NotFoundException{
       ArrayList<TrainCard> cards = getTrainCardsForGame(gameId);
+      ArrayList<TrainCard> cardsInDeck = new ArrayList<>();
+      for(TrainCard card : cards){
+        if(card.getState().equals(TrainCard.State.HIDDEN)){
+          cardsInDeck.add(card);
+        }
+      }
+      return cardsInDeck.get(rn.nextInt(cardsInDeck.size()));
+      /*
       TrainCard temp = cards.get(rn.nextInt(cards.size()));
       for(int i = 0; temp.getState() != TrainCard.State.HIDDEN; i++){
         if(i != 100) {
@@ -639,6 +677,7 @@ public class DatabaseFacade {
         }
       }
       return temp;
+      */
   }
 
 
@@ -712,7 +751,6 @@ public class DatabaseFacade {
           route.update(newRoute);
           routeQueue.publish(route);
           updatePlayerStats(route.getPlayerId());
-          System.out.println("UPDATING ROUTE " + route.getRouteId());
           return route;
         }
       }
