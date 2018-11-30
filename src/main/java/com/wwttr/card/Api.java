@@ -1772,14 +1772,14 @@ public final class Api {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>string game_id = 1;</code>
+     * <code>string player_id = 1;</code>
      */
-    java.lang.String getGameId();
+    java.lang.String getPlayerId();
     /**
-     * <code>string game_id = 1;</code>
+     * <code>string player_id = 1;</code>
      */
     com.google.protobuf.ByteString
-        getGameIdBytes();
+        getPlayerIdBytes();
   }
   /**
    * Protobuf type {@code card.PeekDestinationCardsRequest}
@@ -1794,7 +1794,7 @@ public final class Api {
       super(builder);
     }
     private PeekDestinationCardsRequest() {
-      gameId_ = "";
+      playerId_ = "";
     }
 
     @java.lang.Override
@@ -1824,7 +1824,7 @@ public final class Api {
             case 10: {
               java.lang.String s = input.readStringRequireUtf8();
 
-              gameId_ = s;
+              playerId_ = s;
               break;
             }
             default: {
@@ -1859,34 +1859,34 @@ public final class Api {
               com.wwttr.card.Api.PeekDestinationCardsRequest.class, com.wwttr.card.Api.PeekDestinationCardsRequest.Builder.class);
     }
 
-    public static final int GAME_ID_FIELD_NUMBER = 1;
-    private volatile java.lang.Object gameId_;
+    public static final int PLAYER_ID_FIELD_NUMBER = 1;
+    private volatile java.lang.Object playerId_;
     /**
-     * <code>string game_id = 1;</code>
+     * <code>string player_id = 1;</code>
      */
-    public java.lang.String getGameId() {
-      java.lang.Object ref = gameId_;
+    public java.lang.String getPlayerId() {
+      java.lang.Object ref = playerId_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        gameId_ = s;
+        playerId_ = s;
         return s;
       }
     }
     /**
-     * <code>string game_id = 1;</code>
+     * <code>string player_id = 1;</code>
      */
     public com.google.protobuf.ByteString
-        getGameIdBytes() {
-      java.lang.Object ref = gameId_;
+        getPlayerIdBytes() {
+      java.lang.Object ref = playerId_;
       if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        gameId_ = b;
+        playerId_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
@@ -1907,8 +1907,8 @@ public final class Api {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (!getGameIdBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, gameId_);
+      if (!getPlayerIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, playerId_);
       }
       unknownFields.writeTo(output);
     }
@@ -1919,8 +1919,8 @@ public final class Api {
       if (size != -1) return size;
 
       size = 0;
-      if (!getGameIdBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, gameId_);
+      if (!getPlayerIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, playerId_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -1938,8 +1938,8 @@ public final class Api {
       com.wwttr.card.Api.PeekDestinationCardsRequest other = (com.wwttr.card.Api.PeekDestinationCardsRequest) obj;
 
       boolean result = true;
-      result = result && getGameId()
-          .equals(other.getGameId());
+      result = result && getPlayerId()
+          .equals(other.getPlayerId());
       result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
@@ -1951,8 +1951,8 @@ public final class Api {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + GAME_ID_FIELD_NUMBER;
-      hash = (53 * hash) + getGameId().hashCode();
+      hash = (37 * hash) + PLAYER_ID_FIELD_NUMBER;
+      hash = (53 * hash) + getPlayerId().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -2086,7 +2086,7 @@ public final class Api {
       @java.lang.Override
       public Builder clear() {
         super.clear();
-        gameId_ = "";
+        playerId_ = "";
 
         return this;
       }
@@ -2114,7 +2114,7 @@ public final class Api {
       @java.lang.Override
       public com.wwttr.card.Api.PeekDestinationCardsRequest buildPartial() {
         com.wwttr.card.Api.PeekDestinationCardsRequest result = new com.wwttr.card.Api.PeekDestinationCardsRequest(this);
-        result.gameId_ = gameId_;
+        result.playerId_ = playerId_;
         onBuilt();
         return result;
       }
@@ -2163,8 +2163,8 @@ public final class Api {
 
       public Builder mergeFrom(com.wwttr.card.Api.PeekDestinationCardsRequest other) {
         if (other == com.wwttr.card.Api.PeekDestinationCardsRequest.getDefaultInstance()) return this;
-        if (!other.getGameId().isEmpty()) {
-          gameId_ = other.gameId_;
+        if (!other.getPlayerId().isEmpty()) {
+          playerId_ = other.playerId_;
           onChanged();
         }
         this.mergeUnknownFields(other.unknownFields);
@@ -2196,71 +2196,71 @@ public final class Api {
         return this;
       }
 
-      private java.lang.Object gameId_ = "";
+      private java.lang.Object playerId_ = "";
       /**
-       * <code>string game_id = 1;</code>
+       * <code>string player_id = 1;</code>
        */
-      public java.lang.String getGameId() {
-        java.lang.Object ref = gameId_;
+      public java.lang.String getPlayerId() {
+        java.lang.Object ref = playerId_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
-          gameId_ = s;
+          playerId_ = s;
           return s;
         } else {
           return (java.lang.String) ref;
         }
       }
       /**
-       * <code>string game_id = 1;</code>
+       * <code>string player_id = 1;</code>
        */
       public com.google.protobuf.ByteString
-          getGameIdBytes() {
-        java.lang.Object ref = gameId_;
+          getPlayerIdBytes() {
+        java.lang.Object ref = playerId_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
-          gameId_ = b;
+          playerId_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
         }
       }
       /**
-       * <code>string game_id = 1;</code>
+       * <code>string player_id = 1;</code>
        */
-      public Builder setGameId(
+      public Builder setPlayerId(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
   
-        gameId_ = value;
+        playerId_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>string game_id = 1;</code>
+       * <code>string player_id = 1;</code>
        */
-      public Builder clearGameId() {
+      public Builder clearPlayerId() {
         
-        gameId_ = getDefaultInstance().getGameId();
+        playerId_ = getDefaultInstance().getPlayerId();
         onChanged();
         return this;
       }
       /**
-       * <code>string game_id = 1;</code>
+       * <code>string player_id = 1;</code>
        */
-      public Builder setGameIdBytes(
+      public Builder setPlayerIdBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
         
-        gameId_ = value;
+        playerId_ = value;
         onChanged();
         return this;
       }
@@ -11757,53 +11757,53 @@ public final class Api {
       "id\030\001 \001(\t\"t\n\017DestinationCard\022\n\n\002id\030\001 \001(\t\022" +
       "\025\n\rfirst_city_id\030\002 \001(\t\022\026\n\016second_city_id" +
       "\030\003 \001(\t\022\023\n\013point_value\030\004 \001(\005\022\021\n\tplayer_id" +
-      "\030\005 \001(\t\".\n\033PeekDestinationCardsRequest\022\017\n" +
-      "\007game_id\030\001 \001(\t\"P\n\034PeekDestinationCardsRe" +
-      "sponse\0220\n\021destination_cards\030\001 \003(\0132\025.card" +
-      ".DestinationCard\"O\n\034ClaimDestinationCard" +
-      "sRequest\022\034\n\024destination_card_ids\030\001 \003(\t\022\021" +
-      "\n\tplayer_id\030\002 \001(\t\"\037\n\035ClaimDestinationCar" +
-      "dsResponse\"2\n\035StreamDestinationCardsRequ" +
-      "est\022\021\n\tplayer_id\030\001 \001(\t\"S\n\tDeckStats\022\037\n\027h" +
-      "idden_train_card_count\030\001 \001(\005\022%\n\035hidden_d" +
-      "estination_card_count\030\003 \001(\005\")\n\026StreamDec" +
-      "kStatsRequest\022\017\n\007game_id\030\001 \001(\t\"\027\n\025ClaimT" +
-      "rainCardRequest\"\030\n\026ClaimTrainCardRespons" +
-      "e\",\n\027StreamTrainCardsRequest\022\021\n\tplayer_i" +
-      "d\030\001 \001(\t\"\257\001\n\tTrainCard\022\n\n\002id\030\001 \001(\t\022\021\n\tpla" +
-      "yer_id\030\002 \001(\t\022\037\n\005color\030\003 \001(\0162\020.card.Train" +
-      "Color\022$\n\005state\030\004 \001(\0162\025.card.TrainCard.St" +
-      "ate\"<\n\005State\022\017\n\013UNSPECIFIED\020\000\022\n\n\006HIDDEN\020" +
-      "\001\022\013\n\007VISIBLE\020\002\022\t\n\005OWNED\020\003\"*\n\034DrawTrainCa" +
-      "rdFromDeckRequest\022\n\n\002id\030\001 \001(\t\"?\n\032DrawFac" +
-      "eUpTrainCardRequest\022\n\n\002id\030\001 \001(\t\022\025\n\rcard_" +
-      "drawn_id\030\002 \001(\t\"(\n\032GetTrainCardsInHandReq" +
-      "uest\022\n\n\002id\030\001 \001(\t\"=\n\033GetTrainCardsInHandR" +
-      "esponse\022\036\n\005cards\030\001 \003(\0132\017.card.TrainCard*" +
-      "\212\001\n\nTrainColor\022\017\n\013UNSPECIFIED\020\000\022\n\n\006ORANG" +
-      "E\020\001\022\010\n\004PINK\020\002\022\t\n\005GREEN\020\003\022\010\n\004BLUE\020\004\022\t\n\005BL" +
-      "ACK\020\005\022\010\n\004GREY\020\006\022\n\n\006YELLOW\020\007\022\007\n\003RED\020\010\022\t\n\005" +
-      "WHITE\020\t\022\013\n\007RAINBOW\020\n2\352\005\n\013CardService\022L\n\022" +
-      "GetDestinationCard\022\037.card.GetDestination" +
-      "CardRequest\032\025.card.DestinationCard\022]\n\024Pe" +
-      "ekDestinationCards\022!.card.PeekDestinatio" +
-      "nCardsRequest\032\".card.PeekDestinationCard" +
-      "sResponse\022`\n\025ClaimDestinationCards\022\".car" +
-      "d.ClaimDestinationCardsRequest\032#.card.Cl" +
-      "aimDestinationCardsResponse\022V\n\026StreamDes" +
-      "tinationCards\022#.card.StreamDestinationCa" +
-      "rdsRequest\032\025.card.DestinationCard0\001\022D\n\020S" +
-      "treamTrainCards\022\035.card.StreamTrainCardsR" +
-      "equest\032\017.card.TrainCard0\001\022B\n\017StreamDeckS" +
-      "tats\022\034.card.StreamDeckStatsRequest\032\017.car" +
-      "d.DeckStats0\001\022H\n\025DrawTrainCardFromDeck\022\"" +
-      ".card.DrawTrainCardFromDeckRequest\032\013.gam" +
-      "e.Empty\022D\n\023DrawFaceUpTrainCard\022 .card.Dr" +
-      "awFaceUpTrainCardRequest\032\013.game.Empty\022Z\n" +
-      "\023getTrainCardsInHand\022 .card.GetTrainCard" +
-      "sInHandRequest\032!.card.GetTrainCardsInHan" +
-      "dResponseB\030\n\016com.wwttr.cardB\003Api\210\001\001b\006pro" +
-      "to3"
+      "\030\005 \001(\t\"0\n\033PeekDestinationCardsRequest\022\021\n" +
+      "\tplayer_id\030\001 \001(\t\"P\n\034PeekDestinationCards" +
+      "Response\0220\n\021destination_cards\030\001 \003(\0132\025.ca" +
+      "rd.DestinationCard\"O\n\034ClaimDestinationCa" +
+      "rdsRequest\022\034\n\024destination_card_ids\030\001 \003(\t" +
+      "\022\021\n\tplayer_id\030\002 \001(\t\"\037\n\035ClaimDestinationC" +
+      "ardsResponse\"2\n\035StreamDestinationCardsRe" +
+      "quest\022\021\n\tplayer_id\030\001 \001(\t\"S\n\tDeckStats\022\037\n" +
+      "\027hidden_train_card_count\030\001 \001(\005\022%\n\035hidden" +
+      "_destination_card_count\030\003 \001(\005\")\n\026StreamD" +
+      "eckStatsRequest\022\017\n\007game_id\030\001 \001(\t\"\027\n\025Clai" +
+      "mTrainCardRequest\"\030\n\026ClaimTrainCardRespo" +
+      "nse\",\n\027StreamTrainCardsRequest\022\021\n\tplayer" +
+      "_id\030\001 \001(\t\"\257\001\n\tTrainCard\022\n\n\002id\030\001 \001(\t\022\021\n\tp" +
+      "layer_id\030\002 \001(\t\022\037\n\005color\030\003 \001(\0162\020.card.Tra" +
+      "inColor\022$\n\005state\030\004 \001(\0162\025.card.TrainCard." +
+      "State\"<\n\005State\022\017\n\013UNSPECIFIED\020\000\022\n\n\006HIDDE" +
+      "N\020\001\022\013\n\007VISIBLE\020\002\022\t\n\005OWNED\020\003\"*\n\034DrawTrain" +
+      "CardFromDeckRequest\022\n\n\002id\030\001 \001(\t\"?\n\032DrawF" +
+      "aceUpTrainCardRequest\022\n\n\002id\030\001 \001(\t\022\025\n\rcar" +
+      "d_drawn_id\030\002 \001(\t\"(\n\032GetTrainCardsInHandR" +
+      "equest\022\n\n\002id\030\001 \001(\t\"=\n\033GetTrainCardsInHan" +
+      "dResponse\022\036\n\005cards\030\001 \003(\0132\017.card.TrainCar" +
+      "d*\212\001\n\nTrainColor\022\017\n\013UNSPECIFIED\020\000\022\n\n\006ORA" +
+      "NGE\020\001\022\010\n\004PINK\020\002\022\t\n\005GREEN\020\003\022\010\n\004BLUE\020\004\022\t\n\005" +
+      "BLACK\020\005\022\010\n\004GREY\020\006\022\n\n\006YELLOW\020\007\022\007\n\003RED\020\010\022\t" +
+      "\n\005WHITE\020\t\022\013\n\007RAINBOW\020\n2\352\005\n\013CardService\022L" +
+      "\n\022GetDestinationCard\022\037.card.GetDestinati" +
+      "onCardRequest\032\025.card.DestinationCard\022]\n\024" +
+      "PeekDestinationCards\022!.card.PeekDestinat" +
+      "ionCardsRequest\032\".card.PeekDestinationCa" +
+      "rdsResponse\022`\n\025ClaimDestinationCards\022\".c" +
+      "ard.ClaimDestinationCardsRequest\032#.card." +
+      "ClaimDestinationCardsResponse\022V\n\026StreamD" +
+      "estinationCards\022#.card.StreamDestination" +
+      "CardsRequest\032\025.card.DestinationCard0\001\022D\n" +
+      "\020StreamTrainCards\022\035.card.StreamTrainCard" +
+      "sRequest\032\017.card.TrainCard0\001\022B\n\017StreamDec" +
+      "kStats\022\034.card.StreamDeckStatsRequest\032\017.c" +
+      "ard.DeckStats0\001\022H\n\025DrawTrainCardFromDeck" +
+      "\022\".card.DrawTrainCardFromDeckRequest\032\013.g" +
+      "ame.Empty\022D\n\023DrawFaceUpTrainCard\022 .card." +
+      "DrawFaceUpTrainCardRequest\032\013.game.Empty\022" +
+      "Z\n\023getTrainCardsInHand\022 .card.GetTrainCa" +
+      "rdsInHandRequest\032!.card.GetTrainCardsInH" +
+      "andResponseB\030\n\016com.wwttr.cardB\003Api\210\001\001b\006p" +
+      "roto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -11835,7 +11835,7 @@ public final class Api {
     internal_static_card_PeekDestinationCardsRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_card_PeekDestinationCardsRequest_descriptor,
-        new java.lang.String[] { "GameId", });
+        new java.lang.String[] { "PlayerId", });
     internal_static_card_PeekDestinationCardsResponse_descriptor =
       getDescriptor().getMessageTypes().get(3);
     internal_static_card_PeekDestinationCardsResponse_fieldAccessorTable = new

@@ -15,4 +15,6 @@ public interface IPlayerTurnState {
   public void drawFaceUpTrainCard(String playerId, String cardId) throws NotFoundException;
 
   public PlayerStats.PlayerTurnState getTurnState();
+
+  public boolean canPeek();
 }
