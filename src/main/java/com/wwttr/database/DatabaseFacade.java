@@ -30,7 +30,7 @@ public class DatabaseFacade {
     private CommandQueue<Route> routeQueue = new CommandQueue<>();
     private CommandQueue<PlayerStats> playerStatsQueue = new CommandQueue<>();
 
-    private final static int startingTrains = 10;
+    private final static int startingTrains = 15;
 
     public DatabaseFacade(){
 
