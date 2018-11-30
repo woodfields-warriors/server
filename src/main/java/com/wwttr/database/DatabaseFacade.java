@@ -184,9 +184,11 @@ public class DatabaseFacade {
                 }
               }
               int pointsFromRoutes = 0;
+              //add points for completed routes
               for(DestinationCard card: routesCompleted){
                 pointsFromRoutes+= card.getPointValue();
               }
+              //remove points for incomplete cards
               List<DestinationCard> cardsOwnedByPlayer = getDestinationCardsByPlayerId(playerId);
               for(DestinationCard card : cardsOwnedByPlayer){
                 if(!routesCompleted.contains(card)){
@@ -224,6 +226,7 @@ public class DatabaseFacade {
       List<DestinationCard> cardsOwned = getDestinationCardsByPlayerId(playerId);
       List<Route> playerRoutes = getRoutesOwnedByPlayer(playerId);
       for (DestinationCard card: cardsOwned){
+        System.out.println("Searching for a route between " + card.getFirstCityId() + " and " + card.getSecondCityId());
         List<String> citiesVisited = new ArrayList<>();
         String currentCity = card.getFirstCityId();
         citiesVisited.add(currentCity);
@@ -234,13 +237,14 @@ public class DatabaseFacade {
       return toReturn;
     }
     //recursive depth first search.
-    //cities visited are all the nodes that have been previously depth first searched
+    //cities visited are all the nodes that have been previously searched
     //current city is the node to depth first search
-    // returns true if it finds a route from current city to destination card's second city id
+    // returns true if it finds a route from current city to destination card's SECOND city id
     boolean searchRoute_r(String currentCity, List<String> citiesVisited, DestinationCard destinationCard, String playerId){
       List<Route> playerRoutes = getRoutesOwnedByPlayer(playerId);
       for(Route route: playerRoutes){
         if(route.getFirstCityId().equals(currentCity)){
+          System.out.println(route.getFirstCityId() + " to " + route.getSecondCityId());
           //reached the destination
           if(route.getSecondCityId().equals(destinationCard.getSecondCityId())){
             return true;
@@ -249,6 +253,8 @@ public class DatabaseFacade {
         }
 
         else if(route.getSecondCityId().equals(currentCity)){
+          System.out.println(route.getSecondCityId() + " to " + route.getFirstCityId());
+
           //reached the destination
           if(route.getFirstCityId().equals(destinationCard.getSecondCityId())){
             return true;
