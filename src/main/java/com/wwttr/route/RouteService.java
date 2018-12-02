@@ -7,6 +7,7 @@ import java.util.stream.Stream;
 import com.wwttr.api.ApiError;
 import com.wwttr.database.DatabaseFacade;
 import com.wwttr.api.NotFoundException;
+import com.wwttr.game.GameService;
 import com.wwttr.models.Game;
 import com.wwttr.models.TrainCard;
 import com.wwttr.models.Route;
@@ -213,6 +214,8 @@ public class RouteService {
       card.setPlayerId("");
       database.updateTrainCard(card);
     }
+    GameService gs = GameService.getInstance();
+    gs.createGameAction("claimed route " + route.getFirstCityId() + " to " + route.getSecondCityId(),playerId);
   }
 
 
