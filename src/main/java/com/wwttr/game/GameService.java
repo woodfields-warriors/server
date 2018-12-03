@@ -1,5 +1,6 @@
 package com.wwttr.game;
 
+import java.io.Serializable;
 import java.util.*;
 
 import com.wwttr.api.ApiError;
@@ -266,7 +267,7 @@ public class GameService {
 //------------------PLAYER STATES AND INTERFACE------------//
 
 
-class PendingState implements IPlayerTurnState{
+class PendingState implements IPlayerTurnState, Serializable {
 
   public PlayerTurnState getTurnState() {
     return PlayerTurnState.PENDING;
@@ -294,7 +295,7 @@ class PendingState implements IPlayerTurnState{
   }
 }
 
-class FirstTurnState implements IPlayerTurnState{
+class FirstTurnState implements IPlayerTurnState, Serializable{
 
   DatabaseFacade database = DatabaseFacade.getInstance();
   CardService cardService = CardService.getInstance();
@@ -352,7 +353,7 @@ class FirstTurnState implements IPlayerTurnState{
   }
 }
 
-class StartState implements IPlayerTurnState{
+class StartState implements IPlayerTurnState, Serializable{
 
   DatabaseFacade database = DatabaseFacade.getInstance();
   CardService cardService = CardService.getInstance();
@@ -381,6 +382,7 @@ class StartState implements IPlayerTurnState{
       player.setState(new PendingState());
     }
     database.updatePlayer(player);
+
     //end the game or tell the next player in order it is their turn
     Player nextPlayer = database.getNextPlayer(playerId,player.getGameId());
     if(nextPlayer.getPlayerState().getClass().equals(GameEnded.class)){
@@ -448,7 +450,7 @@ class StartState implements IPlayerTurnState{
 }
 
 
-class MidState implements IPlayerTurnState{
+class MidState implements IPlayerTurnState, Serializable{
 
   DatabaseFacade database = DatabaseFacade.getInstance();
   CardService cardService = CardService.getInstance();
@@ -517,7 +519,7 @@ class MidState implements IPlayerTurnState{
 
 }
 
-class GameEnded implements IPlayerTurnState{
+class GameEnded implements IPlayerTurnState, Serializable{
 
   public PlayerTurnState getTurnState() {
     return PlayerTurnState.GAME_ENDED;

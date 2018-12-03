@@ -1,6 +1,7 @@
 package com.wwttr.database;
 
 
+import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.*;
 
@@ -10,7 +11,7 @@ import java.util.stream.Stream;
 import java.util.Random;
 
 
-public class DatabaseFacade {
+public class DatabaseFacade implements Serializable {
     private ArrayList<User> Users = new ArrayList<>();
     private ArrayList<Game> Games = new ArrayList<>();
     private CommandQueue<Game> gameStream = new CommandQueue<>();
@@ -778,4 +779,7 @@ public class DatabaseFacade {
   public Stream<Route> streamRoutes() {
     return routeQueue.subscribe();
   }
+
+  //Getters and Setters
+
 }

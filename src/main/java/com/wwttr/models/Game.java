@@ -1,8 +1,9 @@
 package com.wwttr.models;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class Game{
+public class Game implements Serializable {
 
 	private String hostPlayerID;
 	private List<String> playerIDs;

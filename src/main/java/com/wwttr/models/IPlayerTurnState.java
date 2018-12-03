@@ -3,6 +3,7 @@ package com.wwttr.models;
 import com.wwttr.api.NotFoundException;
 import com.wwttr.api.FailedPreconditionException;
 
+import java.io.Serializable;
 import java.util.List;
 
 public interface IPlayerTurnState {

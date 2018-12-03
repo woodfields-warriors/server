@@ -1,6 +1,8 @@
 package com.wwttr.models;
 
-public class Route {
+import java.io.Serializable;
+
+public class Route implements Serializable {
 
   private String routeId = "";
   private String firstCityId = "";

@@ -2,7 +2,9 @@ package com.wwttr.models;
 
 import com.wwttr.game.Api;
 
-public class PlayerStats{
+import java.io.Serializable;
+
+public class PlayerStats implements Serializable {
   String playerId;
   int routePoints;
   int longestRoutePoints;

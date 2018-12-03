@@ -1,6 +1,8 @@
 package com.wwttr.models;
 
-public class DestinationCard {
+import java.io.Serializable;
+
+public class DestinationCard  implements Serializable {
   private String id;
   private String firstCityId;
   private String secondCityId;

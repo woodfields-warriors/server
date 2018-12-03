@@ -1,6 +1,8 @@
 package com.wwttr.models;
 
-public class DeckStats {
+import java.io.Serializable;
+
+public class DeckStats implements Serializable {
 
   private Integer hiddenTrainCardCount;
   private Integer hiddenDestinationCardCount;

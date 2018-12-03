@@ -1,5 +1,8 @@
 package com.wwttr.models;
-public class TrainCard {
+
+import java.io.Serializable;
+
+public class TrainCard  implements Serializable {
   private String id;
   private String gameId;
   private String playerId;

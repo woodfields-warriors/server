@@ -1,7 +1,9 @@
 package com.wwttr.models;
 
 
-public class GameAction{
+import java.io.Serializable;
+
+public class GameAction implements Serializable {
 	private String action;
 	private int timestamp;
 	private String actionId;
