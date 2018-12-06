@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 public class Route implements Serializable {
 
+  private static final long serialversionUID = 89681L;
+
   private String routeId = "";
   private String firstCityId = "";
   // Game ID that the player is a part of.

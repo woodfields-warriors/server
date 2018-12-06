@@ -5,6 +5,9 @@ import com.wwttr.game.Api;
 import java.io.Serializable;
 
 public class PlayerStats implements Serializable {
+
+  private static final long serialversionUID = 63549L;
+
   String playerId;
   int routePoints;
   int longestRoutePoints;

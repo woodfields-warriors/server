@@ -11,8 +11,14 @@ public abstract class GameDAO implements DAO {
   }
 
   @Override
-  public abstract void save(DatabaseFacade facade);
+  public void save(DatabaseFacade facade){
+
+  }
 
   @Override
-  public abstract void load(DatabaseFacade facade);
+  public void load(DatabaseFacade facade){
+
+  }
+
+  public abstract void writeToPersistance();
 }

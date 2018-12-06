@@ -12,6 +12,9 @@ import java.util.Random;
 
 
 public class DatabaseFacade implements Serializable {
+
+  private static final long serialversionUID = 76448L;
+
     private ArrayList<User> Users = new ArrayList<>();
     private ArrayList<Game> Games = new ArrayList<>();
     private CommandQueue<Game> gameStream = new CommandQueue<>();

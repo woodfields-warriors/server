@@ -3,6 +3,9 @@ package com.wwttr.models;
 import java.io.Serializable;
 
 public class DestinationCard  implements Serializable {
+
+  private static final long serialversionUID = 65256L;
+
   private String id;
   private String firstCityId;
   private String secondCityId;

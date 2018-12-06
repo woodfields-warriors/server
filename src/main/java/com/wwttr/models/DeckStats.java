@@ -4,6 +4,9 @@ import java.io.Serializable;
 
 public class DeckStats implements Serializable {
 
+
+  private static final long serialversionUID = 40564L;
+
   private Integer hiddenTrainCardCount;
   private Integer hiddenDestinationCardCount;
   private String gameId;

@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 public class Player implements Serializable {
 
+  private static final long serialversionUID = 17249L;
+
   private String playerID;
   private String userID;
   private String username;
