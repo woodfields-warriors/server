@@ -782,4 +782,127 @@ public class DatabaseFacade implements Serializable {
 
   //Getters and Setters
 
+  public ArrayList<User> getUsers() {
+    return Users;
+  }
+
+  public void setUsers(ArrayList<User> users) {
+    Users = users;
+  }
+
+  public ArrayList<Game> getGames() {
+    return Games;
+  }
+
+  public void setGames(ArrayList<Game> games) {
+    Games = games;
+  }
+
+  public CommandQueue<Game> getGameStream() {
+    return gameStream;
+  }
+
+  public void setGameStream(CommandQueue<Game> gameStream) {
+    this.gameStream = gameStream;
+  }
+
+  public ArrayList<Player> getPlayers() {
+    return players;
+  }
+
+  public void setPlayers(ArrayList<Player> players) {
+    this.players = players;
+  }
+
+  public ArrayList<Message> getMessages() {
+    return messages;
+  }
+
+  public void setMessages(ArrayList<Message> messages) {
+    this.messages = messages;
+  }
+
+  public CommandQueue<Message> getMessageQueue() {
+    return messageQueue;
+  }
+
+  public void setMessageQueue(CommandQueue<Message> messageQueue) {
+    this.messageQueue = messageQueue;
+  }
+
+  public ArrayList<GameAction> getGameActions() {
+    return gameActions;
+  }
+
+  public void setGameActions(ArrayList<GameAction> gameActions) {
+    this.gameActions = gameActions;
+  }
+
+  public CommandQueue<GameAction> getHistoryQueue() {
+    return historyQueue;
+  }
+
+  public void setHistoryQueue(CommandQueue<GameAction> historyQueue) {
+    this.historyQueue = historyQueue;
+  }
+
+  public void setDestinationCards(ArrayList<DestinationCard> destinationCards) {
+    this.destinationCards = destinationCards;
+  }
+
+  public CommandQueue<DestinationCard> getDestinationCardQueue() {
+    return destinationCardQueue;
+  }
+
+  public void setDestinationCardQueue(CommandQueue<DestinationCard> destinationCardQueue) {
+    this.destinationCardQueue = destinationCardQueue;
+  }
+
+  public void setTrainCards(ArrayList<TrainCard> trainCards) {
+    this.trainCards = trainCards;
+  }
+
+  public CommandQueue<TrainCard> getTrainCardQueue() {
+    return trainCardQueue;
+  }
+
+  public void setTrainCardQueue(CommandQueue<TrainCard> trainCardQueue) {
+    this.trainCardQueue = trainCardQueue;
+  }
+
+  public CommandQueue<DeckStats> getDeckStatsCommandQueue() {
+    return deckStatsCommandQueue;
+  }
+
+  public void setDeckStatsCommandQueue(CommandQueue<DeckStats> deckStatsCommandQueue) {
+    this.deckStatsCommandQueue = deckStatsCommandQueue;
+  }
+
+  public ArrayList<Route> getRoutes() {
+    return routes;
+  }
+
+  public void setRoutes(ArrayList<Route> routes) {
+    this.routes = routes;
+  }
+
+  public CommandQueue<Route> getRouteQueue() {
+    return routeQueue;
+  }
+
+  public void setRouteQueue(CommandQueue<Route> routeQueue) {
+    this.routeQueue = routeQueue;
+  }
+
+  public CommandQueue<PlayerStats> getPlayerStatsQueue() {
+    return playerStatsQueue;
+  }
+
+  public void setPlayerStatsQueue(CommandQueue<PlayerStats> playerStatsQueue) {
+    this.playerStatsQueue = playerStatsQueue;
+  }
+
+  public static int getStartingTrains() {
+    return startingTrains;
+  }
 }
