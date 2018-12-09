@@ -6,6 +6,7 @@ public abstract class GameDAO implements DAO {
 
   public final String connectionString;
 
+  //I just included this so I didn't have to define any constructors in the child classes
   public GameDAO(){throw new IllegalArgumentException("connectionstring must be given");}
 
   public GameDAO(String connectionString) {

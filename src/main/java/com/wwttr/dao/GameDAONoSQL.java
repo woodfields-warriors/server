@@ -38,7 +38,7 @@ public class GameDAONoSQL extends GameDAO {
   @Override
   public void saveToPersistance(DatabaseFacade facade) {
     try {
-      FileOutputStream fileOutputStream = new FileOutputStream(connectionString, true);
+      FileOutputStream fileOutputStream = new FileOutputStream(connectionString, false );
       ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
       objectOutputStream.writeObject(facade);
       objectOutputStream.close();
