@@ -18,7 +18,7 @@ public class GameDAOSQL extends GameDAO {
     try {
       Connection con = DriverManager.getConnection(connectionString);
       Statement statement = con.createStatement();
-      ResultSet result = statement.executeQuery("SELECT data FROM games where id = 1");
+      ResultSet result = statement.executeQuery("SELECT data FROM games where gameId = 1");
       ObjectInputStream objectInputStream = new ObjectInputStream(result.getBlob("data").getBinaryStream());
       DatabaseFacade toReturn = (DatabaseFacade) objectInputStream.readObject();
       result.close();
@@ -42,8 +42,10 @@ public class GameDAOSQL extends GameDAO {
   public void saveToPersistance(DatabaseFacade facade) {
     try {
       Connection con = DriverManager.getConnection(connectionString);
-      PreparedStatement statement = con.prepareStatement("UPDATE games SET data = ? where id = 1");
-      statement.setObject(1,facade);
+      PreparedStatement statement = con.prepareStatement("INSERT INTO games (gameId,data) VALUES(?,?) ON DUPLICATE KEY UPDATE games SET data = ? where gameId = 1");
+      statement.setString(1,"1");
+      statement.setObject(2,facade);
+      statement.setObject(3,facade);
       statement.executeUpdate();
       statement.close();
       con.close();
