@@ -14,7 +14,7 @@ import java.sql.Statement;
 
 public class GameDAOSQL extends GameDAO {
   @Override
-  public DatabaseFacade loadFromPersistance() {
+  public DatabaseFacade loadFromPersistence() {
     try {
       Connection con = DriverManager.getConnection(connectionString);
       Statement statement = con.createStatement();
@@ -39,7 +39,7 @@ public class GameDAOSQL extends GameDAO {
   }
 
   @Override
-  public void saveToPersistance(DatabaseFacade facade) {
+  public void saveToPersistence(DatabaseFacade facade) {
     try {
       Connection con = DriverManager.getConnection(connectionString);
       PreparedStatement statement = con.prepareStatement("INSERT INTO games (gameId,data) VALUES(?,?) ON DUPLICATE KEY UPDATE games SET data = ? where gameId = 1");
