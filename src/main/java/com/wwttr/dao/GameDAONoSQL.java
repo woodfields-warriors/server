@@ -17,7 +17,7 @@ import java.io.ObjectStreamException;
 public class GameDAONoSQL extends GameDAO {
 
   @Override
-  public DatabaseFacade loadFromPersistance() {
+  public DatabaseFacade loadFromPersistence() {
     try {
       FileInputStream fileInputStream = new FileInputStream(connectionString);
       ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
@@ -36,7 +36,7 @@ public class GameDAONoSQL extends GameDAO {
   }
 
   @Override
-  public void saveToPersistance(DatabaseFacade facade) {
+  public void saveToPersistence(DatabaseFacade facade) {
     try {
       FileOutputStream fileOutputStream = new FileOutputStream(connectionString, false );
       ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
