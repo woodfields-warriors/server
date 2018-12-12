@@ -240,7 +240,7 @@ public class DatabaseFacade implements Serializable {
       }
       return toReturn;
     }
-    
+
     //recursive depth first search.
     //cities visited are all the nodes that have been previously searched
     //current city is the node to depth first search
