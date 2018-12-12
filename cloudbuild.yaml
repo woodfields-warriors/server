@@ -1,6 +1,6 @@
 steps:
 
-- name: 'gcr.io/cloud-builders/bazel'
+- name: 'gcr.io/cloud-builders/bazel@sha256:527515d9ffd5cf445a972b72ab42fa2555216f7193d0a98b1dbb2161c5828216'
   args:
     - run
     - --define=REVISION_ID=$REVISION_ID

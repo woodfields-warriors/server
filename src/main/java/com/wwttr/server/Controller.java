@@ -17,9 +17,15 @@ class Controller implements RpcController {
   private Throwable error;
   private boolean canceled = false;
   private StreamResponder responder;
+  private String id;
 
-  public Controller(HttpExchange exchange) {
+  public Controller(HttpExchange exchange, String id) {
     this.exchange = exchange;
+    this.id = id;
+  }
+
+  public String getId() {
+    return id;
   }
 
   public HttpExchange getExchange() {
