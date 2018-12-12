@@ -91,6 +91,12 @@ public class DatabaseFacade implements Serializable {
       }
     }
 
+    public void addDelta(Request req) {
+      synchronized(this) {
+        
+      }
+    }
+
     //***********************************************************************************//
     //-------------------------------Player Methods------------------------------------
 
