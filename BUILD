@@ -72,6 +72,7 @@ java_library(
   deps = [
     "@com_google_protobuf//:protobuf_java",
     ":models",
+    ":server_lib",
     ":api_lib"
   ],
 )
