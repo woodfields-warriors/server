@@ -32,17 +32,17 @@ public class DAOFactoryRelational implements IDAOFactory{
           statement.close();
           return toReturn;
         }
-        break;
+        //break;
         //create a relational gameDao
         case "DeltaDAO": {
-          DAO toReturn = new DeltaDAOSQL(connectionString);
+          DAO toReturn = new DeltaDAOSQL(connectionString);//DeltaDAOSQL(connectionString);
           PreparedStatement statement = con.prepareStatement("CREATE TABLE IF NOT EXISTS deltas { " +
               "id SERIAL PRIMARY KEY, " +
               "command TEXT NOT NULL };");
           statement.executeUpdate();
           statement.close();
           return toReturn;
-          break;
+        //  break;
         }
 
         case "UserDAO": {
@@ -53,7 +53,7 @@ public class DAOFactoryRelational implements IDAOFactory{
           statement.executeUpdate();
           statement.close();
           return toReturn;
-          break;
+          //break;
         }
 
         default:
@@ -62,6 +62,7 @@ public class DAOFactoryRelational implements IDAOFactory{
     }
     catch (Exception e){
       e.printStackTrace();
+      return null;
     }
   }
 

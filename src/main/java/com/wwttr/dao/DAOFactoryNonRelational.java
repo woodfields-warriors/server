@@ -13,21 +13,20 @@ public class DAOFactoryNonRelational implements IDAOFactory{
       case "GameDAO": {
         DAO toReturn = new GameDAONoSQL(connectionString + "games");
         return toReturn;
-        break;
+        //break;
       }
-        //create a relational gameDao
+
       case "DeltaDAO": {
         DAO toReturn = new DeltaDAOSQL(connectionString);
         return toReturn;
-        break;
+        //break;
       }
 
       case "UserDAO": {
         DAO toReturn = new UserDAONoSQL(connectionString + "users");
         return toReturn;
-        break;
+      //  break;
       }
-
       default:
         throw new IllegalArgumentException("Only three types of daos: GameDAO, DeltaDAO, and UserDao");
     }

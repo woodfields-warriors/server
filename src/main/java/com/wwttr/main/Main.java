@@ -56,7 +56,7 @@ public class Main {
     else{
       System.out.println("Enter either 'r' or 'nr' for persistance type");
     }
-    df.DELTAMAX = Integer.parseInt(args[1]);
+    df.setStorageInterval( Integer.parseInt(args[1]));
     Server server = new Server();
 
     server.register(gameHandlers);

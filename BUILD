@@ -9,6 +9,7 @@ java_binary(
   deps = [
     ":server_lib",
     ":services",
+    ":database_lib",
     ],
   main_class = "com.wwttr.main.Main",
 )

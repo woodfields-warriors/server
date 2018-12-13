@@ -20,7 +20,7 @@ public class DatabaseFacade implements Serializable {
 
   private static final long serialversionUID = 76448L;
 
-    public int DELTAMAX;
+    private int DELTAMAX;
     private DAO gameDAO;
     private DAO userDAO;
     private DAO deltaDAO;
@@ -832,12 +832,18 @@ public class DatabaseFacade implements Serializable {
       gameDAO.load(this);
       userDAO.load(this);
       deltaDAO.load(this);
+      //TODO if deltaDao isn't empty, we need to execute the comands there
+      // then delete them from the database.
+
     }catch (Exception e){
       e.printStackTrace();
     }
 
   }
 
+  public void setStorageInterval(int interval){
+    this.DELTAMAX = interval;
+  }
 //***********************************************************************************//
   //Getters and Setters
 
