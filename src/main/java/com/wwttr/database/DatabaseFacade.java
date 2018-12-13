@@ -815,16 +815,17 @@ public class DatabaseFacade implements Serializable {
       URLClassLoader classLoader = (URLClassLoader) ClassLoader.getSystemClassLoader();
       //TODO verify correct classLoader usage
       /*
-      I think that URLClassLoader might actually have to be made like this, but I'm not sure
+      ***I think that URLClassLoader might actually have to be made like this, but I'm not sure
+      ***Currently the File and URL are not being used at all
       URL[] temp = {url};
       URLClassLoader urlClassLoader = new URLClassLoader(temp);*/
-      Class loadedClass = classLoader.loadClass(persistanceType);
+      Class loadedClass = classLoader.loadClass(persistenceType);
       Constructor constructor = loadedClass.getConstructor();
-      daoFactory = (IDAOFactory) constructor.newInstance();/*
-
-    Method method = URLClassLoader.class.getDeclaredMethod("addURL", URL.class);
-    method.setAccessible(true);
-    method.invoke(classLoader, url);*/
+      daoFactory = (IDAOFactory) constructor.newInstance();
+      /*
+      Method method = URLClassLoader.class.getDeclaredMethod("addURL", URL.class);
+      method.setAccessible(true);
+      method.invoke(classLoader, url);*/
       gameDAO = daoFactory.makeDAO("GameDAO");
       userDAO = daoFactory.makeDAO("UserDAO");
       deltaDAO= daoFactory.makeDAO("DeltaDAO");
