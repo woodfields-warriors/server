@@ -1,7 +1,5 @@
 package com.wwttr.dao;
 
-import android.provider.ContactsContract;
-
 import com.wwttr.database.DatabaseFacade;
 
 import java.io.File;
@@ -15,6 +13,10 @@ import java.io.ObjectOutputStream;
 import java.io.ObjectStreamException;
 
 public class GameDAONoSQL extends GameDAO {
+
+  public GameDAONoSQL(String connectionString) {
+    super(connectionString);
+  }
 
   @Override
   public DatabaseFacade loadFromPersistence() {
