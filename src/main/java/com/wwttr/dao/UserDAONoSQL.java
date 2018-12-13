@@ -1,7 +1,5 @@
 package com.wwttr.dao;
 
-import android.provider.ContactsContract;
-
 import com.wwttr.database.DatabaseFacade;
 
 import java.io.File;

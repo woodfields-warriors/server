@@ -274,6 +274,8 @@ java_library(
     "src/main/java/com/wwttr/database/*.java",
     ]),
   deps = [
-    ":database_lib"
+    ":database_lib",
+    ":api_lib",
+    ":models",
   ]
 )
