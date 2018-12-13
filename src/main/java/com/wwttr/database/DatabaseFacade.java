@@ -807,40 +807,26 @@ public class DatabaseFacade implements Serializable {
     else{
       daoFactory = new DAOFactoryNonRelational();
     }*/
-    try{
-      File file = new File("pathname");
+
+    try {
+      //TODO: define file path to jar packages
+      File file = new File("");
       URL url = file.toURI().toURL();
       URLClassLoader classLoader = (URLClassLoader) ClassLoader.getSystemClassLoader();
       Class loadedClass = classLoader.loadClass(persistenceType);
       Constructor constructor = loadedClass.getConstructor();
-      daoFactory = (IDAOFactory) constructor.newInstance();
-    }
-    catch(NullPointerException e){
-      System.out.println("Path name is null");
-      e.printStackTrace();
-      throw(e);
-    }
-    catch(ClassNotFoundException e){
-      System.out.println("Class not found");
-      e.printStackTrace();
-      throw(e);
-    }
-    catch(NoSuchMethodException e){
-      System.out.println("Didn't find method");
-      e.printStackTrace();
-      throw(e);
-    }
-    catch(InstantiationException e){
-      throw(e);
-    }
-    /*
+      daoFactory = (IDAOFactory) constructor.newInstance();/*
+
     Method method = URLClassLoader.class.getDeclaredMethod("addURL", URL.class);
     method.setAccessible(true);
     method.invoke(classLoader, url);*/
+      gameDAO = daoFactory.makeDAO("GameDAO");
+      userDAO = daoFactory.makeDAO("UserDAO");
+      deltaDAO= daoFactory.makeDAO("DeltaDAO");
+    }catch (Exception e){
+      e.printStackTrace();
+    }
 
-    gameDAO = daoFactory.makeDAO("GameDAO");
-    userDAO = daoFactory.makeDAO("UserDAO");
-    deltaDAO= daoFactory.makeDAO("DeltaDAO");
   }
 
 //***********************************************************************************//
@@ -987,6 +973,9 @@ public class DatabaseFacade implements Serializable {
       routes = new ArrayList<>();
       routeQueue = new CommandQueue<>();
       playerStatsQueue = new CommandQueue<>();
-      //TODO: save cleared database to persistence
+      gameDAO.save(this);
+      userDAO.save(this);
+      //TODO: Verify with Allison how clearing delatDAO will be done
+      deltaDAO.save(this);
   }
 }
