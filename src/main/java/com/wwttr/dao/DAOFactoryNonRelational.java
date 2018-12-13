@@ -28,6 +28,5 @@ public class DAOFactoryNonRelational implements IDAOFactory{
         throw new IllegalArgumentException("Only three types of daos: GameDAO, DeltaDAO, and UserDao");
     }
   }
-  }
 
 }

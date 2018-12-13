@@ -796,7 +796,7 @@ public class DatabaseFacade implements Serializable {
 //---------------------------------------------------------------------------//
 //------------------DAO-----------------------------------//
 
-  public void createDaos(String persistanceType){
+  public void createDaos(String persistenceType){
 
     //make a DAOFactory daoFactory = ?
     IDAOFactory daoFactory;
@@ -807,13 +807,33 @@ public class DatabaseFacade implements Serializable {
     else{
       daoFactory = new DAOFactoryNonRelational();
     }*/
-
-    File file = "";
-    URL url = file.toURI().toURL();
-    URLClassLoader classLoader = (URLClassLoader) ClassLoader.getSystemClassLoader();
-    Class loadedClass = classLoader.loadClass(persistanceType);
-    Constructor constructor = loadedClass.getConstructor();
-    daoFactory = (IDAOFactory) constructor.newInstance();/*
+    try{
+      File file = new File("pathname");
+      URL url = file.toURI().toURL();
+      URLClassLoader classLoader = (URLClassLoader) ClassLoader.getSystemClassLoader();
+      Class loadedClass = classLoader.loadClass(persistenceType);
+      Constructor constructor = loadedClass.getConstructor();
+      daoFactory = (IDAOFactory) constructor.newInstance();
+    }
+    catch(NullPointerException e){
+      System.out.println("Path name is null");
+      e.printStackTrace();
+      throw(e);
+    }
+    catch(ClassNotFoundException e){
+      System.out.println("Class not found");
+      e.printStackTrace();
+      throw(e);
+    }
+    catch(NoSuchMethodException e){
+      System.out.println("Didn't find method");
+      e.printStackTrace();
+      throw(e);
+    }
+    catch(InstantiationException e){
+      throw(e);
+    }
+    /*
     Method method = URLClassLoader.class.getDeclaredMethod("addURL", URL.class);
     method.setAccessible(true);
     method.invoke(classLoader, url);*/

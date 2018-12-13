@@ -33,15 +33,25 @@ public class Main {
 
     DatabaseFacade df = DatabaseFacade.getInstance();
     if(args.length() < 2){
-      System.out.println("Usage: persistance type 'r' for relational, 'nr' for nonrelational,
+      System.out.println("Usage: persistence type 'r' for relational, 'nr' for nonrelational,
                                   then number of deltas between checkpoints");
       return -1;
     }
     if (args[0].equals("r")){
-      df.createDaos("r");
+      try{
+        df.createDaos("relational");
+      }
+      catch(Exception e){
+        return;
+      }
     }
     else if(args[0].equals("nr")){
-      df.createDaos("nr");
+      try{
+        df.createDaos("nonrelational");
+      }
+      catch(Exception e){
+        return -1;
+      }
     }
     else{
       System.out.println("Enter either 'r' or 'nr' for persistance type");
