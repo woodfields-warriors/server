@@ -971,6 +971,9 @@ public class DatabaseFacade implements Serializable {
       routes = new ArrayList<>();
       routeQueue = new CommandQueue<>();
       playerStatsQueue = new CommandQueue<>();
-      //TODO: save cleared database to persistence
+      gameDAO.save(this);
+      userDAO.save(this);
+      //TODO: Verify with Allison how clearing delatDAO will be done
+      deltaDAO.save(this);
   }
 }
