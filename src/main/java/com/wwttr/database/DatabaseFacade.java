@@ -812,6 +812,11 @@ public class DatabaseFacade implements Serializable {
       File file = new File("");
       URL url = file.toURI().toURL();
       URLClassLoader classLoader = (URLClassLoader) ClassLoader.getSystemClassLoader();
+      //TODO verify correct classLoader usage
+      /*
+      I think that URLClassLoader might actually have to be made like this, but I'm not sure
+      URL[] temp = {url};
+      URLClassLoader urlClassLoader = new URLClassLoader(temp);*/
       Class loadedClass = classLoader.loadClass(persistanceType);
       Constructor constructor = loadedClass.getConstructor();
       daoFactory = (IDAOFactory) constructor.newInstance();/*
