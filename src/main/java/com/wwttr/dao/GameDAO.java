@@ -1,5 +1,6 @@
 package com.wwttr.dao;
 
+import com.wwttr.database.DAO;
 import com.wwttr.database.DatabaseFacade;
 
 public abstract class GameDAO implements DAO {
