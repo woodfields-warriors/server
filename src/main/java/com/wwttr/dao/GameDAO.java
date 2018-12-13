@@ -4,10 +4,10 @@ import com.wwttr.database.DatabaseFacade;
 
 public abstract class GameDAO implements DAO {
 
-  public final String connectionString;
+  protected final String connectionString;
 
   //I just included this so I didn't have to define any constructors in the child classes
-  public GameDAO(){throw new IllegalArgumentException("connectionstring must be given");}
+  GameDAO(){throw new IllegalArgumentException("connectionstring must be given");}
 
   public GameDAO(String connectionString) {
     this.connectionString = connectionString;
@@ -15,30 +15,30 @@ public abstract class GameDAO implements DAO {
 
   @Override
   public final void save(DatabaseFacade facade){
-    saveToPersistance(facade);
+    saveToPersistence(facade);
   }
 
   @Override
   public final void load(DatabaseFacade facade){
-    DatabaseFacade persistantFacade = loadFromPersistance();
-    facade.setGames(persistantFacade.getGames());
-    facade.setGameActions(persistantFacade.getGameActions());
-    facade.setGameStream(persistantFacade.getGameStream());
-    facade.setRoutes(persistantFacade.getRoutes());
-    facade.setRouteQueue(persistantFacade.getRouteQueue());
-    facade.setTrainCards(persistantFacade.getTrainCards());
-    facade.setTrainCardQueue(persistantFacade.getTrainCardQueue());
-    facade.setDestinationCards(persistantFacade.getDestinationCards());
-    facade.setDestinationCardQueue(persistantFacade.getDestinationCardQueue());
-    facade.setDeckStatsCommandQueue(persistantFacade.getDeckStatsCommandQueue());
-    facade.setHistoryQueue(persistantFacade.getHistoryQueue());
-    facade.setMessages(persistantFacade.getMessages());
-    facade.setMessageQueue(persistantFacade.getMessageQueue());
-    facade.setPlayers(persistantFacade.getPlayers());
-    facade.setPlayerStatsQueue(persistantFacade.getPlayerStatsQueue());
+    DatabaseFacade persistentFacade = loadFromPersistence();
+    facade.setGames(persistentFacade.getGames());
+    facade.setGameActions(persistentFacade.getGameActions());
+    facade.setGameStream(persistentFacade.getGameStream());
+    facade.setRoutes(persistentFacade.getRoutes());
+    facade.setRouteQueue(persistentFacade.getRouteQueue());
+    facade.setTrainCards(persistentFacade.getTrainCards());
+    facade.setTrainCardQueue(persistentFacade.getTrainCardQueue());
+    facade.setDestinationCards(persistentFacade.getDestinationCards());
+    facade.setDestinationCardQueue(persistentFacade.getDestinationCardQueue());
+    facade.setDeckStatsCommandQueue(persistentFacade.getDeckStatsCommandQueue());
+    facade.setHistoryQueue(persistentFacade.getHistoryQueue());
+    facade.setMessages(persistentFacade.getMessages());
+    facade.setMessageQueue(persistentFacade.getMessageQueue());
+    facade.setPlayers(persistentFacade.getPlayers());
+    facade.setPlayerStatsQueue(persistentFacade.getPlayerStatsQueue());
 
   }
 
-  public abstract DatabaseFacade loadFromPersistance();
-  public abstract void saveToPersistance(DatabaseFacade facade);
+  public abstract DatabaseFacade loadFromPersistence();
+  public abstract void saveToPersistence(DatabaseFacade facade);
 }

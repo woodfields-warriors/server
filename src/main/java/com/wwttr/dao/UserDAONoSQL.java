@@ -12,7 +12,7 @@ import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.io.ObjectStreamException;
 
-public class GameDAONoSQL extends GameDAO {
+public class UserDAONoSQL extends UserDAO {
 
   @Override
   public DatabaseFacade loadFromPersistence() {

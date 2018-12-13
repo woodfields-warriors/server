@@ -15,6 +15,7 @@ message Response {
   Code code = 1;
   bytes payload = 2;
   string message = 3;
+  string id = 4;
 }
 
 enum Code {

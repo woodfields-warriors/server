@@ -30,4 +30,14 @@ public interface ResponseOrBuilder extends
    */
   com.google.protobuf.ByteString
       getMessageBytes();
+
+  /**
+   * <code>string id = 4;</code>
+   */
+  java.lang.String getId();
+  /**
+   * <code>string id = 4;</code>
+   */
+  com.google.protobuf.ByteString
+      getIdBytes();
 }

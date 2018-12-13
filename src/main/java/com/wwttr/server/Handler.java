@@ -20,6 +20,7 @@ import java.util.HashMap;
 import java.util.Arrays;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.Random;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -44,6 +45,7 @@ class Handler implements HttpHandler {
     //   System.out.println(key + ": " + exchange.getRequestHeaders().get(key));
     // }
 
+    String requestId = System.currentTimeMillis() + String.format("%010d", (new Random()).nextInt(Integer.MAX_VALUE));
     Message request;
     MethodDescriptor method;
     Service service;
@@ -57,6 +59,7 @@ class Handler implements HttpHandler {
         response.setCode(Code.NOT_FOUND);
         System.out.println("service " + requestWrapper.getService() + " not found.");
         UnaryResponder responder = new UnaryResponder(exchange);
+        response.setId("resp_" +requestId);
         responder.respond(response.build());
         return;
       }
@@ -69,6 +72,7 @@ class Handler implements HttpHandler {
         System.out.println("method " + requestWrapper.getMethod() + " not found.");
 
         UnaryResponder responder = new UnaryResponder(exchange);
+        response.setId("resp_" +requestId);
         responder.respond(response.build());
         return;
       }
@@ -86,13 +90,14 @@ class Handler implements HttpHandler {
       response.setMessage("error parsing request");
 
       UnaryResponder responder = new UnaryResponder(exchange);
+      response.setId("resp_"+requestId);
       responder.respond(response.build());
 
       return;
     }
 
-    Controller controller = new Controller(exchange);
-
+    Controller controller = new Controller(exchange, "req_"+requestId);
+    
     RpcCallback<Message> callback;
     if (!method.toProto().getServerStreaming()) {
       callback = controller.unaryHandler();
@@ -118,7 +123,7 @@ class Handler implements HttpHandler {
       Response.Builder response = Response.newBuilder();
       response.setCode(e.getCode());
       response.setMessage(e.getMessage());
-
+      response.setId("resp_"+requestId);
       try {
         if (controller.getResponder() != null) {
           controller.getResponder().respond(response.build());
@@ -126,6 +131,7 @@ class Handler implements HttpHandler {
           return;
         }
         UnaryResponder responder = new UnaryResponder(exchange);
+        response.setId("resp_"+requestId);
         responder.respond(response.build());
       }
       catch (IOException ioE) {
@@ -144,6 +150,7 @@ class Handler implements HttpHandler {
 
       Response.Builder response = Response.newBuilder();
       response.setCode(Code.INTERNAL);
+      response.setId("resp_"+requestId);
       response.setMessage("");
 
       try {

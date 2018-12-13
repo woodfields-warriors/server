@@ -266,3 +266,16 @@ java_library(
     "@com_google_protobuf//:protobuf_java",
   ]
 )
+
+java_library(
+  name = "dao",
+  srcs = glob([
+    "src/main/java/com/wwttr/dao/*.java",
+    "src/main/java/com/wwttr/database/*.java",
+    ]),
+  deps = [
+    ":database_lib",
+    ":api_lib",
+    ":models",
+  ]
+)
