@@ -6,7 +6,6 @@ import com.wwttr.models.Message;
 import com.wwttr.api.ApiError;
 import com.wwttr.api.Code;
 import java.util.stream.*;
-import com.google.protobuf;
 
 import com.wwttr.server.Controller;
 
@@ -19,18 +18,18 @@ public class ChatHandlers extends Api.ChatService{
   }
 
   // calls addDelta method in ChatService after determining gameId
-    public void addDelta(RpcController controller, protobuf.Message request, RpcCallback<Api.Empty> callback) {
+    public void addDelta(RpcController controller, com.google.protobuf.Message request, RpcCallback<Api.Empty> callback) {
       Controller controllerWrapper = (Controller) controller;
       String id = controller.getId();
       String gameId;
-  
+
       if (request instanceof Api.CreateMessageRequest) {
         Player p = gameService.getPlayer(request.getPlayerId());
         gameId = p.getGameId();
       }
-  
+
       service.addDelta(request, id, gameId);
-  
+
       Api.Empty.Builder toReturn = Api.Empty.newBuilder();
       callback.run(toReturn.build());
     }
