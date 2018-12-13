@@ -17,13 +17,6 @@ import java.io.ObjectOutputStream;
 import java.io.ObjectStreamException;
 import java.util.Collections;
 
-public class CustomComparator {
-  public boolean compare(Object obj1, Object ob2) {
-    Delta d1 = (Delta) obj1;
-    Delta d2 = (Delta) d2;
-    return d1.getId() < d2.getId();
-  }
-}
 
 public class DeltaDAONoSQL extends DeltaDAO {
 
@@ -108,3 +101,5 @@ public class DeltaDAONoSQL extends DeltaDAO {
     }
   }
 }
+
+

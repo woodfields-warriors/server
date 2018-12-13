@@ -12,6 +12,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+
+
 public class DeltaDAOSQL extends DeltaDAO {
   @Override
   public List<Message> loadFromPersistance() {
