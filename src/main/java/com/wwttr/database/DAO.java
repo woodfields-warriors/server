@@ -1,4 +1,4 @@
-package com.wwttr.dao;
+package com.wwttr.database;
 
 import com.wwttr.database.DatabaseFacade;
 
