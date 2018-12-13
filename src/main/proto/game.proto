@@ -6,7 +6,10 @@ option java_package = "com.wwttr.game";
 option java_outer_classname = "Api";
 option java_generic_services = true;
 
+message Message {}
+
 service GameService {
+  rpc AddDelta (Message) returns (Empty);
   rpc CreateGame (CreateGameRequest) returns (CreateResponse);
   rpc LeaveGame (LeaveGameRequest) returns (Empty);
   rpc DeleteGame (DeleteGameRequest) returns (Empty);

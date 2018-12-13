@@ -15,10 +15,16 @@ import com.wwttr.models.*;
 import java.util.stream.Stream;
 import java.util.Random;
 
+import com.wwttr.server.Handler;
+
 
 public class DatabaseFacade implements Serializable {
 
-  private static final long serialversionUID = 76448L;
+  // the number of deltas to be written before storing
+  // TODO delete this, get from cmdline
+  public static final int commandStorageInterval = 10;
+
+  private static final long serialVersionUID = 76448L;
 
     private int numCommands = 0;
     private int commandStorageInterval;
@@ -99,6 +105,93 @@ public class DatabaseFacade implements Serializable {
       synchronized (this) {
         Users = new ArrayList<>();
       }
+    }
+
+    public int getCommandStorageInterval() {
+      synchronized(this) {
+        return commandStorageInterval;
+      }
+    }
+
+    public void addDelta(com.google.protobuf.Message request, String id, String gameId) {
+      synchronized(this) {
+        Delta d = new Delta(request, id, gameId);
+        // TODO create DeltaDAO with factory, tell it to write request
+      }
+    }
+
+    public String getServiceFromMessage(Message m) {
+      if (m instanceof ClaimRouteReuqest) {
+        return "route.RouteService";
+      }
+      else if (m instanceof LoginAccountRequest) {
+        return "auth.AuthService";
+      }
+      else if (m instanceof CreateMessageRequest) {
+        return "chat.ChatService";
+      }
+  
+      else if (m instanceof ClaimDestinationCardsRequest ||
+              m instanceof ClaimTrainCardRequest ||
+              m instanceof DrawTrainCardFromDeckRequest ||
+              m instanceof DrawFaceUpTrainCardRequest) {
+        return "card.CardService";
+      }
+      else  {
+        return "game.GameService";
+      }
+    }
+  
+  
+  
+    public String getMethodFromMessage(Message m) {
+      if (m instanceof ClaimRouteReuqest) {
+        return "ClaimRoute";  //route.RouteService
+      }
+      else if (m instanceof CreateGameRequest) {
+        return "CreateGame"; //game.GameService
+      }
+      else if (m instanceof LeaveGameRequest) {
+        return "LeaveGame";
+      }
+      else if (m instanceof DeleteGameRequest) {
+        return "DeleteGame";
+      }
+      else if (m instanceof StartGameRequest) {
+        return "StartGame";
+      }
+      else if (m instanceof CreatePlayerRequest) {
+        return "CreatePlayer";
+      }
+      else if (m instanceof CreateMessageRequest) {
+        return "createMessage"; //chat.ChatService
+      }
+      else if (m instanceof ClaimDestinationCardsRequest) {
+        return "ClaimDestinationCards"; //card.CardService
+      }
+      else if (m instanceof ClaimTrainCardRequest) {
+        return "ClaimTrainCard";
+      }
+      else if (m instanceof DrawTrainCardFromDeckRequest) {
+        return "DrawTrainCardFromDeck";
+      }
+      else if (m instanceof DrawFaceUpTrainCardRequest) {
+        return "DrawFaceUpTrainCard";
+      }
+      else if (m instanceof LoginAccountRequest) {
+        return "Register"; //auth.AuthService
+      }
+      else {
+        return "NULL";
+      }
+    }
+
+    public void execute(Message request) {
+      String methodName = getMethodFromMessage(request);
+      String serviceName = getServiceFromMessage(request);
+      Handler handler = Handler.getInstance();
+      handler.handleFromStrings(request, methodName, serviceName);
+      
     }
 
     //***********************************************************************************//

@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 public class GameAction implements Serializable {
 
-	private static final long serialversionUID = 80535L;
+	private static final long serialVersionUID = 80535L;
 
 	private String action;
 	private int timestamp;
