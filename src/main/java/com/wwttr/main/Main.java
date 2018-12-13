@@ -32,14 +32,14 @@ public class Main {
     HealthHandlers healthHandlers = new HealthHandlers();
 
     DatabaseFacade df = DatabaseFacade.getInstance();
-    if(args.length() < 2){
-      System.out.println("Usage: persistence type 'r' for relational, 'nr' for nonrelational,
-                                  then number of deltas between checkpoints");
-      return -1;
+    if(args.length < 2){
+      System.out.println("Usage: persistence type 'r' for relational, 'nr' for nonrelational, " +
+                          "then number of deltas between checkpoints");
+      return;
     }
     if (args[0].equals("r")){
       try{
-        df.createDaos("relational");
+        df.createDaos("DAOFactoryRelational");
       }
       catch(Exception e){
         return;
@@ -47,10 +47,10 @@ public class Main {
     }
     else if(args[0].equals("nr")){
       try{
-        df.createDaos("nonrelational");
+        df.createDaos("DAOFactoryNonRelational");
       }
       catch(Exception e){
-        return -1;
+        return;
       }
     }
     else{
