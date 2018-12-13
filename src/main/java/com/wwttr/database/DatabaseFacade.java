@@ -1,8 +1,13 @@
 package com.wwttr.database;
 
 
+import java.io.File;
 import java.io.Serializable;
 import java.lang.reflect.Array;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
+import java.net.URL;
+import java.net.URLClassLoader;
 import java.util.*;
 
 import com.wwttr.api.NotFoundException;
@@ -16,9 +21,9 @@ public class DatabaseFacade implements Serializable {
   private static final long serialversionUID = 76448L;
 
     public int DELTAMAX;
-    private GameDAO gameDAO;
-    private UserDAO userDAO;
-    private DeltaDAO deltaDAO;
+    private DAO gameDAO;
+    private DAO userDAO;
+    private DAO deltaDAO;
     private ArrayList<User> Users = new ArrayList<>();
     private ArrayList<Game> Games = new ArrayList<>();
     private CommandQueue<Game> gameStream = new CommandQueue<>();
@@ -794,20 +799,24 @@ public class DatabaseFacade implements Serializable {
   public void createDaos(String persistanceType){
 
     //make a DAOFactory daoFactory = ?
+    IDAOFactory daoFactory;
 
-    if (persistanceType.equals("r")){
+    /*if (persistanceType.equals("r")){
       daoFactory = new DAOFactoryRelational();
     }
     else{
       daoFactory = new DAOFactoryNonRelational();
-    }
+    }*/
 
     File file = "";
-    URL url = file.toURI().toURIL();
+    URL url = file.toURI().toURL();
     URLClassLoader classLoader = (URLClassLoader) ClassLoader.getSystemClassLoader();
+    Class loadedClass = classLoader.loadClass(persistanceType);
+    Constructor constructor = loadedClass.getConstructor();
+    daoFactory = (IDAOFactory) constructor.newInstance();/*
     Method method = URLClassLoader.class.getDeclaredMethod("addURL", URL.class);
     method.setAccessible(true);
-    method.invoke(classLoader, url);
+    method.invoke(classLoader, url);*/
 
     gameDAO = daoFactory.makeDAO("GameDAO");
     userDAO = daoFactory.makeDAO("UserDAO");
@@ -939,5 +948,25 @@ public class DatabaseFacade implements Serializable {
 
   public static int getStartingTrains() {
     return startingTrains;
+  }
+
+  public void clear(){
+      Users = new ArrayList<>();
+      Games = new ArrayList<>();
+      gameStream = new CommandQueue<>();
+      players = new ArrayList<>();
+      messages = new ArrayList<>();
+      messageQueue = new CommandQueue<>();
+      gameActions = new ArrayList<>();
+      historyQueue = new CommandQueue<>();
+      destinationCards = new ArrayList<>();
+      destinationCardQueue = new CommandQueue<>();
+      trainCards = new ArrayList<>();
+      trainCardQueue = new CommandQueue<>();
+      deckStatsCommandQueue = new CommandQueue<>();
+      routes = new ArrayList<>();
+      routeQueue = new CommandQueue<>();
+      playerStatsQueue = new CommandQueue<>();
+      //TODO: save cleared database to persistence
   }
 }
