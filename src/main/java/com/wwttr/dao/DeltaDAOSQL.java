@@ -44,18 +44,20 @@ public class DeltaDAOSQL extends DeltaDAO {
       Connection con = DriverManager.getConnection(connectionString);
 
       GameDAO gameDAO = GameDAO();
-      DatabaseFacade persistantFacade = gameDAO.loadFromPersistance();
+      //DatabaseFacade persistantFacade = gameDAO.loadFromPersistance();
+      DatabaseFacade df = DatabaseFacade.getInstance();
   
       Message request = d.getRequest();
       String id = d.getId();
       String gameId = g.getGameId();
   
-      int storageInterval = persistantFacade.getCommandStorageInterval();
+      int storageInterval = df.getCommandStorageInterval();
 
       DeltaDAO deltaDAO = DeltaDAO(this.connectionString + "/" + gameId);
-      TreeMap<String, Message> queue = deltaDAO.loadFromPersistance();
-      queue.put(id, request);
-  
+      List<Delta> queue = deltaDAO.loadFromPersistance();
+      queue.add(d);
+      Collections.sort(queue, new CustomComparator());
+
       if (queue.size() == storageInterval) {
         deltaDAO.clear();
         /*for (Map.Entry<String,Message> : queue.entrySet()) {
@@ -64,14 +66,15 @@ public class DeltaDAOSQL extends DeltaDAO {
           execute(msg);
         }
         }*/
-        gameDAO.save(persistantFacade);
+        gameDAO.save(df);
       }
-
       PreparedStatement statement = con.prepareStatement("UPDATE delta SET data = ? where id = 1");
       statement.setObject(1,queue);
       statement.executeUpdate();
       statement.close();
       con.close();
+
+      
     }
     catch (SQLException e){
       throw new IllegalArgumentException("SQL read exception");

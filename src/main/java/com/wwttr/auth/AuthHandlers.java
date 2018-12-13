@@ -8,6 +8,7 @@ import com.wwttr.models.LoginResponse;
 import com.wwttr.api.Code;
 import com.wwttr.api.ApiError;
 //import com.wwttr.api.InvalidArgumentException;
+import com.google.protobuf.Message;
 
 
 public class AuthHandlers extends Api.AuthService {

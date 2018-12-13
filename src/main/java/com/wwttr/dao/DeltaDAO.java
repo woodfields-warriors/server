@@ -43,7 +43,7 @@ public abstract class DeltaDAO implements DAO {
 
   @Override
   public final void load(DatabaseFacade facade){
-    List<Message> requests = loadFromPersistance();
+    List<Delta> requests = loadFromPersistance();
   }
 
 

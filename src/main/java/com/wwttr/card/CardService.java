@@ -7,6 +7,8 @@ import com.wwttr.game.GameService;
 import com.wwttr.models.*;
 import com.wwttr.api.Code;
 
+import com.google.protobuf.Message;
+
 //import org.omg.CosNaming.NamingContextPackage.NotFound;
 
 import java.util.ArrayList;

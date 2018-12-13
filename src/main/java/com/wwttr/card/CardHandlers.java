@@ -17,6 +17,8 @@ import com.wwttr.models.TrainCard;
 import java.util.List;
 import java.util.stream.Stream;
 
+import com.google.protobuf.Message;
+
 public class CardHandlers extends Api.CardService {
 
   private CardService service;
@@ -108,7 +110,6 @@ public class CardHandlers extends Api.CardService {
         throw new ApiError(Code.INVALID_ARGUMENT, "argument 'destination_card_ids' is required");
       if(request.getPlayerId().equals(""))
         throw new ApiError(Code.INVALID_ARGUMENT, "argument 'player_id' is required");
-      gameService.addDelta((Controller)controller, request);
       gameService.drawDestinationCards(request.getPlayerId(),request.getDestinationCardIdsList());
     }
     catch (NotFoundException e) {

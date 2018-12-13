@@ -12,6 +12,7 @@ import com.wwttr.models.Player;
 import com.wwttr.models.Route;
 import com.wwttr.game.GameService;
 import com.wwttr.api.FailedPreconditionException;
+import com.google.protobuf.Message;
 
 public class RouteHandlers extends Api.RouteService {
 

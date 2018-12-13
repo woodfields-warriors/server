@@ -9,12 +9,16 @@ option java_outer_classname = "Api";
 option java_generic_services = true;
 
 service RouteService {
-  rpc AddDelta (message) returns (Empty);
+  rpc AddDelta (Message) returns (Empty);
   // rpc GetRoute (GetRouteRequest) returns (Route);
   rpc ClaimRoute (ClaimRouteRequest) returns (ClaimRouteResponse);
   rpc StreamRoutes (StreamRoutesRequest) returns (stream Route);
   
 }
+
+message Empty {}
+
+message Message {}
 
 message Route {
   string id = 1;

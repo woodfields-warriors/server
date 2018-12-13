@@ -13,7 +13,9 @@ import com.google.protobuf.RpcCallback;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
+import com.sun.net.httpserver.HttpPrincipal;
 import com.sun.net.httpserver.Headers;
+import com.sun.net.httpserver.HttpContext;
 
 import java.util.Map;
 import java.util.HashMap;
@@ -25,6 +27,8 @@ import java.util.Random;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.InetSocketAddress;
+import java.net.URI;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
@@ -38,7 +42,7 @@ class Handler implements HttpHandler {
 
   }
 
-  public init(Map<String, Service> services) {
+  public void init(Map<String, Service> services) {
     this.services = services;
   }
 
@@ -87,15 +91,108 @@ class Handler implements HttpHandler {
     }
   }
 
-  public void handleFromStrings(Message request, String methodName, String serviceName) throws IOException {
+  public void handleFromStrings(Message request, String requestId, String methodName, String serviceName) throws IOException {
     MethodDescriptor method;
     Service service;
+
+    // specifies whether a request should be saved as a persistant delta
+    boolean shouldSave = false;
+
+
+    HttpExchange exchange = new HttpExchange(){
+    
+      @Override
+      public void setStreams(InputStream arg0, OutputStream arg1) {
+        
+      }
+    
+      @Override
+      public void setAttribute(String arg0, Object arg1) {
+        
+      }
+    
+      @Override
+      public void sendResponseHeaders(int arg0, long arg1) throws IOException {
+        
+      }
+    
+      @Override
+      public Headers getResponseHeaders() {
+        return null;
+      }
+    
+      @Override
+      public int getResponseCode() {
+        return 0;
+      }
+    
+      @Override
+      public OutputStream getResponseBody() {
+        return null;
+      }
+    
+      @Override
+      public URI getRequestURI() {
+        return null;
+      }
+    
+      @Override
+      public String getRequestMethod() {
+        return null;
+      }
+    
+      @Override
+      public Headers getRequestHeaders() {
+        return null;
+      }
+    
+      @Override
+      public InputStream getRequestBody() {
+        return null;
+      }
+    
+      @Override
+      public InetSocketAddress getRemoteAddress() {
+        return null;
+      }
+    
+      @Override
+      public String getProtocol() {
+        return null;
+      }
+    
+      @Override
+      public HttpPrincipal getPrincipal() {
+        return null;
+      }
+    
+      @Override
+      public InetSocketAddress getLocalAddress() {
+        return null;
+      }
+    
+      @Override
+      public HttpContext getHttpContext() {
+        return null;
+      }
+    
+      @Override
+      public Object getAttribute(String arg0) {
+        return null;
+      }
+    
+      @Override
+      public void close() {
+        
+      }
+    };
+
     try {
       service = services.get(serviceName);
       if (service == null) {
         Response.Builder response = Response.newBuilder();
         response.setCode(Code.NOT_FOUND);
-        System.out.println("service " + requestWrapper.getService() + " not found.");
+        System.out.println("service " + serviceName + " not found.");
         UnaryResponder responder = new UnaryResponder(exchange);
         response.setId("resp_" +requestId);
         responder.respond(response.build());
@@ -107,7 +204,7 @@ class Handler implements HttpHandler {
       if (method == null) {
         Response.Builder response = Response.newBuilder();
         response.setCode(Code.NOT_FOUND);
-        System.out.println("method " + requestWrapper.getMethod() + " not found.");
+        System.out.println("method " + methodName + " not found.");
 
         UnaryResponder responder = new UnaryResponder(exchange);
         response.setId("resp_" +requestId);
@@ -130,7 +227,7 @@ class Handler implements HttpHandler {
       return;
     }
 
-    HttpExchange exchange = new HttpExchange();
+    //HttpExchange exchange = new HttpExchange();
     Controller controller = new Controller(exchange, "req_"+requestId);
     
     RpcCallback<Message> callback;
@@ -154,7 +251,7 @@ class Handler implements HttpHandler {
                                             .findMethodByName("AddDelta");
         gameService.callMethod(addDeltaMethod, controller, request, callback);
       }
-      catch(Exception e) {
+      catch(ApiError e) {
         if (controller.isCanceled()) {
           return;
         }
@@ -327,7 +424,7 @@ class Handler implements HttpHandler {
                                             .findMethodByName("AddDelta");
         gameService.callMethod(addDeltaMethod, controller, request, callback);
       }
-      catch(Exception e) {
+      catch(ApiError e) {
         if (controller.isCanceled()) {
           return;
         }
