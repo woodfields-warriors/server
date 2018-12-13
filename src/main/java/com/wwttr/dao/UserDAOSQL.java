@@ -13,6 +13,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class UserDAOSQL extends UserDAO {
+
+  public UserDAOSQL(String connectionString) {
+    super(connectionString);
+  }
+
   @Override
   public DatabaseFacade loadFromPersistence() {
     try {

@@ -12,6 +12,7 @@ import com.wwttr.health.HealthHandlers;
 import com.wwttr.server.Server;
 import com.wwttr.route.RouteHandlers;
 import com.wwttr.route.RouteService;
+import com.wwttr.database.DatabaseFacade;
 
 import java.io.IOException;
 
@@ -30,6 +31,32 @@ public class Main {
     RouteHandlers routeHandlers = new RouteHandlers(routeService);
     HealthHandlers healthHandlers = new HealthHandlers();
 
+    DatabaseFacade df = DatabaseFacade.getInstance();
+    if(args.length < 2){
+      System.out.println("Usage: persistence type 'r' for relational, 'nr' for nonrelational, " +
+                          "then number of deltas between checkpoints");
+      return;
+    }
+    if (args[0].equals("r")){
+      try{
+        df.createDaos("DAOFactoryRelational");
+      }
+      catch(Exception e){
+        return;
+      }
+    }
+    else if(args[0].equals("nr")){
+      try{
+        df.createDaos("DAOFactoryNonRelational");
+      }
+      catch(Exception e){
+        return;
+      }
+    }
+    else{
+      System.out.println("Enter either 'r' or 'nr' for persistance type");
+    }
+    df.setStorageInterval( Integer.parseInt(args[1]));
     Server server = new Server();
 
     server.register(gameHandlers);

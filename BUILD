@@ -9,6 +9,7 @@ java_binary(
   deps = [
     ":server_lib",
     ":services",
+    ":database_lib",
     ],
   main_class = "com.wwttr.main.Main",
 )
@@ -272,5 +273,10 @@ java_library(
   srcs = glob([
     "src/main/java/com/wwttr/dao/*.java",
     "src/main/java/com/wwttr/database/*.java",
-    ])
+    ]),
+  deps = [
+    ":database_lib",
+    ":api_lib",
+    ":models",
+  ]
 )

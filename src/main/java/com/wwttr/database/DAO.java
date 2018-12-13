@@ -1,6 +1,4 @@
-package com.wwttr.dao;
-
-import android.provider.ContactsContract;
+package com.wwttr.database;
 
 import com.wwttr.database.DatabaseFacade;
 
