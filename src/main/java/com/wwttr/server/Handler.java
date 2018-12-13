@@ -243,43 +243,43 @@ class Handler implements HttpHandler {
       }
     }
 
-    if (shouldSave) {
-      try {
-        Service gameService = services.get("game.GameService");
-        MethodDescriptor addDeltaMethod = gameService
-                                            .getDescriptorForType()
-                                            .findMethodByName("AddDelta");
-        gameService.callMethod(addDeltaMethod, controller, request, callback);
-      }
-      catch(ApiError e) {
-        if (controller.isCanceled()) {
-          return;
-        }
-        controller.startCancel();
-        // Error with method execution
-        Response.Builder response = Response.newBuilder();
-        response.setCode(e.getCode());
-        response.setMessage("DELTA ERROR: " + e.getMessage());
-        response.setId("resp_"+requestId);
-        try {
-          if (controller.getResponder() != null) {
-            controller.getResponder().respond(response.build());
-            controller.getResponder().close();
-            return;
-          }
-          UnaryResponder responder = new UnaryResponder(exchange);
-          response.setId("resp_"+requestId);
-          responder.respond(response.build());
-        }
-        catch (IOException ioE) {
-          ioE.printStackTrace();
-        }
-        return;
-      }
-    }
-
     try {
       service.callMethod(method, controller, request, callback);
+
+      if (shouldSave) {
+        try {
+          Service gameService = services.get("game.GameService");
+          MethodDescriptor addDeltaMethod = gameService
+                                              .getDescriptorForType()
+                                              .findMethodByName("AddDelta");
+          gameService.callMethod(addDeltaMethod, controller, request, callback);
+        }
+        catch(ApiError e) {
+          if (controller.isCanceled()) {
+            return;
+          }
+          controller.startCancel();
+          // Error with method execution
+          Response.Builder response = Response.newBuilder();
+          response.setCode(e.getCode());
+          response.setMessage("DELTA ERROR: " + e.getMessage());
+          response.setId("resp_"+requestId);
+          try {
+            if (controller.getResponder() != null) {
+              controller.getResponder().respond(response.build());
+              controller.getResponder().close();
+              return;
+            }
+            UnaryResponder responder = new UnaryResponder(exchange);
+            response.setId("resp_"+requestId);
+            responder.respond(response.build());
+          }
+          catch (IOException ioE) {
+            ioE.printStackTrace();
+          }
+          return;
+        }
+      }
     }
     catch (ApiError e) {
       if (controller.isCanceled()) {
@@ -416,43 +416,43 @@ class Handler implements HttpHandler {
       }
     }
 
-    if (shouldSave) {
-      try {
-        Service gameService = services.get("game.GameService");
-        MethodDescriptor addDeltaMethod = gameService
-                                            .getDescriptorForType()
-                                            .findMethodByName("AddDelta");
-        gameService.callMethod(addDeltaMethod, controller, request, callback);
-      }
-      catch(ApiError e) {
-        if (controller.isCanceled()) {
-          return;
-        }
-        controller.startCancel();
-        // Error with method execution
-        Response.Builder response = Response.newBuilder();
-        response.setCode(e.getCode());
-        response.setMessage("DELTA ERROR: " + e.getMessage());
-        response.setId("resp_"+requestId);
-        try {
-          if (controller.getResponder() != null) {
-            controller.getResponder().respond(response.build());
-            controller.getResponder().close();
-            return;
-          }
-          UnaryResponder responder = new UnaryResponder(exchange);
-          response.setId("resp_"+requestId);
-          responder.respond(response.build());
-        }
-        catch (IOException ioE) {
-          ioE.printStackTrace();
-        }
-        return;
-      }
-    }
-
     try {
       service.callMethod(method, controller, request, callback);
+
+      if (shouldSave) {
+        try {
+          Service gameService = services.get("game.GameService");
+          MethodDescriptor addDeltaMethod = gameService
+                                              .getDescriptorForType()
+                                              .findMethodByName("AddDelta");
+          gameService.callMethod(addDeltaMethod, controller, request, callback);
+        }
+        catch(ApiError e) {
+          if (controller.isCanceled()) {
+            return;
+          }
+          controller.startCancel();
+          // Error with method execution
+          Response.Builder response = Response.newBuilder();
+          response.setCode(e.getCode());
+          response.setMessage("DELTA ERROR: " + e.getMessage());
+          response.setId("resp_"+requestId);
+          try {
+            if (controller.getResponder() != null) {
+              controller.getResponder().respond(response.build());
+              controller.getResponder().close();
+              return;
+            }
+            UnaryResponder responder = new UnaryResponder(exchange);
+            response.setId("resp_"+requestId);
+            responder.respond(response.build());
+          }
+          catch (IOException ioE) {
+            ioE.printStackTrace();
+          }
+          return;
+        }
+      }
     }
     catch (ApiError e) {
       if (controller.isCanceled()) {

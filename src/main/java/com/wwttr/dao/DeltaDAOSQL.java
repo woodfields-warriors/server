@@ -62,12 +62,11 @@ public class DeltaDAOSQL extends DeltaDAO {
 
       if (queue.size() == storageInterval) {
         deltaDAO.clear();
-        /*for (Map.Entry<String,Message> : queue.entrySet()) {
-          String id = entry.getKey();
-          Message msg = entry.getValue();
-          execute(msg);
-        }
-        }*/
+        /*for (Delta delt : queue) {
+            Message msg = delt.getRequest();
+            df.execute(msg)
+          } */
+
         gameDAO.save(df);
       }
       PreparedStatement statement = con.prepareStatement("UPDATE delta SET data = ? where id = 1");
