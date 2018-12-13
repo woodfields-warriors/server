@@ -4,6 +4,7 @@ import android.provider.ContactsContract;
 
 import com.wwttr.database.DatabaseFacade;
 import com.wwttr.models.Game;
+import com.wwttr.models.Delta;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -14,15 +15,16 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.io.ObjectStreamException;
+import java.util.Collections;
 
 public class DeltaDAONoSQL extends DeltaDAO {
 
   @Override
-  public List<Object> loadFromPersistance() {
+  public TreeMap<String, Message> loadFromPersistance() {
     try {
       FileInputStream fileInputStream = new FileInputStream(connectionString);
       ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
-      return (List<Request>) objectInputStream.readObject();
+      return (TreeMap<String, Message>) objectInputStream.readObject();
     }
     catch (FileNotFoundException e){
       throw new IllegalArgumentException("File not found");
@@ -36,22 +38,6 @@ public class DeltaDAONoSQL extends DeltaDAO {
 
   }
 
-  @Override
-  public void saveToPersistance(List<Object> queue) {
-    try {
-      FileOutputStream fileOutputStream = new FileOutputStream(connectionString, false );
-      ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
-      objectOutputStream.writeObject(queue);
-      objectOutputStream.close();
-      fileOutputStream.close();
-    }
-    catch (FileNotFoundException e){
-      throw new IllegalArgumentException("File not found");
-    }
-    catch (IOException e){
-      throw new IllegalArgumentException("IOException");
-    }
-  }
 
   @Override
   public void clear() {
@@ -68,20 +54,47 @@ public class DeltaDAONoSQL extends DeltaDAO {
   }
 
   @Override
-  public void addCommandForGame(Message request, String id, Game game) {
-    String gameId = game.getGameID();
+  public void addCommandForGame(Delta d) {
+    // TODO generate real gamedao
+    GameDAO gameDAO = GameDAO();
+    DatabaseFacade persistantFacade = gameDAO.loadFromPersistance();
 
-    /* assuming the file names will be the gameids - create
-     deltadao with gameid as connectionstring */
-    DeltaDAO dd = DeltaDAO(gameId);
-    List<Request> queue = dd.loadFromPersistance();
-    queue.add(req);
+    Message request = d.getRequest();
+    String id = d.getId();
+    String gameId = g.getGameId();
 
-    if (queue.size() == this.storageInterval) {
-      dd.clear();
-      // TODO generate real gamedao
-      GameDAO gd = GameDAO();
-      
+    int storageInterval = persistantFacade.getCommandStorageInterval();
+
+    /* assuming the file names will be the gameids and the connnectionString
+        in the constructor is the directory  */
+    DeltaDAO deltaDAO = DeltaDAO(this.connectionString + "/" + gameId);
+    TreeMap<String, Message> queue = deltaDAO.loadFromPersistance();
+    queue.put(id, request);
+
+    if (queue.size() == storageInterval) {
+      deltaDAO.clear();
+      /*for (Map.Entry<String,Message> : queue.entrySet()) {
+        String id = entry.getKey();
+        Message msg = entry.getValue();
+        execute(msg);
+      }
+      }*/
+      gameDAO.save(persistantFacade);
+    }
+    else {
+      try {
+        FileOutputStream fileOutputStream = new FileOutputStream(connectionString, false );
+        ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+        objectOutputStream.writeObject(queue);
+        objectOutputStream.close();
+        fileOutputStream.close();
+      }
+      catch (FileNotFoundException e){
+        throw new IllegalArgumentException("File not found");
+      }
+      catch (IOException e){
+        throw new IllegalArgumentException("IOException");
+      }
     }
   }
 }

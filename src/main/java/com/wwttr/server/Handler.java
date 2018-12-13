@@ -32,9 +32,21 @@ import java.nio.ByteOrder;
 class Handler implements HttpHandler {
 
   private Map<String, Service> services;
+  private static Handler instance;
 
-  public Handler(Map<String, Service> services) {
+  public Handler() {
+
+  }
+
+  public init(Map<String, Service> services) {
     this.services = services;
+  }
+
+  public static Handler getInstance() {
+    if( instance == null){
+      instance = new Handler();
+    }
+    return instance;
   }
 
   // determines whether a request should be saved as a persistant
@@ -75,7 +87,159 @@ class Handler implements HttpHandler {
     }
   }
 
-  @Overrid
+  public void handleFromStrings(Message request, String methodName, String serviceName) throws IOException {
+    MethodDescriptor method;
+    Service service;
+    try {
+      service = services.get(serviceName);
+      if (service == null) {
+        Response.Builder response = Response.newBuilder();
+        response.setCode(Code.NOT_FOUND);
+        System.out.println("service " + requestWrapper.getService() + " not found.");
+        UnaryResponder responder = new UnaryResponder(exchange);
+        response.setId("resp_" +requestId);
+        responder.respond(response.build());
+        return;
+      }
+      method = service
+        .getDescriptorForType()
+        .findMethodByName(methodName);
+      if (method == null) {
+        Response.Builder response = Response.newBuilder();
+        response.setCode(Code.NOT_FOUND);
+        System.out.println("method " + requestWrapper.getMethod() + " not found.");
+
+        UnaryResponder responder = new UnaryResponder(exchange);
+        response.setId("resp_" +requestId);
+        responder.respond(response.build());
+        return;
+      }
+      shouldSave = shouldSave(methodName); 
+    }
+    catch (Exception e) {
+      // Error with request deserialization
+      e.printStackTrace();
+      Response.Builder response = Response.newBuilder();
+      response.setCode(Code.INVALID_ARGUMENT);
+      response.setMessage("error parsing request");
+
+      UnaryResponder responder = new UnaryResponder(exchange);
+      response.setId("resp_"+requestId);
+      responder.respond(response.build());
+
+      return;
+    }
+
+    HttpExchange exchange = new HttpExchange();
+    Controller controller = new Controller(exchange, "req_"+requestId);
+    
+    RpcCallback<Message> callback;
+    if (!method.toProto().getServerStreaming()) {
+      callback = controller.unaryHandler();
+    } else {
+      try {
+        callback = controller.streamHandler();
+      }
+      catch (IOException e) {
+        e.printStackTrace();
+        return;
+      }
+    }
+
+    if (shouldSave) {
+      try {
+        Service gameService = services.get("game.GameService");
+        MethodDescriptor addDeltaMethod = gameService
+                                            .getDescriptorForType()
+                                            .findMethodByName("AddDelta");
+        gameService.callMethod(addDeltaMethod, controller, request, callback);
+      }
+      catch(Exception e) {
+        if (controller.isCanceled()) {
+          return;
+        }
+        controller.startCancel();
+        // Error with method execution
+        Response.Builder response = Response.newBuilder();
+        response.setCode(e.getCode());
+        response.setMessage("DELTA ERROR: " + e.getMessage());
+        response.setId("resp_"+requestId);
+        try {
+          if (controller.getResponder() != null) {
+            controller.getResponder().respond(response.build());
+            controller.getResponder().close();
+            return;
+          }
+          UnaryResponder responder = new UnaryResponder(exchange);
+          response.setId("resp_"+requestId);
+          responder.respond(response.build());
+        }
+        catch (IOException ioE) {
+          ioE.printStackTrace();
+        }
+        return;
+      }
+    }
+
+    try {
+      service.callMethod(method, controller, request, callback);
+    }
+    catch (ApiError e) {
+      if (controller.isCanceled()) {
+        return;
+      }
+      controller.startCancel();
+      // Error with method execution
+      Response.Builder response = Response.newBuilder();
+      response.setCode(e.getCode());
+      response.setMessage(e.getMessage());
+      response.setId("resp_"+requestId);
+      try {
+        if (controller.getResponder() != null) {
+          controller.getResponder().respond(response.build());
+          controller.getResponder().close();
+          return;
+        }
+        UnaryResponder responder = new UnaryResponder(exchange);
+        response.setId("resp_"+requestId);
+        responder.respond(response.build());
+      }
+      catch (IOException ioE) {
+        ioE.printStackTrace();
+      }
+      return;
+    }
+    catch (Throwable t) {
+      if (controller.isCanceled()) {
+        return;
+      }
+      controller.startCancel();
+      // Error with method execution
+      System.out.println(service.getDescriptorForType().getName() + "." + method.getName() + ":");
+      t.printStackTrace();
+
+      Response.Builder response = Response.newBuilder();
+      response.setCode(Code.INTERNAL);
+      response.setId("resp_"+requestId);
+      response.setMessage("");
+
+      try {
+        if (controller.getResponder() != null) {
+          controller.getResponder().respond(response.build());
+          controller.getResponder().close();
+          return;
+        }
+        UnaryResponder responder = new UnaryResponder(exchange);
+        responder.respond(response.build());
+      }
+      catch (IOException e) {
+        e.printStackTrace();
+      }
+      return;
+    }
+  }
+
+  @Override
   public void handle(HttpExchange exchange) throws IOException {
 
     // System.out.println(exchange.getRequestURI().getRawPath() + " " + exchange.getRequestMethod());
@@ -155,43 +319,43 @@ class Handler implements HttpHandler {
       }
     }
 
-    try {
-      service.callMethod(method, controller, request, callback);
-
-      if (shouldSave) {
-        try {
-          Service gameService = services.get("game.GameService");
-          MethodDescriptor addDeltaMethod = gameService
-                                              .getDescriptorForType()
-                                              .findMethodByName("AddDelta");
-          gameService.callMethod(addDeltaMethod, controller, request, callback);
-        }
-        catch(Exception e) {
-          if (controller.isCanceled()) {
-            return;
-          }
-          controller.startCancel();
-          // Error with method execution
-          Response.Builder response = Response.newBuilder();
-          response.setCode(e.getCode());
-          response.setMessage("DELTA ERROR: " + e.getMessage());
-          response.setId("resp_"+requestId);
-          try {
-            if (controller.getResponder() != null) {
-              controller.getResponder().respond(response.build());
-              controller.getResponder().close();
-              return;
-            }
-            UnaryResponder responder = new UnaryResponder(exchange);
-            response.setId("resp_"+requestId);
-            responder.respond(response.build());
-          }
-          catch (IOException ioE) {
-            ioE.printStackTrace();
-          }
+    if (shouldSave) {
+      try {
+        Service gameService = services.get("game.GameService");
+        MethodDescriptor addDeltaMethod = gameService
+                                            .getDescriptorForType()
+                                            .findMethodByName("AddDelta");
+        gameService.callMethod(addDeltaMethod, controller, request, callback);
+      }
+      catch(Exception e) {
+        if (controller.isCanceled()) {
           return;
         }
+        controller.startCancel();
+        // Error with method execution
+        Response.Builder response = Response.newBuilder();
+        response.setCode(e.getCode());
+        response.setMessage("DELTA ERROR: " + e.getMessage());
+        response.setId("resp_"+requestId);
+        try {
+          if (controller.getResponder() != null) {
+            controller.getResponder().respond(response.build());
+            controller.getResponder().close();
+            return;
+          }
+          UnaryResponder responder = new UnaryResponder(exchange);
+          response.setId("resp_"+requestId);
+          responder.respond(response.build());
+        }
+        catch (IOException ioE) {
+          ioE.printStackTrace();
+        }
+        return;
       }
+    }
+
+    try {
+      service.callMethod(method, controller, request, callback);
     }
     catch (ApiError e) {
       if (controller.isCanceled()) {

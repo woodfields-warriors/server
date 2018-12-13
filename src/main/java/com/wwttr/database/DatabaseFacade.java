@@ -101,9 +101,9 @@ public class DatabaseFacade implements Serializable {
       }
     }
 
-    public void addDelta(Message request, String id, String gameId) {
+    public void addDelta(com.google.protobuf.Message request, String id, String gameId) {
       synchronized(this) {
-        
+        Delta d = new Delta(request, id, gameId);
         // TODO create DeltaDAO with factory, tell it to write request
       }
     }
