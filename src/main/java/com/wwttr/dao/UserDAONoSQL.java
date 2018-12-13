@@ -14,6 +14,10 @@ import java.io.ObjectStreamException;
 
 public class UserDAONoSQL extends UserDAO {
 
+  public UserDAONoSQL(String connectionString) {
+    super(connectionString);
+  }
+
   @Override
   public DatabaseFacade loadFromPersistence() {
     try {

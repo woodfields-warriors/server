@@ -807,20 +807,24 @@ public class DatabaseFacade implements Serializable {
     else{
       daoFactory = new DAOFactoryNonRelational();
     }*/
-
-    File file = "";
-    URL url = file.toURI().toURL();
-    URLClassLoader classLoader = (URLClassLoader) ClassLoader.getSystemClassLoader();
-    Class loadedClass = classLoader.loadClass(persistanceType);
-    Constructor constructor = loadedClass.getConstructor();
-    daoFactory = (IDAOFactory) constructor.newInstance();/*
+    try {
+      //TODO: define file path to jar packages
+      File file = new File("");
+      URL url = file.toURI().toURL();
+      URLClassLoader classLoader = (URLClassLoader) ClassLoader.getSystemClassLoader();
+      Class loadedClass = classLoader.loadClass(persistanceType);
+      Constructor constructor = loadedClass.getConstructor();
+      daoFactory = (IDAOFactory) constructor.newInstance();/*
     Method method = URLClassLoader.class.getDeclaredMethod("addURL", URL.class);
     method.setAccessible(true);
     method.invoke(classLoader, url);*/
+      gameDAO = daoFactory.makeDAO("GameDAO");
+      userDAO = daoFactory.makeDAO("UserDAO");
+      deltaDAO= daoFactory.makeDAO("DeltaDAO");
+    }catch (Exception e){
+      e.printStackTrace();
+    }
 
-    gameDAO = daoFactory.makeDAO("GameDAO");
-    userDAO = daoFactory.makeDAO("UserDAO");
-    deltaDAO= daoFactory.makeDAO("DeltaDAO");
   }
 
 //***********************************************************************************//
