@@ -27,7 +27,9 @@ public class Server {
     HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
 
     server.setExecutor(java.util.concurrent.Executors.newCachedThreadPool());
-    server.createContext("/", new Handler(services));
+    Handler handler = Handler.getInstance();
+    handler.init(services);
+    server.createContext("/", handler);
     server.start();
   }
 
