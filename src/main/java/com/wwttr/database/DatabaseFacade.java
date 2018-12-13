@@ -818,7 +818,7 @@ public class DatabaseFacade implements Serializable {
       I think that URLClassLoader might actually have to be made like this, but I'm not sure
       URL[] temp = {url};
       URLClassLoader urlClassLoader = new URLClassLoader(temp);*/
-      Class loadedClass = classLoader.loadClass(persistanceType);
+      Class loadedClass = classLoader.loadClass(persistenceType);
       Constructor constructor = loadedClass.getConstructor();
       daoFactory = (IDAOFactory) constructor.newInstance();/*
 
@@ -828,6 +828,9 @@ public class DatabaseFacade implements Serializable {
       gameDAO = daoFactory.makeDAO("GameDAO");
       userDAO = daoFactory.makeDAO("UserDAO");
       deltaDAO= daoFactory.makeDAO("DeltaDAO");
+      gameDAO.load(this);
+      userDAO.load(this);
+      deltaDAO.load(this);
     }catch (Exception e){
       e.printStackTrace();
     }
