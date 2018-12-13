@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class TrainCard  implements Serializable {
 
-  private static final long serialversionUID = 46407L;
+  private static final long serialVersionUID = 46407L;
 
   private String id;
   private String gameId;

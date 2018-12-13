@@ -5,7 +5,7 @@ import java.util.*;
 
 public class Game implements Serializable {
 
-	private static final long serialversionUID = 43226L;
+	private static final long serialVersionUID = 43226L;
 
 	private String hostPlayerID;
 	private List<String> playerIDs;

@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class DestinationCard  implements Serializable {
 
-  private static final long serialversionUID = 65256L;
+  private static final long serialVersionUID = 65256L;
 
   private String id;
   private String firstCityId;
