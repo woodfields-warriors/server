@@ -13,7 +13,11 @@ import java.util.Random;
 
 public class DatabaseFacade implements Serializable {
 
-  private static final long serialversionUID = 76448L;
+  // the number of deltas to be written before storing
+  // TODO delete this, get from cmdline
+  public static final int commandStorageInterval = 10;
+
+  private static final long serialVersionUID = 76448L;
 
     private ArrayList<User> Users = new ArrayList<>();
     private ArrayList<Game> Games = new ArrayList<>();
@@ -91,9 +95,16 @@ public class DatabaseFacade implements Serializable {
       }
     }
 
-    public void addDelta(Request req) {
+    public int getCommandStorageInterval() {
+      synchronized(this) {
+        return commandStorageInterval;
+      }
+    }
+
+    public void addDelta(Message request, String id, String gameId) {
       synchronized(this) {
         
+        // TODO create DeltaDAO with factory, tell it to write request
       }
     }
 

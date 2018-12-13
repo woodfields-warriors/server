@@ -14,7 +14,7 @@ import java.sql.Statement;
 
 public class DeltaDAOSQL extends DeltaDAO {
   @Override
-  public DatabaseFacade loadFromPersistance() {
+  public List<T> loadFromPersistance() {
     try {
       Connection con = DriverManager.getConnection(connectionString);
       Statement statement = con.createStatement();

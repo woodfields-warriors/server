@@ -8,6 +8,7 @@ option java_generic_services = true;
 
 
 service ChatService{
+  rpc AddDelta (message) returns (Empty);
   rpc createMessage (CreateMessageRequest) returns (Message);
   rpc getMessage (GetMessageRequest) returns (Message);
   rpc streamMessages (StreamMessagesRequest) returns (stream Message);

@@ -9,6 +9,7 @@ option java_outer_classname = "Api";
 option java_generic_services = true;
 
 service CardService {
+  rpc AddDelta (message) returns (Empty);
   rpc GetDestinationCard (GetDestinationCardRequest) returns (DestinationCard);
   rpc PeekDestinationCards (PeekDestinationCardsRequest) returns (PeekDestinationCardsResponse);
   rpc ClaimDestinationCards (ClaimDestinationCardsRequest) returns (ClaimDestinationCardsResponse);

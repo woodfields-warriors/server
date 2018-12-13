@@ -18,6 +18,17 @@ public class AuthHandlers extends Api.AuthService {
     this.service = service;
   }
 
+  // calls addDelta method in AuthService, no gameId
+  public void addDelta(RpcController controller, Message request, RpcCallback<Api.Empty> callback) {
+    Controller controllerWrapper = (Controller) controller;
+    String id = controller.getId();
+
+    service.addDelta(request, id, "NULL");
+
+    Api.Empty.Builder toReturn = Api.Empty.newBuilder();
+    callback.run(toReturn.build());
+  }
+
   public void login(RpcController controller, Api.LoginAccountRequest request, RpcCallback<Api.LoginResponse> callback) {
     try{
       LoginResponse response = service.login(request.getUsername(), request.getPassword());

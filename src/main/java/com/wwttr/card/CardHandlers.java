@@ -10,6 +10,7 @@ import com.wwttr.models.DestinationCard;
 import com.wwttr.models.Player;
 import com.wwttr.game.Api.Empty;
 import com.wwttr.game.GameService;
+import com.wwttr.server.Controller;
 
 import com.wwttr.models.TrainCard;
 
@@ -26,6 +27,34 @@ public class CardHandlers extends Api.CardService {
     gameService = GameService.getInstance();
 
   }
+
+  // calls addDelta method in GameService after determining gameId
+  public void addDelta(RpcController controller, Message request, RpcCallback<Api.Empty> callback) {
+    Controller controllerWrapper = (Controller) controller;
+    String id = controller.getId();
+    String gameId;
+
+    Player p;
+
+    if (request instanceof Api.ClaimTrainCardRequest) {
+      // TODO ???
+    }
+    else if (request instanceof Api.ClaimDestinationCardsRequest) {
+      p = gameService.getPlayer(request.getPlayerId());
+      gameId = p.getGameId();
+    }
+    else {
+      p = gameService.getPlayer(request.getId());
+      gameId = p.getGameId();
+    }
+
+    gameService.addDelta(request, id, gameId);
+
+    Api.Empty.Builder toReturn = Api.Empty.newBuilder();
+    callback.run(toReturn.build());
+  }
+
+
   //--------------Destination Card Functions-----------------//
   public void getDestinationCard(RpcController controller, Api.GetDestinationCardRequest request, RpcCallback<Api.DestinationCard> callback) {
     try{
@@ -79,6 +108,7 @@ public class CardHandlers extends Api.CardService {
         throw new ApiError(Code.INVALID_ARGUMENT, "argument 'destination_card_ids' is required");
       if(request.getPlayerId().equals(""))
         throw new ApiError(Code.INVALID_ARGUMENT, "argument 'player_id' is required");
+      gameService.addDelta((Controller)controller, request);
       gameService.drawDestinationCards(request.getPlayerId(),request.getDestinationCardIdsList());
     }
     catch (NotFoundException e) {

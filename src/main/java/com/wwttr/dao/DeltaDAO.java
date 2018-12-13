@@ -1,20 +1,22 @@
 package com.wwttr.dao;
 
 import com.wwttr.database.CommandQueue;
+import com.google.protobuf.Message;
 
 public abstract class DeltaDAO implements DAO {
 
   public final String connectionString;
-  public final int timesBetweenStorage = 10;
+  public final int storageInterval;
 
   public DeltaDAO(){throw new IllegalArgumentException("connectionstring must be given");}
 
-  public DeltaDAO(String connectionString) {
+  public DeltaDAO(String connectionString, int storageInterval) {
     this.connectionString = connectionString;
+    this.storageInterval = storageInterval;
   }
 
   @Override
-  public final void save(DatabaseFacade facade){
+  public final void save(Object data){
     saveToPersistance(facade);
   }
 
@@ -24,8 +26,8 @@ public abstract class DeltaDAO implements DAO {
     
   }
 
-  public abstract void addCommandForGame(Request req, Game game);
+  public abstract void addCommandForGame(Message request, String id, Game game);
   public abstract void clear();
-  public abstract List<T> loadFromPersistance();
-  public abstract void saveToPersistance(List<T> queue);
+  public abstract List<Object> loadFromPersistance();
+  public abstract void saveToPersistance(List<Object> queue);
 }

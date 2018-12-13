@@ -27,6 +27,10 @@ public class ChatService{
     rn = new Random();
   }
 
+  public void addDelta(Message request, String id, String gameId) {
+    database.addDelta(request, id, gameId);
+  }
+
 
   public Message createMessage(String content, String playerId) {
     int unixTime = (int) (System.currentTimeMillis() / 1000L);

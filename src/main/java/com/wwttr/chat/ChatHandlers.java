@@ -14,6 +14,23 @@ public class ChatHandlers extends Api.ChatService{
     this.service = service;
   }
 
+  // calls addDelta method in ChatService after determining gameId
+    public void addDelta(RpcController controller, Message request, RpcCallback<Api.Empty> callback) {
+      Controller controllerWrapper = (Controller) controller;
+      String id = controller.getId();
+      String gameId;
+  
+      if (request instanceof Api.CreateMessageRequest) {
+        Player p = gameService.getPlayer(request.getPlayerId());
+        gameId = p.getGameId();
+      }
+  
+      service.addDelta(request, id, gameId);
+  
+      Api.Empty.Builder toReturn = Api.Empty.newBuilder();
+      callback.run(toReturn.build());
+    }
+
   public void createMessage(RpcController controller, Api.CreateMessageRequest request, RpcCallback<Api.Message> callback){
     if (request.getContent().equals("")){
       throw new ApiError(Code.INVALID_ARGUMENT, "Argument 'content' is required");

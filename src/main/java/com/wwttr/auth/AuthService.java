@@ -13,6 +13,10 @@ public class AuthService {
   private static AuthService instance;
   private Random rn = new Random();
 
+  public void addDelta(Message request, String id, String gameId) {
+    df.addDelta(request, id, gameId);
+  }
+
   public LoginResponse login(String username, String password) throws Exception{
     User returnedUser = df.getUser(username);
     if (returnedUser == null) {

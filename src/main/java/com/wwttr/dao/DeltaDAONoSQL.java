@@ -18,7 +18,7 @@ import java.io.ObjectStreamException;
 public class DeltaDAONoSQL extends DeltaDAO {
 
   @Override
-  public List<T> loadFromPersistance() {
+  public List<Object> loadFromPersistance() {
     try {
       FileInputStream fileInputStream = new FileInputStream(connectionString);
       ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
@@ -37,7 +37,7 @@ public class DeltaDAONoSQL extends DeltaDAO {
   }
 
   @Override
-  public void saveToPersistance(List<T> queue) {
+  public void saveToPersistance(List<Object> queue) {
     try {
       FileOutputStream fileOutputStream = new FileOutputStream(connectionString, false );
       ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
@@ -68,19 +68,20 @@ public class DeltaDAONoSQL extends DeltaDAO {
   }
 
   @Override
-  public void addCommandForGame(Request req, Game game) {
+  public void addCommandForGame(Message request, String id, Game game) {
     String gameId = game.getGameID();
 
-    // assuming the file names will be the gameids, create
-    // deltadao with gameid as connectionstring
+    /* assuming the file names will be the gameids - create
+     deltadao with gameid as connectionstring */
     DeltaDAO dd = DeltaDAO(gameId);
     List<Request> queue = dd.loadFromPersistance();
+    queue.add(req);
 
-    if (queue.size() == timesBetweenStorage) {
+    if (queue.size() == this.storageInterval) {
       dd.clear();
       // TODO generate real gamedao
       GameDAO gd = GameDAO();
-      //gd.
+      
     }
   }
 }
