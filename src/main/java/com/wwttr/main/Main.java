@@ -39,7 +39,7 @@ public class Main {
     }
     if (args[0].equals("r")){
       try{
-        df.createDaos("DAOFactoryRelational");
+        df.createDaos("com.wwttr.dao.DAOFactoryRelational");
       }
       catch(Exception e){
         return;
@@ -47,7 +47,7 @@ public class Main {
     }
     else if(args[0].equals("nr")){
       try{
-        df.createDaos("DAOFactoryNonRelational");
+        df.createDaos("com.wwttr.dao.DAOFactoryNonRelational");
       }
       catch(Exception e){
         return;

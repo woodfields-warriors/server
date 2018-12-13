@@ -810,16 +810,16 @@ public class DatabaseFacade implements Serializable {
 
     try {
       //TODO: define file path to jar packages
-      File file = new File("");
+      File file = new File("bazel-bin/libdao.jar");
       URL url = file.toURI().toURL();
       URLClassLoader classLoader = (URLClassLoader) ClassLoader.getSystemClassLoader();
       //TODO verify correct classLoader usage
       /*
       ***I think that URLClassLoader might actually have to be made like this, but I'm not sure
-      ***Currently the File and URL are not being used at all
+      ***Currently the File and URL are not being used at all*/
       URL[] temp = {url};
-      URLClassLoader urlClassLoader = new URLClassLoader(temp);*/
-      Class loadedClass = classLoader.loadClass(persistenceType);
+      URLClassLoader urlClassLoader = new URLClassLoader(temp);
+      Class loadedClass = urlClassLoader.loadClass(persistenceType);
       Constructor constructor = loadedClass.getConstructor();
       daoFactory = (IDAOFactory) constructor.newInstance();
       /*
