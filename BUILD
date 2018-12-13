@@ -272,5 +272,8 @@ java_library(
   srcs = glob([
     "src/main/java/com/wwttr/dao/*.java",
     "src/main/java/com/wwttr/database/*.java",
-    ])
+    ]),
+  deps = [
+    ":database_lib"
+  ]
 )
