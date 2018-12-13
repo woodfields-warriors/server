@@ -15,6 +15,10 @@ public class DatabaseFacade implements Serializable {
 
   private static final long serialversionUID = 76448L;
 
+    public int DELTAMAX;
+    private GameDAO gameDAO;
+    private UserDAO userDAO;
+    private DeltaDAO deltaDAO;
     private ArrayList<User> Users = new ArrayList<>();
     private ArrayList<Game> Games = new ArrayList<>();
     private CommandQueue<Game> gameStream = new CommandQueue<>();
@@ -240,7 +244,7 @@ public class DatabaseFacade implements Serializable {
       }
       return toReturn;
     }
-    
+
     //recursive depth first search.
     //cities visited are all the nodes that have been previously searched
     //current city is the node to depth first search
@@ -783,6 +787,29 @@ public class DatabaseFacade implements Serializable {
     return routeQueue.subscribe();
   }
 
+
+//---------------------------------------------------------------------------//
+//------------------DAO-----------------------------------//
+
+  public void createDaos(String persistanceType){
+
+    
+
+    if (persistanceType.equals("r")){
+      daoFactory = new DAOFactoryRelational();
+      gameDAO = daoFactory.makeDAO("GameDAO");
+      userDAO = daoFactory.makeDAO("UserDAO");
+      deltaDAO= daoFactory.makeDAO("DeltaDAO");
+    }
+    else{
+      daoFactory = new DAOFactoryNonRelational();
+      gameDAO = daoFactory.makeDAO("GameDAO");
+      userDAO = daoFactory.makeDAO("UserDAO");
+      deltaDAO= daoFactory.makeDAO("DeltaDAO");
+    }
+  }
+
+//***********************************************************************************//
   //Getters and Setters
 
   public ArrayList<User> getUsers() {
