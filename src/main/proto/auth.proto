@@ -7,15 +7,11 @@ option java_outer_classname = "Api";
 option java_generic_services = true;
 
 service AuthService {
-  rpc AddDelta (Message) returns (Empty);
   rpc Login (LoginAccountRequest) returns (LoginResponse);
   rpc Register (LoginAccountRequest) returns (LoginResponse);
   rpc GetUsername (GetUsernameRequest) returns (GetUsernameResponse);
 }
 
-message Message {}
-
-message Empty {}
 
 message Account {
   // A unique identifier for this account.

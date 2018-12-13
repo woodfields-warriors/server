@@ -56,16 +56,6 @@ public class DeltaDAONoSQL extends DeltaDAO {
 
   @Override
   public void addCommandForGame(Delta d) {
-    // TODO generate real gamedao
-    GameDAO gameDAO = GameDAO();
-    //DatabaseFacade persistantFacade = gameDAO.loadFromPersistance();
-    DatabaseFacade df = DatabaseFacade.getInstance();
-
-    Message request = d.getRequest();
-    String id = d.getId();
-    String gameId = g.getGameId();
-
-    int storageInterval = df.getCommandStorageInterval();
 
     /* assuming the file names will be the gameids and the connnectionString
         in the constructor is the directory  */
@@ -74,17 +64,7 @@ public class DeltaDAONoSQL extends DeltaDAO {
     queue.add(d);
     Collections.sort(queue, new CustomComparator());
 
-    if (queue.size() == storageInterval) {
-      deltaDAO.clear();
-      /*for (Delta delt : queue) {
-        Message msg = delt.getRequest();
-        df.execute(msg)
-      }
-      }*/
-      gameDAO.save(df);
-    }
-    else {
-      try {
+    try {
         FileOutputStream fileOutputStream = new FileOutputStream(connectionString, false );
         ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
         objectOutputStream.writeObject(queue);
@@ -98,7 +78,7 @@ public class DeltaDAONoSQL extends DeltaDAO {
         throw new IllegalArgumentException("IOException");
       }
     }
-  }
+  
 }
 
 

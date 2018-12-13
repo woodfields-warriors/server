@@ -44,86 +44,17 @@ public abstract class DeltaDAO implements DAO {
   @Override
   public final void load(DatabaseFacade facade){
     List<Delta> requests = loadFromPersistance();
-  }
-
-
-  public String getServiceFromMessage(Message m) {
-    if (m instanceof ClaimRouteReuqest) {
-      return "route.RouteService";
-    }
-    else if (m instanceof LoginAccountRequest) {
-      return "auth.AuthService";
-    }
-    else if (m instanceof CreateMessageRequest) {
-      return "chat.ChatService";
-    }
-
-    else if (m instanceof ClaimDestinationCardsRequest ||
-            m instanceof ClaimTrainCardRequest ||
-            m instanceof DrawTrainCardFromDeckRequest ||
-            m instanceof DrawFaceUpTrainCardRequest) {
-      return "card.CardService";
-    }
-    else  {
-      return "game.GameService";
+    for (Delta d : requests) {
+      facade.execute(d.getRequest());
     }
   }
 
 
 
-  public String getMethodFromMessage(Message m) {
-    if (m instanceof ClaimRouteReuqest) {
-      return "ClaimRoute";  //route.RouteService
-    }
-    else if (m instanceof CreateGameRequest) {
-      return "CreateGame"; //game.GameService
-    }
-    else if (m instanceof LeaveGameRequest) {
-      return "LeaveGame";
-    }
-    else if (m instanceof DeleteGameRequest) {
-      return "DeleteGame";
-    }
-    else if (m instanceof StartGameRequest) {
-      return "StartGame";
-    }
-    else if (m instanceof CreatePlayerRequest) {
-      return "CreatePlayer";
-    }
-    else if (m instanceof CreateMessageRequest) {
-      return "createMessage"; //chat.ChatService
-    }
-    else if (m instanceof ClaimDestinationCardsRequest) {
-      return "ClaimDestinationCards"; //card.CardService
-    }
-    else if (m instanceof ClaimTrainCardRequest) {
-      return "ClaimTrainCard";
-    }
-    else if (m instanceof DrawTrainCardFromDeckRequest) {
-      return "DrawTrainCardFromDeck";
-    }
-    else if (m instanceof DrawFaceUpTrainCardRequest) {
-      return "DrawFaceUpTrainCard";
-    }
-    else if (m instanceof LoginAccountRequest) {
-      return "Register"; //auth.AuthService
-    }
-    else {
-      return "NULL";
-    }
-  }
-
-  public void execute(Message request) {
-    String methodName = getMethodFromMessage(request);
-    String serviceName = getServiceFromMessage(request);
-    Handler handler = Handler.getInstance();
-    handler.handleFromStrings(request, methodName, serviceName);
-    
-  }
 
   public abstract void addCommandForGame(Delta d);
   public abstract void clear();
-  public abstract List<Object> loadFromPersistance();
+  public abstract List<Delta> loadFromPersistance();
   public abstract void saveToPersistance(List<Object> queue);
 }
 

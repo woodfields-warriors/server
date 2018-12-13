@@ -42,6 +42,9 @@ public class DatabaseFacade implements Serializable {
 
     private final static int startingTrains = 15;
 
+    // number of commands since last checkpoint
+    private int numCommands = 0;
+
     public DatabaseFacade(){
 
     }
@@ -105,7 +108,18 @@ public class DatabaseFacade implements Serializable {
 
     public void addDelta(com.google.protobuf.Message request, String id, String gameId) {
       synchronized(this) {
+
         Delta d = new Delta(request, id, gameId);
+        deltaDAO.save(d);
+
+        if (++numCommands == commandStorageInterval) {
+          deltaDAO.clear();
+          gameDAO.save(this);
+          userDAO.save(this);
+        }
+
+        
+        //
         // TODO create DeltaDAO with factory, tell it to write request
       }
     }
