@@ -793,20 +793,25 @@ public class DatabaseFacade implements Serializable {
 
   public void createDaos(String persistanceType){
 
-    
+    //make a DAOFactory daoFactory = ?
 
     if (persistanceType.equals("r")){
       daoFactory = new DAOFactoryRelational();
-      gameDAO = daoFactory.makeDAO("GameDAO");
-      userDAO = daoFactory.makeDAO("UserDAO");
-      deltaDAO= daoFactory.makeDAO("DeltaDAO");
     }
     else{
       daoFactory = new DAOFactoryNonRelational();
-      gameDAO = daoFactory.makeDAO("GameDAO");
-      userDAO = daoFactory.makeDAO("UserDAO");
-      deltaDAO= daoFactory.makeDAO("DeltaDAO");
     }
+
+    File file = "";
+    URL url = file.toURI().toURIL();
+    URLClassLoader classLoader = (URLClassLoader) ClassLoader.getSystemClassLoader();
+    Method method = URLClassLoader.class.getDeclaredMethod("addURL", URL.class);
+    method.setAccessible(true);
+    method.invoke(classLoader, url);
+
+    gameDAO = daoFactory.makeDAO("GameDAO");
+    userDAO = daoFactory.makeDAO("UserDAO");
+    deltaDAO= daoFactory.makeDAO("DeltaDAO");
   }
 
 //***********************************************************************************//
