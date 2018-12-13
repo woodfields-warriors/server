@@ -5,9 +5,16 @@ steps:
     - run
     - --define=REVISION_ID=$REVISION_ID
     - --remote_http_cache=https://storage.googleapis.com/wwttr-build-cache
-    # - --google_credentials=/path/to/your/secret-key.json
     - --google_default_credentials
     - push
+
+- name: 'gcr.io/cloud-builders/bazel@sha256:527515d9ffd5cf445a972b72ab42fa2555216f7193d0a98b1dbb2161c5828216'
+  args:
+    - build
+    - --remote_http_cache=https://storage.googleapis.com/wwttr-build-cache
+    - --google_default_credentials
+    - dao
+
 
 - name: 'supinf/envsubst'
   entrypoint: '/bin/sh'
@@ -15,6 +22,11 @@ steps:
   env:
   - 'BRANCH_NAME=$BRANCH_NAME'
   - 'REVISION_ID=$REVISION_ID'
+
+- name: 'gcr.io/cloud-builders/docker'
+  args: ["build", "-t", "gcr.io/ticket-to-ride-216915/server2:$REVISION_ID", "-f", "deploy/docker/Dockerfile", "./bazel-bin"]
+- name: 'gcr.io/cloud-builders/docker'
+  args: ["push", "gcr.io/ticket-to-ride-216915/server2:$REVISION_ID"]
 
 - name: 'gcr.io/cloud-builders/kubectl'
   args: ['apply', '-f', 'deploy', '--recursive']

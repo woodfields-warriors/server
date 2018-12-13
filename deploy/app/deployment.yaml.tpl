@@ -17,3 +17,12 @@ spec:
       containers:
       - name: server
         image: gcr.io/ticket-to-ride-216915/server:$REVISION_ID
+        env:
+        - name: ConnectionString
+          value: "User ID=root;Password=myPassword;Host=localhost;Port=5432;Database=myDataBase;
+Pooling=true;Min Pool Size=0;Max Pool Size=100;Connection Lifetime=0;"
+      - name: postgres
+        image: postgres
+        env:
+        - name: POSTGRES_PASSWORD
+          value: myPassword
