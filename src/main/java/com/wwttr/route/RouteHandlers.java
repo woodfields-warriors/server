@@ -36,6 +36,7 @@ public class RouteHandlers extends Api.RouteService {
         Player p = gameService.getPlayer(req.getPlayerId());
         gameId = p.getGameId();
       }
+      else gameId = "NULL";
 
       gameService.addDelta(request, id, gameId);
 

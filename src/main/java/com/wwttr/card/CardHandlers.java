@@ -38,10 +38,8 @@ public class CardHandlers extends Api.CardService {
 
     Player p;
 
-    if (request instanceof Api.ClaimTrainCardRequest) {
-      // TODO ???
-    }
-    else if (request instanceof Api.ClaimDestinationCardsRequest) {
+
+    if (request instanceof Api.ClaimDestinationCardsRequest) {
       Api.ClaimDestinationCardsRequest req = (Api.ClaimDestinationCardsRequest) request;
       p = gameService.getPlayer(req.getPlayerId());
       gameId = p.getGameId();
@@ -95,7 +93,7 @@ public class CardHandlers extends Api.CardService {
       if (!p.getPlayerState().canPeek()) {
         throw new ApiError(Code.FAILED_PRECONDITION, "It must be your turn to peek destination cards");
       }
-      
+
       List<DestinationCard> allCards = service.peekDestinationCards(p.getGameId());
       Api.PeekDestinationCardsResponse.Builder builder = Api.PeekDestinationCardsResponse.newBuilder();
       for(DestinationCard card : allCards){

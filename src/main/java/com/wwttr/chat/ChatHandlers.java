@@ -32,6 +32,7 @@ public class ChatHandlers extends Api.ChatService{
         Player p = gameService.getPlayer(req.getPlayerId());
         gameId = p.getGameId();
       }
+      else gameId = "NULL";
 
       service.addDelta(request, id, gameId);
 

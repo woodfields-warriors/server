@@ -55,6 +55,7 @@ public class GameHandlers extends Api.GameService {
       Api.CreatePlayerRequest req = (Api.CreatePlayerRequest) request;
       gameId = req.getGameId();
     }
+    else gameId = "NULL";
 
     service.addDelta(request, id, gameId);
 
@@ -341,7 +342,7 @@ public class GameHandlers extends Api.GameService {
     if (request.getGameId().equals("")) {
       throw new ApiError(Code.INVALID_ARGUMENT, "missing argument game_id");
     }
-    
+
     service.streamPlayerStats(request.getGameId())
       .forEach((PlayerStats stats) -> {
         callback.run(stats.toProto());
