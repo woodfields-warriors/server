@@ -58,11 +58,11 @@ public abstract class DeltaDAO implements DAO {
   public abstract void saveToPersistance(List<Object> queue);
 }
 
-static class CustomComparator {
-  public boolean compare(Object obj1, Object ob2) {
+static class CustomComparator implements Comparator<Delta> {
+  public int compare(Delta obj1, Delta ob2) {
     Delta d1 = (Delta) obj1;
-    Delta d2 = (Delta) d2;
-    return d1.getId() < d2.getId();
+    Delta d2 = (Delta) ob2;
+    return d1.getId().compareTo(d2.getId());
   }
 
 }
