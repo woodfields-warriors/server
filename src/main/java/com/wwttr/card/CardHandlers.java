@@ -42,10 +42,17 @@ public class CardHandlers extends Api.CardService {
       // TODO ???
     }
     else if (request instanceof Api.ClaimDestinationCardsRequest) {
+      request = (Api.ClaimDestinationCardsRequest) request;
       p = gameService.getPlayer(request.getPlayerId());
       gameId = p.getGameId();
     }
-    else {
+    else if (request instanceof Api.DrawTrainCardFromDeckRequest) {
+      request = (Api.DrawTrainCardFromDeckRequest) request;
+      p = gameService.getPlayer(request.getId());
+      gameId = p.getGameId();
+    }
+    else if (request instanceof Api.DrawFaceUpTrainCardRequest) {
+      request = (Api.DrawFaceUpTrainCardRequest) request;
       p = gameService.getPlayer(request.getId());
       gameId = p.getGameId();
     }

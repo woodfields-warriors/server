@@ -39,7 +39,20 @@ public class GameHandlers extends Api.GameService {
       // TODO pre-game?
       gameId = "NULL";
     }
-    else {
+    else if (request instanceof Api.LeaveGameRequest) {
+      request = (Api.LeaveGameRequest);
+      gameId = request.getGameId();
+    }
+    else if (request instanceof Api.DeleteGameRequest) {
+      request = (Api.DeleteGameRequest) request;
+      gameId = request.getGameId();
+    }
+    else if (request instanceof Api.StartGameRequest) {
+      request = (Api.StartGameRequest) request;
+      gameId = request.getGameId();
+    }
+    else if (request instanceof Api.CreatePlayerRequest) {
+      request = (Api.CreatePlayerRequest) request;
       gameId = request.getGameId();
     }
 

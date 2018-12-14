@@ -9,6 +9,7 @@ import com.wwttr.api.Code;
 import com.wwttr.api.ApiError;
 //import com.wwttr.api.InvalidArgumentException;
 import com.google.protobuf.Message;
+import com.wwttr.server.Controller;
 
 
 public class AuthHandlers extends Api.AuthService {

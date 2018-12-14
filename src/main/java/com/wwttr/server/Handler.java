@@ -194,7 +194,7 @@ public class Handler implements HttpHandler {
         response.setCode(Code.NOT_FOUND);
         System.out.println("service " + serviceName + " not found.");
         UnaryResponder responder = new UnaryResponder(exchange);
-        response.setId("resp_" +requestId);
+        response.setId("resp_");
         responder.respond(response.build());
         return;
       }

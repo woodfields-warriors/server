@@ -14,23 +14,15 @@ import com.wwttr.api.NotFoundException;
 import com.wwttr.models.*;
 import java.util.stream.Stream;
 import java.util.Random;
-import com.wwttr.route.Api;
-import com.wwttr.game.Api;
 import com.wwttr.route.ClaimRouteRequest;
 import com.wwttr.game.Api.CreatePlayerRequest;
 import com.wwttr.game.Api.LeaveGameRequest;
-import com.wwttr.chat.Api;
 import com.wwttr.chat.Api.CreateMessageRequest;
-import com.wwttr.card.Api;
 import com.wwttr.card.Api.ClaimDestinationCardsRequest;
 import com.wwttr.card.Api.ClaimTrainCardRequest;
 import com.wwttr.card.Api.DrawTrainCardFromDeckRequest;
-import com.wwttr.auth.Api;
 import com.wwttr.auth.Api.LoginAccountRequest;
 import com.wwttr.server.Handler;
-
-import com.wwttr.server.Handler;
-
 
 public class DatabaseFacade implements Serializable {
 
@@ -40,9 +32,9 @@ public class DatabaseFacade implements Serializable {
 
     private int numCommands = 0;
     private int commandStorageInterval;
-    private DAO gameDAO;
-    private DAO userDAO;
-    private DAO deltaDAO;
+    private GameDAO gameDAO;
+    private UserDAO userDAO;
+    private DeltaDAO deltaDAO;
     private ArrayList<User> Users = new ArrayList<>();
     private ArrayList<Game> Games = new ArrayList<>();
     private CommandQueue<Game> gameStream = new CommandQueue<>();
