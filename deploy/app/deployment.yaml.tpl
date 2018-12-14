@@ -20,7 +20,7 @@ spec:
           claimName: server-claim
       containers:
       - name: server
-        image: gcr.io/ticket-to-ride-216915/server:$REVISION_ID
+        image: gcr.io/ticket-to-ride-216915/server2:$REVISION_ID
         volumeMounts:
         - mountPath: "/wwttrdata"
           name: server-volume
@@ -47,8 +47,8 @@ spec:
     spec:
       containers:
       - name: server
-        image: gcr.io/ticket-to-ride-216915/server:$REVISION_ID
-        args: ['com.wwttr.dao.DAOFactoryRelational', 'bin/doa.jar', '10']
+        image: gcr.io/ticket-to-ride-216915/server2:$REVISION_ID
+        args: ['com.wwttr.dao.DAOFactoryRelational', '/bin/doa.jar', '10']
         env:
         - name: ConnectionString
           value: "User ID=root;Password=myPassword;Host=postgres;Port=5432;Database=myDataBase;Pooling=true;Min Pool Size=0;Max Pool Size=100;Connection Lifetime=0;"
