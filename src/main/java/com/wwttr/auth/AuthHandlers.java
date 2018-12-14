@@ -21,16 +21,14 @@ public class AuthHandlers extends Api.AuthService {
     this.service = service;
   }
 
-  // calls addDelta method in AuthService, no gameId
-  public void addDelta(RpcController controller, Message request, RpcCallback<com.wwttr.game.Api.Empty> callback) {
-    Controller controllerWrapper = (Controller) controller;
-    String id = controllerWrapper.getId();
-
-    service.addDelta(request, id, "NULL");
-
-    com.wwttr.game.Api.Empty.Builder toReturn = com.wwttr.game.Api.Empty.newBuilder();
-    callback.run(toReturn.build());
-  }
+  // // calls addDelta method in AuthService, no gameId
+  // public void addDelta(RpcController controller, Message request, RpcCallback<com.wwttr.game.Api.Empty> callback) {
+  //   Controller controllerWrapper = (Controller) controller;
+  //   String id = controllerWrapper.getId();
+  //   service.addDelta(request, id, "NULL");
+  //   com.wwttr.game.Api.Empty.Builder toReturn = com.wwttr.game.Api.Empty.newBuilder();
+  //   callback.run(toReturn.build());
+  // }
 
   public void login(RpcController controller, Api.LoginAccountRequest request, RpcCallback<Api.LoginResponse> callback) {
     try{
@@ -56,6 +54,9 @@ public class AuthHandlers extends Api.AuthService {
       LoginResponse response = service.register(request.getUsername(), request.getPassword());
       Api.LoginResponse.Builder builder = Api.LoginResponse.newBuilder();
       builder.setUserId(response.getUserID());
+      Controller controllerWrapper = (Controller) controller;
+      String id = controllerWrapper.getId();
+      service.addDelta(request, id, "NULL");
       callback.run(builder.build());
     }
     catch (Exception e){
