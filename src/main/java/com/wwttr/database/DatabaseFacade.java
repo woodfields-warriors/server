@@ -847,7 +847,7 @@ public void addDelta(com.google.protobuf.Message request, String id, String game
 }
 
 public String getServiceFromMessage(com.google.protobuf.Message m) {
-  if (m instanceof com.wwttr.route.Api.ClaimRouteReuqest) {
+  if (m instanceof com.wwttr.route.Api.ClaimRouteRequest) {
     return "route.RouteService";
   }
   else if (m instanceof com.wwttr.auth.Api.LoginAccountRequest) {
