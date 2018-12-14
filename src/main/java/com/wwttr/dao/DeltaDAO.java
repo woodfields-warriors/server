@@ -132,10 +132,10 @@ public abstract class DeltaDAO implements DAO {
 }
 
 static class CustomComparator implements Comparator<Delta> {
-  public boolean compare(Delta obj1, Delta ob2) {
+  public int compare(Delta obj1, Delta ob2) {
     Delta d1 = (Delta) obj1;
     Delta d2 = (Delta) ob2;
-    return d1.getId().compareTo(d2.getId()) <= 0;
+    return d1.getId().compareTo(d2.getId());
   }
 
 }
