@@ -915,7 +915,7 @@ public void execute(Delta delta) {
   String methodName = getMethodFromMessage(request);
   String serviceName = getServiceFromMessage(request);
   System.out.println("Executing the following command loaded from deltaDao: "
-                    +servicName +"."+methodName);
+                    +serviceName +"."+methodName);
   Handler handler = Handler.getInstance();
   try {
     handler.handleFromStrings(request, delta.getId(), methodName, serviceName);
