@@ -43,8 +43,7 @@ public class DeltaDAONoSQL extends DeltaDAO {
         return (java.util.ArrayList<Delta>) objectInputStream.readObject();
       }
       catch(Exception e) {
-        e.printStackTrace();
-        return null;
+        return new java.util.ArrayList<Delta>();
       }
       
     }
