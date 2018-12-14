@@ -34,6 +34,7 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: server-claim
+  namespace:" $LOWER_BRANCH_NAME
 spec:
   accessModes:
     - ReadWriteOnce
