@@ -961,6 +961,8 @@ public void execute(Delta delta) {
       gameDAO = daoFactory.makeDAO("GameDAO");
       userDAO = daoFactory.makeDAO("UserDAO");
       deltaDAO= daoFactory.makeDAO("DeltaDAO");
+      gameDao.save(this);
+      userDao.save(this);
       gameDAO.load(this);
       userDAO.load(this);
       deltaDAO.load(this);
