@@ -6,10 +6,7 @@ import com.wwttr.models.Message;
 import com.wwttr.api.ApiError;
 import com.wwttr.api.Code;
 import java.util.stream.*;
-<<<<<<< HEAD
 import com.google.protobuf.*;
-=======
->>>>>>> 4f9d28a7451d1d1860b231d08479bcb2acd68a52
 
 import com.wwttr.server.Controller;
 
