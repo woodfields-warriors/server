@@ -91,7 +91,7 @@ public class Handler implements HttpHandler {
     }
   }
 
-  public void handleFromStrings(Message request, String requestId, String methodName, String serviceName) throws IOException {
+  public void handleFromStrings(Message request, String methodName, String serviceName) throws IOException {
     MethodDescriptor method;
     Service service;
 
@@ -207,7 +207,7 @@ public class Handler implements HttpHandler {
         System.out.println("method " + methodName + " not found.");
 
         UnaryResponder responder = new UnaryResponder(exchange);
-        response.setId("resp_" +requestId);
+        //response.setId("resp_" +requestId);
         responder.respond(response.build());
         return;
       }
@@ -221,14 +221,14 @@ public class Handler implements HttpHandler {
       response.setMessage("error parsing request");
 
       UnaryResponder responder = new UnaryResponder(exchange);
-      response.setId("resp_"+requestId);
+      //response.setId("resp_"+requestId);
       responder.respond(response.build());
 
       return;
     }
 
     //HttpExchange exchange = new HttpExchange();
-    Controller controller = new Controller(exchange, "req_"+requestId);
+    Controller controller = new Controller(exchange, "req_");
     
     RpcCallback<Message> callback;
     if (!method.toProto().getServerStreaming()) {
@@ -263,7 +263,7 @@ public class Handler implements HttpHandler {
           Response.Builder response = Response.newBuilder();
           response.setCode(e.getCode());
           response.setMessage("DELTA ERROR: " + e.getMessage());
-          response.setId("resp_"+requestId);
+          response.setId("resp_");
           try {
             if (controller.getResponder() != null) {
               controller.getResponder().respond(response.build());
@@ -271,7 +271,7 @@ public class Handler implements HttpHandler {
               return;
             }
             UnaryResponder responder = new UnaryResponder(exchange);
-            response.setId("resp_"+requestId);
+            response.setId("resp_");
             responder.respond(response.build());
           }
           catch (IOException ioE) {
@@ -290,7 +290,7 @@ public class Handler implements HttpHandler {
       Response.Builder response = Response.newBuilder();
       response.setCode(e.getCode());
       response.setMessage(e.getMessage());
-      response.setId("resp_"+requestId);
+      response.setId("resp_");
       try {
         if (controller.getResponder() != null) {
           controller.getResponder().respond(response.build());
@@ -298,7 +298,7 @@ public class Handler implements HttpHandler {
           return;
         }
         UnaryResponder responder = new UnaryResponder(exchange);
-        response.setId("resp_"+requestId);
+        response.setId("resp_");
         responder.respond(response.build());
       }
       catch (IOException ioE) {
@@ -317,7 +317,7 @@ public class Handler implements HttpHandler {
 
       Response.Builder response = Response.newBuilder();
       response.setCode(Code.INTERNAL);
-      response.setId("resp_"+requestId);
+      response.setId("resp_");
       response.setMessage("");
 
       try {
