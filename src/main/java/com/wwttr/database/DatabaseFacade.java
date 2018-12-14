@@ -39,8 +39,8 @@ public class DatabaseFacade implements Serializable {
     private ArrayList<Game> Games = new ArrayList<>();
     private CommandQueue<Game> gameStream = new CommandQueue<>();
     private ArrayList<Player> players = new ArrayList<Player>();
-    private ArrayList<com.google.protobuf.Message> messages = new ArrayList<>();
-    private CommandQueue<com.google.protobuf.Message> messageQueue = new CommandQueue<com.google.protobuf.Message>();
+    private ArrayList<Message> messages = new ArrayList<>();
+    private CommandQueue<Message> messageQueue = new CommandQueue<Message>();
     private ArrayList<GameAction> gameActions = new ArrayList<>();
     private CommandQueue<GameAction> historyQueue = new CommandQueue<GameAction>();
     private Random rn = new Random();
@@ -1004,19 +1004,19 @@ public void execute(Delta delta) {
     this.players = players;
   }
 
-  public ArrayList<com.google.protobuf.Message> getMessages() {
+  public ArrayList<Message> getMessages() {
     return messages;
   }
 
-  public void setMessages(ArrayList<com.google.protobuf.Message> messages) {
+  public void setMessages(ArrayList<Message> messages) {
     this.messages = messages;
   }
 
-  public CommandQueue<com.google.protobuf.Message> getMessageQueue() {
+  public CommandQueue<Message> getMessageQueue() {
     return messageQueue;
   }
 
-  public void setMessageQueue(CommandQueue<com.google.protobuf.Message> messageQueue) {
+  public void setMessageQueue(CommandQueue<Message> messageQueue) {
     this.messageQueue = messageQueue;
   }
 
