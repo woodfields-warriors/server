@@ -31,7 +31,7 @@ public class CardHandlers extends Api.CardService {
   }
 
   // calls addDelta method in GameService after determining gameId
-  public void addDelta(RpcController controller, Message request, RpcCallback<Api.Empty> callback) {
+  public void addDelta(RpcController controller, Message request, RpcCallback<com.wwttr.game.Api.Empty> callback) {
     Controller controllerWrapper = (Controller) controller;
     String id = controllerWrapper.getId();
     String gameId;

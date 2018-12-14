@@ -21,7 +21,7 @@ public class ChatHandlers extends Api.ChatService{
   }
 
   // calls addDelta method in ChatService after determining gameId
-    public void addDelta(RpcController controller, com.google.protobuf.Message request, RpcCallback<Api.Empty> callback) {
+    public void addDelta(RpcController controller, com.google.protobuf.Message request, RpcCallback<com.wwttr.game.Api.Empty> callback) {
       Controller controllerWrapper = (Controller) controller;
       String id = controllerWrapper.getId();
       String gameId;
