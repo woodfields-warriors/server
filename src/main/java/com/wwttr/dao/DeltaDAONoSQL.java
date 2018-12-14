@@ -1,6 +1,5 @@
 package com.wwttr.dao;
 
-import android.provider.ContactsContract;
 
 import com.wwttr.database.DatabaseFacade;
 import com.wwttr.models.Game;
@@ -15,10 +14,16 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.io.ObjectStreamException;
+import java.io.PrintWriter;
 import java.util.Collections;
+import java.util.List;
 
 
 public class DeltaDAONoSQL extends DeltaDAO {
+
+  public DeltaDAONoSQL(String connectionString) {
+    super(connectionString);
+  }
 
   @Override
   public List<Delta> loadFromPersistance() {
@@ -52,6 +57,11 @@ public class DeltaDAONoSQL extends DeltaDAO {
     catch (IOException e){
       throw new IllegalArgumentException("IOException");
     }
+  }
+
+  @Override
+  public void saveToPersistance(List<Object> queue) {
+
   }
 
   @Override

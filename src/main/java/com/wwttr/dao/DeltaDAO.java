@@ -10,6 +10,7 @@ import com.wwttr.database.DatabaseFacade;
 import com.wwttr.models.Delta;
 import com.google.protobuf.Message;
 import com.google.protobuf.CodedOutputStream;
+import com.wwttr.database.DAO;
 
 import com.wwttr.route.Api;
 import com.wwttr.game.Api;
@@ -24,6 +25,9 @@ import com.wwttr.card.Api.DrawTrainCardFromDeckRequest;
 import com.wwttr.auth.Api;
 import com.wwttr.auth.Api.LoginAccountRequest;
 import com.wwttr.server.Handler;
+
+import java.util.Comparator;
+import java.util.List;
 
 public abstract class DeltaDAO implements DAO {
 
@@ -127,11 +131,11 @@ public abstract class DeltaDAO implements DAO {
   public abstract void saveToPersistance(List<Object> queue);
 }
 
-static class CustomComparator {
-  public boolean compare(Object obj1, Object ob2) {
+static class CustomComparator implements Comparator<Delta> {
+  public boolean compare(Delta obj1, Delta ob2) {
     Delta d1 = (Delta) obj1;
-    Delta d2 = (Delta) d2;
-    return d1.getId() < d2.getId();
+    Delta d2 = (Delta) ob2;
+    return d1.getId().compareTo(d2.getId());
   }
 
 }
