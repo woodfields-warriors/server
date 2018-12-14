@@ -24,7 +24,7 @@ spec:
         volumeMounts:
         - mountPath: "/wwttrdata"
           name: server-volume
-        args: ['com.wwttr.dao.DAOFactoryRelational', 'bin/doa.jar']
+        args: ['com.wwttr.dao.DAOFactoryRelational', 'bin/doa.jar', '10']
         env:
         - name: ConnectionString
           value: "User ID=root;Password=myPassword;Host=postgres;Port=5432;Database=myDataBase;
