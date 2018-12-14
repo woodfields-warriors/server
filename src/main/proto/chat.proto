@@ -8,7 +8,6 @@ option java_generic_services = true;
 
 
 service ChatService{
-  rpc AddDelta (apiMessage) returns (Empty);
   rpc createMessage (CreateMessageRequest) returns (Message);
   rpc getMessage (GetMessageRequest) returns (Message);
   rpc streamMessages (StreamMessagesRequest) returns (stream Message);
@@ -17,7 +16,6 @@ service ChatService{
 
 message Empty {}
 
-message apiMessage {}
 
 message Message{
   // The unique identifier of the message.

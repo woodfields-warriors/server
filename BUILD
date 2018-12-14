@@ -80,7 +80,8 @@ java_library(
   deps = [
     "@com_google_protobuf//:protobuf_java",
     ":models",
-    ":api_lib"
+    ":api_lib",
+    ":server_lib",
   ],
 )
 

@@ -119,18 +119,18 @@ public class DatabaseFacade implements Serializable {
       }
     }
 
-    public int getCommandStorageInterval() {
+    /*public int getCommandStorageInterval() {
       synchronized(this) {
         return commandStorageInterval;
       }
-    }
+    }*/
 
-    public void addDelta(com.google.protobuf.Message request, String id, String gameId) {
+   /* public void addDelta(com.google.protobuf.Message request, String id, String gameId) {
       synchronized(this) {
         Delta d = new Delta(request, id, gameId);
         // TODO create DeltaDAO with factory, tell it to write request
       }
-    }
+    } */
 
     public String getServiceFromMessage(com.google.protobuf.Message m) {
       if (m instanceof ClaimRouteReuqest) {

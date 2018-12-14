@@ -15667,14 +15667,6 @@ public final class Api {
 
     public interface Interface {
       /**
-       * <code>rpc AddDelta(.game.Message) returns (.game.Empty);</code>
-       */
-      public abstract void addDelta(
-          com.google.protobuf.RpcController controller,
-          com.wwttr.game.Api.Message request,
-          com.google.protobuf.RpcCallback<com.wwttr.game.Api.Empty> done);
-
-      /**
        * <code>rpc CreateGame(.game.CreateGameRequest) returns (.game.CreateResponse);</code>
        */
       public abstract void createGame(
@@ -15775,14 +15767,6 @@ public final class Api {
     public static com.google.protobuf.Service newReflectiveService(
         final Interface impl) {
       return new GameService() {
-        @java.lang.Override
-        public  void addDelta(
-            com.google.protobuf.RpcController controller,
-            com.wwttr.game.Api.Message request,
-            com.google.protobuf.RpcCallback<com.wwttr.game.Api.Empty> done) {
-          impl.addDelta(controller, request, done);
-        }
-
         @java.lang.Override
         public  void createGame(
             com.google.protobuf.RpcController controller,
@@ -15902,30 +15886,28 @@ public final class Api {
           }
           switch(method.getIndex()) {
             case 0:
-              return impl.addDelta(controller, (com.wwttr.game.Api.Message)request);
-            case 1:
               return impl.createGame(controller, (com.wwttr.game.Api.CreateGameRequest)request);
-            case 2:
+            case 1:
               return impl.leaveGame(controller, (com.wwttr.game.Api.LeaveGameRequest)request);
-            case 3:
+            case 2:
               return impl.deleteGame(controller, (com.wwttr.game.Api.DeleteGameRequest)request);
-            case 4:
+            case 3:
               return impl.getGame(controller, (com.wwttr.game.Api.GetGameRequest)request);
-            case 5:
+            case 4:
               return impl.startGame(controller, (com.wwttr.game.Api.StartGameRequest)request);
-            case 6:
+            case 5:
               return impl.listGames(controller, (com.wwttr.game.Api.ListGamesRequest)request);
-            case 7:
+            case 6:
               return impl.streamGames(controller, (com.wwttr.game.Api.StreamGamesRequest)request);
-            case 8:
+            case 7:
               return impl.createPlayer(controller, (com.wwttr.game.Api.CreatePlayerRequest)request);
-            case 9:
+            case 8:
               return impl.getPlayer(controller, (com.wwttr.game.Api.GetPlayerRequest)request);
-            case 10:
+            case 9:
               return impl.streamPlayerStats(controller, (com.wwttr.game.Api.StreamPlayerStatsRequest)request);
-            case 11:
+            case 10:
               return impl.togglePlayerStats(controller, (com.wwttr.game.Api.Empty)request);
-            case 12:
+            case 11:
               return impl.streamHistory(controller, (com.wwttr.game.Api.StreamHistoryRequest)request);
             default:
               throw new java.lang.AssertionError("Can't get here.");
@@ -15942,30 +15924,28 @@ public final class Api {
           }
           switch(method.getIndex()) {
             case 0:
-              return com.wwttr.game.Api.Message.getDefaultInstance();
-            case 1:
               return com.wwttr.game.Api.CreateGameRequest.getDefaultInstance();
-            case 2:
+            case 1:
               return com.wwttr.game.Api.LeaveGameRequest.getDefaultInstance();
-            case 3:
+            case 2:
               return com.wwttr.game.Api.DeleteGameRequest.getDefaultInstance();
-            case 4:
+            case 3:
               return com.wwttr.game.Api.GetGameRequest.getDefaultInstance();
-            case 5:
+            case 4:
               return com.wwttr.game.Api.StartGameRequest.getDefaultInstance();
-            case 6:
+            case 5:
               return com.wwttr.game.Api.ListGamesRequest.getDefaultInstance();
-            case 7:
+            case 6:
               return com.wwttr.game.Api.StreamGamesRequest.getDefaultInstance();
-            case 8:
+            case 7:
               return com.wwttr.game.Api.CreatePlayerRequest.getDefaultInstance();
-            case 9:
+            case 8:
               return com.wwttr.game.Api.GetPlayerRequest.getDefaultInstance();
-            case 10:
+            case 9:
               return com.wwttr.game.Api.StreamPlayerStatsRequest.getDefaultInstance();
-            case 11:
+            case 10:
               return com.wwttr.game.Api.Empty.getDefaultInstance();
-            case 12:
+            case 11:
               return com.wwttr.game.Api.StreamHistoryRequest.getDefaultInstance();
             default:
               throw new java.lang.AssertionError("Can't get here.");
@@ -15982,30 +15962,28 @@ public final class Api {
           }
           switch(method.getIndex()) {
             case 0:
-              return com.wwttr.game.Api.Empty.getDefaultInstance();
-            case 1:
               return com.wwttr.game.Api.CreateResponse.getDefaultInstance();
+            case 1:
+              return com.wwttr.game.Api.Empty.getDefaultInstance();
             case 2:
               return com.wwttr.game.Api.Empty.getDefaultInstance();
             case 3:
-              return com.wwttr.game.Api.Empty.getDefaultInstance();
+              return com.wwttr.game.Api.Game.getDefaultInstance();
             case 4:
               return com.wwttr.game.Api.Game.getDefaultInstance();
             case 5:
-              return com.wwttr.game.Api.Game.getDefaultInstance();
-            case 6:
               return com.wwttr.game.Api.ListGamesResponse.getDefaultInstance();
-            case 7:
+            case 6:
               return com.wwttr.game.Api.Game.getDefaultInstance();
-            case 8:
+            case 7:
               return com.wwttr.game.Api.CreatePlayerResponse.getDefaultInstance();
-            case 9:
+            case 8:
               return com.wwttr.game.Api.Player.getDefaultInstance();
-            case 10:
+            case 9:
               return com.wwttr.game.Api.PlayerStats.getDefaultInstance();
-            case 11:
+            case 10:
               return com.wwttr.game.Api.Empty.getDefaultInstance();
-            case 12:
+            case 11:
               return com.wwttr.game.Api.GameAction.getDefaultInstance();
             default:
               throw new java.lang.AssertionError("Can't get here.");
@@ -16014,14 +15992,6 @@ public final class Api {
 
       };
     }
-
-    /**
-     * <code>rpc AddDelta(.game.Message) returns (.game.Empty);</code>
-     */
-    public abstract void addDelta(
-        com.google.protobuf.RpcController controller,
-        com.wwttr.game.Api.Message request,
-        com.google.protobuf.RpcCallback<com.wwttr.game.Api.Empty> done);
 
     /**
      * <code>rpc CreateGame(.game.CreateGameRequest) returns (.game.CreateResponse);</code>
@@ -16142,66 +16112,61 @@ public final class Api {
       }
       switch(method.getIndex()) {
         case 0:
-          this.addDelta(controller, (com.wwttr.game.Api.Message)request,
-            com.google.protobuf.RpcUtil.<com.wwttr.game.Api.Empty>specializeCallback(
-              done));
-          return;
-        case 1:
           this.createGame(controller, (com.wwttr.game.Api.CreateGameRequest)request,
             com.google.protobuf.RpcUtil.<com.wwttr.game.Api.CreateResponse>specializeCallback(
               done));
           return;
-        case 2:
+        case 1:
           this.leaveGame(controller, (com.wwttr.game.Api.LeaveGameRequest)request,
             com.google.protobuf.RpcUtil.<com.wwttr.game.Api.Empty>specializeCallback(
               done));
           return;
-        case 3:
+        case 2:
           this.deleteGame(controller, (com.wwttr.game.Api.DeleteGameRequest)request,
             com.google.protobuf.RpcUtil.<com.wwttr.game.Api.Empty>specializeCallback(
               done));
           return;
-        case 4:
+        case 3:
           this.getGame(controller, (com.wwttr.game.Api.GetGameRequest)request,
             com.google.protobuf.RpcUtil.<com.wwttr.game.Api.Game>specializeCallback(
               done));
           return;
-        case 5:
+        case 4:
           this.startGame(controller, (com.wwttr.game.Api.StartGameRequest)request,
             com.google.protobuf.RpcUtil.<com.wwttr.game.Api.Game>specializeCallback(
               done));
           return;
-        case 6:
+        case 5:
           this.listGames(controller, (com.wwttr.game.Api.ListGamesRequest)request,
             com.google.protobuf.RpcUtil.<com.wwttr.game.Api.ListGamesResponse>specializeCallback(
               done));
           return;
-        case 7:
+        case 6:
           this.streamGames(controller, (com.wwttr.game.Api.StreamGamesRequest)request,
             com.google.protobuf.RpcUtil.<com.wwttr.game.Api.Game>specializeCallback(
               done));
           return;
-        case 8:
+        case 7:
           this.createPlayer(controller, (com.wwttr.game.Api.CreatePlayerRequest)request,
             com.google.protobuf.RpcUtil.<com.wwttr.game.Api.CreatePlayerResponse>specializeCallback(
               done));
           return;
-        case 9:
+        case 8:
           this.getPlayer(controller, (com.wwttr.game.Api.GetPlayerRequest)request,
             com.google.protobuf.RpcUtil.<com.wwttr.game.Api.Player>specializeCallback(
               done));
           return;
-        case 10:
+        case 9:
           this.streamPlayerStats(controller, (com.wwttr.game.Api.StreamPlayerStatsRequest)request,
             com.google.protobuf.RpcUtil.<com.wwttr.game.Api.PlayerStats>specializeCallback(
               done));
           return;
-        case 11:
+        case 10:
           this.togglePlayerStats(controller, (com.wwttr.game.Api.Empty)request,
             com.google.protobuf.RpcUtil.<com.wwttr.game.Api.Empty>specializeCallback(
               done));
           return;
-        case 12:
+        case 11:
           this.streamHistory(controller, (com.wwttr.game.Api.StreamHistoryRequest)request,
             com.google.protobuf.RpcUtil.<com.wwttr.game.Api.GameAction>specializeCallback(
               done));
@@ -16221,30 +16186,28 @@ public final class Api {
       }
       switch(method.getIndex()) {
         case 0:
-          return com.wwttr.game.Api.Message.getDefaultInstance();
-        case 1:
           return com.wwttr.game.Api.CreateGameRequest.getDefaultInstance();
-        case 2:
+        case 1:
           return com.wwttr.game.Api.LeaveGameRequest.getDefaultInstance();
-        case 3:
+        case 2:
           return com.wwttr.game.Api.DeleteGameRequest.getDefaultInstance();
-        case 4:
+        case 3:
           return com.wwttr.game.Api.GetGameRequest.getDefaultInstance();
-        case 5:
+        case 4:
           return com.wwttr.game.Api.StartGameRequest.getDefaultInstance();
-        case 6:
+        case 5:
           return com.wwttr.game.Api.ListGamesRequest.getDefaultInstance();
-        case 7:
+        case 6:
           return com.wwttr.game.Api.StreamGamesRequest.getDefaultInstance();
-        case 8:
+        case 7:
           return com.wwttr.game.Api.CreatePlayerRequest.getDefaultInstance();
-        case 9:
+        case 8:
           return com.wwttr.game.Api.GetPlayerRequest.getDefaultInstance();
-        case 10:
+        case 9:
           return com.wwttr.game.Api.StreamPlayerStatsRequest.getDefaultInstance();
-        case 11:
+        case 10:
           return com.wwttr.game.Api.Empty.getDefaultInstance();
-        case 12:
+        case 11:
           return com.wwttr.game.Api.StreamHistoryRequest.getDefaultInstance();
         default:
           throw new java.lang.AssertionError("Can't get here.");
@@ -16261,30 +16224,28 @@ public final class Api {
       }
       switch(method.getIndex()) {
         case 0:
-          return com.wwttr.game.Api.Empty.getDefaultInstance();
-        case 1:
           return com.wwttr.game.Api.CreateResponse.getDefaultInstance();
+        case 1:
+          return com.wwttr.game.Api.Empty.getDefaultInstance();
         case 2:
           return com.wwttr.game.Api.Empty.getDefaultInstance();
         case 3:
-          return com.wwttr.game.Api.Empty.getDefaultInstance();
+          return com.wwttr.game.Api.Game.getDefaultInstance();
         case 4:
           return com.wwttr.game.Api.Game.getDefaultInstance();
         case 5:
-          return com.wwttr.game.Api.Game.getDefaultInstance();
-        case 6:
           return com.wwttr.game.Api.ListGamesResponse.getDefaultInstance();
-        case 7:
+        case 6:
           return com.wwttr.game.Api.Game.getDefaultInstance();
-        case 8:
+        case 7:
           return com.wwttr.game.Api.CreatePlayerResponse.getDefaultInstance();
-        case 9:
+        case 8:
           return com.wwttr.game.Api.Player.getDefaultInstance();
-        case 10:
+        case 9:
           return com.wwttr.game.Api.PlayerStats.getDefaultInstance();
-        case 11:
+        case 10:
           return com.wwttr.game.Api.Empty.getDefaultInstance();
-        case 12:
+        case 11:
           return com.wwttr.game.Api.GameAction.getDefaultInstance();
         default:
           throw new java.lang.AssertionError("Can't get here.");
@@ -16307,27 +16268,12 @@ public final class Api {
         return channel;
       }
 
-      public  void addDelta(
-          com.google.protobuf.RpcController controller,
-          com.wwttr.game.Api.Message request,
-          com.google.protobuf.RpcCallback<com.wwttr.game.Api.Empty> done) {
-        channel.callMethod(
-          getDescriptor().getMethods().get(0),
-          controller,
-          request,
-          com.wwttr.game.Api.Empty.getDefaultInstance(),
-          com.google.protobuf.RpcUtil.generalizeCallback(
-            done,
-            com.wwttr.game.Api.Empty.class,
-            com.wwttr.game.Api.Empty.getDefaultInstance()));
-      }
-
       public  void createGame(
           com.google.protobuf.RpcController controller,
           com.wwttr.game.Api.CreateGameRequest request,
           com.google.protobuf.RpcCallback<com.wwttr.game.Api.CreateResponse> done) {
         channel.callMethod(
-          getDescriptor().getMethods().get(1),
+          getDescriptor().getMethods().get(0),
           controller,
           request,
           com.wwttr.game.Api.CreateResponse.getDefaultInstance(),
@@ -16342,7 +16288,7 @@ public final class Api {
           com.wwttr.game.Api.LeaveGameRequest request,
           com.google.protobuf.RpcCallback<com.wwttr.game.Api.Empty> done) {
         channel.callMethod(
-          getDescriptor().getMethods().get(2),
+          getDescriptor().getMethods().get(1),
           controller,
           request,
           com.wwttr.game.Api.Empty.getDefaultInstance(),
@@ -16357,7 +16303,7 @@ public final class Api {
           com.wwttr.game.Api.DeleteGameRequest request,
           com.google.protobuf.RpcCallback<com.wwttr.game.Api.Empty> done) {
         channel.callMethod(
-          getDescriptor().getMethods().get(3),
+          getDescriptor().getMethods().get(2),
           controller,
           request,
           com.wwttr.game.Api.Empty.getDefaultInstance(),
@@ -16372,7 +16318,7 @@ public final class Api {
           com.wwttr.game.Api.GetGameRequest request,
           com.google.protobuf.RpcCallback<com.wwttr.game.Api.Game> done) {
         channel.callMethod(
-          getDescriptor().getMethods().get(4),
+          getDescriptor().getMethods().get(3),
           controller,
           request,
           com.wwttr.game.Api.Game.getDefaultInstance(),
@@ -16387,7 +16333,7 @@ public final class Api {
           com.wwttr.game.Api.StartGameRequest request,
           com.google.protobuf.RpcCallback<com.wwttr.game.Api.Game> done) {
         channel.callMethod(
-          getDescriptor().getMethods().get(5),
+          getDescriptor().getMethods().get(4),
           controller,
           request,
           com.wwttr.game.Api.Game.getDefaultInstance(),
@@ -16402,7 +16348,7 @@ public final class Api {
           com.wwttr.game.Api.ListGamesRequest request,
           com.google.protobuf.RpcCallback<com.wwttr.game.Api.ListGamesResponse> done) {
         channel.callMethod(
-          getDescriptor().getMethods().get(6),
+          getDescriptor().getMethods().get(5),
           controller,
           request,
           com.wwttr.game.Api.ListGamesResponse.getDefaultInstance(),
@@ -16417,7 +16363,7 @@ public final class Api {
           com.wwttr.game.Api.StreamGamesRequest request,
           com.google.protobuf.RpcCallback<com.wwttr.game.Api.Game> done) {
         channel.callMethod(
-          getDescriptor().getMethods().get(7),
+          getDescriptor().getMethods().get(6),
           controller,
           request,
           com.wwttr.game.Api.Game.getDefaultInstance(),
@@ -16432,7 +16378,7 @@ public final class Api {
           com.wwttr.game.Api.CreatePlayerRequest request,
           com.google.protobuf.RpcCallback<com.wwttr.game.Api.CreatePlayerResponse> done) {
         channel.callMethod(
-          getDescriptor().getMethods().get(8),
+          getDescriptor().getMethods().get(7),
           controller,
           request,
           com.wwttr.game.Api.CreatePlayerResponse.getDefaultInstance(),
@@ -16447,7 +16393,7 @@ public final class Api {
           com.wwttr.game.Api.GetPlayerRequest request,
           com.google.protobuf.RpcCallback<com.wwttr.game.Api.Player> done) {
         channel.callMethod(
-          getDescriptor().getMethods().get(9),
+          getDescriptor().getMethods().get(8),
           controller,
           request,
           com.wwttr.game.Api.Player.getDefaultInstance(),
@@ -16462,7 +16408,7 @@ public final class Api {
           com.wwttr.game.Api.StreamPlayerStatsRequest request,
           com.google.protobuf.RpcCallback<com.wwttr.game.Api.PlayerStats> done) {
         channel.callMethod(
-          getDescriptor().getMethods().get(10),
+          getDescriptor().getMethods().get(9),
           controller,
           request,
           com.wwttr.game.Api.PlayerStats.getDefaultInstance(),
@@ -16477,7 +16423,7 @@ public final class Api {
           com.wwttr.game.Api.Empty request,
           com.google.protobuf.RpcCallback<com.wwttr.game.Api.Empty> done) {
         channel.callMethod(
-          getDescriptor().getMethods().get(11),
+          getDescriptor().getMethods().get(10),
           controller,
           request,
           com.wwttr.game.Api.Empty.getDefaultInstance(),
@@ -16492,7 +16438,7 @@ public final class Api {
           com.wwttr.game.Api.StreamHistoryRequest request,
           com.google.protobuf.RpcCallback<com.wwttr.game.Api.GameAction> done) {
         channel.callMethod(
-          getDescriptor().getMethods().get(12),
+          getDescriptor().getMethods().get(11),
           controller,
           request,
           com.wwttr.game.Api.GameAction.getDefaultInstance(),
@@ -16509,11 +16455,6 @@ public final class Api {
     }
 
     public interface BlockingInterface {
-      public com.wwttr.game.Api.Empty addDelta(
-          com.google.protobuf.RpcController controller,
-          com.wwttr.game.Api.Message request)
-          throws com.google.protobuf.ServiceException;
-
       public com.wwttr.game.Api.CreateResponse createGame(
           com.google.protobuf.RpcController controller,
           com.wwttr.game.Api.CreateGameRequest request)
@@ -16582,24 +16523,12 @@ public final class Api {
 
       private final com.google.protobuf.BlockingRpcChannel channel;
 
-      public com.wwttr.game.Api.Empty addDelta(
-          com.google.protobuf.RpcController controller,
-          com.wwttr.game.Api.Message request)
-          throws com.google.protobuf.ServiceException {
-        return (com.wwttr.game.Api.Empty) channel.callBlockingMethod(
-          getDescriptor().getMethods().get(0),
-          controller,
-          request,
-          com.wwttr.game.Api.Empty.getDefaultInstance());
-      }
-
-
       public com.wwttr.game.Api.CreateResponse createGame(
           com.google.protobuf.RpcController controller,
           com.wwttr.game.Api.CreateGameRequest request)
           throws com.google.protobuf.ServiceException {
         return (com.wwttr.game.Api.CreateResponse) channel.callBlockingMethod(
-          getDescriptor().getMethods().get(1),
+          getDescriptor().getMethods().get(0),
           controller,
           request,
           com.wwttr.game.Api.CreateResponse.getDefaultInstance());
@@ -16611,7 +16540,7 @@ public final class Api {
           com.wwttr.game.Api.LeaveGameRequest request)
           throws com.google.protobuf.ServiceException {
         return (com.wwttr.game.Api.Empty) channel.callBlockingMethod(
-          getDescriptor().getMethods().get(2),
+          getDescriptor().getMethods().get(1),
           controller,
           request,
           com.wwttr.game.Api.Empty.getDefaultInstance());
@@ -16623,7 +16552,7 @@ public final class Api {
           com.wwttr.game.Api.DeleteGameRequest request)
           throws com.google.protobuf.ServiceException {
         return (com.wwttr.game.Api.Empty) channel.callBlockingMethod(
-          getDescriptor().getMethods().get(3),
+          getDescriptor().getMethods().get(2),
           controller,
           request,
           com.wwttr.game.Api.Empty.getDefaultInstance());
@@ -16635,7 +16564,7 @@ public final class Api {
           com.wwttr.game.Api.GetGameRequest request)
           throws com.google.protobuf.ServiceException {
         return (com.wwttr.game.Api.Game) channel.callBlockingMethod(
-          getDescriptor().getMethods().get(4),
+          getDescriptor().getMethods().get(3),
           controller,
           request,
           com.wwttr.game.Api.Game.getDefaultInstance());
@@ -16647,7 +16576,7 @@ public final class Api {
           com.wwttr.game.Api.StartGameRequest request)
           throws com.google.protobuf.ServiceException {
         return (com.wwttr.game.Api.Game) channel.callBlockingMethod(
-          getDescriptor().getMethods().get(5),
+          getDescriptor().getMethods().get(4),
           controller,
           request,
           com.wwttr.game.Api.Game.getDefaultInstance());
@@ -16659,7 +16588,7 @@ public final class Api {
           com.wwttr.game.Api.ListGamesRequest request)
           throws com.google.protobuf.ServiceException {
         return (com.wwttr.game.Api.ListGamesResponse) channel.callBlockingMethod(
-          getDescriptor().getMethods().get(6),
+          getDescriptor().getMethods().get(5),
           controller,
           request,
           com.wwttr.game.Api.ListGamesResponse.getDefaultInstance());
@@ -16671,7 +16600,7 @@ public final class Api {
           com.wwttr.game.Api.StreamGamesRequest request)
           throws com.google.protobuf.ServiceException {
         return (com.wwttr.game.Api.Game) channel.callBlockingMethod(
-          getDescriptor().getMethods().get(7),
+          getDescriptor().getMethods().get(6),
           controller,
           request,
           com.wwttr.game.Api.Game.getDefaultInstance());
@@ -16683,7 +16612,7 @@ public final class Api {
           com.wwttr.game.Api.CreatePlayerRequest request)
           throws com.google.protobuf.ServiceException {
         return (com.wwttr.game.Api.CreatePlayerResponse) channel.callBlockingMethod(
-          getDescriptor().getMethods().get(8),
+          getDescriptor().getMethods().get(7),
           controller,
           request,
           com.wwttr.game.Api.CreatePlayerResponse.getDefaultInstance());
@@ -16695,7 +16624,7 @@ public final class Api {
           com.wwttr.game.Api.GetPlayerRequest request)
           throws com.google.protobuf.ServiceException {
         return (com.wwttr.game.Api.Player) channel.callBlockingMethod(
-          getDescriptor().getMethods().get(9),
+          getDescriptor().getMethods().get(8),
           controller,
           request,
           com.wwttr.game.Api.Player.getDefaultInstance());
@@ -16707,7 +16636,7 @@ public final class Api {
           com.wwttr.game.Api.StreamPlayerStatsRequest request)
           throws com.google.protobuf.ServiceException {
         return (com.wwttr.game.Api.PlayerStats) channel.callBlockingMethod(
-          getDescriptor().getMethods().get(10),
+          getDescriptor().getMethods().get(9),
           controller,
           request,
           com.wwttr.game.Api.PlayerStats.getDefaultInstance());
@@ -16719,7 +16648,7 @@ public final class Api {
           com.wwttr.game.Api.Empty request)
           throws com.google.protobuf.ServiceException {
         return (com.wwttr.game.Api.Empty) channel.callBlockingMethod(
-          getDescriptor().getMethods().get(11),
+          getDescriptor().getMethods().get(10),
           controller,
           request,
           com.wwttr.game.Api.Empty.getDefaultInstance());
@@ -16731,7 +16660,7 @@ public final class Api {
           com.wwttr.game.Api.StreamHistoryRequest request)
           throws com.google.protobuf.ServiceException {
         return (com.wwttr.game.Api.GameAction) channel.callBlockingMethod(
-          getDescriptor().getMethods().get(12),
+          getDescriptor().getMethods().get(11),
           controller,
           request,
           com.wwttr.game.Api.GameAction.getDefaultInstance());
@@ -16895,9 +16824,8 @@ public final class Api {
       "ate\030\010 \001(\0162\025.game.PlayerTurnState*z\n\017Play" +
       "erTurnState\022!\n\035UNSPECIFIED_PLAYER_TURN_S" +
       "TATE\020\000\022\013\n\007PENDING\020\001\022\t\n\005START\020\002\022\007\n\003MID\020\003\022" +
-      "\016\n\nGAME_ENDED\020\004\022\t\n\005FIRST\020\005\022\010\n\004LAST\020\0062\337\005\n" +
-      "\013GameService\022&\n\010AddDelta\022\r.game.Message\032" +
-      "\013.game.Empty\022;\n\nCreateGame\022\027.game.Create" +
+      "\016\n\nGAME_ENDED\020\004\022\t\n\005FIRST\020\005\022\010\n\004LAST\020\0062\267\005\n" +
+      "\013GameService\022;\n\nCreateGame\022\027.game.Create" +
       "GameRequest\032\024.game.CreateResponse\0220\n\tLea" +
       "veGame\022\026.game.LeaveGameRequest\032\013.game.Em" +
       "pty\0222\n\nDeleteGame\022\027.game.DeleteGameReque" +

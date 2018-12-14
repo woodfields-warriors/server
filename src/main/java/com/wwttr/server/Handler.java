@@ -33,7 +33,7 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
 
-class Handler implements HttpHandler {
+public class Handler implements HttpHandler {
 
   private Map<String, Service> services;
   private static Handler instance;

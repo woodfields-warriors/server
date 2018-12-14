@@ -15,7 +15,7 @@ import com.wwttr.game.GameFullException;
 import com.wwttr.api.NotFoundException;
 import com.wwttr.database.CommandQueue;
 import java.util.stream.*;
-import com.wwttr.server;
+import com.wwttr.server.Controller;
 import com.google.protobuf.Message;
 
 
@@ -32,7 +32,7 @@ public class GameHandlers extends Api.GameService {
   // calls addDelta method in GameService after determining gameId
   public void addDelta(RpcController controller, Message request, RpcCallback<Api.Empty> callback) {
     Controller controllerWrapper = (Controller) controller;
-    String id = controller.getId();
+    String id = controllerWrapper.getId();
     String gameId;
 
     if (request instanceof Api.CreateGameRequest) {

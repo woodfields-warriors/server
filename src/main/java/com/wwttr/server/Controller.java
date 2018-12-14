@@ -11,7 +11,7 @@ import java.io.IOException;
 import com.wwttr.api.Response;
 import com.wwttr.api.Code;
 
-class Controller implements RpcController {
+public class Controller implements RpcController {
 
   private HttpExchange exchange;
   private Throwable error;
