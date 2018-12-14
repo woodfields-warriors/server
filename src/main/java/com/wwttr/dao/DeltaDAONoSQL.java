@@ -34,6 +34,7 @@ public class DeltaDAONoSQL extends DeltaDAO {
       File file = new File(connectionString);
       try {
         file.createNewFile();
+        return null;
       }
       catch (IOException f){
         f.printStackTrace();
@@ -46,7 +47,6 @@ public class DeltaDAONoSQL extends DeltaDAO {
     catch (ClassNotFoundException e){
       throw new IllegalArgumentException("Class not Found");
     }
-
   }
 
 
@@ -79,8 +79,14 @@ public class DeltaDAONoSQL extends DeltaDAO {
         fileOutputStream.close();
       }
       catch (FileNotFoundException e){
-        java.io.File = new File(connectionString);
-        // /throw new IllegalArgumentException("File not found");
+        File file = new File(connectionString);
+        try {
+          file.createNewFile();
+        }
+        catch (IOException f){
+          f.printStackTrace();
+          throw new IllegalArgumentException("file unable to be created");
+        }
       }
       catch (IOException e){
         throw new IllegalArgumentException("IOException");

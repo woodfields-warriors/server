@@ -29,6 +29,7 @@ public class UserDAONoSQL extends UserDAO {
       File file = new File(connectionString);
       try {
         file.createNewFile();
+        return null;
       }
       catch (IOException f){
         f.printStackTrace();
@@ -41,7 +42,6 @@ public class UserDAONoSQL extends UserDAO {
     catch (ClassNotFoundException e){
       throw new IllegalArgumentException("Class not Found");
     }
-
   }
 
   @Override
