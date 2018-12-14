@@ -26,8 +26,15 @@ public class UserDAONoSQL extends UserDAO {
       return (DatabaseFacade) objectInputStream.readObject();
     }
     catch (FileNotFoundException e){
-      //java.io.File = new File(connectionString);
-      throw new IllegalArgumentException("File not found");
+      File file = new File(connectionString);
+      try {
+        file.createNewFile();
+        return null;
+      }
+      catch (IOException f){
+        f.printStackTrace();
+        throw new IllegalArgumentException("file unable to be created");
+      }
     }
     catch (IOException e){
       throw new IllegalArgumentException("IOException");
@@ -35,7 +42,6 @@ public class UserDAONoSQL extends UserDAO {
     catch (ClassNotFoundException e){
       throw new IllegalArgumentException("Class not Found");
     }
-
   }
 
   @Override
