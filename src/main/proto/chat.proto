@@ -14,8 +14,6 @@ service ChatService{
 
 }
 
-message Empty {}
-
 
 message Message{
   // The unique identifier of the message.

@@ -12,8 +12,6 @@ service AuthService {
   rpc GetUsername (GetUsernameRequest) returns (GetUsernameResponse);
 }
 
-message Empty {}
-
 
 message Account {
   // A unique identifier for this account.

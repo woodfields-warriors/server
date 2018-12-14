@@ -15,8 +15,6 @@ service RouteService {
   
 }
 
-message Empty {}
-
 
 message Route {
   string id = 1;
