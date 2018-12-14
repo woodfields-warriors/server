@@ -13,16 +13,16 @@ import com.google.protobuf.CodedOutputStream;
 import com.wwttr.database.DAO;
 
 import com.wwttr.route.Api;
-import com.wwttr.game.Api;
+import com.wwttr.game.Api.*;
 import com.wwttr.game.Api.CreatePlayerRequest;
 import com.wwttr.game.Api.LeaveGameRequest;
-import com.wwttr.chat.Api;
+import com.wwttr.chat.Api.*;
 import com.wwttr.chat.Api.CreateMessageRequest;
-import com.wwttr.card.Api;
+import com.wwttr.card.Api.*;
 import com.wwttr.card.Api.ClaimDestinationCardsRequest;
 import com.wwttr.card.Api.ClaimTrainCardRequest;
 import com.wwttr.card.Api.DrawTrainCardFromDeckRequest;
-import com.wwttr.auth.Api;
+import com.wwttr.auth.Api.*;
 import com.wwttr.auth.Api.LoginAccountRequest;
 import com.wwttr.server.Handler;
 
@@ -135,7 +135,7 @@ static class CustomComparator implements Comparator<Delta> {
   public boolean compare(Delta obj1, Delta ob2) {
     Delta d1 = (Delta) obj1;
     Delta d2 = (Delta) ob2;
-    return d1.getId().compareTo(d2.getId());
+    return d1.getId().compareTo(d2.getId()) <= 0;
   }
 
 }
