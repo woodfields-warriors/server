@@ -405,10 +405,10 @@ public class Handler implements HttpHandler {
     
     RpcCallback<Message> callback;
     if (!method.toProto().getServerStreaming()) {
-      callback = controller.unaryHandler();
+      callback = controller.unaryHandler("resp_" + requestId);
     } else {
       try {
-        callback = controller.streamHandler();
+        callback = controller.streamHandler("resp_"+requestId);
       }
       catch (IOException e) {
         e.printStackTrace();

@@ -67,7 +67,7 @@ public class Controller implements RpcController {
     return responder;
   }
 
-  RpcCallback<Message> unaryHandler() {
+  RpcCallback<Message> unaryHandler(String reqId) {
     return (Message response) -> {
       synchronized (this) {
         if (isCanceled()) {
@@ -81,7 +81,7 @@ public class Controller implements RpcController {
         Response.Builder responseWrapper = Response.newBuilder();
         responseWrapper.setCode(Code.OK);
         responseWrapper.setPayload(response.toByteString());
-
+        responseWrapper.setId(reqId);
         UnaryResponder responder = new UnaryResponder(getExchange());
         try {
           responder.respond(responseWrapper.build());
@@ -92,7 +92,7 @@ public class Controller implements RpcController {
     };
   }
 
-  RpcCallback<Message> streamHandler() throws IOException {
+  RpcCallback<Message> streamHandler(String reqId) throws IOException {
     return (Message response) -> {
       synchronized (this) {
         try {
@@ -111,7 +111,7 @@ public class Controller implements RpcController {
           Response.Builder responseWrapper = Response.newBuilder();
           responseWrapper.setCode(Code.OK);
           responseWrapper.setPayload(response.toByteString());
-
+          responseWrapper.setId(reqId);
           responder.respond(responseWrapper.build());
           
         } catch (IOException e) {
