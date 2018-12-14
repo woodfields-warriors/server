@@ -26,8 +26,16 @@ public class GameDAONoSQL extends GameDAO {
       return (DatabaseFacade) objectInputStream.readObject();
     }
     catch (FileNotFoundException e){
+      File file = new File(connectionString);
+      try {
+        file.createNewFile();
+      }
+      catch (IOException f){
+        f.printStackTrace();
+        throw new IllegalArgumentException("file unable to be created");
+      }
       //java.io.File = new File(connectionString);
-      throw new IllegalArgumentException("File not found");
+      //throw new IllegalArgumentException("File not found");
     }
     catch (IOException e){
       throw new IllegalArgumentException("IOException");

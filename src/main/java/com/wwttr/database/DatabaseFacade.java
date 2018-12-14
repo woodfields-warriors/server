@@ -961,8 +961,9 @@ public void execute(Delta delta) {
       gameDAO = daoFactory.makeDAO("GameDAO");
       userDAO = daoFactory.makeDAO("UserDAO");
       deltaDAO= daoFactory.makeDAO("DeltaDAO");
-      gameDao.save(this);
-      userDao.save(this);
+      /*Commented this out because it would wipe the database when resuming from a crash
+      gameDAO.save(this);
+      userDAO.save(this);*/
       gameDAO.load(this);
       userDAO.load(this);
       deltaDAO.load(this);
