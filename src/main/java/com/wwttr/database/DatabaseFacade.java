@@ -762,7 +762,7 @@ public class DatabaseFacade implements Serializable {
     }
   }
 
-  public com.google.protobuf.Message getMessagebyId(String messageId){
+  public Message getMessagebyId(String messageId){
     synchronized (this) {
       for (Message message : messages){
         if(message.getMessageId().equals(messageId)){

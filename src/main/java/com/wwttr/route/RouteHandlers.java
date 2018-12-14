@@ -32,7 +32,8 @@ public class RouteHandlers extends Api.RouteService {
       String gameId;
 
       if (request instanceof Api.ClaimRouteRequest) {
-        Player p = gameService.getPlayer(request.getPlayerId());
+        Api.ClaimRouteRequest req = (Api.ClaimRouteRequest) request;
+        Player p = gameService.getPlayer(req.getPlayerId());
         gameId = p.getGameId();
       }
 

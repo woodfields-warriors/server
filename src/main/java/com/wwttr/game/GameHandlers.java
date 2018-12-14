@@ -40,20 +40,20 @@ public class GameHandlers extends Api.GameService {
       gameId = "NULL";
     }
     else if (request instanceof Api.LeaveGameRequest) {
-      request = (Api.LeaveGameRequest);
-      gameId = request.getGameId();
+      Api.LeaveGameRequest req = (Api.LeaveGameRequest)request;
+      gameId = req.getGameId();
     }
     else if (request instanceof Api.DeleteGameRequest) {
-      request = (Api.DeleteGameRequest) request;
-      gameId = request.getGameId();
+      Api.DeleteGameRequest req = (Api.DeleteGameRequest) request;
+      gameId = req.getGameId();
     }
     else if (request instanceof Api.StartGameRequest) {
-      request = (Api.StartGameRequest) request;
-      gameId = request.getGameId();
+      Api.StartGameRequest req = (Api.StartGameRequest) request;
+      gameId = req.getGameId();
     }
     else if (request instanceof Api.CreatePlayerRequest) {
-      request = (Api.CreatePlayerRequest) request;
-      gameId = request.getGameId();
+      Api.CreatePlayerRequest req = (Api.CreatePlayerRequest) request;
+      gameId = req.getGameId();
     }
 
     service.addDelta(request, id, gameId);
