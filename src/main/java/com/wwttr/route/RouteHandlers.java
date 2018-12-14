@@ -13,7 +13,7 @@ import com.wwttr.models.Route;
 import com.wwttr.game.GameService;
 import com.wwttr.api.FailedPreconditionException;
 import com.wwttr.server.Controller;
-import com.google.protobuf;
+import com.google.protobuf.*;
 
 public class RouteHandlers extends Api.RouteService {
 
@@ -26,18 +26,18 @@ public class RouteHandlers extends Api.RouteService {
   }
 
   // calls addDelta method in GameService after determining gameId
-    public void addDelta(RpcController controller, protobuf.Message request, RpcCallback<Api.Empty> callback) {
+    public void addDelta(RpcController controller, com.google.protobuf.Message request, RpcCallback<Api.Empty> callback) {
       Controller controllerWrapper = (Controller) controller;
       String id = controllerWrapper.getId();
       String gameId;
-  
+
       if (request instanceof Api.ClaimRouteRequest) {
         Player p = gameService.getPlayer(request.getPlayerId());
         gameId = p.getGameId();
       }
-  
+
       gameService.addDelta(request, id, gameId);
-  
+
       Api.Empty.Builder toReturn = Api.Empty.newBuilder();
       callback.run(toReturn.build());
     }

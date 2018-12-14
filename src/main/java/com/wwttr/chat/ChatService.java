@@ -5,7 +5,7 @@ import com.wwttr.models.Player;
 import java.util.Random;
 import com.wwttr.database.DatabaseFacade;
 import java.util.stream.*;
-import com.google.protobuf;
+
 
 //singleton object
 public class ChatService{
@@ -28,7 +28,7 @@ public class ChatService{
     rn = new Random();
   }
 
-  public void addDelta(protobuf.Message request, String id, String gameId) {
+  public void addDelta(com.google.protobuf.Message request, String id, String gameId) {
     database.addDelta(request, id, gameId);
   }
 

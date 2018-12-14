@@ -6,7 +6,10 @@ import com.wwttr.models.Message;
 import com.wwttr.api.ApiError;
 import com.wwttr.api.Code;
 import java.util.stream.*;
+<<<<<<< HEAD
 import com.google.protobuf.*;
+=======
+>>>>>>> 4f9d28a7451d1d1860b231d08479bcb2acd68a52
 
 import com.wwttr.server.Controller;
 
@@ -23,14 +26,14 @@ public class ChatHandlers extends Api.ChatService{
       Controller controllerWrapper = (Controller) controller;
       String id = controllerWrapper.getId();
       String gameId;
-  
+
       if (request instanceof Api.CreateMessageRequest) {
         Player p = gameService.getPlayer(request.getPlayerId());
         gameId = p.getGameId();
       }
-  
+
       service.addDelta(request, id, gameId);
-  
+
       Api.Empty.Builder toReturn = Api.Empty.newBuilder();
       callback.run(toReturn.build());
     }
