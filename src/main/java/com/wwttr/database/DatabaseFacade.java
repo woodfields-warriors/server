@@ -836,6 +836,7 @@ public void addDelta(com.google.protobuf.Message request, String id, String game
 
     if (++numCommands == commandStorageInterval) {
       deltaDAO.clear();
+      System.out.println("Saving Game State");
       gameDAO.save(this);
       userDAO.save(this);
       numCommands = 0;
@@ -916,7 +917,7 @@ public void execute(Delta delta) {
   Handler handler = Handler.getInstance();
   try {
     handler.handleFromStrings(request, delta.getId(), methodName, serviceName);
-  } 
+  }
   catch (java.io.IOException e) {
     e.printStackTrace();
   }
