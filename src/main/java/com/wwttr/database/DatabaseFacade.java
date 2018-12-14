@@ -958,8 +958,8 @@ public void execute(Delta delta) {
       Method method = URLClassLoader.class.getDeclaredMethod("addURL", URL.class);
       method.setAccessible(true);
       method.invoke(classLoader, url);*/
-      gameDAO = daoFactory.makeDAO("GameDAO");
       userDAO = daoFactory.makeDAO("UserDAO");
+      gameDAO = daoFactory.makeDAO("GameDAO");
       deltaDAO= daoFactory.makeDAO("DeltaDAO");
 
       /*Commented this out because it would wipe the database when resuming from a crash
