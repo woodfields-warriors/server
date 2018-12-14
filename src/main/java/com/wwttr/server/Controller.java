@@ -113,7 +113,7 @@ public class Controller implements RpcController {
           responseWrapper.setPayload(response.toByteString());
           responseWrapper.setId(reqId);
           responder.respond(responseWrapper.build());
-          
+
         } catch (IOException e) {
           e.printStackTrace();
           startCancel();

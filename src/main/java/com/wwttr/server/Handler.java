@@ -83,7 +83,7 @@ public class Handler implements HttpHandler {
         return true;
       case "DrawFaceUpTrainCard" :  // id, cardDrawnId
         return true;
-      // "game-changing" methods in AuthService 
+      // "game-changing" methods in AuthService
       case "Register" : // username, password
         return true;
       default:
@@ -91,7 +91,7 @@ public class Handler implements HttpHandler {
     }
   }
 
-  public void handleFromStrings(Message request, String methodName, String serviceName) throws IOException {
+  public void handleFromStrings(Message request, String requestId, String methodName, String serviceName) throws IOException {
     MethodDescriptor method;
     Service service;
 
@@ -100,90 +100,90 @@ public class Handler implements HttpHandler {
 
 
     HttpExchange exchange = new HttpExchange(){
-    
+
       @Override
       public void setStreams(InputStream arg0, OutputStream arg1) {
-        
+
       }
-    
+
       @Override
       public void setAttribute(String arg0, Object arg1) {
-        
+
       }
-    
+
       @Override
       public void sendResponseHeaders(int arg0, long arg1) throws IOException {
-        
+
       }
-    
+
       @Override
       public Headers getResponseHeaders() {
         return null;
       }
-    
+
       @Override
       public int getResponseCode() {
         return 0;
       }
-    
+
       @Override
       public OutputStream getResponseBody() {
         return null;
       }
-    
+
       @Override
       public URI getRequestURI() {
         return null;
       }
-    
+
       @Override
       public String getRequestMethod() {
         return null;
       }
-    
+
       @Override
       public Headers getRequestHeaders() {
         return null;
       }
-    
+
       @Override
       public InputStream getRequestBody() {
         return null;
       }
-    
+
       @Override
       public InetSocketAddress getRemoteAddress() {
         return null;
       }
-    
+
       @Override
       public String getProtocol() {
         return null;
       }
-    
+
       @Override
       public HttpPrincipal getPrincipal() {
         return null;
       }
-    
+
       @Override
       public InetSocketAddress getLocalAddress() {
         return null;
       }
-    
+
       @Override
       public HttpContext getHttpContext() {
         return null;
       }
-    
+
       @Override
       public Object getAttribute(String arg0) {
         return null;
       }
-    
+
       @Override
       public void close() {
-        
+
       }
     };
 
@@ -211,7 +211,7 @@ public class Handler implements HttpHandler {
         responder.respond(response.build());
         return;
       }
-      shouldSave = shouldSave(methodName); 
+      shouldSave = shouldSave(methodName);
     }
     catch (Exception e) {
       // Error with request deserialization
@@ -229,13 +229,13 @@ public class Handler implements HttpHandler {
 
     //HttpExchange exchange = new HttpExchange();
     Controller controller = new Controller(exchange, "req_");
-    
+
     RpcCallback<Message> callback;
     if (!method.toProto().getServerStreaming()) {
-      callback = controller.unaryHandler();
+      callback = controller.unaryHandler(requestId);
     } else {
       try {
-        callback = controller.streamHandler();
+        callback = controller.streamHandler(requestId);
       }
       catch (IOException e) {
         e.printStackTrace();
@@ -385,7 +385,7 @@ public class Handler implements HttpHandler {
         .mergeFrom(requestWrapper.getPayload())
         .build();
 
-      shouldSave = shouldSave(requestWrapper.getMethod()); 
+      shouldSave = shouldSave(requestWrapper.getMethod());
     }
     catch (Exception e) {
       // Error with request deserialization
@@ -402,7 +402,7 @@ public class Handler implements HttpHandler {
     }
 
     Controller controller = new Controller(exchange, "req_"+requestId);
-    
+
     RpcCallback<Message> callback;
     if (!method.toProto().getServerStreaming()) {
       callback = controller.unaryHandler("resp_" + requestId);

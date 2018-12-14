@@ -8,4 +8,6 @@ public interface DAO {
   public void save(Object data);
   /*  facade:instance of DatabaseFacade to have data loaded into */
   public void load(DatabaseFacade facade);
+
+  public void clear();
 }

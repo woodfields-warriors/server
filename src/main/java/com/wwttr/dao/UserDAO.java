@@ -19,6 +19,10 @@ public abstract class UserDAO implements DAO {
     saveToPersistence(facade);
   }
 
+  public void clear(){
+    return;
+  }
+
   @Override
   public final void load(DatabaseFacade facade){
     DatabaseFacade persistentFacade = loadFromPersistence();
