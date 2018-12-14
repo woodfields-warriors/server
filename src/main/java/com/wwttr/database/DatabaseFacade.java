@@ -833,7 +833,7 @@ public void addDelta(com.google.protobuf.Message request, String id, String game
 
     Delta d = new Delta(request, id, gameId);
     deltaDAO.save(d);
-
+    System.out.println("Number of deltas = " + numCommands);
     if (++numCommands == commandStorageInterval) {
       deltaDAO.clear();
       System.out.println("Saving Game State");
@@ -959,7 +959,7 @@ public void execute(Delta delta) {
       gameDAO = daoFactory.makeDAO("GameDAO");
       userDAO = daoFactory.makeDAO("UserDAO");
       deltaDAO= daoFactory.makeDAO("DeltaDAO");
-      
+
       /*Commented this out because it would wipe the database when resuming from a crash
       gameDAO.save(this);
       userDAO.save(this);*/
