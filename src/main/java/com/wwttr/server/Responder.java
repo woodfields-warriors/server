@@ -122,6 +122,7 @@ class StreamResponder {
           try {
             Response.Builder builder = Response.newBuilder();
             builder.setCode(Code.PING);
+            builder.setId("PING");
             respond(builder.build());
           } catch (IOException e) {
             e.printStackTrace();
