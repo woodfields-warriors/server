@@ -24,7 +24,7 @@ spec:
         volumeMounts:
         - mountPath: "/wwttrdata"
           name: server-volume
-        args: ['com.wwttr.dao.DAOFactoryNonRelational', '/bin/doa.jar', '10']
+        args: ['com.wwttr.dao.DAOFactoryNonRelational', '/bin/dao.jar', '10']
         env:
         - name: ConnectionString
           value: "User ID=root;Password=myPassword;Host=postgres;Port=5432;Database=myDataBase;Pooling=true;Min Pool Size=0;Max Pool Size=100;Connection Lifetime=0;"
@@ -48,7 +48,7 @@ spec:
       containers:
       - name: server
         image: gcr.io/ticket-to-ride-216915/server2:$REVISION_ID
-        args: ['com.wwttr.dao.DAOFactoryRelational', '/bin/doa.jar', '10']
+        args: ['com.wwttr.dao.DAOFactoryRelational', '/bin/dao.jar', '10']
         env:
         - name: ConnectionString
           value: "User ID=root;Password=myPassword;Host=postgres;Port=5432;Database=myDataBase;Pooling=true;Min Pool Size=0;Max Pool Size=100;Connection Lifetime=0;"
