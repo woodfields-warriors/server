@@ -1,6 +1,7 @@
 package com.wwttr.dao;
 
 
+import com.wwttr.database.DAO;
 import com.wwttr.database.DatabaseFacade;
 import com.wwttr.models.Game;
 import com.wwttr.models.Delta;
@@ -66,10 +67,9 @@ public class DeltaDAONoSQL extends DeltaDAO {
 
   @Override
   public void addCommandForGame(Delta d) {
-    // TODO generate real gamedao
-    GameDAO gameDAO = GameDAO();
     //DatabaseFacade persistantFacade = gameDAO.loadFromPersistance();
     DatabaseFacade df = DatabaseFacade.getInstance();
+    DAO gameDAO = df.getGameDAO();
 
     Message request = d.getRequest();
     String id = d.getId();
@@ -92,6 +92,8 @@ public class DeltaDAONoSQL extends DeltaDAO {
       }
       }*/
       gameDAO.save(df);
+      DAO userDAO = df.getUserDAO();
+      userDAO.save(df);
     }
     else {
       try {

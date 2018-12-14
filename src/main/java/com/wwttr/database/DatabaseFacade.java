@@ -1197,4 +1197,16 @@ public void execute(com.google.protobuf.Message request) {
       //TODO: Verify with Allison how clearing delatDAO will be done
       deltaDAO.save(this);
   }
+
+  public DAO getGameDAO() {
+    return gameDAO;
+  }
+
+  public DAO getUserDAO() {
+    return userDAO;
+  }
+
+  public DAO getDeltaDAO() {
+    return deltaDAO;
+  }
 }

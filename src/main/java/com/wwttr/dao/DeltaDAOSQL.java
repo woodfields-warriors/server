@@ -1,5 +1,6 @@
 package com.wwttr.dao;
 
+import com.wwttr.database.DAO;
 import com.wwttr.database.DatabaseFacade;
 import com.wwttr.models.Delta;
 
@@ -47,9 +48,9 @@ public class DeltaDAOSQL extends DeltaDAO {
     try {
       Connection con = DriverManager.getConnection(connectionString);
 
-      GameDAO gameDAO = GameDAO();
       //DatabaseFacade persistantFacade = gameDAO.loadFromPersistance();
       DatabaseFacade df = DatabaseFacade.getInstance();
+
   
       Message request = d.getRequest();
       String id = d.getId();
@@ -69,7 +70,10 @@ public class DeltaDAOSQL extends DeltaDAO {
             df.execute(msg)
           } */
 
+        DAO gameDAO = df.getGameDAO();
         gameDAO.save(df);
+        DAO userDAO = df.getUserDAO();
+        userDAO.save(df);
       }
       PreparedStatement statement = con.prepareStatement("UPDATE delta SET data = ? where id = 1");
       statement.setObject(1,queue);
