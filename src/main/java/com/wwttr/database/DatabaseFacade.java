@@ -897,7 +897,7 @@ public void execute(Message request) {
 }
 
 
-  public void createDaos(String persistenceType){
+  public void createDaos(String persistenceType, String pathToJar){
 
     //make a DAOFactory daoFactory = ?
     IDAOFactory daoFactory;
@@ -911,7 +911,8 @@ public void execute(Message request) {
 
     try {
       //TODO: define file path to jar packages
-      File file = new File("bazel-bin/libdao.jar");
+      File file = new File(pathToJar);
+      //File file = new File("bazel-bin/libdao.jar");
       URL url = file.toURI().toURL();
       URLClassLoader classLoader = (URLClassLoader) ClassLoader.getSystemClassLoader();
       //TODO verify correct classLoader usage
