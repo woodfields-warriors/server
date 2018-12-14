@@ -132,7 +132,12 @@ public class CardHandlers extends Api.CardService {
     Api.ClaimDestinationCardsRequest req = (Api.ClaimDestinationCardsRequest) request;
     p = gameService.getPlayer(req.getPlayerId());
     gameId = p.getGameId();
-    gameService.addDelta(request, id, gameId);
+    try {
+      gameService.addDelta(request, id, gameId);
+    }
+    catch (Exception e) {
+      System.out.println("DELTA ERROR: " + e.toString());
+    }
     callback.run(Api.ClaimDestinationCardsResponse.newBuilder().build());
   }
 
@@ -170,7 +175,12 @@ public class CardHandlers extends Api.CardService {
       Api.DrawTrainCardFromDeckRequest req = (Api.DrawTrainCardFromDeckRequest) request;
       p = gameService.getPlayer(req.getId());
       gameId = p.getGameId();
-      gameService.addDelta(request, id, gameId);
+      try {
+        gameService.addDelta(request, id, gameId);
+      }
+      catch (Exception e) {
+        System.out.println("DELTA ERROR: " + e.toString());
+      }
       callback.run(Empty.newBuilder().build());
     }
     catch (NotFoundException e){
@@ -197,7 +207,12 @@ public class CardHandlers extends Api.CardService {
       Api.DrawFaceUpTrainCardRequest req = (Api.DrawFaceUpTrainCardRequest) request;
       p = gameService.getPlayer(req.getId());
       gameId = p.getGameId();
-      gameService.addDelta(request, id, gameId);
+      try {
+        gameService.addDelta(request, id, gameId);
+      }
+      catch (Exception e) {
+        System.out.println("DELTA ERROR: " + e.toString());
+      }
       callback.run(Empty.newBuilder().build());
     }
     catch (NotFoundException e){
