@@ -45,7 +45,7 @@ public abstract class DeltaDAO implements DAO {
   public final void load(DatabaseFacade facade){
     List<Delta> requests = loadFromPersistance();
     for (Delta d : requests) {
-      facade.execute(d.getRequest());
+      facade.execute(d);
     }
   }
 
