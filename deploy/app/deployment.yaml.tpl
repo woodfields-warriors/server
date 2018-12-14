@@ -24,11 +24,34 @@ spec:
         volumeMounts:
         - mountPath: "/wwttrdata"
           name: server-volume
+        args: ['com.wwttr.dao.DAOFactoryNonRelational', 'bin/doa.jar', '10']
+        env:
+        - name: ConnectionString
+          value: "User ID=root;Password=myPassword;Host=postgres;Port=5432;Database=myDataBase;Pooling=true;Min Pool Size=0;Max Pool Size=100;Connection Lifetime=0;"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: server-relational
+  namespace: $LOWER_BRANCH_NAME
+  labels:
+    app: ticket-to-ride-rel
+spec:
+  selector:
+    matchLabels:
+      app: ticket-to-ride-rel
+  template:
+    metadata:
+      labels:
+        app: ticket-to-ride-rel
+    spec:
+      containers:
+      - name: server
+        image: gcr.io/ticket-to-ride-216915/server:$REVISION_ID
         args: ['com.wwttr.dao.DAOFactoryRelational', 'bin/doa.jar', '10']
         env:
         - name: ConnectionString
-          value: "User ID=root;Password=myPassword;Host=postgres;Port=5432;Database=myDataBase;
-Pooling=true;Min Pool Size=0;Max Pool Size=100;Connection Lifetime=0;"
+          value: "User ID=root;Password=myPassword;Host=postgres;Port=5432;Database=myDataBase;Pooling=true;Min Pool Size=0;Max Pool Size=100;Connection Lifetime=0;"
 ---
 kind: PersistentVolumeClaim
 apiVersion: v1
