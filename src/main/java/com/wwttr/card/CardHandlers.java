@@ -56,6 +56,7 @@ public class CardHandlers extends Api.CardService {
       p = gameService.getPlayer(req.getId());
       gameId = p.getGameId();
     }
+    else gameId = "NULL";
 
     gameService.addDelta(request, id, gameId);
 
