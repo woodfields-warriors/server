@@ -111,7 +111,7 @@ public class Controller implements RpcController {
           Response.Builder responseWrapper = Response.newBuilder();
           responseWrapper.setCode(Code.OK);
           responseWrapper.setPayload(response.toByteString());
-          responseWrapper.setId(reqId);
+          responseWrapper.setId(reqId + "-" + new java.util.Random().nextInt(Integer.MAX_VALUE));
           responder.respond(responseWrapper.build());
 
         } catch (IOException e) {
