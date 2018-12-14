@@ -30,7 +30,7 @@ public class GameHandlers extends Api.GameService {
   }
 
   // calls addDelta method in GameService after determining gameId
-  public void addDelta(RpcController controller, Message request, RpcCallback<Api.Empty> callback) {
+  /*public void addDelta(RpcController controller, Message request, RpcCallback<Api.Empty> callback) {
     Controller controllerWrapper = (Controller) controller;
     String id = controllerWrapper.getId();
     String gameId;
@@ -57,11 +57,16 @@ public class GameHandlers extends Api.GameService {
     }
     else gameId = "NULL";
 
-    service.addDelta(request, id, gameId);
+    try {
+      service.addDelta(request, id, gameId);
+    }
+    catch(Exception e) {
+      System.out.println("DELTA ERROR: " + e.toString());
+    }
 
     Api.Empty.Builder toReturn = Api.Empty.newBuilder();
     callback.run(toReturn.build());
-  }
+  }*/
 
   //Creates a player object, then creates a game and adds that to the
   // the database.  Then it gives the created player the game that was
@@ -86,6 +91,17 @@ public class GameHandlers extends Api.GameService {
     try {
       CreateResponse response = service.createGame(request.getDisplayName(),request.getUserId(),
                                                  request.getMaxPlayers());
+
+      String gameId = "NULL";
+      Controller controllerWrapper = (Controller) controller;
+      String id = controllerWrapper.getId();
+      try {
+        service.addDelta(request, id, gameId);
+      }
+      catch(Exception e) {
+        System.out.println("DELTA ERROR: " + e.toString());
+      }
+
       Api.CreateResponse.Builder builder = Api.CreateResponse.newBuilder();
       builder.setGameId(response.getGameID());
       builder.setPlayerId(response.getPlayerID());
@@ -98,6 +114,16 @@ public class GameHandlers extends Api.GameService {
 
   public void leaveGame(RpcController controller, Api.LeaveGameRequest request, RpcCallback<Api.Empty> callback) {
     service.leaveGame(request.getPlayerId(),request.getGameId());
+    String gameId = request.getGameId();
+    Controller controllerWrapper = (Controller) controller;
+    String id = controllerWrapper.getId();
+    try {
+      service.addDelta(request, id, gameId);
+    }
+    catch(Exception e) {
+      System.out.println("DELTA ERROR: " + e.toString());
+    }
+
     Api.Empty.Builder toReturn = Api.Empty.newBuilder();
     callback.run(toReturn.build());
   }
@@ -238,6 +264,17 @@ public class GameHandlers extends Api.GameService {
   public void startGame(RpcController controller, Api.StartGameRequest request, RpcCallback<Api.Game> callback){
     try {
       Game game = service.startGame(request.getGameId());
+
+      String gameId = request.getGameId();
+      Controller controllerWrapper = (Controller) controller;
+      String id = controllerWrapper.getId();
+      try {
+        service.addDelta(request, id, gameId);
+      }
+      catch(Exception e) {
+        System.out.println("DELTA ERROR: " + e.toString());
+      }
+
       Api.Game.Builder gameBuilder = Api.Game.newBuilder();
       gameBuilder.setGameId(game.getGameID());
       gameBuilder.setDisplayName(game.getDisplayName());
@@ -255,6 +292,17 @@ public class GameHandlers extends Api.GameService {
 
   public void deleteGame(RpcController controller, Api.DeleteGameRequest request, RpcCallback<Api.Empty> callback) {
     service.deleteGame(request.getGameId());
+
+    String gameId = request.getGameId();
+    Controller controllerWrapper = (Controller) controller;
+    String id = controllerWrapper.getId();
+    try {
+      service.addDelta(request, id, gameId);
+    }
+    catch(Exception e) {
+      System.out.println("DELTA ERROR: " + e.toString());
+    }
+
     Api.Empty.Builder toReturn = Api.Empty.newBuilder();
     callback.run(toReturn.build());
   }
@@ -275,6 +323,17 @@ public class GameHandlers extends Api.GameService {
   public void createPlayer(RpcController controller, Api.CreatePlayerRequest request, RpcCallback<Api.CreatePlayerResponse> callback){
     try{
       String newPlayerID = service.createPlayer(request.getUserId(), request.getGameId());
+
+      String gameId = request.getGameId();
+      Controller controllerWrapper = (Controller) controller;
+      String id = controllerWrapper.getId();
+      try {
+        service.addDelta(request, id, gameId);
+      }
+      catch(Exception e) {
+        System.out.println("DELTA ERROR: " + e.toString());
+      }
+
       Api.CreatePlayerResponse.Builder toReturn = Api.CreatePlayerResponse.newBuilder();
       toReturn.setPlayerId(newPlayerID);
       callback.run(toReturn.build());

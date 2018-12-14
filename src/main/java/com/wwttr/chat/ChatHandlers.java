@@ -21,7 +21,7 @@ public class ChatHandlers extends Api.ChatService{
   }
 
   // calls addDelta method in ChatService after determining gameId
-    public void addDelta(RpcController controller, com.google.protobuf.Message request, RpcCallback<com.wwttr.game.Api.Empty> callback) {
+    /*public void addDelta(RpcController controller, com.google.protobuf.Message request, RpcCallback<com.wwttr.game.Api.Empty> callback) {
       Controller controllerWrapper = (Controller) controller;
       String id = controllerWrapper.getId();
       String gameId;
@@ -38,7 +38,7 @@ public class ChatHandlers extends Api.ChatService{
 
       com.wwttr.game.Api.Empty.Builder toReturn = com.wwttr.game.Api.Empty.newBuilder();
       callback.run(toReturn.build());
-    }
+    }*/
 
   public void createMessage(RpcController controller, Api.CreateMessageRequest request, RpcCallback<Api.Message> callback){
     if (request.getContent().equals("")){
@@ -49,6 +49,19 @@ public class ChatHandlers extends Api.ChatService{
     }
 
     Message message = service.createMessage(request.getContent(), request.getPlayerId());
+
+    GameService gameService = GameService.getInstance();
+    Player p = gameService.getPlayer(request.getPlayerId());
+    String gameId = p.getGameId();
+    Controller controllerWrapper = (Controller) controller;
+    String id = controllerWrapper.getId();
+    try {
+      service.addDelta(request, id, gameId);
+    }
+    catch(Exception e) {
+      System.out.println("DELTA ERROR: " + e.toString());
+    }
+
     Api.Message.Builder builder = message.createBuilder();
     callback.run(builder.build());
   }

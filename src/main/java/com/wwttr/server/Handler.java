@@ -77,8 +77,6 @@ public class Handler implements HttpHandler {
       // "game-changing" methods in CardService
       case "ClaimDestinationCards" :  // destinationCardIds, playerId
         return true;
-      case "ClaimTrainCard" : // TODO ???
-        return true;
       case "DrawTrainCardFromDeck" :  // id
         return true;
       case "DrawFaceUpTrainCard" :  // id, cardDrawnId
@@ -96,7 +94,7 @@ public class Handler implements HttpHandler {
     Service service;
 
     // specifies whether a request should be saved as a persistant delta
-    boolean shouldSave = false;
+    //boolean shouldSave = false;
 
 
     HttpExchange exchange = new HttpExchange(){
@@ -211,7 +209,7 @@ public class Handler implements HttpHandler {
         responder.respond(response.build());
         return;
       }
-      shouldSave = shouldSave(methodName);
+      //shouldSave = shouldSave(methodName);
     }
     catch (Exception e) {
       // Error with request deserialization
@@ -246,7 +244,7 @@ public class Handler implements HttpHandler {
     try {
       service.callMethod(method, controller, request, callback);
 
-      if (shouldSave) {
+      /*if (shouldSave) {
         try {
           Service gameService = services.get("game.GameService");
           MethodDescriptor addDeltaMethod = gameService
@@ -279,7 +277,7 @@ public class Handler implements HttpHandler {
           }
           return;
         }
-      }
+      } */
     }
     catch (ApiError e) {
       if (controller.isCanceled()) {
@@ -350,7 +348,7 @@ public class Handler implements HttpHandler {
     Service service;
 
     // specifies whether a request should be saved as a persistant delta
-    boolean shouldSave = false;
+    //boolean shouldSave = false;
 
     try {
       InputStream stream = exchange.getRequestBody();
@@ -385,7 +383,7 @@ public class Handler implements HttpHandler {
         .mergeFrom(requestWrapper.getPayload())
         .build();
 
-      shouldSave = shouldSave(requestWrapper.getMethod());
+      //shouldSave = shouldSave(requestWrapper.getMethod());
     }
     catch (Exception e) {
       // Error with request deserialization
@@ -417,7 +415,7 @@ public class Handler implements HttpHandler {
     }
 
     try {
-      if (method == null) {
+      /*if (method == null) {
         System.out.println("method is null");
       }
       if (controller == null) {
@@ -431,10 +429,10 @@ public class Handler implements HttpHandler {
       }
       if (shouldSave) {
         System.out.println("shouldsave is true");
-      }
+      } */
       service.callMethod(method, controller, request, callback);
 
-      if (shouldSave) {
+      /*if (shouldSave) {
         try {
           Service gameService = services.get("game.GameService");
           MethodDescriptor addDeltaMethod = gameService
@@ -467,7 +465,7 @@ public class Handler implements HttpHandler {
           }
           return;
         }
-      }
+      } */
     }
     catch (ApiError e) {
       if (controller.isCanceled()) {

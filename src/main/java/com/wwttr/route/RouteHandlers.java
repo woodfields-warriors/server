@@ -26,7 +26,7 @@ public class RouteHandlers extends Api.RouteService {
   }
 
   // calls addDelta method in GameService after determining gameId
-    public void addDelta(RpcController controller, com.google.protobuf.Message request, RpcCallback<com.wwttr.game.Api.Empty> callback) {
+    /*public void addDelta(RpcController controller, com.google.protobuf.Message request, RpcCallback<com.wwttr.game.Api.Empty> callback) {
       Controller controllerWrapper = (Controller) controller;
       String id = controllerWrapper.getId();
       String gameId;
@@ -42,7 +42,7 @@ public class RouteHandlers extends Api.RouteService {
 
       com.wwttr.game.Api.Empty.Builder toReturn = com.wwttr.game.Api.Empty.newBuilder();
       callback.run(toReturn.build());
-    }
+    }*/
 
   public void streamRoutes(RpcController controller, Api.StreamRoutesRequest request, RpcCallback<Api.Route> callback) {
     if (request.getGameId().equals("")) {
@@ -58,8 +58,22 @@ public class RouteHandlers extends Api.RouteService {
   public void claimRoute(RpcController controller, Api.ClaimRouteRequest request, RpcCallback<Api.ClaimRouteResponse> callback) {
     try{
       gameService.claimRoute(request.getPlayerId(), request.getRouteId(), request.getCardIdsList());
+      
+      Player p = gameService.getPlayer(request.getPlayerId());
+      String gameId = p.getGameId();
+      Controller controllerWrapper = (Controller) controller;
+      String id = controllerWrapper.getId();
+
+      try {
+        gameService.addDelta(request, id, gameId);
+      }
+      catch(Exception e) {
+        System.out.println("DELTA ERROR: " + e.toString());
+      }
+      
       Api.ClaimRouteResponse.Builder builder = Api.ClaimRouteResponse.newBuilder();
       callback.run(builder.build());
+
     }
     catch(NotFoundException e){
       throw new ApiError(Code.NOT_FOUND, e.getMessage());
