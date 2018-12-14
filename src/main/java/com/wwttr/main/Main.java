@@ -32,11 +32,13 @@ public class Main {
     HealthHandlers healthHandlers = new HealthHandlers();
 
     DatabaseFacade df = DatabaseFacade.getInstance();
-    if(args.length < 2){
-      System.out.println("Usage: persistence type 'r' for relational, 'nr' for nonrelational, " +
+    if(args.length < 3){
+      System.out.println("Usage: persistance classname, then path to jar," +
                           "then number of deltas between checkpoints");
       return;
     }
+    df.createDaos(args[0],args[1]);
+    /*
     if (args[0].equals("r")){
       try{
         df.createDaos("com.wwttr.dao.DAOFactoryRelational");
@@ -55,8 +57,8 @@ public class Main {
     }
     else{
       System.out.println("Enter either 'r' or 'nr' for persistance type");
-    }
-    df.setStorageInterval( Integer.parseInt(args[1]));
+    }*/
+    df.setStorageInterval( Integer.parseInt(args[2]));
     Server server = new Server();
 
     server.register(gameHandlers);

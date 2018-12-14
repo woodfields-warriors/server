@@ -267,13 +267,14 @@ java_library(
     "src/main/java/com/wwttr/chat/*.java",
     "src/main/java/com/wwttr/route/*.java",
     "src/main/java/com/wwttr/card/*.java",
-    "src/main/java/com/wwttr/health/*.java",
+    "src/main/java/com/wwttr/health/*.java", 
   ]),
   deps = [
     ":api_lib",
     ":database_lib",
     ":models",
     "@com_google_protobuf//:protobuf_java",
+    ":server_lib", 
   ]
 )
 

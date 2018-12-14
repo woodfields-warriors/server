@@ -912,16 +912,17 @@ public String getMethodFromMessage(com.google.protobuf.Message m) {
   }
 }
 
-public void execute(com.google.protobuf.Message request) {
+public void execute(Delta delta) {
+  com.google.protobuf.Message request = delta.getRequest();
   String methodName = getMethodFromMessage(request);
   String serviceName = getServiceFromMessage(request);
   Handler handler = Handler.getInstance();
-  handler.handleFromStrings(request, methodName, serviceName);
+  handler.handleFromStrings(request, delta.getId(), methodName, serviceName);
 
 }
 
 
-  public void createDaos(String persistenceType){
+  public void createDaos(String persistenceType, String pathToJar){
 
     //make a DAOFactory daoFactory = ?
     IDAOFactory daoFactory;
@@ -935,7 +936,8 @@ public void execute(com.google.protobuf.Message request) {
 
     try {
       //TODO: define file path to jar packages
-      File file = new File("bazel-bin/libdao.jar");
+      File file = new File(pathToJar);
+      //File file = new File("bazel-bin/libdao.jar");
       URL url = file.toURI().toURL();
       URLClassLoader classLoader = (URLClassLoader) ClassLoader.getSystemClassLoader();
       //TODO verify correct classLoader usage
