@@ -985,11 +985,12 @@ public String getMethodFromMessage(com.google.protobuf.Message m) {
   }
 }
 
-public void execute(com.google.protobuf.Message request) {
+public void execute(Delta delta) {
+  com.google.protobuf.Message request = delta.getRequest();
   String methodName = getMethodFromMessage(request);
   String serviceName = getServiceFromMessage(request);
   Handler handler = Handler.getInstance();
-  handler.handleFromStrings(request, methodName, serviceName);
+  handler.handleFromStrings(request, delta.getId(), methodName, serviceName);
 
 }
 
