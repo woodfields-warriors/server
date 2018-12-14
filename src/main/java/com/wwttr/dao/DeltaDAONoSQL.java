@@ -1,5 +1,6 @@
 package com.wwttr.dao;
 
+//import com.sun.accessibility.internal.resources.accessibility_de;
 import com.wwttr.database.DatabaseFacade;
 import com.wwttr.models.Game;
 import com.wwttr.models.Delta;
@@ -14,7 +15,7 @@ import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.io.ObjectStreamException;
 import java.util.Collections;
-import java.util.List;
+//import java.util.java.util.ArrayList;
 
 
 public class DeltaDAONoSQL extends DeltaDAO {
@@ -23,16 +24,9 @@ public class DeltaDAONoSQL extends DeltaDAO {
     super(connectionString);
   }
 
-  @Override
-  public List<Delta> loadFromPersistance() {
-    try {
-      FileInputStream fileInputStream = new FileInputStream(connectionString);
-      ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
-      return (List<Delta>) objectInputStream.readObject();
-    }
-    catch (FileNotFoundException e){
-      File file = new File(connectionString);
-
+  public java.util.ArrayList<Delta> loadFileFromPersistance(String path) {
+    File file = new File(path);
+    if (!file.exists()) {
       try {
         file.createNewFile();
         return null;
@@ -42,24 +36,79 @@ public class DeltaDAONoSQL extends DeltaDAO {
         throw new IllegalArgumentException("file unable to be created");
       }
     }
-    catch (IOException e){
-      throw new IllegalArgumentException("IOException");
+    else {
+      try {
+        FileInputStream fileInputStream = new FileInputStream(path);
+        ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+        return (java.util.ArrayList<Delta>) objectInputStream.readObject();
+      }
+      catch(Exception e) {
+        e.printStackTrace();
+        return null;
+      }
+      
     }
-    catch (ClassNotFoundException e){
-      throw new IllegalArgumentException("Class not Found");
+  }
+
+  @Override
+  public java.util.ArrayList<Delta> loadFromPersistance() {
+    try {
+      /* assuming the file names will be the gameids and the connnectionString
+        in the constructor is the directory  */
+      File directory = new File(connectionString);
+      if (!directory.exists()) {
+        directory.mkdir();
+      }
+
+      java.util.ArrayList<Delta> queue = new java.util.ArrayList<Delta>();
+      File[] listOfFiles = directory.listFiles();
+      for (int i = 0; i < listOfFiles.length; i++) {
+        if (listOfFiles[i].isFile()) {
+          java.util.ArrayList<Delta> savedDeltas = loadFileFromPersistance(listOfFiles[i].getAbsolutePath());
+          for (Delta d : savedDeltas) {
+            queue.add(d);
+          }
+        }
+        else {
+          System.out.println("Found a non-file" + listOfFiles[i].getAbsolutePath());
+        }
+      }
+
+      //Collections.sort(queue, new CustomComparator());
+      return queue;
     }
+    catch (Exception e){
+      e.printStackTrace();
+    }
+    return null;
   }
 
 
   @Override
   public void clear() {
-    try {
-      java.io.PrintWriter pw = new java.io.PrintWriter(connectionString);
-      pw.close();
-    }
-    catch (FileNotFoundException e){
-      throw new IllegalArgumentException("File not found");
-    }
+    /* assuming the file names will be the gameids and the connnectionString
+        in the constructor is the directory  */
+      File directory = new File(connectionString);
+      if (!directory.exists()) {
+        directory.mkdir();
+      }
+
+      File[] listOfFiles = directory.listFiles();
+      for (int i = 0; i < listOfFiles.length; i++) {
+        if (listOfFiles[i].isFile()) {
+          try {
+            java.io.PrintWriter pw = new java.io.PrintWriter(listOfFiles[i].getAbsolutePath());
+            pw.close();
+          }
+          catch (FileNotFoundException e){
+            throw new IllegalArgumentException("File not found");
+          }
+        }
+        else {
+          System.out.println("Found a non-file" + listOfFiles[i].getAbsolutePath());
+        }
+      }
+    
   }
 
   @Override
@@ -71,8 +120,10 @@ public class DeltaDAONoSQL extends DeltaDAO {
     if (!directory.exists()) {
       directory.mkdir();
     }
-    DeltaDAONoSQL deltaDAO = new DeltaDAONoSQL(this.connectionString + "/" + d.getGameId() + ".txt");
-    List<Delta> queue = deltaDAO.loadFromPersistance();
+    java.util.ArrayList<Delta> queue = loadFileFromPersistance(this.connectionString + "/" + d.getGameId() + ".txt");
+    if (queue == null) {
+      queue = new java.util.ArrayList<Delta>();
+    }
     queue.add(d);
     Collections.sort(queue, new CustomComparator());
 
@@ -84,7 +135,7 @@ public class DeltaDAONoSQL extends DeltaDAO {
         fileOutputStream.close();
       }
       catch (FileNotFoundException e){
-        File file = new File(deltaDAO.connectionString);
+        File file = new File(connectionString);
         try {
           file.createNewFile();
         }

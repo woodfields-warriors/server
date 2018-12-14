@@ -11,7 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.List;
+//import java.util.java.util.ArrayList;
 import com.wwttr.models.Delta;
 
 public class DeltaDAOSQL extends DeltaDAO {
@@ -21,13 +21,13 @@ public class DeltaDAOSQL extends DeltaDAO {
   }
 
   @Override
-  public List<Delta> loadFromPersistance() {
+  public java.util.ArrayList<Delta> loadFromPersistance() {
     try {
       Connection con = DriverManager.getConnection(connectionString);
       Statement statement = con.createStatement();
       ResultSet result = statement.executeQuery("SELECT data FROM deltas where id = 1");
       ObjectInputStream objectInputStream = new ObjectInputStream(result.getBlob("data").getBinaryStream());
-      List<Delta> toReturn = (List<Delta>) objectInputStream.readObject();
+      java.util.ArrayList<Delta> toReturn = (java.util.ArrayList<Delta>) objectInputStream.readObject();
       result.close();
       statement.close();
       con.close();
@@ -67,7 +67,7 @@ public class DeltaDAOSQL extends DeltaDAO {
     try {
       Connection con = DriverManager.getConnection(connectionString);
 
-      List<Delta> queue = loadFromPersistance();
+      java.util.ArrayList<Delta> queue = loadFromPersistance();
       queue.add(d);
       java.util.Collections.sort(queue, new CustomComparator());
 

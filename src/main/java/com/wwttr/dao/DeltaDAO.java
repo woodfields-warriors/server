@@ -10,8 +10,9 @@ import com.wwttr.database.DatabaseFacade;
 import com.wwttr.models.Delta;
 import com.google.protobuf.Message;
 import com.google.protobuf.CodedOutputStream;
+import java.util.Collections;
 
-import java.util.List;
+//import java.util.java.util.ArrayList;
 
 public abstract class DeltaDAO implements com.wwttr.database.DAO {
 
@@ -31,7 +32,8 @@ public abstract class DeltaDAO implements com.wwttr.database.DAO {
 
   @Override
   public final void load(DatabaseFacade facade){
-    List<Delta> requests = loadFromPersistance();
+    java.util.ArrayList<Delta> requests = loadFromPersistance();
+    Collections.sort(requests, new CustomComparator());
     for (Delta d : requests) {
       facade.execute(d);
     }
@@ -42,7 +44,7 @@ public abstract class DeltaDAO implements com.wwttr.database.DAO {
 
   public abstract void addCommandForGame(Delta d);
   public abstract void clear();
-  public abstract List<Delta> loadFromPersistance();
+  public abstract java.util.ArrayList<Delta> loadFromPersistance();
   // public abstract void saveToPersistance(List<Object> queue);
 }
 
