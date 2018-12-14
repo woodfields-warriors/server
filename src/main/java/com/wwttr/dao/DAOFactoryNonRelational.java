@@ -17,7 +17,7 @@ public class DAOFactoryNonRelational implements IDAOFactory{
       }
 
       case "DeltaDAO": {
-        DAO toReturn = new DeltaDAOSQL(connectionString);
+        DAO toReturn = new DeltaDAONoSQL(connectionString);
         return toReturn;
         //break;
       }
