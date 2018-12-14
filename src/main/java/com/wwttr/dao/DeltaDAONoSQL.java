@@ -148,5 +148,5 @@ public class DeltaDAONoSQL extends DeltaDAO {
         throw new IllegalArgumentException("IOException");
       }
     }
-  
+
 };
