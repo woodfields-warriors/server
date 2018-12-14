@@ -847,20 +847,20 @@ public void addDelta(com.google.protobuf.Message request, String id, String game
 }
 
 public String getServiceFromMessage(com.google.protobuf.Message m) {
-  if (m instanceof ClaimRouteReuqest) {
+  if (m instanceof com.wwttr.route.Api.ClaimRouteReuqest) {
     return "route.RouteService";
   }
-  else if (m instanceof LoginAccountRequest) {
+  else if (m instanceof com.wwttr.auth.Api.LoginAccountRequest) {
     return "auth.AuthService";
   }
-  else if (m instanceof CreateMessageRequest) {
+  else if (m instanceof com.wwttr.chat.Api.CreateMessageRequest) {
     return "chat.ChatService";
   }
 
-  else if (m instanceof ClaimDestinationCardsRequest ||
-          m instanceof ClaimTrainCardRequest ||
-          m instanceof DrawTrainCardFromDeckRequest ||
-          m instanceof DrawFaceUpTrainCardRequest) {
+  else if (m instanceof com.wwttr.card.Api.ClaimDestinationCardsRequest ||
+          m instanceof com.wwttr.card.Api.ClaimTrainCardRequest ||
+          m instanceof com.wwttr.card.Api.DrawTrainCardFromDeckRequest ||
+          m instanceof com.wwttr.card.Api.DrawFaceUpTrainCardRequest) {
     return "card.CardService";
   }
   else  {
@@ -871,40 +871,40 @@ public String getServiceFromMessage(com.google.protobuf.Message m) {
 
 
 public String getMethodFromMessage(com.google.protobuf.Message m) {
-  if (m instanceof ClaimRouteReuqest) {
+  if (m instanceof com.wwttr.route.Api.ClaimRouteRequest) {
     return "ClaimRoute";  //route.RouteService
   }
-  else if (m instanceof CreateGameRequest) {
+  else if (m instanceof com.wwttr.game.Api.CreateGameRequest) {
     return "CreateGame"; //game.GameService
   }
-  else if (m instanceof LeaveGameRequest) {
+  else if (m instanceof com.wwttr.game.Api.LeaveGameRequest) {
     return "LeaveGame";
   }
-  else if (m instanceof DeleteGameRequest) {
+  else if (m instanceof com.wwttr.game.Api.DeleteGameRequest) {
     return "DeleteGame";
   }
   else if (m instanceof com.wwttr.game.Api.StartGameRequest) {
     return "StartGame";
   }
-  else if (m instanceof CreatePlayerRequest) {
+  else if (m instanceof com.wwttr.game.Api.CreatePlayerRequest) {
     return "CreatePlayer";
   }
-  else if (m instanceof CreateMessageRequest) {
+  else if (m instanceof com.wwttr.chat.Api.CreateMessageRequest) {
     return "createMessage"; //chat.ChatService
   }
-  else if (m instanceof ClaimDestinationCardsRequest) {
+  else if (m instanceof com.wwttr.card.Api.ClaimDestinationCardsRequest) {
     return "ClaimDestinationCards"; //card.CardService
   }
-  else if (m instanceof ClaimTrainCardRequest) {
+  else if (m instanceof com.wwttr.card.Api.ClaimTrainCardRequest) {
     return "ClaimTrainCard";
   }
-  else if (m instanceof DrawTrainCardFromDeckRequest) {
+  else if (m instanceof com.wwttr.card.Api.DrawTrainCardFromDeckRequest) {
     return "DrawTrainCardFromDeck";
   }
   else if (m instanceof com.wwttr.card.Api.DrawFaceUpTrainCardRequest) {
     return "DrawFaceUpTrainCard";
   }
-  else if (m instanceof LoginAccountRequest) {
+  else if (m instanceof com.wwttr.auth.Api.LoginAccountRequest) {
     return "Register"; //auth.AuthService
   }
   else {
