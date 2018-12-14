@@ -72,9 +72,6 @@ public class DeltaDAONoSQL extends DeltaDAO {
       directory.mkdir();
     }
     DeltaDAONoSQL deltaDAO = new DeltaDAONoSQL(this.connectionString + "/" + d.getGameId() + ".txt");
-    List<Delta> queue = deltaDAO.loadFromPersistance();
-    queue.add(d);
-    Collections.sort(queue, new CustomComparator());
 
     try {
         FileOutputStream fileOutputStream = new FileOutputStream(connectionString, false );
@@ -97,5 +94,5 @@ public class DeltaDAONoSQL extends DeltaDAO {
         throw new IllegalArgumentException("IOException");
       }
     }
-  
+
 };
