@@ -66,7 +66,7 @@ public class DeltaDAONoSQL extends DeltaDAO {
 
     /* assuming the file names will be the gameids and the connnectionString
         in the constructor is the directory  */
-    DeltaDAONoSQL deltaDAO = new DeltaDAONoSQL(this.connectionString + "/" + d.getGameId());
+    DeltaDAONoSQL deltaDAO = new DeltaDAONoSQL(this.connectionString + "/" + d.getGameId() + ".txt");
     List<Delta> queue = deltaDAO.loadFromPersistance();
     queue.add(d);
     Collections.sort(queue, new CustomComparator());
