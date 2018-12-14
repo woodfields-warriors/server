@@ -71,9 +71,8 @@ public class DeltaDAONoSQL extends DeltaDAO {
     if (!directory.exists()) {
       directory.mkdir();
     }
-    this.connectionString = this.connectionString + "/" + d.getGameId() + ".txt";
-    //DeltaDAONoSQL deltaDAO = new DeltaDAONoSQL(this.connectionString + "/" + d.getGameId() + ".txt");
-    List<Delta> queue = this.loadFromPersistance();
+    DeltaDAONoSQL deltaDAO = new DeltaDAONoSQL(this.connectionString + "/" + d.getGameId() + ".txt");
+    List<Delta> queue = deltaDAO.loadFromPersistance();
     queue.add(d);
     Collections.sort(queue, new CustomComparator());
 
@@ -85,7 +84,7 @@ public class DeltaDAONoSQL extends DeltaDAO {
         fileOutputStream.close();
       }
       catch (FileNotFoundException e){
-        File file = new File(this.connectionString);
+        File file = new File(deltaDAO.connectionString);
         try {
           file.createNewFile();
         }
