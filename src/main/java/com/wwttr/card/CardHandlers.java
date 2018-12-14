@@ -31,36 +31,36 @@ public class CardHandlers extends Api.CardService {
   }
 
   // calls addDelta method in GameService after determining gameId
-  public void addDelta(RpcController controller, Message request, RpcCallback<com.wwttr.game.Api.Empty> callback) {
-    Controller controllerWrapper = (Controller) controller;
-    String id = controllerWrapper.getId();
-    String gameId;
-
-    Player p;
-
-
-    if (request instanceof Api.ClaimDestinationCardsRequest) {
-      Api.ClaimDestinationCardsRequest req = (Api.ClaimDestinationCardsRequest) request;
-      p = gameService.getPlayer(req.getPlayerId());
-      gameId = p.getGameId();
-    }
-    else if (request instanceof Api.DrawTrainCardFromDeckRequest) {
-      Api.DrawTrainCardFromDeckRequest req = (Api.DrawTrainCardFromDeckRequest) request;
-      p = gameService.getPlayer(req.getId());
-      gameId = p.getGameId();
-    }
-    else if (request instanceof Api.DrawFaceUpTrainCardRequest) {
-      Api.DrawFaceUpTrainCardRequest req = (Api.DrawFaceUpTrainCardRequest) request;
-      p = gameService.getPlayer(req.getId());
-      gameId = p.getGameId();
-    }
-    else gameId = "NULL";
-
-    gameService.addDelta(request, id, gameId);
-
-    com.wwttr.game.Api.Empty.Builder toReturn = com.wwttr.game.Api.Empty.newBuilder();
-    callback.run(toReturn.build());
-  }
+  // public void addDelta(RpcController controller, Message request, RpcCallback<com.wwttr.game.Api.Empty> callback) {
+  //   Controller controllerWrapper = (Controller) controller;
+  //   String id = controllerWrapper.getId();
+  //   String gameId;
+  //
+  //   Player p;
+  //
+  //
+  //   if (request instanceof Api.ClaimDestinationCardsRequest) {
+  //     Api.ClaimDestinationCardsRequest req = (Api.ClaimDestinationCardsRequest) request;
+  //     p = gameService.getPlayer(req.getPlayerId());
+  //     gameId = p.getGameId();
+  //   }
+  //   else if (request instanceof Api.DrawTrainCardFromDeckRequest) {
+  //     Api.DrawTrainCardFromDeckRequest req = (Api.DrawTrainCardFromDeckRequest) request;
+  //     p = gameService.getPlayer(req.getId());
+  //     gameId = p.getGameId();
+  //   }
+  //   else if (request instanceof Api.DrawFaceUpTrainCardRequest) {
+  //     Api.DrawFaceUpTrainCardRequest req = (Api.DrawFaceUpTrainCardRequest) request;
+  //     p = gameService.getPlayer(req.getId());
+  //     gameId = p.getGameId();
+  //   }
+  //   else gameId = "NULL";
+  //
+  //   gameService.addDelta(request, id, gameId);
+  //
+  //   com.wwttr.game.Api.Empty.Builder toReturn = com.wwttr.game.Api.Empty.newBuilder();
+  //   callback.run(toReturn.build());
+  // }
 
 
   //--------------Destination Card Functions-----------------//
@@ -125,7 +125,14 @@ public class CardHandlers extends Api.CardService {
       e.printStackTrace();
       throw new ApiError(Code.INTERNAL,"");
     }
-
+    Controller controllerWrapper = (Controller) controller;
+    String id = controllerWrapper.getId();
+    String gameId;
+    Player p;
+    Api.ClaimDestinationCardsRequest req = (Api.ClaimDestinationCardsRequest) request;
+    p = gameService.getPlayer(req.getPlayerId());
+    gameId = p.getGameId();
+    gameService.addDelta(request, id, gameId);
     callback.run(Api.ClaimDestinationCardsResponse.newBuilder().build());
   }
 
@@ -156,6 +163,14 @@ public class CardHandlers extends Api.CardService {
         throw new ApiError(Code.INVALID_ARGUMENT, "argument 'id' is required");
       }
       gameService.drawTrainCard(request.getId());
+      Controller controllerWrapper = (Controller) controller;
+      String id = controllerWrapper.getId();
+      String gameId;
+      Player p;
+      Api.DrawTrainCardFromDeckRequest req = (Api.DrawTrainCardFromDeckRequest) request;
+      p = gameService.getPlayer(req.getId());
+      gameId = p.getGameId();
+      gameService.addDelta(request, id, gameId);
       callback.run(Empty.newBuilder().build());
     }
     catch (NotFoundException e){
@@ -175,6 +190,14 @@ public class CardHandlers extends Api.CardService {
         throw new ApiError(Code.INVALID_ARGUMENT, "argument 'card_drawn_id' is required");
       }
       gameService.drawFaceUpTrainCard(request.getId(),request.getCardDrawnId());
+      Controller controllerWrapper = (Controller) controller;
+      String id = controllerWrapper.getId();
+      String gameId;
+      Player p;
+      Api.DrawFaceUpTrainCardRequest req = (Api.DrawFaceUpTrainCardRequest) request;
+      p = gameService.getPlayer(req.getId());
+      gameId = p.getGameId();
+      gameService.addDelta(request, id, gameId);
       callback.run(Empty.newBuilder().build());
     }
     catch (NotFoundException e){
