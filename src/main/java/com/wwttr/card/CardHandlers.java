@@ -32,8 +32,8 @@ public class CardHandlers extends Api.CardService {
 
   // calls addDelta method in GameService after determining gameId
   public void addDelta(RpcController controller, Message request, RpcCallback<Api.Empty> callback) {
-    Controller controllerWrapper = (Controller) controllerWrapper;
-    String id = controller.getId();
+    Controller controllerWrapper = (Controller) controller;
+    String id = controllerWrapper.getId();
     String gameId;
 
     Player p;
@@ -42,18 +42,18 @@ public class CardHandlers extends Api.CardService {
       // TODO ???
     }
     else if (request instanceof Api.ClaimDestinationCardsRequest) {
-      request = (Api.ClaimDestinationCardsRequest) request;
-      p = gameService.getPlayer(request.getPlayerId());
+      Api.ClaimDestinationCardsRequest req = (Api.ClaimDestinationCardsRequest) request;
+      p = gameService.getPlayer(req.getPlayerId());
       gameId = p.getGameId();
     }
     else if (request instanceof Api.DrawTrainCardFromDeckRequest) {
-      request = (Api.DrawTrainCardFromDeckRequest) request;
-      p = gameService.getPlayer(request.getId());
+      Api.DrawTrainCardFromDeckRequest req = (Api.DrawTrainCardFromDeckRequest) request;
+      p = gameService.getPlayer(req.getId());
       gameId = p.getGameId();
     }
     else if (request instanceof Api.DrawFaceUpTrainCardRequest) {
-      request = (Api.DrawFaceUpTrainCardRequest) request;
-      p = gameService.getPlayer(request.getId());
+      Api.DrawFaceUpTrainCardRequest req = (Api.DrawFaceUpTrainCardRequest) request;
+      p = gameService.getPlayer(req.getId());
       gameId = p.getGameId();
     }
 

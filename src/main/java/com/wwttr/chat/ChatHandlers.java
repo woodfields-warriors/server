@@ -7,6 +7,7 @@ import com.wwttr.api.ApiError;
 import com.wwttr.api.Code;
 import java.util.stream.*;
 import com.google.protobuf.*;
+import com.wwttr.game.GameService;
 
 import com.wwttr.server.Controller;
 
@@ -23,9 +24,11 @@ public class ChatHandlers extends Api.ChatService{
       Controller controllerWrapper = (Controller) controller;
       String id = controllerWrapper.getId();
       String gameId;
+      GameService gameService = GameService.getInstance();
 
       if (request instanceof Api.CreateMessageRequest) {
-        Player p = gameService.getPlayer(request.getPlayerId());
+        Api.CreateMessageRequest req = (Api.CreateMessageRequest) request;
+        Player p = gameService.getPlayer(req.getPlayerId());
         gameId = p.getGameId();
       }
 
