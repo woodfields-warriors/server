@@ -32,6 +32,7 @@ public class DeltaDAONoSQL extends DeltaDAO {
     }
     catch (FileNotFoundException e){
       File file = new File(connectionString);
+
       try {
         file.createNewFile();
         return null;
@@ -66,6 +67,10 @@ public class DeltaDAONoSQL extends DeltaDAO {
 
     /* assuming the file names will be the gameids and the connnectionString
         in the constructor is the directory  */
+    File directory = new File(connectionString);
+    if (!directory.exists()) {
+      directory.mkdir();
+    }
     DeltaDAONoSQL deltaDAO = new DeltaDAONoSQL(this.connectionString + "/" + d.getGameId() + ".txt");
     List<Delta> queue = deltaDAO.loadFromPersistance();
     queue.add(d);
@@ -79,7 +84,7 @@ public class DeltaDAONoSQL extends DeltaDAO {
         fileOutputStream.close();
       }
       catch (FileNotFoundException e){
-        File file = new File(connectionString);
+        File file = new File(deltaDAO.connectionString);
         try {
           file.createNewFile();
         }
