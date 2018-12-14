@@ -21,6 +21,7 @@ import com.wwttr.api.NotFoundException;
 //import com.wwttr.player.Api.Player;
 import com.wwttr.api.Code;
 import java.util.stream.*;
+import com.google.protobuf.Message;
 
 
 // Game Service is of the Singleton Pattern
@@ -50,6 +51,10 @@ public class GameService {
   GameService(DatabaseFacade db){
     database = db;
     rn = new Random();
+  }
+
+  public void addDelta(Message request, String id, String gameId) {
+    database.addDelta(request, id, gameId);
   }
 
 

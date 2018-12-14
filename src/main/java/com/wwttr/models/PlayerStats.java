@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 public class PlayerStats implements Serializable {
 
-  private static final long serialversionUID = 63549L;
+  private static final long serialVersionUID = 63549L;
 
   String playerId;
   int routePoints;

@@ -40,6 +40,10 @@ public abstract class GameDAO implements DAO {
 
   }
 
+  public void clear(){
+    return;
+  }
+
   public abstract DatabaseFacade loadFromPersistence();
   public abstract void saveToPersistence(DatabaseFacade facade);
 }

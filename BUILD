@@ -68,11 +68,20 @@ java_library(
 
 java_library(
   name = "database_lib",
-  srcs = glob(["src/main/java/com/wwttr/database/*.java"]),
+  srcs = glob([
+		  "src/main/java/com/wwttr/database/*.java",
+      "src/main/java/com/wwttr/game/*.java",
+      "src/main/java/com/wwttr/auth/*.java",
+      "src/main/java/com/wwttr/chat/*.java",
+      "src/main/java/com/wwttr/route/*.java",
+      "src/main/java/com/wwttr/card/*.java",
+      "src/main/java/com/wwttr/health/*.java",
+		  ]),
   deps = [
     "@com_google_protobuf//:protobuf_java",
     ":models",
-    ":api_lib"
+    ":api_lib",
+    ":server_lib",
   ],
 )
 
@@ -258,13 +267,14 @@ java_library(
     "src/main/java/com/wwttr/chat/*.java",
     "src/main/java/com/wwttr/route/*.java",
     "src/main/java/com/wwttr/card/*.java",
-    "src/main/java/com/wwttr/health/*.java",
+    "src/main/java/com/wwttr/health/*.java", 
   ]),
   deps = [
     ":api_lib",
     ":database_lib",
     ":models",
     "@com_google_protobuf//:protobuf_java",
+    ":server_lib", 
   ]
 )
 

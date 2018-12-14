@@ -15,6 +15,9 @@ service RouteService {
   
 }
 
+message Empty {}
+
+
 message Route {
   string id = 1;
   string first_city_id = 2;

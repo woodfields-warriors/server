@@ -15,6 +15,8 @@ import com.wwttr.game.GameFullException;
 import com.wwttr.api.NotFoundException;
 import com.wwttr.database.CommandQueue;
 import java.util.stream.*;
+import com.wwttr.server.Controller;
+import com.google.protobuf.Message;
 
 
 public class GameHandlers extends Api.GameService {
@@ -25,6 +27,39 @@ public class GameHandlers extends Api.GameService {
   public GameHandlers(GameService service, AuthService authService) {
     this.service = service;
     this.authService = authService;
+  }
+
+  // calls addDelta method in GameService after determining gameId
+  public void addDelta(RpcController controller, Message request, RpcCallback<Api.Empty> callback) {
+    Controller controllerWrapper = (Controller) controller;
+    String id = controllerWrapper.getId();
+    String gameId;
+
+    if (request instanceof Api.CreateGameRequest) {
+      // TODO pre-game?
+      gameId = "NULL";
+    }
+    else if (request instanceof Api.LeaveGameRequest) {
+      Api.LeaveGameRequest req = (Api.LeaveGameRequest)request;
+      gameId = req.getGameId();
+    }
+    else if (request instanceof Api.DeleteGameRequest) {
+      Api.DeleteGameRequest req = (Api.DeleteGameRequest) request;
+      gameId = req.getGameId();
+    }
+    else if (request instanceof Api.StartGameRequest) {
+      Api.StartGameRequest req = (Api.StartGameRequest) request;
+      gameId = req.getGameId();
+    }
+    else if (request instanceof Api.CreatePlayerRequest) {
+      Api.CreatePlayerRequest req = (Api.CreatePlayerRequest) request;
+      gameId = req.getGameId();
+    }
+
+    service.addDelta(request, id, gameId);
+
+    Api.Empty.Builder toReturn = Api.Empty.newBuilder();
+    callback.run(toReturn.build());
   }
 
   //Creates a player object, then creates a game and adds that to the

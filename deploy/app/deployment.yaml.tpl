@@ -19,10 +19,42 @@ spec:
         image: gcr.io/ticket-to-ride-216915/server:$REVISION_ID
         env:
         - name: ConnectionString
-          value: "User ID=root;Password=myPassword;Host=localhost;Port=5432;Database=myDataBase;
+          value: "User ID=root;Password=myPassword;Host=postgres;Port=5432;Database=myDataBase;
 Pooling=true;Min Pool Size=0;Max Pool Size=100;Connection Lifetime=0;"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres
+  namespace: $LOWER_BRANCH_NAME
+  labels:
+    app: postgres
+spec:
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
       - name: postgres
         image: postgres
         env:
         - name: POSTGRES_PASSWORD
           value: myPassword
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres
+  namespace: $LOWER_BRANCH_NAME
+spec:
+  type: ClusterIP
+  ports:
+  - port: 5432
+    protocol: TCP
+    targetPort: 5432
+  selector:
+    app: postgres

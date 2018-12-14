@@ -10,11 +10,14 @@ import com.wwttr.models.DestinationCard;
 import com.wwttr.models.Player;
 import com.wwttr.game.Api.Empty;
 import com.wwttr.game.GameService;
+import com.wwttr.server.Controller;
 
 import com.wwttr.models.TrainCard;
 
 import java.util.List;
 import java.util.stream.Stream;
+
+import com.google.protobuf.Message;
 
 public class CardHandlers extends Api.CardService {
 
@@ -26,6 +29,42 @@ public class CardHandlers extends Api.CardService {
     gameService = GameService.getInstance();
 
   }
+
+  // calls addDelta method in GameService after determining gameId
+  public void addDelta(RpcController controller, Message request, RpcCallback<Api.Empty> callback) {
+    Controller controllerWrapper = (Controller) controller;
+    String id = controllerWrapper.getId();
+    String gameId;
+
+    Player p;
+
+    if (request instanceof Api.ClaimTrainCardRequest) {
+      // TODO ???
+    }
+    else if (request instanceof Api.ClaimDestinationCardsRequest) {
+      Api.ClaimDestinationCardsRequest req = (Api.ClaimDestinationCardsRequest) request;
+      p = gameService.getPlayer(req.getPlayerId());
+      gameId = p.getGameId();
+    }
+    else if (request instanceof Api.DrawTrainCardFromDeckRequest) {
+      Api.DrawTrainCardFromDeckRequest req = (Api.DrawTrainCardFromDeckRequest) request;
+      p = gameService.getPlayer(req.getId());
+      gameId = p.getGameId();
+    }
+    else if (request instanceof Api.DrawFaceUpTrainCardRequest) {
+      Api.DrawFaceUpTrainCardRequest req = (Api.DrawFaceUpTrainCardRequest) request;
+      p = gameService.getPlayer(req.getId());
+      gameId = p.getGameId();
+    }
+    else gameId = "NULL";
+
+    gameService.addDelta(request, id, gameId);
+
+    Api.Empty.Builder toReturn = Api.Empty.newBuilder();
+    callback.run(toReturn.build());
+  }
+
+
   //--------------Destination Card Functions-----------------//
   public void getDestinationCard(RpcController controller, Api.GetDestinationCardRequest request, RpcCallback<Api.DestinationCard> callback) {
     try{

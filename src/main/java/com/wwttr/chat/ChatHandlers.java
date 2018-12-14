@@ -3,9 +3,15 @@ package com.wwttr.chat;
 import com.google.protobuf.RpcController;
 import com.google.protobuf.RpcCallback;
 import com.wwttr.models.Message;
+import com.wwttr.models.Player;
 import com.wwttr.api.ApiError;
 import com.wwttr.api.Code;
 import java.util.stream.*;
+import com.google.protobuf.*;
+import com.wwttr.game.GameService;
+
+import com.wwttr.server.Controller;
+
 
 public class ChatHandlers extends Api.ChatService{
   private ChatService service;
@@ -13,6 +19,25 @@ public class ChatHandlers extends Api.ChatService{
   public ChatHandlers(ChatService service){
     this.service = service;
   }
+
+  // calls addDelta method in ChatService after determining gameId
+    public void addDelta(RpcController controller, com.google.protobuf.Message request, RpcCallback<Api.Empty> callback) {
+      Controller controllerWrapper = (Controller) controller;
+      String id = controllerWrapper.getId();
+      String gameId;
+      GameService gameService = GameService.getInstance();
+
+      if (request instanceof Api.CreateMessageRequest) {
+        Api.CreateMessageRequest req = (Api.CreateMessageRequest) request;
+        Player p = gameService.getPlayer(req.getPlayerId());
+        gameId = p.getGameId();
+      }
+
+      service.addDelta(request, id, gameId);
+
+      Api.Empty.Builder toReturn = Api.Empty.newBuilder();
+      callback.run(toReturn.build());
+    }
 
   public void createMessage(RpcController controller, Api.CreateMessageRequest request, RpcCallback<Api.Message> callback){
     if (request.getContent().equals("")){
