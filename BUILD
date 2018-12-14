@@ -21,6 +21,7 @@ java_image(
     ":server_lib",
     ":services",
     "@com_google_protobuf//:protobuf_java",
+    ":database_lib",
     ],
   main_class = "com.wwttr.main.Main",
   # layers = [":java_image_library"],
