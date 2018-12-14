@@ -1,7 +1,5 @@
 package com.wwttr.dao;
 
-import android.provider.ContactsContract;
-
 import com.wwttr.database.DatabaseFacade;
 import com.wwttr.models.Game;
 import com.wwttr.models.Delta;
@@ -16,9 +14,14 @@ import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.io.ObjectStreamException;
 import java.util.Collections;
+import java.util.List;
 
 
 public class DeltaDAONoSQL extends DeltaDAO {
+
+  public DeltaDAONoSQL(String connectionString) {
+    super(connectionString);
+  }
 
   @Override
   public List<Delta> loadFromPersistance() {
@@ -43,14 +46,11 @@ public class DeltaDAONoSQL extends DeltaDAO {
   @Override
   public void clear() {
     try {
-      PrintWriter pw = new PrintWriter(connectionString);
+      java.io.PrintWriter pw = new java.io.PrintWriter(connectionString);
       pw.close();
     }
     catch (FileNotFoundException e){
       throw new IllegalArgumentException("File not found");
-    }
-    catch (IOException e){
-      throw new IllegalArgumentException("IOException");
     }
   }
 
@@ -59,7 +59,7 @@ public class DeltaDAONoSQL extends DeltaDAO {
 
     /* assuming the file names will be the gameids and the connnectionString
         in the constructor is the directory  */
-    DeltaDAO deltaDAO = DeltaDAO(this.connectionString + "/" + gameId);
+    DeltaDAONoSQL deltaDAO = new DeltaDAONoSQL(this.connectionString + "/" + d.getGameId());
     List<Delta> queue = deltaDAO.loadFromPersistance();
     queue.add(d);
     Collections.sort(queue, new CustomComparator());

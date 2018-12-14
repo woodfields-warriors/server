@@ -36,7 +36,7 @@ public class ChatHandlers extends Api.ChatService{
 
       service.addDelta(request, id, gameId);
 
-      Api.Empty.Builder toReturn = Api.Empty.newBuilder();
+      com.wwttr.game.Api.Empty.Builder toReturn = com.wwttr.game.Api.Empty.newBuilder();
       callback.run(toReturn.build());
     }
 

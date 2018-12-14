@@ -26,7 +26,7 @@ public class RouteHandlers extends Api.RouteService {
   }
 
   // calls addDelta method in GameService after determining gameId
-    public void addDelta(RpcController controller, com.google.protobuf.Message request, RpcCallback<Api.Empty> callback) {
+    public void addDelta(RpcController controller, com.google.protobuf.Message request, RpcCallback<com.wwttr.game.Api.Empty> callback) {
       Controller controllerWrapper = (Controller) controller;
       String id = controllerWrapper.getId();
       String gameId;
@@ -40,7 +40,7 @@ public class RouteHandlers extends Api.RouteService {
 
       gameService.addDelta(request, id, gameId);
 
-      Api.Empty.Builder toReturn = Api.Empty.newBuilder();
+      com.wwttr.game.Api.Empty.Builder toReturn = com.wwttr.game.Api.Empty.newBuilder();
       callback.run(toReturn.build());
     }
 

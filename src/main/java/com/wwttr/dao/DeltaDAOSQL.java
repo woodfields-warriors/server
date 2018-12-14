@@ -11,10 +11,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
-
+import java.util.List;
+import com.wwttr.models.Delta;
 
 public class DeltaDAOSQL extends DeltaDAO {
+
+  public DeltaDAOSQL(String connectionString) {
+    super(connectionString);
+  }
+
   @Override
   public List<Delta> loadFromPersistance() {
     try {
@@ -64,7 +69,7 @@ public class DeltaDAOSQL extends DeltaDAO {
 
       List<Delta> queue = loadFromPersistance();
       queue.add(d);
-      Collections.sort(queue, new CustomComparator());
+      java.util.Collections.sort(queue, new CustomComparator());
 
       PreparedStatement statement = con.prepareStatement("UPDATE delta SET data = ? where id = 1");
       statement.setObject(1,queue);

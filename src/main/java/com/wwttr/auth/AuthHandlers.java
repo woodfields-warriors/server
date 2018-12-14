@@ -28,7 +28,7 @@ public class AuthHandlers extends Api.AuthService {
 
     service.addDelta(request, id, "NULL");
 
-    Api.Empty.Builder toReturn = Api.Empty.newBuilder();
+    com.wwttr.game.Api.Empty.Builder toReturn = com.wwttr.game.Api.Empty.newBuilder();
     callback.run(toReturn.build());
   }
 

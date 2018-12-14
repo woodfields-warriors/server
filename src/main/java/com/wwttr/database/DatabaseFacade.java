@@ -917,7 +917,12 @@ public void execute(Delta delta) {
   String methodName = getMethodFromMessage(request);
   String serviceName = getServiceFromMessage(request);
   Handler handler = Handler.getInstance();
-  handler.handleFromStrings(request, delta.getId(), methodName, serviceName);
+  try {
+    handler.handleFromStrings(request, delta.getId(), methodName, serviceName);
+  } 
+  catch (java.io.IOException e) {
+    e.printStackTrace();
+  }
 
 }
 

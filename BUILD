@@ -288,5 +288,7 @@ java_library(
     ":database_lib",
     ":api_lib",
     ":models",
+    "@com_google_protobuf//:protobuf_java",
+    ":server_lib",
   ]
 )
