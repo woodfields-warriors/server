@@ -914,6 +914,8 @@ public void execute(Delta delta) {
   com.google.protobuf.Message request = delta.getRequest();
   String methodName = getMethodFromMessage(request);
   String serviceName = getServiceFromMessage(request);
+  System.out.println("Executing the following command loaded from deltaDao: "
+                    +servicName +"."+methodName);
   Handler handler = Handler.getInstance();
   try {
     handler.handleFromStrings(request, delta.getId(), methodName, serviceName);
@@ -966,6 +968,7 @@ public void execute(Delta delta) {
       gameDAO.load(this);
       userDAO.load(this);
       deltaDAO.load(this);
+
 
     }catch (Exception e){
       e.printStackTrace();
