@@ -883,7 +883,7 @@ public String getMethodFromMessage(com.google.protobuf.Message m) {
   else if (m instanceof DeleteGameRequest) {
     return "DeleteGame";
   }
-  else if (m instanceof StartGameRequest) {
+  else if (m instanceof com.wwttr.game.Api.StartGameRequest) {
     return "StartGame";
   }
   else if (m instanceof CreatePlayerRequest) {
@@ -901,7 +901,7 @@ public String getMethodFromMessage(com.google.protobuf.Message m) {
   else if (m instanceof DrawTrainCardFromDeckRequest) {
     return "DrawTrainCardFromDeck";
   }
-  else if (m instanceof DrawFaceUpTrainCardRequest) {
+  else if (m instanceof com.wwttr.card.Api.DrawFaceUpTrainCardRequest) {
     return "DrawFaceUpTrainCard";
   }
   else if (m instanceof LoginAccountRequest) {
