@@ -1,6 +1,8 @@
 package com.wwttr.dao;
 
+import com.wwttr.database.DAO;
 import com.wwttr.database.DatabaseFacade;
+import com.wwttr.models.Delta;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -11,7 +13,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
+import java.util.Collections;
+import java.util.List;
 
 
 public class DeltaDAOSQL extends DeltaDAO {
@@ -45,13 +48,13 @@ public class DeltaDAOSQL extends DeltaDAO {
     try {
       Connection con = DriverManager.getConnection(connectionString);
 
-      GameDAO gameDAO = GameDAO();
       //DatabaseFacade persistantFacade = gameDAO.loadFromPersistance();
       DatabaseFacade df = DatabaseFacade.getInstance();
+
   
       Message request = d.getRequest();
       String id = d.getId();
-      String gameId = g.getGameId();
+      String gameId = d.getGameId();
   
       int storageInterval = df.getCommandStorageInterval();
 
@@ -67,7 +70,10 @@ public class DeltaDAOSQL extends DeltaDAO {
             df.execute(msg)
           } */
 
+        DAO gameDAO = df.getGameDAO();
         gameDAO.save(df);
+        DAO userDAO = df.getUserDAO();
+        userDAO.save(df);
       }
       PreparedStatement statement = con.prepareStatement("UPDATE delta SET data = ? where id = 1");
       statement.setObject(1,queue);

@@ -1,7 +1,7 @@
 package com.wwttr.dao;
 
-import android.provider.ContactsContract;
 
+import com.wwttr.database.DAO;
 import com.wwttr.database.DatabaseFacade;
 import com.wwttr.models.Game;
 import com.wwttr.models.Delta;
@@ -15,10 +15,16 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.io.ObjectStreamException;
+import java.io.PrintWriter;
 import java.util.Collections;
+import java.util.List;
 
 
 public class DeltaDAONoSQL extends DeltaDAO {
+
+  public DeltaDAONoSQL(String connectionString) {
+    super(connectionString);
+  }
 
   @Override
   public List<Delta> loadFromPersistance() {
@@ -55,11 +61,15 @@ public class DeltaDAONoSQL extends DeltaDAO {
   }
 
   @Override
+  public void saveToPersistance(List<Object> queue) {
+
+  }
+
+  @Override
   public void addCommandForGame(Delta d) {
-    // TODO generate real gamedao
-    GameDAO gameDAO = GameDAO();
     //DatabaseFacade persistantFacade = gameDAO.loadFromPersistance();
     DatabaseFacade df = DatabaseFacade.getInstance();
+    DAO gameDAO = df.getGameDAO();
 
     Message request = d.getRequest();
     String id = d.getId();
@@ -82,6 +92,8 @@ public class DeltaDAONoSQL extends DeltaDAO {
       }
       }*/
       gameDAO.save(df);
+      DAO userDAO = df.getUserDAO();
+      userDAO.save(df);
     }
     else {
       try {
