@@ -6,6 +6,7 @@ import java.util.Random;
 import com.wwttr.database.DatabaseFacade;
 import java.util.stream.*;
 
+
 //singleton object
 public class ChatService{
 
@@ -25,6 +26,10 @@ public class ChatService{
   private ChatService(){
     database = DatabaseFacade.getInstance();
     rn = new Random();
+  }
+
+  public void addDelta(com.google.protobuf.Message request, String id, String gameId) {
+    database.addDelta(request, id, gameId);
   }
 
 

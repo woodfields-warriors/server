@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class Route implements Serializable {
 
-  private static final long serialversionUID = 89681L;
+  private static final long serialVersionUID = 89681L;
 
   private String routeId = "";
   private String firstCityId = "";

@@ -8,6 +8,8 @@ import com.wwttr.models.LoginResponse;
 import com.wwttr.api.Code;
 import com.wwttr.api.ApiError;
 //import com.wwttr.api.InvalidArgumentException;
+import com.google.protobuf.Message;
+import com.wwttr.server.Controller;
 
 
 public class AuthHandlers extends Api.AuthService {
@@ -16,6 +18,17 @@ public class AuthHandlers extends Api.AuthService {
 
   public AuthHandlers(AuthService service) {
     this.service = service;
+  }
+
+  // calls addDelta method in AuthService, no gameId
+  public void addDelta(RpcController controller, Message request, RpcCallback<Api.Empty> callback) {
+    Controller controllerWrapper = (Controller) controller;
+    String id = controllerWrapper.getId();
+
+    service.addDelta(request, id, "NULL");
+
+    Api.Empty.Builder toReturn = Api.Empty.newBuilder();
+    callback.run(toReturn.build());
   }
 
   public void login(RpcController controller, Api.LoginAccountRequest request, RpcCallback<Api.LoginResponse> callback) {

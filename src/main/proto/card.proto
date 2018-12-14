@@ -24,6 +24,7 @@ service CardService {
   rpc getTrainCardsInHand(GetTrainCardsInHandRequest) returns (GetTrainCardsInHandResponse);
 }
 
+message Empty {}
 
 message GetDestinationCardRequest {
   string destination_card_id = 1;

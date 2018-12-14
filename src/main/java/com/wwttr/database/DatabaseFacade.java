@@ -14,23 +14,33 @@ import com.wwttr.api.NotFoundException;
 import com.wwttr.models.*;
 import java.util.stream.Stream;
 import java.util.Random;
-
+import com.wwttr.route.ClaimRouteRequest;
+import com.wwttr.game.Api.CreatePlayerRequest;
+import com.wwttr.game.Api.LeaveGameRequest;
+import com.wwttr.chat.Api.CreateMessageRequest;
+import com.wwttr.card.Api.ClaimDestinationCardsRequest;
+import com.wwttr.card.Api.ClaimTrainCardRequest;
+import com.wwttr.card.Api.DrawTrainCardFromDeckRequest;
+import com.wwttr.auth.Api.LoginAccountRequest;
+import com.wwttr.server.Handler;
 
 public class DatabaseFacade implements Serializable {
 
-  private static final long serialversionUID = 76448L;
+  // the number of deltas to be written before storing
+  // TODO delete this, get frfm
+  private static final long serialVersionUID = 76448L;
 
     private int numCommands = 0;
     private int commandStorageInterval;
-    private DAO gameDAO;
-    private DAO userDAO;
-    private DAO deltaDAO;
+    private GameDAO gameDAO;
+    private UserDAO userDAO;
+    private DeltaDAO deltaDAO;
     private ArrayList<User> Users = new ArrayList<>();
     private ArrayList<Game> Games = new ArrayList<>();
     private CommandQueue<Game> gameStream = new CommandQueue<>();
     private ArrayList<Player> players = new ArrayList<Player>();
-    private ArrayList<Message> messages = new ArrayList<>();
-    private CommandQueue<Message> messageQueue = new CommandQueue<Message>();
+    private ArrayList<com.google.protobuf.Message> messages = new ArrayList<>();
+    private CommandQueue<com.google.protobuf.Message> messageQueue = new CommandQueue<com.google.protobuf.Message>();
     private ArrayList<GameAction> gameActions = new ArrayList<>();
     private CommandQueue<GameAction> historyQueue = new CommandQueue<GameAction>();
     private Random rn = new Random();
@@ -99,6 +109,93 @@ public class DatabaseFacade implements Serializable {
       synchronized (this) {
         Users = new ArrayList<>();
       }
+    }
+
+    /*public int getCommandStorageInterval() {
+      synchronized(this) {
+        return commandStorageInterval;
+      }
+    }*/
+
+   /* public void addDelta(com.google.protobuf.Message request, String id, String gameId) {
+      synchronized(this) {
+        Delta d = new Delta(request, id, gameId);
+        // TODO create DeltaDAO with factory, tell it to write request
+      }
+    } */
+
+    public String getServiceFromMessage(com.google.protobuf.Message m) {
+      if (m instanceof ClaimRouteReuqest) {
+        return "route.RouteService";
+      }
+      else if (m instanceof LoginAccountRequest) {
+        return "auth.AuthService";
+      }
+      else if (m instanceof CreateMessageRequest) {
+        return "chat.ChatService";
+      }
+
+      else if (m instanceof ClaimDestinationCardsRequest ||
+              m instanceof ClaimTrainCardRequest ||
+              m instanceof DrawTrainCardFromDeckRequest ||
+              m instanceof DrawFaceUpTrainCardRequest) {
+        return "card.CardService";
+      }
+      else  {
+        return "game.GameService";
+      }
+    }
+
+
+
+    public String getMethodFromMessage(com.google.protobuf.Message m) {
+      if (m instanceof ClaimRouteReuqest) {
+        return "ClaimRoute";  //route.RouteService
+      }
+      else if (m instanceof CreateGameRequest) {
+        return "CreateGame"; //game.GameService
+      }
+      else if (m instanceof LeaveGameRequest) {
+        return "LeaveGame";
+      }
+      else if (m instanceof DeleteGameRequest) {
+        return "DeleteGame";
+      }
+      else if (m instanceof StartGameRequest) {
+        return "StartGame";
+      }
+      else if (m instanceof CreatePlayerRequest) {
+        return "CreatePlayer";
+      }
+      else if (m instanceof CreateMessageRequest) {
+        return "createMessage"; //chat.ChatService
+      }
+      else if (m instanceof ClaimDestinationCardsRequest) {
+        return "ClaimDestinationCards"; //card.CardService
+      }
+      else if (m instanceof ClaimTrainCardRequest) {
+        return "ClaimTrainCard";
+      }
+      else if (m instanceof DrawTrainCardFromDeckRequest) {
+        return "DrawTrainCardFromDeck";
+      }
+      else if (m instanceof DrawFaceUpTrainCardRequest) {
+        return "DrawFaceUpTrainCard";
+      }
+      else if (m instanceof LoginAccountRequest) {
+        return "Register"; //auth.AuthService
+      }
+      else {
+        return "NULL";
+      }
+    }
+
+    public void execute(com.google.protobuf.Message request) {
+      String methodName = getMethodFromMessage(request);
+      String serviceName = getServiceFromMessage(request);
+      Handler handler = Handler.getInstance();
+      handler.handleFromStrings(request, methodName, serviceName);
+
     }
 
     //***********************************************************************************//
@@ -738,7 +835,7 @@ public class DatabaseFacade implements Serializable {
     }
   }
 
-  public Message getMessagebyId(String messageId){
+  public com.google.protobuf.Message getMessagebyId(String messageId){
     synchronized (this) {
       for (Message message : messages){
         if(message.getMessageId().equals(messageId)){
@@ -822,7 +919,7 @@ public void addDelta(com.google.protobuf.Message request, String id, String game
   }
 }
 
-public String getServiceFromMessage(Message m) {
+public String getServiceFromMessage(com.google.protobuf.Message m) {
   if (m instanceof ClaimRouteReuqest) {
     return "route.RouteService";
   }
@@ -846,7 +943,7 @@ public String getServiceFromMessage(Message m) {
 
 
 
-public String getMethodFromMessage(Message m) {
+public String getMethodFromMessage(com.google.protobuf.Message m) {
   if (m instanceof ClaimRouteReuqest) {
     return "ClaimRoute";  //route.RouteService
   }
@@ -888,7 +985,7 @@ public String getMethodFromMessage(Message m) {
   }
 }
 
-public void execute(Message request) {
+public void execute(com.google.protobuf.Message request) {
   String methodName = getMethodFromMessage(request);
   String serviceName = getServiceFromMessage(request);
   Handler handler = Handler.getInstance();
@@ -978,19 +1075,19 @@ public void execute(Message request) {
     this.players = players;
   }
 
-  public ArrayList<Message> getMessages() {
+  public ArrayList<com.google.protobuf.Message> getMessages() {
     return messages;
   }
 
-  public void setMessages(ArrayList<Message> messages) {
+  public void setMessages(ArrayList<com.google.protobuf.Message> messages) {
     this.messages = messages;
   }
 
-  public CommandQueue<Message> getMessageQueue() {
+  public CommandQueue<com.google.protobuf.Message> getMessageQueue() {
     return messageQueue;
   }
 
-  public void setMessageQueue(CommandQueue<Message> messageQueue) {
+  public void setMessageQueue(CommandQueue<com.google.protobuf.Message> messageQueue) {
     this.messageQueue = messageQueue;
   }
 
@@ -1091,5 +1188,17 @@ public void execute(Message request) {
       userDAO.save(this);
       //TODO: Verify with Allison how clearing delatDAO will be done
       deltaDAO.save(this);
+  }
+
+  public DAO getGameDAO() {
+    return gameDAO;
+  }
+
+  public DAO getUserDAO() {
+    return userDAO;
+  }
+
+  public DAO getDeltaDAO() {
+    return deltaDAO;
   }
 }

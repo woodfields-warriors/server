@@ -5,6 +5,7 @@ import com.wwttr.api.NotFoundException;
 import com.wwttr.database.DatabaseFacade;
 import com.wwttr.models.LoginResponse;
 import com.wwttr.models.User;
+import com.google.protobuf.Message;
 
 import java.util.Random;
 
@@ -12,6 +13,10 @@ public class AuthService {
   private DatabaseFacade df;
   private static AuthService instance;
   private Random rn = new Random();
+
+  public void addDelta(Message request, String id, String gameId) {
+    df.addDelta(request, id, gameId);
+  }
 
   public LoginResponse login(String username, String password) throws Exception{
     User returnedUser = df.getUser(username);
