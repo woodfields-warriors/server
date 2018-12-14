@@ -965,6 +965,7 @@ public void execute(Delta delta) {
       userDAO.save(this);*/
       gameDAO.load(this);
       userDAO.load(this);
+      deltaDAO.load(this);
 
     }catch (Exception e){
       e.printStackTrace();
