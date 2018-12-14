@@ -7,6 +7,7 @@ import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.net.URL;
+import java.net.URI;
 import java.net.URLClassLoader;
 import java.util.*;
 
@@ -936,10 +937,9 @@ public void execute(Delta delta) {
     }*/
 
     try {
-      //TODO: define file path to jar packages
       File file = new File(pathToJar);
-      //File file = new File("bazel-bin/libdao.jar");
       URL url = file.toURI().toURL();
+      System.out.println(persistenceType);
       URLClassLoader classLoader = (URLClassLoader) ClassLoader.getSystemClassLoader();
       /*
       ***I think that URLClassLoader might actually have to be made like this, but I'm not sure
@@ -948,6 +948,7 @@ public void execute(Delta delta) {
       URLClassLoader urlClassLoader = new URLClassLoader(temp);
       Class loadedClass = urlClassLoader.loadClass(persistenceType);
       Constructor constructor = loadedClass.getConstructor();
+
       daoFactory = (IDAOFactory) constructor.newInstance();
       /*
       Method method = URLClassLoader.class.getDeclaredMethod("addURL", URL.class);
@@ -956,11 +957,11 @@ public void execute(Delta delta) {
       gameDAO = daoFactory.makeDAO("GameDAO");
       userDAO = daoFactory.makeDAO("UserDAO");
       deltaDAO= daoFactory.makeDAO("DeltaDAO");
-      gameDao.save(this);
-      userDao.save(this);
+      gameDAO.save(this);
+      userDAO.save(this);
+      
       gameDAO.load(this);
       userDAO.load(this);
-      deltaDAO.load(this);
 
     }catch (Exception e){
       e.printStackTrace();

@@ -417,6 +417,21 @@ public class Handler implements HttpHandler {
     }
 
     try {
+      if (method == null) {
+        System.out.println("method is null");
+      }
+      if (controller == null) {
+        System.out.println("controller is null");
+      }
+      if (request == null) {
+        System.out.println("request is null");
+      }
+      if (callback == null) {
+        System.out.println("callback is null");
+      }
+      if (shouldSave) {
+        System.out.println("shouldsave is true");
+      }
       service.callMethod(method, controller, request, callback);
 
       if (shouldSave) {
