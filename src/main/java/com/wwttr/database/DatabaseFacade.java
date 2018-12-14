@@ -14,7 +14,7 @@ import com.wwttr.api.NotFoundException;
 import com.wwttr.models.*;
 import java.util.stream.Stream;
 import java.util.Random;
-import com.wwttr.route.ClaimRouteRequest;
+import com.wwttr.route.Api.ClaimRouteRequest;
 import com.wwttr.game.Api.CreatePlayerRequest;
 import com.wwttr.game.Api.LeaveGameRequest;
 import com.wwttr.chat.Api.CreateMessageRequest;
@@ -32,9 +32,9 @@ public class DatabaseFacade implements Serializable {
 
     private int numCommands = 0;
     private int commandStorageInterval;
-    private GameDAO gameDAO;
-    private UserDAO userDAO;
-    private DeltaDAO deltaDAO;
+    private DAO gameDAO;
+    private DAO userDAO;
+    private DAO deltaDAO;
     private ArrayList<User> Users = new ArrayList<>();
     private ArrayList<Game> Games = new ArrayList<>();
     private CommandQueue<Game> gameStream = new CommandQueue<>();
@@ -124,79 +124,6 @@ public class DatabaseFacade implements Serializable {
       }
     } */
 
-    public String getServiceFromMessage(com.google.protobuf.Message m) {
-      if (m instanceof ClaimRouteReuqest) {
-        return "route.RouteService";
-      }
-      else if (m instanceof LoginAccountRequest) {
-        return "auth.AuthService";
-      }
-      else if (m instanceof CreateMessageRequest) {
-        return "chat.ChatService";
-      }
-
-      else if (m instanceof ClaimDestinationCardsRequest ||
-              m instanceof ClaimTrainCardRequest ||
-              m instanceof DrawTrainCardFromDeckRequest ||
-              m instanceof DrawFaceUpTrainCardRequest) {
-        return "card.CardService";
-      }
-      else  {
-        return "game.GameService";
-      }
-    }
-
-
-
-    public String getMethodFromMessage(com.google.protobuf.Message m) {
-      if (m instanceof ClaimRouteReuqest) {
-        return "ClaimRoute";  //route.RouteService
-      }
-      else if (m instanceof CreateGameRequest) {
-        return "CreateGame"; //game.GameService
-      }
-      else if (m instanceof LeaveGameRequest) {
-        return "LeaveGame";
-      }
-      else if (m instanceof DeleteGameRequest) {
-        return "DeleteGame";
-      }
-      else if (m instanceof StartGameRequest) {
-        return "StartGame";
-      }
-      else if (m instanceof CreatePlayerRequest) {
-        return "CreatePlayer";
-      }
-      else if (m instanceof CreateMessageRequest) {
-        return "createMessage"; //chat.ChatService
-      }
-      else if (m instanceof ClaimDestinationCardsRequest) {
-        return "ClaimDestinationCards"; //card.CardService
-      }
-      else if (m instanceof ClaimTrainCardRequest) {
-        return "ClaimTrainCard";
-      }
-      else if (m instanceof DrawTrainCardFromDeckRequest) {
-        return "DrawTrainCardFromDeck";
-      }
-      else if (m instanceof DrawFaceUpTrainCardRequest) {
-        return "DrawFaceUpTrainCard";
-      }
-      else if (m instanceof LoginAccountRequest) {
-        return "Register"; //auth.AuthService
-      }
-      else {
-        return "NULL";
-      }
-    }
-
-    public void execute(com.google.protobuf.Message request) {
-      String methodName = getMethodFromMessage(request);
-      String serviceName = getServiceFromMessage(request);
-      Handler handler = Handler.getInstance();
-      handler.handleFromStrings(request, methodName, serviceName);
-
-    }
 
     //***********************************************************************************//
     //-------------------------------Player Methods------------------------------------
