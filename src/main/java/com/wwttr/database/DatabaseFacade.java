@@ -839,10 +839,6 @@ public void addDelta(com.google.protobuf.Message request, String id, String game
       userDAO.save(this);
       numCommands = 0;
     }
-
-
-    //
-    // TODO create DeltaDAO with factory, tell it to write request
   }
 }
 
@@ -945,7 +941,6 @@ public void execute(Delta delta) {
       //File file = new File("bazel-bin/libdao.jar");
       URL url = file.toURI().toURL();
       URLClassLoader classLoader = (URLClassLoader) ClassLoader.getSystemClassLoader();
-      //TODO verify correct classLoader usage
       /*
       ***I think that URLClassLoader might actually have to be made like this, but I'm not sure
       ***Currently the File and URL are not being used at all*/
@@ -1122,7 +1117,6 @@ public void execute(Delta delta) {
       playerStatsQueue = new CommandQueue<>();
       gameDAO.save(this);
       userDAO.save(this);
-      //TODO: Verify with Allison how clearing delatDAO will be done
       deltaDAO.save(this);
   }
 
