@@ -36,8 +36,8 @@ public class GameService {
 
   private static GameService gameServiceInstance = null;
 
-  private CardService cardService = CardService.getInstance();
-  private RouteService routeService;
+  transient private CardService cardService = CardService.getInstance();
+  transient private RouteService routeService;
 
   public static GameService getInstance(){
     if(gameServiceInstance == null){
@@ -535,6 +535,7 @@ class MidState implements IPlayerTurnState, Serializable{
 class GameEnded implements IPlayerTurnState, Serializable{
 
   private static final long serialversionUID = 18614L;
+
 
   public PlayerTurnState getTurnState() {
     return PlayerTurnState.GAME_ENDED;
