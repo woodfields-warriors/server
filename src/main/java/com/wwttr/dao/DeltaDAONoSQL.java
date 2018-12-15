@@ -144,6 +144,7 @@ public class DeltaDAONoSQL extends DeltaDAO {
         }
       }
       catch (IOException e){
+        e.printStackTrace();
         throw new IllegalArgumentException("IOException");
       }
     }

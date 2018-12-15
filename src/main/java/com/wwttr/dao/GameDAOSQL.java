@@ -32,12 +32,15 @@ public class GameDAOSQL extends GameDAO {
       return toReturn;
     }
     catch (SQLException e){
+      e.printStackTrace();
       throw new IllegalArgumentException("SQL read exception");
     }
     catch (IOException e){
+      e.printStackTrace();
       throw new IllegalArgumentException("Object Conversion Error");
     }
     catch (ClassNotFoundException e){
+      e.printStackTrace();
       throw new IllegalArgumentException("Object Conversion to Database Error");
     }
 
@@ -56,6 +59,7 @@ public class GameDAOSQL extends GameDAO {
       con.close();
     }
     catch (SQLException e){
+      e.printStackTrace();
       throw new IllegalArgumentException("SQL read exception");
     }
   }

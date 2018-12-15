@@ -39,9 +39,11 @@ public class GameDAONoSQL extends GameDAO {
       //throw new IllegalArgumentException("File not found");
     }
     catch (IOException e){
+      e.printStackTrace();
       throw new IllegalArgumentException("IOException");
     }
     catch (ClassNotFoundException e){
+      e.printStackTrace();
       throw new IllegalArgumentException("Class not Found");
     }
   }
@@ -56,9 +58,11 @@ public class GameDAONoSQL extends GameDAO {
       fileOutputStream.close();
     }
     catch (FileNotFoundException e){
+      e.printStackTrace();
       throw new IllegalArgumentException("File not found");
     }
     catch (IOException e){
+      e.printStackTrace();
       throw new IllegalArgumentException("IOException");
     }
   }

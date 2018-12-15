@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
-public class CommandQueue<T> {
-
+public class CommandQueue<T> implements java.io.Serializable {
+  private static final long serialVersionUID = 23492324728l;
   List<BlockingQueue<T>> subscriptions = new LinkedList<BlockingQueue<T>>();
   List<T> elements = new LinkedList<T>();
 

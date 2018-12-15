@@ -34,12 +34,15 @@ public class DeltaDAOSQL extends DeltaDAO {
       return toReturn;
     }
     catch (SQLException e){
+      e.printStackTrace();
       throw new IllegalArgumentException("SQL read exception");
     }
     catch (IOException e){
+      e.printStackTrace();
       throw new IllegalArgumentException("Object Conversion Error");
     }
     catch (ClassNotFoundException e){
+      e.printStackTrace();
       throw new IllegalArgumentException("Object Conversion to Database Error");
     }
 
@@ -57,6 +60,7 @@ public class DeltaDAOSQL extends DeltaDAO {
       con.close();
     }
     catch (SQLException e){
+      e.printStackTrace();
       throw new IllegalArgumentException("SQL write exception");
     }
   }
@@ -80,6 +84,7 @@ public class DeltaDAOSQL extends DeltaDAO {
       
     }
     catch (SQLException e){
+      e.printStackTrace();
       throw new IllegalArgumentException("SQL read exception");
     }
   }
