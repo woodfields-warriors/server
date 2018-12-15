@@ -915,7 +915,7 @@ public void execute(Delta delta) {
   String methodName = getMethodFromMessage(request);
   String serviceName = getServiceFromMessage(request);
   System.out.println("Executing the following command loaded from deltaDao: "
-                    +servicName +"."+methodName);
+                    +serviceName +"."+methodName);
   Handler handler = Handler.getInstance();
   try {
     handler.handleFromStrings(request, delta.getId(), methodName, serviceName);
@@ -958,8 +958,8 @@ public void execute(Delta delta) {
       Method method = URLClassLoader.class.getDeclaredMethod("addURL", URL.class);
       method.setAccessible(true);
       method.invoke(classLoader, url);*/
-      gameDAO = daoFactory.makeDAO("GameDAO");
       userDAO = daoFactory.makeDAO("UserDAO");
+      gameDAO = daoFactory.makeDAO("GameDAO");
       deltaDAO= daoFactory.makeDAO("DeltaDAO");
 
       /*Commented this out because it would wipe the database when resuming from a crash
