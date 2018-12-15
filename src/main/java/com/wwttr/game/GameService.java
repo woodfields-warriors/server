@@ -328,21 +328,21 @@ class FirstTurnState implements IPlayerTurnState {
   }
   public void drawDestinationCards(String playerId, List<String> destinationCardIds) throws NotFoundException {
     CardService.getInstance().claimDestinationCards(destinationCardIds,playerId);
-    Player player = Database.getInstance().getPlayer(playerId);
+    Player player = DatabaseFacade.getInstance().getPlayer(playerId);
     //every player after they're done picking destination cards
     // goes to a pending state until everyone else is done
     // picking their destination cards
     player.setState(new PendingState());
-    Database.getInstance().updatePlayer(player);
+    DatabaseFacade.getInstance().updatePlayer(player);
 
 
-    Game game = Database.getInstance().getGame(player.getGameId());
+    Game game = DatabaseFacade.getInstance().getGame(player.getGameId());
     List<String> playerIdsInGame = game.getPlayerIDs();
     // the last person to pick their destination cards will set
     //  the host's player turn state to a start state
     boolean allPicked = true;  //
     for (String id : playerIdsInGame){
-      Player temp = Database.getInstance().getPlayer(id);
+      Player temp = DatabaseFacade.getInstance().getPlayer(id);
       //if the player is in First Turn State
       if(temp.getPlayerState().getClass().equals(FirstTurnState.class)){
         allPicked = false;
@@ -350,7 +350,7 @@ class FirstTurnState implements IPlayerTurnState {
     }
     if(allPicked == true){
       //host gets first turn
-      Player host = Database.getInstance().getPlayer(game.getHostPlayerID());
+      Player host = DatabaseFacade.getInstance().getPlayer(game.getHostPlayerID());
       host.setState(new StartState());
       database.updatePlayer(host);
     }
@@ -380,82 +380,82 @@ class StartState implements IPlayerTurnState {
 
   public void drawTrainCard(String playerId) throws NotFoundException {
     CardService.getInstance().claimTrainCardFromDeck(playerId);
-    Player player = Database.getInstance().getPlayer(playerId);
+    Player player = DatabaseFacade.getInstance().getPlayer(playerId);
     player.setState(new MidState());
   }
   public void claimRoute(String playerId, String routeId,List<String> cardIds) throws NotFoundException, IllegalArgumentException, FailedPreconditionException {
-    RouteService.getInstance.claimRoute(playerId,routeId,cardIds);
-    Player player = Database.getInstance().getPlayer(playerId);
+    RouteService.getInstance().claimRoute(playerId,routeId,cardIds);
+    Player player = DatabaseFacade.getInstance().getPlayer(playerId);
     if(database.getGame(player.getGameId()).getGameStatus().equals(Game.Status.LASTROUND)){
       player.setState(new GameEnded());
     }
     else {
       player.setState(new PendingState());
     }
-    Database.getInstance().updatePlayer(player);
+    DatabaseFacade.getInstance().updatePlayer(player);
 
     //end the game or tell the next player in order it is their turn
-    Player nextPlayer = Database.getInstance().getNextPlayer(playerId,player.getGameId());
+    Player nextPlayer = DatabaseFacade.getInstance().getNextPlayer(playerId,player.getGameId());
     if(nextPlayer.getPlayerState().getClass().equals(GameEnded.class)){
-      Game game = Database.getInstance().getGame(player.getGameId());
+      Game game = DatabaseFacade.getInstance().getGame(player.getGameId());
       game.changeGameStatus(Game.Status.ENDED);
-      Database.getInstance().updateGame(game,game.getGameID());
+      DatabaseFacade.getInstance().updateGame(game,game.getGameID());
     }
     else {
       nextPlayer.setState(new StartState());
-      Database.getInstance().updatePlayer(nextPlayer);
+      DatabaseFacade.getInstance().updatePlayer(nextPlayer);
     }
   }
 
   public void drawDestinationCards(String playerId, List<String> destinationCardIds)
                                    throws NotFoundException{
     CardService.getInstance().claimDestinationCards(destinationCardIds,playerId);
-    Player player = Database.getInstance().getPlayer(playerId);
-    if(Database.getInstance().getGame(player.getGameId()).getGameStatus().equals(Game.Status.LASTROUND)){
+    Player player = DatabaseFacade.getInstance().getPlayer(playerId);
+    if(DatabaseFacade.getInstance().getGame(player.getGameId()).getGameStatus().equals(Game.Status.LASTROUND)){
       player.setState(new GameEnded());
     }
     else {
       player.setState(new PendingState());
     }
-    Database.getInstance().updatePlayer(player);
+    DatabaseFacade.getInstance().updatePlayer(player);
     //end the game or tell the next player in order it is their turn
-    Player nextPlayer = Database.getInstance().getNextPlayer(playerId,player.getGameId());
+    Player nextPlayer = DatabaseFacade.getInstance().getNextPlayer(playerId,player.getGameId());
     if(nextPlayer.getPlayerState().getClass().equals(GameEnded.class)){
-      Game game = Database.getInstance().getGame(player.getGameId());
+      Game game = DatabaseFacade.getInstance().getGame(player.getGameId());
       game.changeGameStatus(Game.Status.ENDED);
-      Database.getInstance().updateGame(game,game.getGameID());
+      DatabaseFacade.getInstance().updateGame(game,game.getGameID());
     }
     else {
       nextPlayer.setState(new StartState());
-      Database.getInstance().updatePlayer(nextPlayer);
+      DatabaseFacade.getInstance().updatePlayer(nextPlayer);
     }
   }
   public void drawFaceUpTrainCard(String playerId, String cardId)throws NotFoundException{
     CardService.getInstance().claimFaceUpTrainCard(playerId,cardId);
     boolean isLocomotiveCard  = CardService.getInstance().isLocomotive(cardId);
-    Player player = Database.getInstance().getPlayer(playerId);
+    Player player = DatabaseFacade.getInstance().getPlayer(playerId);
     if(isLocomotiveCard){
-      if(Database.getInstance().getGame(player.getGameId()).getGameStatus().equals(Game.Status.LASTROUND)){
+      if(DatabaseFacade.getInstance().getGame(player.getGameId()).getGameStatus().equals(Game.Status.LASTROUND)){
         player.setState(new GameEnded());
       }
       else {
         player.setState(new PendingState());
       }
-      Database.getInstance().updatePlayer(player);
-      Player nextPlayer = Database.getInstance().getNextPlayer(playerId,player.getGameId());
+      DatabaseFacade.getInstance().updatePlayer(player);
+      Player nextPlayer = DatabaseFacade.getInstance().getNextPlayer(playerId,player.getGameId());
       if(nextPlayer.getPlayerState().getClass().equals(GameEnded.class)){
-        Game game = Database.getInstance().getGame(player.getGameId());
+        Game game = DatabaseFacade.getInstance().getGame(player.getGameId());
         game.changeGameStatus(Game.Status.ENDED);
-        Database.getInstance().updateGame(game,game.getGameID());
+        DatabaseFacade.getInstance().updateGame(game,game.getGameID());
       }
       else {
         nextPlayer.setState(new StartState());
-        Database.getInstance().updatePlayer(nextPlayer);
+        DatabaseFacade.getInstance().updatePlayer(nextPlayer);
       }
     }
     else{
       player.setState(new MidState());
-      Database.getInstance().updatePlayer(player);
+      DatabaseFacade.getInstance().updatePlayer(player);
     }
   }
 }
