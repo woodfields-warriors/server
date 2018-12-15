@@ -60,12 +60,12 @@ public class UserDAOSQL extends UserDAO {
   public void saveToPersistence(DatabaseFacade facade) {
     try {
 
-      ByteArrayOutputStream buf = new ByteArrayOutputStream();
-      ObjectOutputStream outputStream = new ObjectOutputStream(buf);
+      java.io.ByteArrayOutputStream buf = new java.io.ByteArrayOutputStream();
+      java.io.ObjectOutputStream outputStream = new java.io.ObjectOutputStream(buf);
       outputStream.writeObject(facade);
       outputStream.close();
 
-      InputStream in = new ByteArrayInputStream(buf.toByteArray());
+      java.io.InputStream in = new java.io.ByteArrayInputStream(buf.toByteArray());
 
       PreparedStatement statement = conn.prepareStatement("INSERT INTO users (userId,data) VALUES(?,?) ON CONFLICT (userId) DO UPDATE SET data = EXCLUDED.data");
       statement.setString(1,"1");

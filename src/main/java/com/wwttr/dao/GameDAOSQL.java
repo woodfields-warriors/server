@@ -13,6 +13,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.io.PipedOutputStream;
 import java.io.PipedInputStream;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 
 public class GameDAOSQL extends GameDAO {
 
@@ -61,12 +64,12 @@ public class GameDAOSQL extends GameDAO {
     
     try {
 
-      ByteArrayOutputStream buf = new ByteArrayOutputStream();
-      ObjectOutputStream outputStream = new ObjectOutputStream(buf);
+      java.io.ByteArrayOutputStream buf = new java.io.ByteArrayOutputStream();
+      java.io.ObjectOutputStream outputStream = new java.io.ObjectOutputStream(buf);
       outputStream.writeObject(facade);
       outputStream.close();
 
-      InputStream in = new ByteArrayInputStream(buf.toByteArray());
+      java.io.InputStream in = new java.io.ByteArrayInputStream(buf.toByteArray());
 
       PreparedStatement statement = conn.prepareStatement("INSERT INTO games (gameId,data) VALUES(?,?) ON CONFLICT (gameId) DO UPDATE SET data = EXCLUDED.data");
       statement.setString(1,"1");
