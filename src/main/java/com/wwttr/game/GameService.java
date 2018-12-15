@@ -274,7 +274,7 @@ public class GameService {
 
 class PendingState implements IPlayerTurnState, Serializable {
 
-  private static final long serialversionUID = 58581L;
+  private static final long serialVersionUID = 48280L;
 
   public PlayerTurnState getTurnState() {
     return PlayerTurnState.PENDING;
@@ -302,13 +302,13 @@ class PendingState implements IPlayerTurnState, Serializable {
   }
 }
 
-class FirstTurnState implements IPlayerTurnState, Serializable{
+class FirstTurnState implements IPlayerTurnState {
 
-  private static final long serialversionUID = 78279L;
+  private static final long serialVersionUID = 48280L;
 
-  DatabaseFacade database = DatabaseFacade.getInstance();
-  CardService cardService = CardService.getInstance();
-  RouteService routeService = RouteService.getInstance();
+  transient DatabaseFacade database = DatabaseFacade.getInstance();
+  transient CardService cardService = CardService.getInstance();
+  transient RouteService routeService = RouteService.getInstance();
 
   public PlayerTurnState getTurnState() {
     return PlayerTurnState.FIRST;
@@ -362,13 +362,13 @@ class FirstTurnState implements IPlayerTurnState, Serializable{
   }
 }
 
-class StartState implements IPlayerTurnState, Serializable{
+class StartState implements IPlayerTurnState {
 
-  private static final long serialversionUID = 48280L;
+  private static final long serialVersionUID = 48280L;
 
-  DatabaseFacade database = DatabaseFacade.getInstance();
-  CardService cardService = CardService.getInstance();
-  RouteService routeService = RouteService.getInstance();
+  transient DatabaseFacade database = DatabaseFacade.getInstance();
+  transient CardService cardService = CardService.getInstance();
+  transient RouteService routeService = RouteService.getInstance();
 
   public PlayerTurnState getTurnState() {
     return PlayerTurnState.START;
@@ -463,10 +463,10 @@ class StartState implements IPlayerTurnState, Serializable{
 
 class MidState implements IPlayerTurnState, Serializable{
 
-  private static final long serialversionUID = 56021L;
+  private static final long serialVersionUID = 48280L;
 
-  DatabaseFacade database = DatabaseFacade.getInstance();
-  CardService cardService = CardService.getInstance();
+  transient DatabaseFacade database = DatabaseFacade.getInstance();
+  transient CardService cardService = CardService.getInstance();
 
   public PlayerTurnState getTurnState() {
     return PlayerTurnState.MID;
@@ -534,8 +534,7 @@ class MidState implements IPlayerTurnState, Serializable{
 
 class GameEnded implements IPlayerTurnState, Serializable{
 
-  private static final long serialversionUID = 18614L;
-
+  private static final long serialVersionUID = 48280L;
 
   public PlayerTurnState getTurnState() {
     return PlayerTurnState.GAME_ENDED;
