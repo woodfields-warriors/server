@@ -33,9 +33,9 @@ public class DatabaseFacade implements Serializable {
 
     private int numCommands = 0;
     private int commandStorageInterval;
-    private DAO gameDAO;
-    private DAO userDAO;
-    private DAO deltaDAO;
+    private static DAO gameDAO;
+    private static DAO userDAO;
+    private static DAO deltaDAO;
     private ArrayList<User> Users = new ArrayList<>();
     private ArrayList<Game> Games = new ArrayList<>();
     private CommandQueue<Game> gameStream = new CommandQueue<>();
