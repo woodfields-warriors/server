@@ -65,14 +65,27 @@ public class DeltaDAOSQL extends DeltaDAO {
   @Override
   public void clear() {
     try {
-      PreparedStatement statement = conn.prepareStatement("UPDATE deltas SET data = ? where id = '1'");
-      statement.setObject(1,null);
+      java.util.TreeMap<String, Delta> queue = new java.util.TreeMap<String,Delta>();
+
+      ByteArrayOutputStream buf = new ByteArrayOutputStream();
+      ObjectOutputStream outputStream = new ObjectOutputStream(buf);
+      outputStream.writeObject(queue);
+      outputStream.close();
+
+      InputStream in = new ByteArrayInputStream(buf.toByteArray());
+
+      PreparedStatement statement = conn.prepareStatement("INSERT INTO deltas (id,data) VALUES(?,?) ON CONFLICT (id) DO UPDATE SET data = EXCLUDED.data");
+      statement.setString(1,"1");
+      statement.setBinaryStream(2, in);
       statement.executeUpdate();
       statement.close();
     }
     catch (SQLException e){
       e.printStackTrace();
-      //throw new IllegalArgumentException("SQL write exception");
+      throw new IllegalArgumentException("SQL read exception");      
+    }
+    catch (Exception e) {
+      e.printStackTrace();
     }
   }
 
