@@ -67,16 +67,17 @@ public class Main {
     server.register(cardHandlers);
     server.register(routeHandlers);
     server.register(cardHandlers);
-
     try {
       server.start(8080);
-      System.out.println("listening on port 8080");
-      df.createDaos(args[0], args[1]);
     }
     catch (IOException e) {
-      server.stop();
       System.out.println(e);
       System.exit(1);
     }
+
+    df.createDaos(args[0], args[1]);
+
+    server.listen();
+    System.out.println("listening on port 8080");
   }
 }

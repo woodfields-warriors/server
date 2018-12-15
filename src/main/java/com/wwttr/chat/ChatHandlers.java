@@ -48,13 +48,15 @@ public class ChatHandlers extends Api.ChatService{
       throw new ApiError(Code.INVALID_ARGUMENT, "Argument 'playerId' is required");
     }
 
-    Message message = service.createMessage(request.getContent(), request.getPlayerId());
+    Controller controllerWrapper = (Controller) controller;
+    String id = controllerWrapper.getId();
+
+    Message message = service.createMessage(request.getContent(), request.getPlayerId(), id);
 
     GameService gameService = GameService.getInstance();
     Player p = gameService.getPlayer(request.getPlayerId());
     String gameId = p.getGameId();
-    Controller controllerWrapper = (Controller) controller;
-    String id = controllerWrapper.getId();
+    
     try {
       service.addDelta(request, id, gameId);
     }

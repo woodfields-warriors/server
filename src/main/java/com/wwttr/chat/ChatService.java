@@ -33,10 +33,10 @@ public class ChatService{
   }
 
 
-  public Message createMessage(String content, String playerId) {
+  public Message createMessage(String content, String playerId, String requestId) {
     int unixTime = (int) (System.currentTimeMillis() / 1000L);
     Player player = database.getPlayer(playerId);
-    Message message = new Message("msg" + Integer.toString(rn.nextInt() & Integer.MAX_VALUE),
+    Message message = new Message("msg" + requestId,
                                   content,playerId,player.getGameId(),unixTime);
     database.addMessage(message);
     return message;

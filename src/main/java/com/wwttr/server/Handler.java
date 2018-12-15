@@ -138,14 +138,16 @@ public class Handler implements HttpHandler {
         System.out.println(msg);
       });
     }
+    catch (Exception e) {
+      e.printStackTrace();
+      throw e;                                                              
+    }
     catch (ApiError e) {
-      if (controller.isCanceled()) {
-        return;
-      }
-      controller.startCancel();
       // Error with method execution
-      
-      throw e;
+      if (!controller.isCanceled()) {
+        controller.startCancel();
+      }
+      throw new Exception("api error from handler: " + e.getCode() + " " + e.getMessage());
     }
   }
 

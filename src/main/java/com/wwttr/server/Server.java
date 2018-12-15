@@ -24,12 +24,15 @@ public class Server {
     if (server != null) {
       stop();
     }
-    HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
+    server = HttpServer.create(new InetSocketAddress(port), 0);
 
     server.setExecutor(java.util.concurrent.Executors.newCachedThreadPool());
     Handler handler = Handler.getInstance();
     handler.init(services);
     server.createContext("/", handler);
+  }
+
+  public void listen() {
     server.start();
   }
 

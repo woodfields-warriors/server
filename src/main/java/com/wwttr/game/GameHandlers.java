@@ -89,12 +89,14 @@ public class GameHandlers extends Api.GameService {
       throw new ApiError(Code.INVALID_ARGUMENT,"argument 'max_players' must be between 2 and 6");
     }
     try {
-      CreateResponse response = service.createGame(request.getDisplayName(),request.getUserId(),
-                                                 request.getMaxPlayers());
-
-      String gameId = "NULL";
       Controller controllerWrapper = (Controller) controller;
       String id = controllerWrapper.getId();
+
+      CreateResponse response = service.createGame(request.getDisplayName(),request.getUserId(),
+                                                 request.getMaxPlayers(), id);
+
+      String gameId = "NULL";
+      
       try {
         service.addDelta(request, id, gameId);
       }
@@ -322,11 +324,13 @@ public class GameHandlers extends Api.GameService {
   // in the createPlayerResponse
   public void createPlayer(RpcController controller, Api.CreatePlayerRequest request, RpcCallback<Api.CreatePlayerResponse> callback){
     try{
-      String newPlayerID = service.createPlayer(request.getUserId(), request.getGameId());
-
-      String gameId = request.getGameId();
       Controller controllerWrapper = (Controller) controller;
       String id = controllerWrapper.getId();
+
+      String newPlayerID = service.createPlayer(request.getUserId(), request.getGameId(), id);
+
+      String gameId = request.getGameId();
+      
       try {
         service.addDelta(request, id, gameId);
       }

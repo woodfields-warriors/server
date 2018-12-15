@@ -50,30 +50,16 @@ public class CardService {
       throw new NotFoundException("game with id " + gameId + " not found");
     }
     List<DestinationCard> cardList = new ArrayList<>();
+    int i = 0;
     for(DestinationTemplate<String,String,Integer> tempDestinationTemplate : fullDestinationDeckTemplate){
-      String newId = "destCard" + rn.nextInt();
-      try {
-        while (df.getDestinationCard(newId) != null) {
-          newId = "destCard" + rn.nextInt();
-        }
-      }
-      catch (NotFoundException e){
-
-      }
+      String newId = "destCard" + gameId + i++;
       DestinationCard tempCard = new DestinationCard(newId, tempDestinationTemplate.getFirst(), tempDestinationTemplate.getSecond(), tempDestinationTemplate.getThird(),"",gameId);
       cardList.add(tempCard);
     }
+    i = 0;
     List<TrainCard> trainCardList = new ArrayList<>();
     for(TrainCardTemplate<TrainCard.Color,TrainCard.State> tempTrainCardTemplate : fullTrainCardDeckTemplate){
-      String newId = "trainCard" + rn.nextInt();
-      try{
-        while(df.getTrainCard(newId) != null){
-          newId = "trainCard" + rn.nextInt();
-        }
-      }
-      catch (NotFoundException e){
-
-      }
+      String newId = "trainCard" + gameId + i++;
       TrainCard tempCard = new TrainCard(newId,gameId,"",tempTrainCardTemplate.getColor(),tempTrainCardTemplate.getState());
       trainCardList.add(tempCard);
     }

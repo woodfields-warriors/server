@@ -29,9 +29,9 @@ public class AuthService {
     throw new AccessDeniedException("Password incorrect");
   }
 
-  public LoginResponse register(String username, String password) {
+  public LoginResponse register(String username, String password, String reqId) {
       try{
-          String newId = "usr" + rn.nextInt();
+          String newId = "usr_" + reqId;
           while (df.getUserByID(newId) != null)
             newId = "usr" + rn.nextInt();
           User newUser = new User(username, password, newId);

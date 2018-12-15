@@ -51,11 +51,13 @@ public class AuthHandlers extends Api.AuthService {
 
   public void register(RpcController controller, Api.LoginAccountRequest request, RpcCallback<Api.LoginResponse> callback) {
     try {
-      LoginResponse response = service.register(request.getUsername(), request.getPassword());
-      Api.LoginResponse.Builder builder = Api.LoginResponse.newBuilder();
-      builder.setUserId(response.getUserID());
       Controller controllerWrapper = (Controller) controller;
       String id = controllerWrapper.getId();
+
+      LoginResponse response = service.register(request.getUsername(), request.getPassword(), id);
+      Api.LoginResponse.Builder builder = Api.LoginResponse.newBuilder();
+      builder.setUserId(response.getUserID());
+      
       service.addDelta(request, id, "NULL");
       callback.run(builder.build());
     }

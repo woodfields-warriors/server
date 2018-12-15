@@ -61,14 +61,14 @@ public class GameService {
 
   /* creates a game with given Name making the given userID the host*/
   /* hostID should have been verified by ServerFacade */
-  public CreateResponse createGame(String gameName, String userID, int numberOfPlayers) throws NotFoundException {
+  public CreateResponse createGame(String gameName, String userID, int numberOfPlayers, String requestId) throws NotFoundException {
       User user = database.getUserByID(userID);
       if (user == null) {
         throw new NotFoundException("user " + userID + " was not found");
       }
-      Player player = new Player("p" + Integer.toString(rn.nextInt()) ,userID, Player.Color.RED, user.getUsername());
+      Player player = new Player("p" + requestId ,userID, Player.Color.RED, user.getUsername());
       player.setState(new FirstTurnState());
-      Game game = new Game(player.getPlayerId(), new ArrayList<String>(), gameName, numberOfPlayers, "game" + Integer.toString(rn.nextInt() & Integer.MAX_VALUE));
+      Game game = new Game(player.getPlayerId(), new ArrayList<String>(), gameName, numberOfPlayers, "game_" + requestId);
       player.setGameId(game.getGameID());
       game.getPlayerIDs().add(player.getPlayerId());
       database.addPlayer(player);
@@ -199,7 +199,7 @@ public class GameService {
 
 //--------------------Player methods ------------------------------------------//
 
-  public String createPlayer(String userId, String gameId)throws NotFoundException, GameFullException{
+  public String createPlayer(String userId, String gameId, String requestId)throws NotFoundException, GameFullException{
     Game game = database.getGame(gameId);
     if (game == null){
       throw new NotFoundException("Game with that ID not found");
@@ -239,7 +239,7 @@ public class GameService {
       throw new NotFoundException("User with that ID doesn't exist");
     }
     //(String playerID, String userID, String gameID,Color color, String username)
-    Player player = new Player("p" + Integer.toString(rn.nextInt() & Integer.MAX_VALUE),
+    Player player = new Player("p" + requestId,
                                 userId, game.getGameID(), playerColor, user.getUsername());
     game.getPlayerIDs().add(player.getPlayerId());
     player.setState(new FirstTurnState());
