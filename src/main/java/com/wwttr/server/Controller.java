@@ -24,6 +24,10 @@ public class Controller implements RpcController {
     this.id = id;
   }
 
+  public Controller(String id) {
+    this.id = id;
+  }
+
   public String getId() {
     return id;
   }

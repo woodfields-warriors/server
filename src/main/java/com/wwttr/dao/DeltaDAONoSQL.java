@@ -24,7 +24,7 @@ public class DeltaDAONoSQL extends DeltaDAO {
     super(connectionString);
   }
 
-  public java.util.ArrayList<Delta> loadFileFromPersistance(String path) {
+  public java.util.TreeMap<String,Delta> loadFileFromPersistance(String path) {
     File file = new File(path);
     if (!file.exists()) {
       try {
@@ -40,17 +40,17 @@ public class DeltaDAONoSQL extends DeltaDAO {
       try {
         FileInputStream fileInputStream = new FileInputStream(path);
         ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
-        return (java.util.ArrayList<Delta>) objectInputStream.readObject();
+        return (java.util.TreeMap<String,Delta>) objectInputStream.readObject();
       }
       catch(Exception e) {
-        return new java.util.ArrayList<Delta>();
+        return new java.util.TreeMap<String,Delta>();
       }
       
     }
   }
 
   @Override
-  public java.util.ArrayList<Delta> loadFromPersistance() {
+  public java.util.TreeMap<String,Delta> loadFromPersistance() {
     try {
       /* assuming the file names will be the gameids and the connnectionString
         in the constructor is the directory  */
@@ -59,13 +59,13 @@ public class DeltaDAONoSQL extends DeltaDAO {
         directory.mkdir();
       }
 
-      java.util.ArrayList<Delta> queue = new java.util.ArrayList<Delta>();
+      java.util.TreeMap<String,Delta> queue = new java.util.TreeMap<String,Delta>();
       File[] listOfFiles = directory.listFiles();
       for (int i = 0; i < listOfFiles.length; i++) {
         if (listOfFiles[i].isFile()) {
-          java.util.ArrayList<Delta> savedDeltas = loadFileFromPersistance(listOfFiles[i].getAbsolutePath());
-          for (Delta d : savedDeltas) {
-            queue.add(d);
+          java.util.TreeMap<String,Delta> savedDeltas = loadFileFromPersistance(listOfFiles[i].getAbsolutePath());
+          for (Delta d : savedDeltas.values()) {
+            queue.put(d.getId(),d);
           }
         }
         else {
@@ -120,22 +120,24 @@ public class DeltaDAONoSQL extends DeltaDAO {
     if (!directory.exists()) {
       directory.mkdir();
     }
-    java.util.ArrayList<Delta> queue = loadFileFromPersistance(this.connectionString + "/" + d.getGameId() + ".txt");
+    String path = this.connectionString + "/" + d.getGameId() + ".txt";
+    //java.util.TreeMap<String,Delta> queue = loadFileFromPersistance(path);
+    java.util.TreeMap<String,Delta> queue = loadFileFromPersistance(path);
     if (queue == null) {
-      queue = new java.util.ArrayList<Delta>();
+      queue = new java.util.TreeMap<String,Delta>();
     }
-    queue.add(d);
-    Collections.sort(queue, new CustomComparator());
+    queue.put(d.getId(), d);
+    //Collections.sort(queue, new CustomComparator());
 
     try {
-        FileOutputStream fileOutputStream = new FileOutputStream(connectionString, false );
+        FileOutputStream fileOutputStream = new FileOutputStream(path, false );
         ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
         objectOutputStream.writeObject(queue);
         objectOutputStream.close();
         fileOutputStream.close();
       }
       catch (FileNotFoundException e){
-        File file = new File(connectionString);
+        File file = new File(path);
         try {
           file.createNewFile();
         }

@@ -5,7 +5,7 @@ import com.wwttr.database.DAO;
 
 public class DAOFactoryNonRelational implements IDAOFactory{
 
-  private final String connectionString = "/wwttrdata";
+  private final String connectionString = "dbdata";
 
 
   public DAO makeDAO(String type){

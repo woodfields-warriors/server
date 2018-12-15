@@ -37,7 +37,6 @@ public class Main {
                           "then number of deltas between checkpoints");
       return;
     }
-    df.createDaos(args[0],args[1]);
     /*
     if (args[0].equals("r")){
       try{
@@ -72,8 +71,10 @@ public class Main {
     try {
       server.start(8080);
       System.out.println("listening on port 8080");
+      df.createDaos(args[0], args[1]);
     }
     catch (IOException e) {
+      server.stop();
       System.out.println(e);
       System.exit(1);
     }

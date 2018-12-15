@@ -833,25 +833,29 @@ public void addDelta(com.google.protobuf.Message request, String id, String game
 
     Delta d = new Delta(request, id, gameId);
     deltaDAO.save(d);
-    System.out.println("Number of deltas = " + numCommands);
-    if (++numCommands == commandStorageInterval) {
+    if (++numCommands >= commandStorageInterval) {
       System.out.println("Saving Game State");
       gameDAO.save(this);
       userDAO.save(this);
       deltaDAO.clear();
       numCommands = 0;
     }
+    System.out.println("Number of deltas = " + numCommands);
   }
 }
 
 public String getServiceFromMessage(com.google.protobuf.Message m) {
+  System.out.println("---in getServiceFromMessage method---");
   if (m instanceof com.wwttr.route.Api.ClaimRouteRequest) {
+    System.out.println("is routeservice");
     return "route.RouteService";
   }
   else if (m instanceof com.wwttr.auth.Api.LoginAccountRequest) {
+    System.out.println("is authservice");
     return "auth.AuthService";
   }
   else if (m instanceof com.wwttr.chat.Api.CreateMessageRequest) {
+    System.out.println("is chatservice");
     return "chat.ChatService";
   }
 
@@ -859,9 +863,11 @@ public String getServiceFromMessage(com.google.protobuf.Message m) {
           m instanceof com.wwttr.card.Api.ClaimTrainCardRequest ||
           m instanceof com.wwttr.card.Api.DrawTrainCardFromDeckRequest ||
           m instanceof com.wwttr.card.Api.DrawFaceUpTrainCardRequest) {
+    System.out.println("is cardservice");
     return "card.CardService";
   }
   else  {
+    System.out.println("is gameservice");
     return "game.GameService";
   }
 }
@@ -914,13 +920,16 @@ public void execute(Delta delta) {
   com.google.protobuf.Message request = delta.getRequest();
   String methodName = getMethodFromMessage(request);
   String serviceName = getServiceFromMessage(request);
+  if (serviceName == "") {
+    System.out.println("Service name is empty string :(");
+  }
   System.out.println("Executing the following command loaded from deltaDao: "
                     +serviceName +"."+methodName);
   Handler handler = Handler.getInstance();
   try {
     handler.handleFromStrings(request, delta.getId(), methodName, serviceName);
   }
-  catch (java.io.IOException e) {
+  catch (Exception e) {
     e.printStackTrace();
   }
 
@@ -965,9 +974,24 @@ public void execute(Delta delta) {
       /*Commented this out because it would wipe the database when resuming from a crash
       gameDAO.save(this);
       userDAO.save(this);*/
-      gameDAO.load(this);
+      try {
+        gameDAO.load(this);
+      }
+      catch (Exception e) {
+        e.printStackTrace();
+      }
+      try {
       userDAO.load(this);
-      deltaDAO.load(this);
+      }
+      catch (Exception e) {
+        e.printStackTrace();
+      }
+      try {
+        deltaDAO.load(this);
+      }
+      catch (Exception e) {
+        e.printStackTrace();        
+      }
 
 
     }catch (Exception e){

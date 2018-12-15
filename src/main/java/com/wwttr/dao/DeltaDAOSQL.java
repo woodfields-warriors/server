@@ -21,13 +21,13 @@ public class DeltaDAOSQL extends DeltaDAO {
   }
 
   @Override
-  public java.util.ArrayList<Delta> loadFromPersistance() {
+  public java.util.TreeMap<String, Delta> loadFromPersistance() {
     try {
       Connection con = DriverManager.getConnection(connectionString);
       Statement statement = con.createStatement();
       ResultSet result = statement.executeQuery("SELECT data FROM deltas where id = 1");
       ObjectInputStream objectInputStream = new ObjectInputStream(result.getBlob("data").getBinaryStream());
-      java.util.ArrayList<Delta> toReturn = (java.util.ArrayList<Delta>) objectInputStream.readObject();
+      java.util.TreeMap<String, Delta> toReturn = (java.util.TreeMap<String, Delta>) objectInputStream.readObject();
       result.close();
       statement.close();
       con.close();
@@ -71,9 +71,8 @@ public class DeltaDAOSQL extends DeltaDAO {
     try {
       Connection con = DriverManager.getConnection(connectionString);
 
-      java.util.ArrayList<Delta> queue = loadFromPersistance();
-      queue.add(d);
-      java.util.Collections.sort(queue, new CustomComparator());
+      java.util.TreeMap<String, Delta> queue = loadFromPersistance();
+      queue.put(d.getId(), d);
 
       PreparedStatement statement = con.prepareStatement("UPDATE delta SET data = ? where id = 1");
       statement.setObject(1,queue);

@@ -33,10 +33,10 @@ public abstract class DeltaDAO implements com.wwttr.database.DAO {
   @Override
   public final void load(DatabaseFacade facade){
     System.out.println("in DeltaDAO.load");
-    java.util.ArrayList<Delta> requests = loadFromPersistance();
+    java.util.TreeMap<String, Delta> requests = loadFromPersistance();
     System.out.println("loaded " + Integer.toString(requests.size()) + " deltas from persistence");
-    Collections.sort(requests, new CustomComparator());
-    for (Delta d : requests) {
+
+    for (Delta d : requests.values()) {
       facade.execute(d);
     }
   }
@@ -46,15 +46,6 @@ public abstract class DeltaDAO implements com.wwttr.database.DAO {
 
   public abstract void addCommandForGame(Delta d);
   public abstract void clear();
-  public abstract java.util.ArrayList<Delta> loadFromPersistance();
+  public abstract java.util.TreeMap<String, Delta> loadFromPersistance();
   // public abstract void saveToPersistance(List<Object> queue);
-}
-
-class CustomComparator implements java.util.Comparator<Delta> {
-  public int compare(Delta obj1, Delta ob2) {
-    Delta d1 = (Delta) obj1;
-    Delta d2 = (Delta) ob2;
-    return d1.getId().compareTo(d2.getId());
-  }
-
 }
