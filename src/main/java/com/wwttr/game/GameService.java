@@ -465,9 +465,6 @@ class MidState implements IPlayerTurnState, Serializable{
 
   private static final long serialVersionUID = 48280L;
 
-  transient DatabaseFacade database = DatabaseFacade.getInstance();
-  transient CardService cardService = CardService.getInstance();
-
   public PlayerTurnState getTurnState() {
     return PlayerTurnState.MID;
   }
@@ -477,24 +474,24 @@ class MidState implements IPlayerTurnState, Serializable{
   }
 
   public void drawTrainCard(String playerId)throws NotFoundException{
-    cardService.claimTrainCardFromDeck(playerId);
-    Player player = database.getPlayer(playerId);
-    if(database.getGame(player.getGameId()).getGameStatus().equals(Game.Status.LASTROUND)){
+    CardService.getInstance().claimTrainCardFromDeck(playerId);
+    Player player = DatabaseFacade.getInstance().getPlayer(playerId);
+    if(DatabaseFacade.getInstance().getGame(player.getGameId()).getGameStatus().equals(Game.Status.LASTROUND)){
       player.setState(new GameEnded());
     }
     else {
       player.setState(new PendingState());
     }
-    database.updatePlayer(player);
-    Player nextPlayer = database.getNextPlayer(playerId,player.getGameId());
+    DatabaseFacade.getInstance().updatePlayer(player);
+    Player nextPlayer = DatabaseFacade.getInstance().getNextPlayer(playerId,player.getGameId());
     if(nextPlayer.getPlayerState().getClass().equals(GameEnded.class)){
-      Game game = database.getGame(player.getGameId());
+      Game game = DatabaseFacade.getInstance().getGame(player.getGameId());
       game.changeGameStatus(Game.Status.ENDED);
-      database.updateGame(game,game.getGameID());
+      DatabaseFacade.getInstance().updateGame(game,game.getGameID());
     }
     else {
       nextPlayer.setState(new StartState());
-      database.updatePlayer(nextPlayer);
+      DatabaseFacade.getInstance().updatePlayer(nextPlayer);
     }
   }
   public void claimRoute(String playerId, String routeId,List<String> cardIds) throws NotFoundException, IllegalArgumentException{
@@ -504,25 +501,25 @@ class MidState implements IPlayerTurnState, Serializable{
     throw new ApiError(Code.FAILED_PRECONDITION,"Mid state.  You can only draw a card");
   }
   public void drawFaceUpTrainCard(String playerId, String cardId)throws NotFoundException{
-    if(!cardService.isLocomotive(cardId)) {
-      cardService.claimFaceUpTrainCard(playerId, cardId);
-      Player player = database.getPlayer(playerId);
-      if(database.getGame(player.getGameId()).getGameStatus().equals(Game.Status.LASTROUND)){
+    if(!CardService.getInstance().isLocomotive(cardId)) {
+      CardService.getInstance().claimFaceUpTrainCard(playerId, cardId);
+      Player player = DatabaseFacade.getInstance().getPlayer(playerId);
+      if(DatabaseFacade.getInstance().getGame(player.getGameId()).getGameStatus().equals(Game.Status.LASTROUND)){
         player.setState(new GameEnded());
       }
       else {
         player.setState(new PendingState());
       }
-      database.updatePlayer(player);
-      Player nextPlayer = database.getNextPlayer(playerId,player.getGameId());
+      DatabaseFacade.getInstance().updatePlayer(player);
+      Player nextPlayer = DatabaseFacade.getInstance().getNextPlayer(playerId,player.getGameId());
       if(nextPlayer.getPlayerState().getClass().equals(GameEnded.class)){
-        Game game = database.getGame(player.getGameId());
+        Game game = DatabaseFacade.getInstance().getGame(player.getGameId());
         game.changeGameStatus(Game.Status.ENDED);
-        database.updateGame(game,game.getGameID());
+        DatabaseFacade.getInstance().updateGame(game,game.getGameID());
       }
       else {
         nextPlayer.setState(new StartState());
-        database.updatePlayer(nextPlayer);
+        DatabaseFacade.getInstance().updatePlayer(nextPlayer);
       }
     }
     else{
