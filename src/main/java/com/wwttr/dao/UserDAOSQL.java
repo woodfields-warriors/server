@@ -11,34 +11,47 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.io.PipedOutputStream;
+import java.io.PipedInputStream;
 
 public class UserDAOSQL extends UserDAO {
 
-  public UserDAOSQL(String connectionString) {
-    super(connectionString);
+  protected Connection conn;
+
+  public UserDAOSQL(Connection conn) {
+    this.conn = conn;
   }
 
   @Override
   public DatabaseFacade loadFromPersistence() {
     try {
-      Connection con = DriverManager.getConnection(connectionString);
-      Statement statement = con.createStatement();
-      ResultSet result = statement.executeQuery("SELECT data FROM users where usersId = 1");
-      ObjectInputStream objectInputStream = new ObjectInputStream(result.getBlob("data").getBinaryStream());
+      Statement statement = conn.createStatement();
+      ResultSet result = statement.executeQuery("SELECT data FROM users where userId = '1'");
+      if (!result.next()) {
+        return new DatabaseFacade();
+      }
+      ObjectInputStream objectInputStream = new ObjectInputStream(result.getBinaryStream("data"));
       DatabaseFacade toReturn = (DatabaseFacade) objectInputStream.readObject();
       result.close();
       statement.close();
-      con.close();
       return toReturn;
     }
     catch (SQLException e){
-      throw new IllegalArgumentException("SQL read exception");
+      e.printStackTrace();
+      //throw new IllegalArgumentException("SQL read exception");
+      return new DatabaseFacade();
     }
     catch (IOException e){
+      e.printStackTrace();
       throw new IllegalArgumentException("Object Conversion Error");
     }
     catch (ClassNotFoundException e){
+      e.printStackTrace();
       throw new IllegalArgumentException("Object Conversion to Database Error");
+    }
+    catch (Exception e) {
+      e.printStackTrace();
+      return new DatabaseFacade();
     }
 
   }
@@ -46,17 +59,26 @@ public class UserDAOSQL extends UserDAO {
   @Override
   public void saveToPersistence(DatabaseFacade facade) {
     try {
-      Connection con = DriverManager.getConnection(connectionString);
-      PreparedStatement statement = con.prepareStatement("INSERT INTO users (usersId,data) VALUES(?,?) ON DUPLICATE KEY UPDATE users SET data = ? where usersId = 1");
+
+      ByteArrayOutputStream buf = new ByteArrayOutputStream();
+      ObjectOutputStream outputStream = new ObjectOutputStream(buf);
+      outputStream.writeObject(facade);
+      outputStream.close();
+
+      InputStream in = new ByteArrayInputStream(buf.toByteArray());
+
+      PreparedStatement statement = conn.prepareStatement("INSERT INTO users (userId,data) VALUES(?,?) ON CONFLICT (userId) DO UPDATE SET data = EXCLUDED.data");
       statement.setString(1,"1");
-      statement.setObject(2,facade);
-      statement.setObject(3,facade);
+      statement.setBinaryStream(2, in);
       statement.executeUpdate();
       statement.close();
-      con.close();
     }
     catch (SQLException e){
+      e.printStackTrace();
       throw new IllegalArgumentException("SQL read exception");
+    }
+    catch (Exception e) {
+      e.printStackTrace();
     }
   }
 }

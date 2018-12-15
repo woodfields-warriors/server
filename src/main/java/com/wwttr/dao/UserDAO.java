@@ -5,15 +5,6 @@ import com.wwttr.database.DatabaseFacade;
 
 public abstract class UserDAO implements DAO {
 
-  protected final String connectionString;
-
-  //I just included this so I didn't have to define any constructors in the child classes
-  UserDAO(){throw new IllegalArgumentException("connectionstring must be given");}
-
-  public UserDAO(String connectionString) {
-    this.connectionString = connectionString;
-  }
-
   @Override
   public final void save(Object facade){
     saveToPersistence((DatabaseFacade)facade);

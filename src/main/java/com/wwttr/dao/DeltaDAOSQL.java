@@ -13,29 +13,38 @@ import java.sql.SQLException;
 import java.sql.Statement;
 //import java.util.java.util.ArrayList;
 import com.wwttr.models.Delta;
+import java.io.PipedOutputStream;
+import java.io.PipedInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 
 public class DeltaDAOSQL extends DeltaDAO {
 
-  public DeltaDAOSQL(String connectionString) {
-    super(connectionString);
+  Connection conn;
+
+  public DeltaDAOSQL(Connection conn) {
+    this.conn = conn;
   }
 
   @Override
   public java.util.TreeMap<String, Delta> loadFromPersistance() {
     try {
-      Connection con = DriverManager.getConnection(connectionString);
-      Statement statement = con.createStatement();
-      ResultSet result = statement.executeQuery("SELECT data FROM deltas where id = 1");
-      ObjectInputStream objectInputStream = new ObjectInputStream(result.getBlob("data").getBinaryStream());
+      Statement statement = conn.createStatement();
+      ResultSet result = statement.executeQuery("SELECT data FROM deltas");
+      if (!result.next()) {
+        return new java.util.TreeMap<String,Delta>();
+      }
+      ObjectInputStream objectInputStream = new ObjectInputStream(result.getBinaryStream("data"));
       java.util.TreeMap<String, Delta> toReturn = (java.util.TreeMap<String, Delta>) objectInputStream.readObject();
+      System.out.println("DeltaDAO loaded - read map of size " + Integer.toString(toReturn.size()));
       result.close();
       statement.close();
-      con.close();
       return toReturn;
     }
-    catch (SQLException e){
+    catch (SQLException e) {
       e.printStackTrace();
-      throw new IllegalArgumentException("SQL read exception");
+      return new java.util.TreeMap<String,Delta>();
     }
     catch (IOException e){
       e.printStackTrace();
@@ -45,23 +54,25 @@ public class DeltaDAOSQL extends DeltaDAO {
       e.printStackTrace();
       throw new IllegalArgumentException("Object Conversion to Database Error");
     }
+    catch (Exception e) {
+      e.printStackTrace();
+      return new java.util.TreeMap<String, Delta>();
+      // throw new IllegalArgumentException("SQL read exception");
+    }
 
   }
 
   @Override
   public void clear() {
     try {
-      Connection con = DriverManager.getConnection(connectionString);
-
-      PreparedStatement statement = con.prepareStatement("UPDATE delta SET data = ? where id = 1");
+      PreparedStatement statement = conn.prepareStatement("UPDATE deltas SET data = ? where id = '1'");
       statement.setObject(1,null);
       statement.executeUpdate();
       statement.close();
-      con.close();
     }
     catch (SQLException e){
       e.printStackTrace();
-      throw new IllegalArgumentException("SQL write exception");
+      //throw new IllegalArgumentException("SQL write exception");
     }
   }
 
@@ -69,22 +80,28 @@ public class DeltaDAOSQL extends DeltaDAO {
   @Override
   public void addCommandForGame(Delta d) {
     try {
-      Connection con = DriverManager.getConnection(connectionString);
-
       java.util.TreeMap<String, Delta> queue = loadFromPersistance();
-      queue.put(d.getId(), d);
 
-      PreparedStatement statement = con.prepareStatement("UPDATE delta SET data = ? where id = 1");
-      statement.setObject(1,queue);
+      queue.put(d.getId(), d);
+      ByteArrayOutputStream buf = new ByteArrayOutputStream();
+      ObjectOutputStream outputStream = new ObjectOutputStream(buf);
+      outputStream.writeObject(queue);
+      outputStream.close();
+
+      InputStream in = new ByteArrayInputStream(buf.toByteArray());
+
+      PreparedStatement statement = conn.prepareStatement("INSERT INTO deltas (id,data) VALUES(?,?) ON CONFLICT (id) DO UPDATE SET data = EXCLUDED.data");
+      statement.setString(1,"1");
+      statement.setBinaryStream(2, in);
       statement.executeUpdate();
       statement.close();
-      con.close();
-
-      
     }
     catch (SQLException e){
       e.printStackTrace();
-      throw new IllegalArgumentException("SQL read exception");
+      throw new IllegalArgumentException("SQL read exception");      
+    }
+    catch (Exception e) {
+      e.printStackTrace();
     }
   }
 }

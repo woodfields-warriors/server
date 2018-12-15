@@ -291,5 +291,8 @@ java_library(
     ":models",
     "@com_google_protobuf//:protobuf_java",
     ":server_lib",
+  ],
+  resource_jars = [
+    "postgresql-42.2.5.jar",
   ]
 )

@@ -14,15 +14,17 @@ import java.io.ObjectStreamException;
 
 public class GameDAONoSQL extends GameDAO {
 
+  protected final String connectionString;
+
   public GameDAONoSQL(String connectionString) {
-    super(connectionString);
+    this.connectionString = connectionString;
   }
 
   @Override
   public DatabaseFacade loadFromPersistence() {
     try {
       FileInputStream fileInputStream = new FileInputStream(connectionString);
-      ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+      ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);      
       return (DatabaseFacade) objectInputStream.readObject();
     }
     catch (FileNotFoundException e){

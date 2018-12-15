@@ -14,8 +14,10 @@ import java.io.ObjectStreamException;
 
 public class UserDAONoSQL extends UserDAO {
 
+  protected String connectionString;
+
   public UserDAONoSQL(String connectionString) {
-    super(connectionString);
+    this.connectionString = connectionString;
   }
 
   @Override

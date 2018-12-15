@@ -20,8 +20,10 @@ import java.util.Collections;
 
 public class DeltaDAONoSQL extends DeltaDAO {
 
+  String connectionString;
+
   public DeltaDAONoSQL(String connectionString) {
-    super(connectionString);
+    this.connectionString = connectionString;
   }
 
   public java.util.TreeMap<String,Delta> loadFileFromPersistance(String path) {
@@ -29,7 +31,7 @@ public class DeltaDAONoSQL extends DeltaDAO {
     if (!file.exists()) {
       try {
         file.createNewFile();
-        return null;
+        return new java.util.TreeMap<String,Delta>();
       }
       catch (IOException f){
         f.printStackTrace();
@@ -79,7 +81,7 @@ public class DeltaDAONoSQL extends DeltaDAO {
     catch (Exception e){
       e.printStackTrace();
     }
-    return null;
+    return new java.util.TreeMap<String,Delta>();
   }
 
 

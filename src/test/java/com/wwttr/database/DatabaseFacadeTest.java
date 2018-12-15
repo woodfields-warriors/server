@@ -77,7 +77,7 @@ public class DatabaseFacadeTest {
     }
     df.addDestinationCardDeck(cards);
 
-    authService.register("user","password");
+    authService.register("user","password", "req_1");
     user = df.getUser("user").getUserID();
     CreateResponse cr = gameService.createGame("gameName", user, 4);
     GameId = cr.getGameID();

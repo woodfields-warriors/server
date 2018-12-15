@@ -845,17 +845,13 @@ public void addDelta(com.google.protobuf.Message request, String id, String game
 }
 
 public String getServiceFromMessage(com.google.protobuf.Message m) {
-  System.out.println("---in getServiceFromMessage method---");
   if (m instanceof com.wwttr.route.Api.ClaimRouteRequest) {
-    System.out.println("is routeservice");
     return "route.RouteService";
   }
   else if (m instanceof com.wwttr.auth.Api.LoginAccountRequest) {
-    System.out.println("is authservice");
     return "auth.AuthService";
   }
   else if (m instanceof com.wwttr.chat.Api.CreateMessageRequest) {
-    System.out.println("is chatservice");
     return "chat.ChatService";
   }
 
@@ -863,11 +859,9 @@ public String getServiceFromMessage(com.google.protobuf.Message m) {
           m instanceof com.wwttr.card.Api.ClaimTrainCardRequest ||
           m instanceof com.wwttr.card.Api.DrawTrainCardFromDeckRequest ||
           m instanceof com.wwttr.card.Api.DrawFaceUpTrainCardRequest) {
-    System.out.println("is cardservice");
     return "card.CardService";
   }
   else  {
-    System.out.println("is gameservice");
     return "game.GameService";
   }
 }

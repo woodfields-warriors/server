@@ -16,14 +16,6 @@ import java.util.Collections;
 
 public abstract class DeltaDAO implements com.wwttr.database.DAO {
 
-  public final String connectionString;
-
-  public DeltaDAO(){throw new IllegalArgumentException("connectionstring must be given");}
-
-  public DeltaDAO(String connectionString) {
-    this.connectionString = connectionString;
-  }
-
   @Override
   public final void save(Object data){
     Delta d = (Delta) data;

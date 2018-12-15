@@ -11,29 +11,35 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.io.PipedOutputStream;
+import java.io.PipedInputStream;
 
 public class GameDAOSQL extends GameDAO {
 
-  public GameDAOSQL(String connectionString) {
-    super(connectionString);
+  Connection conn;
+
+  public GameDAOSQL(Connection conn) {
+    this.conn = conn;
   }
 
   @Override
   public DatabaseFacade loadFromPersistence() {
     try {
-      Connection con = DriverManager.getConnection(connectionString);
-      Statement statement = con.createStatement();
-      ResultSet result = statement.executeQuery("SELECT data FROM games where gameId = 1");
-      ObjectInputStream objectInputStream = new ObjectInputStream(result.getBlob("data").getBinaryStream());
+      Statement statement = conn.createStatement();
+      ResultSet result = statement.executeQuery("SELECT data FROM games where gameId = '1'");
+      if (!result.next()) {
+        return new DatabaseFacade();
+      }
+      ObjectInputStream objectInputStream = new ObjectInputStream(result.getBinaryStream("data"));
       DatabaseFacade toReturn = (DatabaseFacade) objectInputStream.readObject();
       result.close();
       statement.close();
-      con.close();
       return toReturn;
     }
     catch (SQLException e){
       e.printStackTrace();
-      throw new IllegalArgumentException("SQL read exception");
+      //throw new IllegalArgumentException("SQL read exception");
+      return new DatabaseFacade();
     }
     catch (IOException e){
       e.printStackTrace();
@@ -43,24 +49,38 @@ public class GameDAOSQL extends GameDAO {
       e.printStackTrace();
       throw new IllegalArgumentException("Object Conversion to Database Error");
     }
+    catch (Exception e) {
+      e.printStackTrace();
+      return new DatabaseFacade();
+    }
 
   }
 
   @Override
   public void saveToPersistence(DatabaseFacade facade) {
+    
     try {
-      Connection con = DriverManager.getConnection(connectionString);
-      PreparedStatement statement = con.prepareStatement("INSERT INTO games (gameId,data) VALUES(?,?) ON DUPLICATE KEY UPDATE games SET data = ? where gameId = 1");
+
+      ByteArrayOutputStream buf = new ByteArrayOutputStream();
+      ObjectOutputStream outputStream = new ObjectOutputStream(buf);
+      outputStream.writeObject(facade);
+      outputStream.close();
+
+      InputStream in = new ByteArrayInputStream(buf.toByteArray());
+
+      PreparedStatement statement = conn.prepareStatement("INSERT INTO games (gameId,data) VALUES(?,?) ON CONFLICT (gameId) DO UPDATE SET data = EXCLUDED.data");
       statement.setString(1,"1");
-      statement.setObject(2,facade);
-      statement.setObject(3,facade);
+      statement.setBinaryStream(2, in);
       statement.executeUpdate();
       statement.close();
-      con.close();
+      
     }
     catch (SQLException e){
       e.printStackTrace();
       throw new IllegalArgumentException("SQL read exception");
+    }
+    catch (Exception e) {
+      e.printStackTrace();
     }
   }
 }
