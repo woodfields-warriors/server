@@ -27,6 +27,7 @@ public abstract class DeltaDAO implements com.wwttr.database.DAO {
   @Override
   public final void save(Object data){
     Delta d = (Delta) data;
+    System.out.println(d.getId());
     addCommandForGame(d);
   }
 
