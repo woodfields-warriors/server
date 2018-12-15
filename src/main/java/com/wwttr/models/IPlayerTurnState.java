@@ -6,7 +6,8 @@ import com.wwttr.api.FailedPreconditionException;
 import java.io.Serializable;
 import java.util.List;
 
-public interface IPlayerTurnState {
+public interface IPlayerTurnState extends java.io.Serializable {
+  
   public void drawTrainCard(String playerId) throws NotFoundException;
 
   public void claimRoute(String playerId, String routeId,List<String> cardIds) throws NotFoundException, IllegalArgumentException, FailedPreconditionException;

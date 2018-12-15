@@ -100,6 +100,7 @@ public class DeltaDAONoSQL extends DeltaDAO {
             pw.close();
           }
           catch (FileNotFoundException e){
+            e.printStackTrace();
             throw new IllegalArgumentException("File not found");
           }
         }

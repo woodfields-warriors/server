@@ -916,7 +916,7 @@ public void execute(Delta delta) {
   String serviceName = getServiceFromMessage(request);
   System.out.println("Executing the following command loaded from deltaDao: "
                     +serviceName +"."+methodName);
-  transient Handler handler = Handler.getInstance();
+  Handler handler = Handler.getInstance();
   try {
     handler.handleFromStrings(request, delta.getId(), methodName, serviceName);
   }
