@@ -29,7 +29,7 @@ public class UserDAONoSQL extends UserDAO {
       File file = new File(connectionString);
       try {
         file.createNewFile();
-        return null;
+        return DatabaseFacade.getInstance();
       }
       catch (IOException f){
         f.printStackTrace();
