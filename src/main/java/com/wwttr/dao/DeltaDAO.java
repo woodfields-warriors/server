@@ -32,7 +32,9 @@ public abstract class DeltaDAO implements com.wwttr.database.DAO {
 
   @Override
   public final void load(DatabaseFacade facade){
+    System.out.println("in DeltaDAO.load");
     java.util.ArrayList<Delta> requests = loadFromPersistance();
+    System.out.println("loaded " + Integer.toString(requests.length) + " deltas from persistence");
     Collections.sort(requests, new CustomComparator());
     for (Delta d : requests) {
       facade.execute(d);
