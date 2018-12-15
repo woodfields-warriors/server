@@ -835,10 +835,10 @@ public void addDelta(com.google.protobuf.Message request, String id, String game
     deltaDAO.save(d);
     System.out.println("Number of deltas = " + numCommands);
     if (++numCommands == commandStorageInterval) {
-      deltaDAO.clear();
       System.out.println("Saving Game State");
       gameDAO.save(this);
       userDAO.save(this);
+      deltaDAO.clear();
       numCommands = 0;
     }
   }
