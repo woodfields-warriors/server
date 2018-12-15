@@ -29,7 +29,7 @@ public class GameDAONoSQL extends GameDAO {
       File file = new File(connectionString);
       try {
         file.createNewFile();
-        return null;
+        return DatabaseFacade.getInstance();
       }
       catch (IOException f){
         f.printStackTrace();
